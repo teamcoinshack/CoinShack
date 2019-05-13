@@ -1,0 +1,3 @@
+rootProject.name = 'CoinShack'
+
+include ':app'
