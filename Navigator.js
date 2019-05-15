@@ -1,12 +1,8 @@
 import React from 'react';
-<<<<<<< HEAD
 import {Platform, StyleSheet, Text, View, Button, TextInput} from 'react-native';
-import Login from './Login.js';
-=======
-import {StyleSheet, Text, View, Button, TextInput} from 'react-native';
 
+import Login from './Login.js';
 import BuySellPage from './BuySellPage.js';
->>>>>>> 5daf964185c9364eb3cd2107ba9c2841c2d65631
 
 class Navigator extends React.Component {
 
@@ -33,10 +29,6 @@ class Navigator extends React.Component {
         } else if (this.state.id === 2) {
             return (
                 <BuySellPage />
-<<<<<<< HEAD
-=======
-                // <Text style={styles.welcome}>Insert graph here</Text>
->>>>>>> 5daf964185c9364eb3cd2107ba9c2841c2d65631
             );
         }
     }
