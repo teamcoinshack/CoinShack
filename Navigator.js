@@ -1,5 +1,6 @@
 import React from 'react';
 import {Platform, StyleSheet, Text, View, Button, TextInput} from 'react-native';
+import Login from './Login.js';
 
 class Navigator extends React.Component {
 
@@ -21,32 +22,11 @@ class Navigator extends React.Component {
     render() {
         if (this.state.id === 1) {
             return (
-                <View>
-                    <Text style={styles.welcome}>Welcome!</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={styles.welcome}>Username:</Text>
-                        <TextInput
-                            style={styles.textBox}
-                            onChangeText ={(user) => this.setState({user: user})}
-                            placeholder='Username'
-                            placeholderTextColor='#a5a5a5'
-                        />
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={styles.welcome}>Password:</Text>
-                        <TextInput
-                            style={styles.textBox}
-                            onChangeText ={(pass) => this.setState({pass: pass})}
-                            placeholder='Password'
-                            placeholderTextColor='#a5a5a5'
-                        />
-                    </View>
-                    <Button onPress={this.loginSuccess} title='Login' />
-                </View>
+                <Login />
             );
         } else if (this.state.id === 2) {
             return (
-                <Text style={styles.welcome}>Insert graph here</Text>
+                <BuySellPage />
             );
         }
     }
