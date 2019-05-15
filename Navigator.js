@@ -47,7 +47,7 @@ class Navigator extends React.Component {
         } else if (this.state.id === 2) {
             return (
                 <Text style={styles.welcome}>Insert graph here</Text>
-            )
+            );
         }
     }
 }
