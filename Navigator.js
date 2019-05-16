@@ -1,40 +1,35 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import Login from './Login.js';
 import BuySellPage from './BuySellPage.js';
+import Loading from './Loading.js';
 
-class Navigator extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            id: this.props.id,
-            user: '',
-            pass: '',
-        }
+const AppNavigator = createStackNavigator(
+    {
+        Login: { screen: Login },
+        BuySellPage: { screen: BuySellPage },
+        Loading: { screen: Loading },
+    },
+    {
+        intialRouteName: 'Loading',
     }
+);
 
-    loginSuccess = () => {
-        this.setState(prevState => ({
-            id: prevState.id === 1 ? 2 : 1,
-        }))
-    }
+const Navigator = createAppContainer(AppNavigator);
 
+/*
+export default class Navigator extends React.Component {
     render() {
-        if (this.state.id === 1) {
-            return (
-                <Login />
-            );
-        } else if (this.state.id === 2) {
-            return (
-                <BuySellPage />
-            );
-        }
+        return (
+            <AppNavigator />
+        );
     }
 }
+*/
 
-export default Navigator
+export default Navigator;
 
 const styles = StyleSheet.create({
     container: {

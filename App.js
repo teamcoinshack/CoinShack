@@ -5,20 +5,10 @@ import Navigator from './Navigator.js';
 import BuySellPage from './BuySellPage.js';
 
 export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            route: 1,        
-        }
-    }
-
 
     render() {
         return (
-            <View style={styles.container}>
-                {/* <BuySellPage/> */}
-                <Navigator id={this.state.route} />
-            </View>
+            <Navigator />
         );
     }
 }

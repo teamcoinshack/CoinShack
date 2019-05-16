@@ -11,6 +11,7 @@ export default class BuySellPage extends Component {
 
     this.buyOnPress = this.buyOnPress.bind(this);
     this.sellOnPress = this.sellOnPress.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
   testVal = 10; // hard-coded for testing
@@ -21,6 +22,10 @@ export default class BuySellPage extends Component {
 
   sellOnPress() {
     this.setState({cash: this.state.cash - this.testVal})
+  }
+
+  logOut() {
+    this.props.navigation.navigate('Login');
   }
 
   render() {
@@ -38,6 +43,10 @@ export default class BuySellPage extends Component {
           onPress={this.sellOnPress}
           title="Sell"
           color="red"
+        />
+        <Button
+          onPress={this.logOut}
+          title="Logout"
         />
       </View>
     );

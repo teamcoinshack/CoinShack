@@ -1,46 +1,43 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-
-export default class Login extends React.Component {
+export default class SignUp extends React.Component {
   state = { email: '', password: '', errorMessage: null }
-  handleLogin = () => {
-    // TODO: Firebase stuff...
-    this.props.navigation.navigate('BuySellPage');
-    //console.log('handleLogin')
-  }
-  render() {
+handleSignUp = () => {
+  // TODO: Firebase stuff...
+  console.log('handleSignUp')
+}
+render() {
     return (
       <View style={styles.container}>
-        <Text>Login</Text>
+        <Text>Sign Up</Text>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
           </Text>}
         <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
           placeholder="Email"
+          autoCapitalize="none"
+          style={styles.textInput}
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
         <TextInput
           secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
           placeholder="Password"
+          autoCapitalize="none"
+          style={styles.textInput}
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button title="Login" onPress={this.handleLogin} />
+        <Button title="Sign Up" onPress={this.handleSignUp} />
         <Button
-          title="Don't have an account? Sign Up"
-          onPress={() => this.props.navigation.navigate('SignUp')}
+          title="Already have an account? Login"
+          onPress={() => this.props.navigation.navigate('Login')}
         />
       </View>
     )
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
