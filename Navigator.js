@@ -5,31 +5,21 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Login from './Login.js';
 import BuySellPage from './BuySellPage.js';
 import Loading from './Loading.js';
+import SignUp from './SignUp.js';
 
 const AppNavigator = createStackNavigator(
     {
         Login: { screen: Login },
         BuySellPage: { screen: BuySellPage },
         Loading: { screen: Loading },
+        SignUp: { screen: SignUp },
     },
     {
-        intialRouteName: 'Loading',
+        initialRouteName: 'Login',
     }
 );
 
-const Navigator = createAppContainer(AppNavigator);
-
-/*
-export default class Navigator extends React.Component {
-    render() {
-        return (
-            <AppNavigator />
-        );
-    }
-}
-*/
-
-export default Navigator;
+export default createAppContainer(AppNavigator);
 
 const styles = StyleSheet.create({
     container: {

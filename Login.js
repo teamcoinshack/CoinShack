@@ -1,13 +1,20 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import db from './config.js';
 
 export default class Login extends React.Component {
   state = { email: '', password: '', errorMessage: null }
+
   handleLogin = () => {
     // TODO: Firebase stuff...
     this.props.navigation.navigate('BuySellPage');
     //console.log('handleLogin')
   }
+
+  goToSignUp = () => {
+    this.props.navigation.navigate('SignUp');
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -34,7 +41,7 @@ export default class Login extends React.Component {
         <Button title="Login" onPress={this.handleLogin} />
         <Button
           title="Don't have an account? Sign Up"
-          onPress={() => this.props.navigation.navigate('SignUp')}
+          onPress={this.goToSignUp}
         />
       </View>
     )
