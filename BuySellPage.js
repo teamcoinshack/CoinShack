@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, Button} from 'react-native';
 
+import Graph from './Graph.js';
+
 export default class BuySellPage extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,7 @@ export default class BuySellPage extends Component {
   }
 
   sellOnPress() {
-    this.setState({cash: this.state.cash - this.testVal})
+    this.setState({cash: this.state.cash - this.testVal});
   }
 
   logOut() {
@@ -34,6 +36,7 @@ export default class BuySellPage extends Component {
         <Text style={styles.cashText}>
           {"$" + this.state.cash}
         </Text>
+        <Graph />
         <Button
           onPress={this.buyOnPress}
           title="Buy"
