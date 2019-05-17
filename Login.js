@@ -9,14 +9,26 @@ import Firebase from 'firebase';
 export default class Login extends React.Component {
   state = { email: '', password: '', errorMessage: null }
 
-  handleLogin(email, pass) {
+  handleLogin = (email, pass) => {
+    success = true;
     Firebase.auth()
             .signInWithEmailAndPassword(email, pass)
             .catch(function(error) {
+              success = false;
               var errorCode = error.code;
-              var errorMEssage = error.message;
-            });
-      this.props.navigation.navigate('BuySellPage');
+              var errorMessage = error.message;
+              if (errorCode === 'auth/wrong-password') {
+                alert('Incorrect password.');
+              } else if (errorCode === 'auth/invalid-email') {
+                alert('Invalid email! Have you signed up?');
+              } else if (errorCode === 'auth/user-not-found'){
+                alert('User not found. Have you signed up?');
+              }
+            })
+            .then(success => (
+              success ? this.props.navigation.navigate('BuySellPage')
+                      : null
+            ));
   }
 
   goToSignUp = () => {
