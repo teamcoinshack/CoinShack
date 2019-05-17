@@ -1,14 +1,22 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import db from './config.js';
+import Firebase from 'firebase';
+//Login credentials
+//User: admin@gmail.com
+//Pass: Test123
 
 export default class Login extends React.Component {
   state = { email: '', password: '', errorMessage: null }
 
-  handleLogin = () => {
-    // TODO: Firebase stuff...
-    this.props.navigation.navigate('BuySellPage');
-    //console.log('handleLogin')
+  handleLogin(email, pass) {
+    Firebase.auth()
+            .signInWithEmailAndPassword(email, pass)
+            .catch(function(error) {
+              var errorCode = error.code;
+              var errorMEssage = error.message;
+            });
+      this.props.navigation.navigate('BuySellPage');
   }
 
   goToSignUp = () => {
@@ -38,7 +46,15 @@ export default class Login extends React.Component {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button title="Login" onPress={this.handleLogin} />
+        <Button 
+          title="Login" 
+          onPress={
+            () => this.handleLogin(
+              this.state.email, 
+              this.state.password
+            )
+          } 
+        />
         <Button
           title="Don't have an account? Sign Up"
           onPress={this.goToSignUp}

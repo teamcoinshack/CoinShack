@@ -9,11 +9,10 @@ export default class SignUp extends React.Component {
     try {
       await Firebase.auth()
                     .createUserWithEmailAndPassword(
-                      this.state.email,
-                      this.state.password
+                      email,
+                      pass
                     );
       this.props.navigation.navigate('BuySellPage');
-
     } catch (error) {
       console.log(error.toString());
     }
