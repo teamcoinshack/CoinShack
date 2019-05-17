@@ -26,7 +26,9 @@ export default class Login extends React.Component {
               }
             })
             .then(success => (
-              success ? this.props.navigation.navigate('BuySellPage')
+              success ? this.props.navigation.navigate('BuySellPage', 
+                          {uid: Firebase.auth().currentUser.uid}
+                        )
                       : null
             ));
   }

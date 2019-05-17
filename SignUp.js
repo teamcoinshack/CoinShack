@@ -1,21 +1,37 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import Firebase from 'firebase';
+import db from './Database.js';
 
 export default class SignUp extends React.Component {
   state = { email: '', password: '', errorMessage: null }
 
-  async handleSignUp(email, pass) {
-    try {
-      await Firebase.auth()
-                    .createUserWithEmailAndPassword(
-                      email,
-                      pass
-                    );
-      this.props.navigation.navigate('BuySellPage');
-    } catch (error) {
-      console.log(error.toString());
-    }
+  handleSignUp = (email, pass) => {
+    success = true;
+    Firebase.auth()
+            .createUserWithEmailAndPassword(email, pass)
+            .catch(function(error) {
+              success = false;
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              if (errorCode === 'auth/invalid-email') {
+                alert('Invalid email')
+              } else {
+                alert(errorCode);
+              }
+            })
+            .then(function(success) {
+              if (success) {
+                alert("Account created successfully");
+                var id = Firebase.auth().currentUser.uid;
+                db.initUser(id);
+              }
+            })
+            .then(success => (
+              this.props.navigation.navigate('BuySellPage', {
+                uid: Firebase.auth().currentUser.uid 
+              })
+            ));
   }
 
   render() {
