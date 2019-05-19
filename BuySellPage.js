@@ -43,23 +43,7 @@ export default class BuySellPage extends Component {
   render() {
     const { navigation } = this.props;
     const uid = navigation.getParam('uid', this.state.user);
-    //const cash = stringify('1000000');
     const cash = navigation.getParam('cash', 'Loading...');
-    const init = navigation.getParam('init', false);
-    if (init && this.state.init) {
-      Firebase.app()
-              .database()
-              .ref('/users/' + uid)
-              .once('value')
-              .then((snap) => {
-                this.props.navigation.navigate('BuySellPage', {
-                  uid: uid,
-                  cash: '$' + stringify(snap.val().cash),
-                  init: false
-                })
-              })
-              .catch(function(error) { });
-    }
     return (
       <View style={styles.container}>
         <Text style={styles.cashText}>
@@ -83,20 +67,6 @@ export default class BuySellPage extends Component {
       </View>
     );
   }
-}
-
-function stringify(num) {
-  num += '';
-  if (num === undefined) {
-    return '';
-  }
-  let result = '';
-  while(num.length > 3) {
-    const remain = num.substring(num.length - 3, num.length);
-    result = ',' + remain + result;
-    num = num.substring(0, num.length - 3)
-  }
-  return num + result;
 }
 
 const styles = StyleSheet.create({
