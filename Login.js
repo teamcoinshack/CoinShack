@@ -29,7 +29,7 @@ export default class Login extends React.Component {
               success ? this.props.navigation.navigate('Loading', 
                           {uid: Firebase.auth().currentUser.uid,}
                         )
-                      : null
+                      : this.props.navigation.navigate('Login')
             ));
   }
 
@@ -40,7 +40,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Login</Text>
+        <Text style={{ fontSize: 25 }}>Welcome to CoinShack</Text>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}

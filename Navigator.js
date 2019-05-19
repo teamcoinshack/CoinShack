@@ -9,10 +9,28 @@ import SignUp from './SignUp.js';
 
 const AppNavigator = createStackNavigator(
     {
-        Login: { screen: Login },
-        BuySellPage: { screen: BuySellPage },
-        Loading: { screen: Loading },
-        SignUp: { screen: SignUp },
+        Login: { 
+          screen: Login, 
+          navigationOptions: {
+            headerBackTitle: "Login",
+          }
+        },
+        BuySellPage: { 
+          screen: BuySellPage, 
+          navigationOptions: {
+            title: "Placeholder",
+            headerLeft: null,
+          },
+        },
+        Loading: { 
+          screen: Loading, 
+          navigationOptions: {
+            headerLeft: null,
+          },
+        },
+        SignUp: { 
+          screen: SignUp, 
+        },
     },
     {
         initialRouteName: 'Login',

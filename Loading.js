@@ -13,7 +13,7 @@ export default class Loading extends React.Component {
           .then((snap) => {
             this.props.navigation.navigate('BuySellPage', {
               uid: uid,
-              cash: '$' + db.stringify(snap.val().cash),
+              cash: snap.val().cash,
             })
           })
           .catch(function(error) { 
@@ -28,8 +28,8 @@ export default class Loading extends React.Component {
     this.retrieveCash(uid);
     return (
       <View style={styles.container}>
-        <Text>Loading</Text>
-        <ActivityIndicator size="large" />
+        <Text style={{ fontSize: 36 }}>Loading</Text>
+        <ActivityIndicator size="large" color="#00ff00" />
       </View>
     )
   }

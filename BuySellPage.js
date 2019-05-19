@@ -12,7 +12,6 @@ export default class BuySellPage extends Component {
     this.state = {
       id: '',
       cash: '',
-      init: true,
     }
 
     this.buyOnPress = this.buyOnPress.bind(this);
@@ -22,13 +21,10 @@ export default class BuySellPage extends Component {
 
   componentDidMount() {
     const { navigation } = this.props;
-    if (this.state.init) {
-      this.setState({
-        id: navigation.getParam('uid', this.state.user),
-        cash: navigation.getParam('cash', 'Loading...'),
-        init: false,
-      })
-    }
+    this.setState({
+      id: navigation.getParam('uid', this.state.user),
+      cash: navigation.getParam('cash', 'Loading...'),
+    })
   }
 
   testVal = 10; // hard-coded for testing
@@ -53,15 +49,6 @@ export default class BuySellPage extends Component {
               alert(error.code);
             })
   }
-
-  initialise = (id, cash) => {
-    this.setState({
-      id: id,
-      cash: cash,
-      init: false
-    })
-  }
-
 
   render() {
     return (

@@ -39,7 +39,7 @@ export default class SignUp extends React.Component {
   render() {
       return (
         <View style={styles.container}>
-          <Text>Sign Up</Text>
+          <Text style={{ fontSize: 25 }}>Sign Up</Text>
           {this.state.errorMessage &&
             <Text style={{ color: 'red' }}>
               {this.state.errorMessage}
