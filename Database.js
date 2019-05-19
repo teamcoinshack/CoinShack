@@ -10,6 +10,27 @@ export default class Database {
     });
   }
 
+  static deductCash(uid, amt) {
+    Firebase.app()
+          .database()
+          .ref('/users/' + uid)
+          .once('value')
+          .then(function(snap) {
+            return snap.val().cash;
+          })
+          .then(function(x) {
+            return x - amt;
+          })
+          .then(function(y) {
+            Firebase.app()
+                    .database()
+                    .ref('/users/' + uid)
+                    .set({
+                      cash: y,
+                    })
+          });
+  }
+
   static stringify(num) {
     num += '';
     if (num === undefined) {

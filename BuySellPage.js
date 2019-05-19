@@ -10,8 +10,8 @@ export default class BuySellPage extends Component {
     super(props);
 
     this.state = {
-      user: '',
-      cash: 0,
+      id: '',
+      cash: '',
       init: true,
     }
 
@@ -20,10 +20,25 @@ export default class BuySellPage extends Component {
     this.logout = this.logout.bind(this);
   }
 
+  componentDidMount() {
+    const { navigation } = this.props;
+    if (this.state.init) {
+      this.setState({
+        id: navigation.getParam('uid', this.state.user),
+        cash: navigation.getParam('cash', 'Loading...'),
+        init: false,
+      })
+    }
+  }
+
   testVal = 10; // hard-coded for testing
 
   buyOnPress() {
-    this.setState({cash: this.state.cash + this.testVal});
+    db.deductCash(this.state.id, this.testVal);
+    const localID = this.state.id;
+    this.props.navigation.navigate('Loading', {
+      uid: localID
+    });
   }
 
   sellOnPress() {
@@ -39,15 +54,23 @@ export default class BuySellPage extends Component {
             })
   }
 
+  initialise = (id, cash) => {
+    this.setState({
+      id: id,
+      cash: cash,
+      init: false
+    })
+  }
+
 
   render() {
-    const { navigation } = this.props;
-    const uid = navigation.getParam('uid', this.state.user);
-    const cash = navigation.getParam('cash', 'Loading...');
     return (
       <View style={styles.container}>
         <Text style={styles.cashText}>
-          {cash}
+          {'Cash: ' + this.state.cash}
+        </Text>
+        <Text style={styles.cashText}>
+          {'Value in stocks: 0'}
         </Text>
         <Graph />
         <Button

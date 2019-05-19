@@ -24,7 +24,6 @@ export default class Loading extends React.Component {
   render() {
     const { navigation } = this.props;
     const uid = navigation.getParam('uid', '0');
-    const newUser = navigation.getParam(newUser, false);
     //retrieving cash from database
     this.retrieveCash(uid);
     return (
