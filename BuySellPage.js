@@ -34,15 +34,15 @@ export default class BuySellPage extends Component {
   testVal = 10; // hard-coded for testing
 
   buyOnPress() {
-    db.deductCash(this.state.id, this.testVal);
-    const localID = this.state.id;
-    this.props.navigation.navigate('Loading', {
-      uid: localID
-    });
+    this.setState({
+      cash: db.deductCash(this.state.id, this.state.cash, this.testVal)
+    })
   }
 
   sellOnPress() {
-    this.setState({cash: this.state.cash - this.testVal});
+    this.setState({
+      cash: db.deductCash(this.state.id, this.state.cash, -this.testVal)
+    })
   }
 
   logout() {
@@ -67,7 +67,7 @@ export default class BuySellPage extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.cashText}>
-          {'Cash: ' + this.state.cash}
+          {'Cash: $' + db.stringify(this.state.cash)}
         </Text>
         <Text style={styles.cashText}>
           {'Value in stocks: 0'}
