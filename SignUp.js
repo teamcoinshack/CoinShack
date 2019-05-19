@@ -10,7 +10,7 @@ export default class SignUp extends React.Component {
     success = true;
     Firebase.auth()
             .createUserWithEmailAndPassword(email, pass)
-            .catch(function(error) {
+            .catch((error) => {
               success = false;
               var errorCode = error.code;
               var errorMessage = error.message;
@@ -22,16 +22,18 @@ export default class SignUp extends React.Component {
             })
             .then(function(success) {
               if (success) {
-                alert("Account created successfully");
-                var id = Firebase.auth().currentUser.uid;
-                db.initUser(id);
+                alert("Account created successfully!");
+                db.initUser(Firebase.auth().currentUser.uid)
               }
             })
-            .then(success => (
-              this.props.navigation.navigate('BuySellPage', {
-                uid: Firebase.auth().currentUser.uid 
+            .then((success) => {
+              this.props.navigation.navigate('Loading', {
+                uid: Firebase.auth().currentUser.uid
               })
-            ));
+            })
+            .catch((error) => {
+              alert('Unknown error');
+            })
   }
 
   render() {
