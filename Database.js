@@ -9,6 +9,7 @@ export default class Database {
       cash: 1000000,
     });
   }
+
   static stringify(num) {
     num += '';
     if (num === undefined) {
