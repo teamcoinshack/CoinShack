@@ -12,6 +12,7 @@ export default class BuySellPage extends Component {
     this.state = {
       user: '',
       cash: 0,
+      init: true,
     }
 
     this.buyOnPress = this.buyOnPress.bind(this);
@@ -41,13 +42,28 @@ export default class BuySellPage extends Component {
 
   render() {
     const { navigation } = this.props;
-    const uid = navigation.getParam('uid', 'NO_ID');
-    const cash = stringify('1000000');
-    //const cash = stringify(db.getCash(uid));
+    const uid = navigation.getParam('uid', this.state.user);
+    //const cash = stringify('1000000');
+    const cash = navigation.getParam('cash', 'Loading...');
+    const init = navigation.getParam('init', false);
+    if (init && this.state.init) {
+      Firebase.app()
+              .database()
+              .ref('/users/' + uid)
+              .once('value')
+              .then((snap) => {
+                this.props.navigation.navigate('BuySellPage', {
+                  uid: uid,
+                  cash: '$' + stringify(snap.val().cash),
+                  init: false
+                })
+              })
+              .catch(function(error) { });
+    }
     return (
       <View style={styles.container}>
         <Text style={styles.cashText}>
-          {"$" + cash}
+          {cash}
         </Text>
         <Graph />
         <Button
@@ -70,6 +86,7 @@ export default class BuySellPage extends Component {
 }
 
 function stringify(num) {
+  num += '';
   if (num === undefined) {
     return '';
   }
