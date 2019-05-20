@@ -14,16 +14,15 @@ export default class BuySellPage extends Component {
       cash: '',
       stock: '',
       stockValue: '',
-      moneyBuy: '',
-      stockBuy: '',
-      moneySell: '',
-      stockSell: '',
+      moneyBuy: '0',
+      stockBuy: '0',
+      moneySell: '0',
+      stockSell: '0',
       rate: 0.000090, //rate is harcoded for now, to be extracted in loading page
     }
 
     this.buyOnPress = this.buyOnPress.bind(this);
     this.sellOnPress = this.sellOnPress.bind(this);
-    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -35,8 +34,6 @@ export default class BuySellPage extends Component {
       stockValue: navigation.getParam('value', 'Loading...'),
     })
   }
-
-  buyAmt = 900000; // hard-coded for testing
 
   buyOnPress() {
     //harcoded rate of 1SGD = 0.000090 BTC
@@ -50,7 +47,11 @@ export default class BuySellPage extends Component {
           this.state.stockValue,
           this.state.rate
         ),
-        stockValue: this.state.stockValue + (this.buyAmt * this.state.rate)
+        stockValue: this.state.stockValue + (this.state.moneyBuy * this.state.rate),
+        moneyBuy: 0,
+        stockBuy: 0,
+        moneySell: 0,
+        stockSell: 0,
       })
     } else {
       alert("Not enough money!");
@@ -58,37 +59,34 @@ export default class BuySellPage extends Component {
   }
 
   sellOnPress() {
-    if (this.state.stockValue / this.state.rate >= this.buyAmt) {
+    if (this.state.stockValue / this.state.rate >= this.state.moneySell) {
       this.setState({
         cash: db.buy(
           this.state.id, 
           this.state.stock === 'BTC' ? 1 : 0,
           this.state.cash, 
-          -this.buyAmt,
+          -this.state.moneySell,
           this.state.stockValue,
           this.state.rate
         ),
-        stockValue: this.state.stockValue + (-this.buyAmt * this.state.rate)
+        stockValue: this.state.stockValue + (-this.state.moneySell * this.state.rate)
       })
     } else {
       alert("Not enough stocks!");
     }
   }
 
-  logout() {
-    Firebase.auth()
-            .signOut()
-            .then(() => (this.props.navigation.navigate('Login')))
-            .catch(function(error) {
-              alert(error.code);
-            })
-  }
 
   render() {
     return (
       <View style={styles.container}>
+        <Button
+          onPress={()=> this.props.navigation.navigate('Main')}
+          title="Return to My Wallet"
+          color='brown'
+        />
         <Text style={styles.cashText}>
-          {'Cash: $' + db.stringify(this.state.cash)}
+          {'Cash: $' + db.stringify(Math.floor(this.state.cash))}
         </Text>
         <Text style={styles.cashText}>
           {parseFloat(this.state.stockValue).toFixed(3) + ' BTC'}
@@ -104,9 +102,7 @@ export default class BuySellPage extends Component {
             style={styles.textInput}
             autoCapitalize="none"
             keyboardType='numeric'
-            placeholder={
-              this.state.moneyBuy === '' ? 'SGD' : this.state.moneyBuy + ' SGD'
-            }
+            placeholder={ this.state.moneyBuy + ' SGD'}
             onChangeText={value => this.setState({ 
               moneyBuy: String(value), 
               stockBuy: String(this.state.rate * value)
@@ -117,9 +113,7 @@ export default class BuySellPage extends Component {
             style={styles.textInput}
             autoCapitalize="none"
             keyboardType='numeric'
-            placeholder= {
-              this.state.stockBuy === '' ? this.state.stock : this.state.stockBuy + ' BTC'
-            }
+            placeholder= { this.state.stockBuy + ' BTC' }
             onChangeText={value => this.setState({ 
               stockBuy: String(value), 
               moneyBuy: String(value / this.state.rate),
@@ -127,19 +121,41 @@ export default class BuySellPage extends Component {
             value={this.state.stockBuy}
           />
         </View>
-        <Button
-          onPress={this.sellOnPress}
-          title="Sell"
-          color="red"
-        />
-        <Button
-          onPress={this.logout}
-          title="Logout"
-        />
+        <View style={{flexDirection: 'row'}}>
+          <Button
+            onPress={this.sellOnPress}
+            title="Sell"
+            color="red"
+          />
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            keyboardType='numeric'
+            placeholder={ this.state.moneySell + ' SGD' }
+            onChangeText={value => this.setState({ 
+              moneySell: String(value), 
+              stockSell: String(this.state.rate * value)
+            })}
+            value={this.state.moneySell}
+          />
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            keyboardType='numeric'
+            placeholder= { this.state.stockSell + ' BTC' }
+            onChangeText={value => this.setState({ 
+              stockSell: String(value), 
+              moneySell: String(value / this.state.rate),
+            })}
+            value={this.state.stockSell}
+          />
+        </View>
       </View>
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -149,7 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   cashText: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold'
   },
   textInput: {

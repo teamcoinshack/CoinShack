@@ -43,6 +43,7 @@ export default class Wallet extends Component {
   render() {
     return (
       <View>
+        <Text style={{fontSize: 30, textAlign: 'center'}}>My Wallet</Text>
         <FlatList
           data={this.state.stocks}
           renderItem={this.renderRow}
@@ -60,8 +61,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
-  cashText: {
+  buttonStyle: {
     fontSize: 30,
-    fontWeight: 'bold'
+    justifyContent: 'flex-start',
   }
 });

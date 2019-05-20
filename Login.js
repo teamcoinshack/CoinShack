@@ -13,6 +13,9 @@ export default class Login extends React.Component {
     success = true;
     Firebase.auth()
             .signInWithEmailAndPassword(email, pass)
+            .then(() => (
+              this.props.navigation.navigate('News') 
+            ))
             .catch(function(error) {
               success = false;
               var errorCode = error.code;
@@ -25,10 +28,6 @@ export default class Login extends React.Component {
                 alert('User not found. Have you signed up?');
               }
             })
-            .then(success => (
-              success ? this.props.navigation.navigate('News') 
-                      : this.props.navigation.navigate('Login')
-            ));
   }
 
   goToSignUp = () => {
@@ -87,6 +86,7 @@ const styles = StyleSheet.create({
     width: '90%',
     borderColor: 'gray',
     borderWidth: 1,
-    marginTop: 8
+    marginTop: 8,
+    textAlign: 'center',
   }
 })

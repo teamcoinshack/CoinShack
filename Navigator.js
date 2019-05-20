@@ -1,8 +1,16 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { Platform, 
+         StyleSheet, 
+         Text, 
+         View, 
+         Button, 
+         TextInput, 
+         TouchableHighlight } from 'react-native';
 import { createStackNavigator, 
          createAppContainer,
-         createBottomTabNavigator } from 'react-navigation';
+         createBottomTabNavigator,
+         HeaderBackButton, } from 'react-navigation';
+         
 
 import Login from './Login.js';
 import BuySellPage from './BuySellPage.js';
@@ -10,6 +18,47 @@ import Loading from './Loading.js';
 import SignUp from './SignUp.js';
 import Wallet from './Wallet.js';
 import News from './News.js';
+
+const walletStack = createStackNavigator({
+  Main: {
+    screen: Wallet,
+    navigationOptions: {
+      title: 'My Wallet',
+      headerLeft: null,
+    }
+  },
+  Loading: {
+    screen: Loading,
+  },
+  BuySellPage: {
+    screen: BuySellPage,
+  },
+}, {headerMode: 'none'})
+
+const tabs = createBottomTabNavigator({
+    News: {
+      screen: News,
+      navigationOptions: {
+        title: 'News',
+        headerLeft: null,
+      },
+    },
+    Wallet: {
+      screen: walletStack,
+      navigationOptions: {
+        header: null,
+      }
+    },
+  },
+  {
+    tabBarPosition: 'bottom',
+    tabBarOptions: {
+      labelStyle: {
+        fontSize: 25,
+      }
+    }
+  }
+);
 
 const AppNavigator = createStackNavigator(
     {
@@ -20,45 +69,14 @@ const AppNavigator = createStackNavigator(
           }
         },
         Dashboard: { 
-          screen: createBottomTabNavigator({
-            News: {
-              screen: News,
-              navigationOptions: {
-                title: 'News',
-                headerLeft: null,
-              },
-            },
-            Wallet: {
-              screen: createStackNavigator({
-                Main: {
-                  screen: Wallet,
-                  navigationOptions: {
-                    title: 'My Wallet',
-                    headerLeft: null,
-                  }
-                },
-                Loading: {
-                  screen: Loading,
-                  navigationOptions: {
-                    headerBackTitle: null,
-                    headerLeft: null,
-                  }
-                },
-                BuySellPage: {
-                  screen: BuySellPage,
-                },
-              },
-              { headerMode: 'none' }
-              ),
-              navigationOptions: {
-                headerMode: 'none',
-              }
-            },
-          }),
+          screen: tabs, 
           navigationOptions: {
             headerMode: 'none',
             headerLeft: null,
-          }
+          },
+          tabBarOptions: {
+            fontSize: 10,
+          },
         },
         SignUp: { 
           screen: SignUp, 

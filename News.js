@@ -9,18 +9,29 @@ export default class News extends Component {
     this.state = {
       id: '',
     }
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
     this.setState({id: Firebase.auth().currentUser.uid});
   }
 
+  logout() {
+    Firebase.auth()
+            .signOut()
+            .then(() => (this.props.navigation.navigate('Login')))
+            .catch(function(error) {
+              alert(error.code);
+            })
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Button 
-          onPress={() => this.props.navigation.navigate('Wallet')} 
-          title='Go to wallet'
+        <Text>News here</Text>
+        <Button
+          onPress={this.logout}
+          title="Logout"
         />
       </View>
     );
