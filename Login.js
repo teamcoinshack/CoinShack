@@ -26,9 +26,7 @@ export default class Login extends React.Component {
               }
             })
             .then(success => (
-              success ? this.props.navigation.navigate('Loading', 
-                          {uid: Firebase.auth().currentUser.uid,}
-                        )
+              success ? this.props.navigation.navigate('News') 
                       : this.props.navigation.navigate('Login')
             ));
   }

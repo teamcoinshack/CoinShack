@@ -27,9 +27,7 @@ export default class SignUp extends React.Component {
               }
             })
             .then((success) => {
-              this.props.navigation.navigate('Loading', {
-                uid: Firebase.auth().currentUser.uid
-              })
+              this.props.navigation.navigate('News')
             })
             .catch((error) => {
               alert('Unknown error');

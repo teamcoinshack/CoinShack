@@ -1,11 +1,15 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, 
+         createAppContainer,
+         createBottomTabNavigator } from 'react-navigation';
 
 import Login from './Login.js';
 import BuySellPage from './BuySellPage.js';
 import Loading from './Loading.js';
 import SignUp from './SignUp.js';
+import Wallet from './Wallet.js';
+import News from './News.js';
 
 const AppNavigator = createStackNavigator(
     {
@@ -15,18 +19,46 @@ const AppNavigator = createStackNavigator(
             headerBackTitle: "Login",
           }
         },
-        BuySellPage: { 
-          screen: BuySellPage, 
+        Dashboard: { 
+          screen: createBottomTabNavigator({
+            News: {
+              screen: News,
+              navigationOptions: {
+                title: 'News',
+                headerLeft: null,
+              },
+            },
+            Wallet: {
+              screen: createStackNavigator({
+                Main: {
+                  screen: Wallet,
+                  navigationOptions: {
+                    title: 'My Wallet',
+                    headerLeft: null,
+                  }
+                },
+                Loading: {
+                  screen: Loading,
+                  navigationOptions: {
+                    headerBackTitle: null,
+                    headerLeft: null,
+                  }
+                },
+                BuySellPage: {
+                  screen: BuySellPage,
+                },
+              },
+              { headerMode: 'none' }
+              ),
+              navigationOptions: {
+                headerMode: 'none',
+              }
+            },
+          }),
           navigationOptions: {
-            title: "Placeholder",
+            headerMode: 'none',
             headerLeft: null,
-          },
-        },
-        Loading: { 
-          screen: Loading, 
-          navigationOptions: {
-            headerLeft: null,
-          },
+          }
         },
         SignUp: { 
           screen: SignUp, 

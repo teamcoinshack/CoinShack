@@ -7,28 +7,21 @@ export default class Database {
                           .ref('/users/' + userID);
     userRef.set({
       cash: 1000000,
+      BTC: 0,
     });
   }
 
-  static deductCash(uid, amt) {
-    Firebase.app()
-          .database()
-          .ref('/users/' + uid)
-          .once('value')
-          .then(function(snap) {
-            return snap.val().cash;
-          })
-          .then(function(x) {
-            return x - amt;
-          })
-          .then(function(y) {
-            Firebase.app()
-                    .database()
-                    .ref('/users/' + uid)
-                    .set({
-                      cash: y,
-                    })
-          });
+  static buy(uid, stockCode, initCash, cash, initStock, rate) {
+    let userRef = Firebase.app()
+                          .database()
+                          .ref('/users/' + uid);
+    if (stockCode === 1) {
+      userRef.set({
+        cash: initCash - cash,
+        BTC: initStock + (cash * rate),
+      });
+    }
+    return initCash - cash;
   }
 
   static stringify(num) {
