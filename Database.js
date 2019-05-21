@@ -11,16 +11,14 @@ export default class Database {
     });
   }
 
-  static buy(uid, stockCode, initCash, cash, initStock, rate) {
+  static buy(uid, stock, initCash, cash, initStock, rate) {
     let userRef = Firebase.app()
                           .database()
                           .ref('/users/' + uid);
-    if (stockCode === 1) {
-      userRef.set({
-        cash: initCash - cash,
-        BTC: initStock + (cash * rate),
-      });
-    }
+    userRef.set({
+      cash: initCash - cash,
+      [stock]: initStock + (cash * rate),
+    });
     return initCash - cash;
   }
 

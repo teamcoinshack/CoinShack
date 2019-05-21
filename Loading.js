@@ -4,6 +4,13 @@ import Firebase from 'firebase';
 import db from './Database.js';
 
 export default class Loading extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      stock: '',
+    }
+  }
 
   retrieveAssets = (uid) => {
     Firebase.app()
@@ -14,13 +21,19 @@ export default class Loading extends React.Component {
             this.props.navigation.navigate('BuySellPage', {
               uid: uid,
               cash: snap.val().cash,
-              BTC: 'BTC',
-              value: snap.val().BTC,
+              stock: this.state.stock,
+              value: snap.val()[this.state.stock],
             })
           })
-          .catch(function(error) { 
-            alert('error in loading');  
+          .catch((e) => { 
+            this.props.navigation.navigate('Wallet', {error : true});
           });
+  }
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.setState({
+      stock: navigation.getParam('name', 'Loading...'),
+    })
   }
 
   render() {
@@ -39,5 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   }
 })

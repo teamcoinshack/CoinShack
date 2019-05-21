@@ -10,9 +10,9 @@ export default class Wallet extends Component {
     this.state = {
       id: '',
       stocks: [
-        {
-          name: 'BTC',
-        }
+        {name: 'BTC'},
+        {name: 'ETH(not working)'},
+        {name: 'AAPL(not working)'},
       ],
     }
 
@@ -26,6 +26,10 @@ export default class Wallet extends Component {
   }
 
   componentDidMount() {
+    const { navigation } = this.props;
+    if (navigation.getParam('error', false)) {
+      alert("Error in loading");
+    }
     this.setState({id: Firebase.auth().currentUser.uid});
   }
 
@@ -42,9 +46,10 @@ export default class Wallet extends Component {
   
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text style={{fontSize: 30, textAlign: 'center'}}>My Wallet</Text>
         <FlatList
+          style={styles.flatStyle}
           data={this.state.stocks}
           renderItem={this.renderRow}
           keyExtractor={item => item.name}
@@ -55,6 +60,9 @@ export default class Wallet extends Component {
 }
 
 const styles = StyleSheet.create({
+  flatStyle: {
+    marginTop: 20,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',

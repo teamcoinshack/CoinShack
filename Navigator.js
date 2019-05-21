@@ -18,6 +18,7 @@ import Loading from './Loading.js';
 import SignUp from './SignUp.js';
 import Wallet from './Wallet.js';
 import News from './News.js';
+import Buy from './Buy.js';
 
 const walletStack = createStackNavigator({
   Main: {
@@ -33,6 +34,9 @@ const walletStack = createStackNavigator({
   BuySellPage: {
     screen: BuySellPage,
   },
+  Buy: {
+    screen: Buy,
+  }
 }, {headerMode: 'none'})
 
 const tabs = createBottomTabNavigator({
@@ -92,7 +96,6 @@ export default createAppContainer(AppNavigator);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },

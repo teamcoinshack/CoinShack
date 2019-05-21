@@ -21,7 +21,7 @@ export default class BuySellPage extends Component {
       rate: 0.000090, //rate is harcoded for now, to be extracted in loading page
     }
 
-    this.buyOnPress = this.buyOnPress.bind(this);
+    this.buy = this.buy.bind(this);
     this.sellOnPress = this.sellOnPress.bind(this);
   }
 
@@ -30,40 +30,18 @@ export default class BuySellPage extends Component {
     this.setState({
       id: navigation.getParam('uid', this.state.user),
       cash: navigation.getParam('cash', 'Loading...'),
-      stock: navigation.getParam('BTC', 'Loading...'),
+      stock: navigation.getParam('stock', 'Loading...'),
       stockValue: navigation.getParam('value', 'Loading...'),
     })
   }
 
-  buyOnPress() {
-    //harcoded rate of 1SGD = 0.000090 BTC
-    if (this.state.cash >= this.state.moneyBuy) {
-      this.setState({
-        cash: db.buy(
-          this.state.id, 
-          this.state.stock === 'BTC' ? 1 : 0,
-          this.state.cash, 
-          this.state.moneyBuy,
-          this.state.stockValue,
-          this.state.rate
-        ),
-        stockValue: this.state.stockValue + (this.state.moneyBuy * this.state.rate),
-        moneyBuy: 0,
-        stockBuy: 0,
-        moneySell: 0,
-        stockSell: 0,
-      })
-    } else {
-      alert("Not enough money!");
-    }
-  }
 
   sellOnPress() {
     if (this.state.stockValue / this.state.rate >= this.state.moneySell) {
       this.setState({
         cash: db.buy(
           this.state.id, 
-          this.state.stock === 'BTC' ? 1 : 0,
+          this.state.stock,
           this.state.cash, 
           -this.state.moneySell,
           this.state.stockValue,
@@ -76,6 +54,13 @@ export default class BuySellPage extends Component {
     }
   }
 
+  buy() {
+   this.props.navigation.navigate('Buy', {stock: this.state.stock});
+  }
+
+  sell() {
+   this.props.navigation.navigate('Sell', {stock: this.state.stock});
+  }
 
   render() {
     return (
@@ -94,60 +79,16 @@ export default class BuySellPage extends Component {
         <Graph />
         <View style={{flexDirection: 'row'}}>
           <Button
-            onPress={this.buyOnPress}
+            onPress={this.buy}
             title="Buy"
             color='green'
-          />
-          <TextInput
-            style={styles.textInput}
-            autoCapitalize="none"
-            keyboardType='numeric'
-            placeholder={ this.state.moneyBuy + ' SGD'}
-            onChangeText={value => this.setState({ 
-              moneyBuy: String(value), 
-              stockBuy: String(this.state.rate * value)
-            })}
-            value={this.state.moneyBuy}
-          />
-          <TextInput
-            style={styles.textInput}
-            autoCapitalize="none"
-            keyboardType='numeric'
-            placeholder= { this.state.stockBuy + ' BTC' }
-            onChangeText={value => this.setState({ 
-              stockBuy: String(value), 
-              moneyBuy: String(value / this.state.rate),
-            })}
-            value={this.state.stockBuy}
           />
         </View>
         <View style={{flexDirection: 'row'}}>
           <Button
-            onPress={this.sellOnPress}
+            onPress={this.sell}
             title="Sell"
             color="red"
-          />
-          <TextInput
-            style={styles.textInput}
-            autoCapitalize="none"
-            keyboardType='numeric'
-            placeholder={ this.state.moneySell + ' SGD' }
-            onChangeText={value => this.setState({ 
-              moneySell: String(value), 
-              stockSell: String(this.state.rate * value)
-            })}
-            value={this.state.moneySell}
-          />
-          <TextInput
-            style={styles.textInput}
-            autoCapitalize="none"
-            keyboardType='numeric'
-            placeholder= { this.state.stockSell + ' BTC' }
-            onChangeText={value => this.setState({ 
-              stockSell: String(value), 
-              moneySell: String(value / this.state.rate),
-            })}
-            value={this.state.stockSell}
           />
         </View>
       </View>
