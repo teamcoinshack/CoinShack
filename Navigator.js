@@ -10,7 +10,6 @@ import { createStackNavigator,
          createAppContainer,
          createBottomTabNavigator,
          HeaderBackButton, } from 'react-navigation';
-         
 
 import Login from './Login.js';
 import BuySellPage from './BuySellPage.js';
@@ -18,7 +17,6 @@ import Loading from './Loading.js';
 import SignUp from './SignUp.js';
 import Wallet from './Wallet.js';
 import News from './News.js';
-import Buy from './Buy.js';
 
 const walletStack = createStackNavigator({
   Main: {
@@ -34,9 +32,6 @@ const walletStack = createStackNavigator({
   BuySellPage: {
     screen: BuySellPage,
   },
-  Buy: {
-    screen: Buy,
-  }
 }, {headerMode: 'none'})
 
 const tabs = createBottomTabNavigator({
@@ -73,7 +68,7 @@ const AppNavigator = createStackNavigator(
           }
         },
         Dashboard: { 
-          screen: tabs, 
+          screen: tabs,
           navigationOptions: {
             headerMode: 'none',
             headerLeft: null,

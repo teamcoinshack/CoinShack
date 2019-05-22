@@ -12,6 +12,7 @@ export default class Loading extends React.Component {
     }
   }
 
+
   retrieveAssets = (uid) => {
     Firebase.app()
           .database()
