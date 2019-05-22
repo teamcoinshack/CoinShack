@@ -30,12 +30,22 @@ export default class BuySellPage extends Component {
 
   componentDidMount() {
     const { navigation } = this.props;
-    this.setState({
-      id: navigation.getParam('uid', this.state.user),
-      cash: navigation.getParam('cash', 'Loading...'),
-      stock: navigation.getParam('stock', 'Loading...'),
-      stockValue: navigation.getParam('value', 'Loading...'),
-    })
+    const uid = navigation.getParam('uid', null);
+    const stock = navigation.getParam('stock', null);
+    Firebase.app()
+            .database()
+            .ref('/users/' + uid)
+            .once('value')
+            .then((snap) => {
+              this.setState({
+                id: uid, 
+                cash: navigation.getParam('cash', 'Loading...'),
+                stock: stock,
+                stockValue: snap.val()[stock],
+              })
+            })
+            .catch((e) => {
+            });
   }
 
   buy(par) {
@@ -87,7 +97,7 @@ export default class BuySellPage extends Component {
           {'Cash: $' + db.stringify(Math.floor(this.state.cash))}
         </Text>
         <Text style={styles.cashText}>
-          {parseFloat(this.state.stockValue).toFixed(3) + ' BTC'}
+          {parseFloat(this.state.stockValue).toFixed(3) + ' ' + this.state.stock}
         </Text>
         <Graph />
         <View style={styles.conversion}>

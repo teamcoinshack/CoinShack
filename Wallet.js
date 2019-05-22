@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, FlatList, Button} from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import Firebase from 'firebase';
+import db from './Database.js';
 
 export default class Wallet extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class Wallet extends Component {
 
     this.state = {
       id: '',
+      cash: '',
       stocks: [
         {name: 'BTC'},
         {name: 'ETH(not working)'},
@@ -20,8 +22,10 @@ export default class Wallet extends Component {
   }
   
   load = (name) => {
-    this.props.navigation.navigate('Loading',{
-      name: name,
+    this.props.navigation.navigate('BuySellPage',{
+      uid: this.state.id,
+      cash: this.state.cash,
+      stock: name,
     })
   }
 
@@ -30,7 +34,20 @@ export default class Wallet extends Component {
     if (navigation.getParam('error', false)) {
       alert("Error in loading");
     }
-    this.setState({id: Firebase.auth().currentUser.uid});
+    const uid = Firebase.auth().currentUser.uid;
+    Firebase.app()
+          .database()
+          .ref('/users/' + uid)
+          .once('value')
+          .then((snap) => {
+            this.setState({
+              id: uid,
+              cash: snap.val().cash,
+            })
+          })
+          .catch((e) => { 
+            this.props.navigation.navigate('Wallet', {error : true});
+          });
   }
 
   renderRow({item}) {
@@ -48,6 +65,7 @@ export default class Wallet extends Component {
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 30, textAlign: 'center'}}>My Wallet</Text>
+        <Text style={{fontSize: 25, textAlign: 'center'}}>Cash: ${db.stringify(this.state.cash)}</Text>
         <FlatList
           style={styles.flatStyle}
           data={this.state.stocks}
