@@ -10,6 +10,7 @@ export default class BuySellPage extends Component {
     super(props);
 
     this.state = {
+      wallet: '',
       id: '',
       cash: '',
       stock: '',
@@ -30,6 +31,7 @@ export default class BuySellPage extends Component {
 
   componentDidMount() {
     const { navigation } = this.props;
+    const myWallet = navigation.getParam('myWallet', null);
     const uid = navigation.getParam('uid', null);
     const stock = navigation.getParam('stock', null);
     Firebase.app()
@@ -38,6 +40,7 @@ export default class BuySellPage extends Component {
             .once('value')
             .then((snap) => {
               this.setState({
+                wallet: myWallet,
                 id: uid, 
                 cash: navigation.getParam('cash', 'Loading...'),
                 stock: stock,
@@ -53,7 +56,18 @@ export default class BuySellPage extends Component {
     if ((par === 1 && this.state.cash >= this.state.moneyBuy) 
           || (par === -1 && this.state.stockValue >= this.state.stockSell)) {
       const val = par === 1 ? this.state.moneyBuy : par * this.state.moneySell;
+      const remainingCash = db.buy(
+                              this.state.id, 
+                              this.state.stock,
+                              this.state.cash, 
+                              val,
+                              this.state.stockValue,
+                              this.state.rate
+                            );
       this.setState({
+        wallet: this.state.wallet.setState({
+          cash: remainingCash,
+        }),
         cash: db.buy(
           this.state.id, 
           this.state.stock,

@@ -23,6 +23,7 @@ export default class Wallet extends Component {
   
   load = (name) => {
     this.props.navigation.navigate('BuySellPage',{
+      myWallet: this,
       uid: this.state.id,
       cash: this.state.cash,
       stock: name,
