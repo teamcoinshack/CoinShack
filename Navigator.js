@@ -13,8 +13,6 @@ import { createStackNavigator,
 
 import Login from './Login.js';
 import BuySellPage from './BuySellPage.js';
-import Loading1 from './Loading1.js';
-import Loading2 from './Loading2.js';
 import SignUp from './SignUp.js';
 import Wallet from './Wallet.js';
 import News from './News.js';
@@ -26,9 +24,6 @@ const walletStack = createStackNavigator({
       title: 'My Wallet',
       headerLeft: null,
     }
-  },
-  Loading2: {
-    screen: Loading2,
   },
   BuySellPage: {
     screen: BuySellPage,
@@ -81,9 +76,6 @@ const AppNavigator = createStackNavigator(
         },
         SignUp: { 
           screen: SignUp, 
-        },
-        Loading1: {
-          screen: Loading1,
         },
     },
     {
