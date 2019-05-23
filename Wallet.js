@@ -14,7 +14,6 @@ export default class Wallet extends Component {
       stocks: [
         {name: 'BTC'},
         {name: 'ETH'},
-        {name: 'AAPL'},
       ],
     }
 
@@ -43,7 +42,6 @@ export default class Wallet extends Component {
     const rates = {
       BTC: 10513.84,
       ETH: 238.48,
-      AAPL: 182.78,
     }
     Firebase.app()
           .database()
@@ -57,7 +55,9 @@ export default class Wallet extends Component {
                           .map(item => ({
                             name: item.name,
                             rate: rates[item.name],
-                            value: Number(snap.val()[item.name]).toFixed(3),
+                            value: snap.val()[item.name] === undefined
+                                   ? 0 
+                                   : Number(snap.val()[item.name]).toFixed(3),
                           }))
             })
           })
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   container: {
+    flex: 1,
     marginTop: 14,
     alignSelf: "stretch",
   },

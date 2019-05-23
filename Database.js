@@ -7,14 +7,27 @@ export default class Database {
                           .ref('/users/' + userID);
     userRef.set({
       cash: 1000000.00,
-      BTC: 0,
     });
+  }
+
+  static createAccount(uid, stock) {
+    Firebase.app()
+            .database()
+            .ref('/users/' + uid)
+            .update({ [stock]: 0 })
+    return true;
   }
 
   static buy(uid, stock, initCash, cash, initStock, rate) {
     let userRef = Firebase.app()
                           .database()
                           .ref('/users/' + uid);
+    console.log(uid);
+    console.log(stock);
+    console.log(initCash);
+    console.log(cash);
+    console.log(initStock);
+    console.log(rate);
     userRef.set({
       cash: initCash - cash,
       [stock]: initStock + (cash / rate),

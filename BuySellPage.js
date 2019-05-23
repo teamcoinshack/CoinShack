@@ -15,13 +15,16 @@ export default class BuySellPage extends Component {
       cash: '',
       stock: '',
       stockValue: '',
-      moneyBuy: '0',
-      stockBuy: '0',
-      moneySell: '0',
-      stockSell: '0',
-      inputMoney: false,
-      inputStock: false,
+      moneyBuy: null,
+      stockBuy: null,
+      moneySell: null,
+      stockSell: null,
+      input1: false,
+      input2: false,
+      input3: false,
+      input4: false,
       rate: '', //rate is harcoded for now
+      isLoading: true,
     }
 
     this.buy = this.buy.bind(this);
@@ -48,14 +51,19 @@ export default class BuySellPage extends Component {
                 stock: stock,
                 stockValue: snap.val()[stock],
                 rate: rate,
+                isLoading: false,
               })
             })
             .catch((e) => {
             });
   }
 
-  buy(par) {
-    //harcoded rate of 1SGD = 0.000090 BTC
+  buy(par, haveAccount) {
+    if (!haveAccount) {
+      return this.setState({ stockValue: 0 }, function() {
+        this.buy(par, db.createAccount(this.state.id, this.state.stock))
+      });
+    }
     if ((par === 1 && this.state.cash >= this.state.moneyBuy) 
           || (par === -1 && this.state.stockValue >= this.state.stockSell)) {
       const val = par === 1 ? this.state.moneyBuy : par * this.state.moneySell;
@@ -64,7 +72,7 @@ export default class BuySellPage extends Component {
                               this.state.stock,
                               this.state.cash, 
                               val,
-                              this.state.stockValue,
+                              this.state.stockValue, 
                               this.state.rate
                             );
 
@@ -77,7 +85,6 @@ export default class BuySellPage extends Component {
                     .map(x => { 
                       if (x.name === this.state.stock) {
                         x.value = this.state.stockValue + (val / this.state.rate);
-                        return x;
                       }
                       return x;
                     })
@@ -92,10 +99,10 @@ export default class BuySellPage extends Component {
           this.state.rate
         ),
         stockValue: this.state.stockValue + (val / this.state.rate),
-        moneyBuy: '0',
-        stockBuy: '0',
-        moneySell: '0',
-        stockSell: '0',
+        moneyBuy: null,
+        stockBuy: null,
+        moneySell: null,
+        stockSell: null,
       })
     } else {
       if (par === 1) {
@@ -107,14 +114,17 @@ export default class BuySellPage extends Component {
   }
 
   buyOnPress() {
-    this.buy(1);
+    this.buy(1, this.state.stockValue !== undefined);
   }
 
   sellOnPress() {
-    this.buy(-1);
+    this.buy(-1, this.state.stockValue !== undefined);
   }
 
   render() {
+    if (this.state.isLoading) {
+      return null;
+    }
     return (
       <View style={styles.container}>
         <Button
@@ -126,23 +136,31 @@ export default class BuySellPage extends Component {
           {'Cash: $' + db.stringify(Number(this.state.cash).toFixed(2))}
         </Text>
         <Text style={styles.cashText}>
-          {parseFloat(this.state.stockValue).toFixed(3) + ' ' + this.state.stock}
+          {this.state.stockValue === undefined 
+           ? '0.000 ' + this.state.stock
+           : parseFloat(this.state.stockValue).toFixed(3) + ' ' + this.state.stock}
         </Text>
-        <Graph />
+        <Graph stock={this.state.stock} />
         <View style={styles.conversion}>
           <TextInput
             style={styles.textInput}
             autoCapitalize="none"
             keyboardType='numeric'
-            placeholder={ parseFloat(this.state.moneyBuy).toFixed(2) + ' SGD'}
+            placeholder={ this.state.moneyBuy === null 
+                          ? '$0.00'
+                          : '$' + parseFloat(this.state.moneyBuy).toFixed(2)} 
             onChangeText={value => this.setState({ 
-              inputMoney: String(value) === '' ? false : true,
-              inputStock: false,
+              input1: String(value) === '' ? false : true,
+              input2: false,
+              input3: false,
+              input4: false,
               moneyBuy: String(value) === '' ? '0' : String(value), 
               stockBuy: String(value / this.state.rate),
+              moneySell: null,
+              stockSell: null,
             })}
             value={
-              !this.state.inputMoney || this.state.moneyBuy === '0' 
+              !this.state.input1 || this.state.moneyBuy === null 
                 ? '' 
                 : this.state.moneyBuy.charAt(0) === '.'
                   ? '0' + this.state.moneyBuy
@@ -160,15 +178,22 @@ export default class BuySellPage extends Component {
             style={styles.textInput}
             autoCapitalize="none"
             keyboardType='numeric'
-            placeholder= { parseFloat(this.state.stockBuy).toFixed(5) + ' BTC' }
+            placeholder= { this.state.stockBuy === null
+                           ? '0.000 ' + this.state.stock
+                           : parseFloat(this.state.stockBuy).toFixed(5) + ' ' + this.state.stock}
             onChangeText={value => this.setState({ 
-              inputStock: String(value) === '' ? false : true,
+              input1: false,
+              input2: String(value) === '' ? false : true,
+              input3: false,
+              input4: false,
               inputMoney: false,
               stockBuy: String(value) === '' ? '0' : String(value), 
               moneyBuy: String(value * this.state.rate),
+              moneySell: null,
+              stockSell: null,
             })}
             value={
-              !this.state.inputStock || this.state.stockBuy === '0' 
+              !this.state.input2 || this.state.stockBuy === null 
                 ? '' 
                 : this.state.stockBuy.charAt(0) === '.' 
                   ? '0' + this.state.stockBuy
@@ -181,15 +206,21 @@ export default class BuySellPage extends Component {
             style={styles.textInput}
             autoCapitalize="none"
             keyboardType='numeric'
-            placeholder={ parseFloat(this.state.moneySell).toFixed(2) + ' SGD'}
+            placeholder={ this.state.moneySell === null 
+                          ? '$0.00'
+                          : '$' + parseFloat(this.state.moneySell).toFixed(2)}
             onChangeText={value => this.setState({ 
-              inputMoney: String(value) === '' ? false : true,
-              inputStock: false,
+              input1: false,
+              input2: false,
+              input3: String(value) === '' ? false : true,
+              input4: false,
+              moneyBuy: null,
+              stockBuy: null,
               moneySell: String(value) === '' ? '0' : String(value), 
               stockSell: String(value / this.state.rate),
             })}
             value={
-              !this.state.inputMoney || this.state.moneySell === '0' 
+              !this.state.input3|| this.state.moneySell === null 
                 ? '' 
                 : this.state.moneySell.charAt(0) === ','
                   ? '0' + this.state.moneySell
@@ -207,15 +238,21 @@ export default class BuySellPage extends Component {
             style={styles.textInput}
             autoCapitalize="none"
             keyboardType='numeric'
-            placeholder= { parseFloat(this.state.stockSell).toFixed(5) + ' BTC' }
+            placeholder= { this.state.stockSell === null
+                           ? '0.000 ' + this.state.stock
+                           : parseFloat(this.state.stockSell).toFixed(5) + ' ' + this.state.stock}
             onChangeText={value => this.setState({ 
-              inputStock: String(value) === '' ? false : true,
-              inputMoney: false,
+              input1: false,
+              input2: false,
+              input3: false,
+              input4: String(value) === '' ? false : true,
+              moneyBuy: null,
+              stockBuy: null,
               stockSell: String(value) === '' ? '0' : String(value), 
               moneySell: String(value * this.state.rate),
             })}
             value={
-              !this.state.inputStock || this.state.stockSell === '0' 
+              !this.state.input4 || this.state.stockSell === null 
                 ? '' 
                 : this.state.stockSell.charAt(0) === '.'
                   ? '0' + this.state.stockSell

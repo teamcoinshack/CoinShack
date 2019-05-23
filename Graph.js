@@ -6,18 +6,25 @@ export default class Graph extends Component {
     super(props);
 
     this.state = {
-      data: []
+      stock: this.props.stock,
+      data: [],
+      mapping: {
+        BTC: 'bitcoin',
+        ETH: 'ethereum',
+      }
     };
 
-    this.fetchBitcoinPrices = this.fetchBitcoinPrices.bind(this);
+    this.fetch = this.fetch.bind(this);
   }
 
   componentDidMount() {
-    this.fetchBitcoinPrices();
+    this.fetch(this.state.stock);
   }
   
-  fetchBitcoinPrices() {
-    fetch("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30")
+  fetch(stock) {
+    fetch("https://api.coingecko.com/api/v3/coins/" 
+          + this.state.mapping[stock] 
+          + "/market_chart?vs_currency=usd&days=30")
       .then(res => res.json())
       .then(resJSON => {
         this.setState({ data: resJSON.prices.map(valuePair => valuePair[1]) });
