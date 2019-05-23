@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, FlatList, Button} from 'react-native';
+import {Text, View, StyleSheet, FlatList, Button, TouchableHighlight} from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import Firebase from 'firebase';
 import db from './Database.js';
@@ -53,20 +53,26 @@ export default class Wallet extends Component {
 
   renderRow({item}) {
     return (
-      <View>
-        <Button
-          onPress={() => this.load(item.name)}
-          title={item.name}
-        />
-      </View>
+      <TouchableHighlight 
+        style={styles.row}
+        onPress={() => this.load(item.name)}
+      >
+        <View>
+          <View style={styles.nameIcon}>
+            <Text style={styles.name}>{item.name}</Text>
+          </View>
+          <Text style={styles.stockValue}>{item.value}</Text>
+        </View>
+      </TouchableHighlight>
     )
   }
   
   render() {
+    const money = db.stringify(this.state.cash);
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 30, textAlign: 'center'}}>My Wallet</Text>
-        <Text style={{fontSize: 25, textAlign: 'center'}}>Cash: ${db.stringify(this.state.cash)}</Text>
+        <Text style={{fontSize: 25, textAlign: 'center'}}>Cash: ${money}</Text>
         <FlatList
           style={styles.flatStyle}
           data={this.state.stocks}
@@ -79,14 +85,45 @@ export default class Wallet extends Component {
 }
 
 const styles = StyleSheet.create({
+  row: {
+    elevation: 1,
+    borderRadius: 2,
+    backgroundColor: '#99c0ff',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    marginBottom: 6,
+  },
+  nameIcon: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  name: {
+    textAlignVertical: 'bottom',
+    includeFontPadding: false,
+    flex: 0,
+    fontSize: 15,
+  },
+  stockValue: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 10,
+  },
   flatStyle: {
     marginTop: 20,
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#F5FCFF',
+    justifyContent: 'flex-start',
   },
   buttonStyle: {
     fontSize: 30,
