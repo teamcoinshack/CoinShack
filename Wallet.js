@@ -13,8 +13,8 @@ export default class Wallet extends Component {
       cash: '',
       stocks: [
         {name: 'BTC'},
-        {name: 'ETH(not working)'},
-        {name: 'AAPL(not working)'},
+        {name: 'ETH'},
+        {name: 'AAPL'},
       ],
     }
 
@@ -27,6 +27,10 @@ export default class Wallet extends Component {
       uid: this.state.id,
       cash: this.state.cash,
       stock: name,
+      rate: this.state
+                .stocks
+                .filter(x => x.name === name)[0]
+                .rate,
     })
   }
 
@@ -36,6 +40,11 @@ export default class Wallet extends Component {
       alert("Error in loading");
     }
     const uid = Firebase.auth().currentUser.uid;
+    const rates = {
+      BTC: 10513.84,
+      ETH: 238.48,
+      AAPL: 182.78,
+    }
     Firebase.app()
           .database()
           .ref('/users/' + uid)
@@ -44,6 +53,12 @@ export default class Wallet extends Component {
             this.setState({
               id: uid,
               cash: snap.val().cash,
+              stocks: this.state.stocks
+                          .map(item => ({
+                            name: item.name,
+                            rate: rates[item.name],
+                            value: Number(snap.val()[item.name]).toFixed(3),
+                          }))
             })
           })
           .catch((e) => { 
@@ -57,18 +72,25 @@ export default class Wallet extends Component {
         style={styles.row}
         onPress={() => this.load(item.name)}
       >
-        <View>
+        <View style={{ flexDirection: 'row' }}>
           <View style={styles.nameIcon}>
             <Text style={styles.name}>{item.name}</Text>
           </View>
-          <Text style={styles.stockValue}>{item.value}</Text>
+          <View style={{ flexDirection: 'column' }}>
+            <Text style={styles.stockValue}>
+              ${db.stringify((item.value * item.rate).toFixed(2))}
+            </Text>
+            <Text style={styles.stockValue}>
+              {db.stringify(Number(item.value).toFixed(3))} {item.name}
+            </Text>
+          </View>
         </View>
       </TouchableHighlight>
     )
   }
   
   render() {
-    const money = db.stringify(this.state.cash);
+    const money = db.stringify(Number(this.state.cash).toFixed(2));
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 30, textAlign: 'center'}}>My Wallet</Text>
@@ -87,14 +109,14 @@ export default class Wallet extends Component {
 const styles = StyleSheet.create({
   row: {
     elevation: 1,
-    borderRadius: 2,
+    borderRadius: 5,
     backgroundColor: '#99c0ff',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
     paddingLeft: 18,
     paddingRight: 16,
     marginLeft: 14,
@@ -110,20 +132,24 @@ const styles = StyleSheet.create({
     textAlignVertical: 'bottom',
     includeFontPadding: false,
     flex: 0,
-    fontSize: 15,
+    fontSize: 20,
   },
-  stockValue: {
+  stockValue1: {
     paddingLeft: 16,
     flex: 0,
-    fontSize: 10,
+    fontSize: 20,
+  },
+  stockValue2: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 15,
   },
   flatStyle: {
     marginTop: 20,
   },
   container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-    justifyContent: 'flex-start',
+    marginTop: 14,
+    alignSelf: "stretch",
   },
   buttonStyle: {
     fontSize: 30,

@@ -10,7 +10,7 @@ export default class BuySellPage extends Component {
     super(props);
 
     this.state = {
-      wallet: '',
+      wallet: {},
       id: '',
       cash: '',
       stock: '',
@@ -21,7 +21,7 @@ export default class BuySellPage extends Component {
       stockSell: '0',
       inputMoney: false,
       inputStock: false,
-      rate: 0.000090, //rate is harcoded for now, to be extracted in loading page
+      rate: '', //rate is harcoded for now
     }
 
     this.buy = this.buy.bind(this);
@@ -32,19 +32,22 @@ export default class BuySellPage extends Component {
   componentDidMount() {
     const { navigation } = this.props;
     const myWallet = navigation.getParam('myWallet', null);
+    const thisWallet = myWallet === null ? this.state.wallet : myWallet;
     const uid = navigation.getParam('uid', null);
     const stock = navigation.getParam('stock', null);
+    const rate = navigation.getParam('rate', null);
     Firebase.app()
             .database()
             .ref('/users/' + uid)
             .once('value')
             .then((snap) => {
               this.setState({
-                wallet: myWallet,
+                wallet: thisWallet,
                 id: uid, 
                 cash: navigation.getParam('cash', 'Loading...'),
                 stock: stock,
                 stockValue: snap.val()[stock],
+                rate: rate,
               })
             })
             .catch((e) => {
@@ -64,10 +67,22 @@ export default class BuySellPage extends Component {
                               this.state.stockValue,
                               this.state.rate
                             );
+
+      this.state.wallet.setState({
+        cash: remainingCash,
+        stocks: this.state
+                    .wallet
+                    .state
+                    .stocks
+                    .map(x => { 
+                      if (x.name === this.state.stock) {
+                        x.value = this.state.stockValue + (val / this.state.rate);
+                        return x;
+                      }
+                      return x;
+                    })
+      })
       this.setState({
-        wallet: this.state.wallet.setState({
-          cash: remainingCash,
-        }),
         cash: db.buy(
           this.state.id, 
           this.state.stock,
@@ -76,7 +91,7 @@ export default class BuySellPage extends Component {
           this.state.stockValue,
           this.state.rate
         ),
-        stockValue: this.state.stockValue + (val * this.state.rate),
+        stockValue: this.state.stockValue + (val / this.state.rate),
         moneyBuy: '0',
         stockBuy: '0',
         moneySell: '0',
@@ -108,7 +123,7 @@ export default class BuySellPage extends Component {
           color='brown'
         />
         <Text style={styles.cashText}>
-          {'Cash: $' + db.stringify(Math.floor(this.state.cash))}
+          {'Cash: $' + db.stringify(Number(this.state.cash).toFixed(2))}
         </Text>
         <Text style={styles.cashText}>
           {parseFloat(this.state.stockValue).toFixed(3) + ' ' + this.state.stock}
@@ -124,11 +139,14 @@ export default class BuySellPage extends Component {
               inputMoney: String(value) === '' ? false : true,
               inputStock: false,
               moneyBuy: String(value) === '' ? '0' : String(value), 
-              stockBuy: String(this.state.rate * value),
+              stockBuy: String(value / this.state.rate),
             })}
             value={
               !this.state.inputMoney || this.state.moneyBuy === '0' 
-                ? '' : this.state.moneyBuy
+                ? '' 
+                : this.state.moneyBuy.charAt(0) === '.'
+                  ? '0' + this.state.moneyBuy
+                  : this.state.moneyBuy
             }
           />
           <View style={{flexDirection: 'row'}}>
@@ -147,11 +165,14 @@ export default class BuySellPage extends Component {
               inputStock: String(value) === '' ? false : true,
               inputMoney: false,
               stockBuy: String(value) === '' ? '0' : String(value), 
-              moneyBuy: String(value / this.state.rate),
+              moneyBuy: String(value * this.state.rate),
             })}
             value={
               !this.state.inputStock || this.state.stockBuy === '0' 
-                ? '' : this.state.stockBuy
+                ? '' 
+                : this.state.stockBuy.charAt(0) === '.' 
+                  ? '0' + this.state.stockBuy
+                  : this.state.stockBuy
             }
           />
         </View>
@@ -165,11 +186,14 @@ export default class BuySellPage extends Component {
               inputMoney: String(value) === '' ? false : true,
               inputStock: false,
               moneySell: String(value) === '' ? '0' : String(value), 
-              stockSell: String(this.state.rate * value),
+              stockSell: String(value / this.state.rate),
             })}
             value={
               !this.state.inputMoney || this.state.moneySell === '0' 
-                ? '' : this.state.moneySell
+                ? '' 
+                : this.state.moneySell.charAt(0) === ','
+                  ? '0' + this.state.moneySell
+                  : this.state.moneySell
             }
           />
           <View style={{flexDirection: 'row'}}>
@@ -188,11 +212,14 @@ export default class BuySellPage extends Component {
               inputStock: String(value) === '' ? false : true,
               inputMoney: false,
               stockSell: String(value) === '' ? '0' : String(value), 
-              moneySell: String(value / this.state.rate),
+              moneySell: String(value * this.state.rate),
             })}
             value={
               !this.state.inputStock || this.state.stockSell === '0' 
-                ? '' : this.state.stockSell
+                ? '' 
+                : this.state.stockSell.charAt(0) === '.'
+                  ? '0' + this.state.stockSell
+                  : this.state.stockSell
             }
           />
         </View>

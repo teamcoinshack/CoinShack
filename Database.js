@@ -6,7 +6,7 @@ export default class Database {
                           .database()
                           .ref('/users/' + userID);
     userRef.set({
-      cash: 1000000,
+      cash: 1000000.00,
       BTC: 0,
     });
   }
@@ -17,23 +17,15 @@ export default class Database {
                           .ref('/users/' + uid);
     userRef.set({
       cash: initCash - cash,
-      [stock]: initStock + (cash * rate),
+      [stock]: initStock + (cash / rate),
     });
     return initCash - cash;
   }
 
   static stringify(num) {
-    num += '';
-    if (num === undefined) {
-      return '';
-    }
-    let result = '';
-    while(num.length > 3) {
-      const remain = num.substring(num.length - 3, num.length);
-      result = ',' + remain + result;
-      num = num.substring(0, num.length - 3)
-    }
-    return num + result;
+    return num === undefined 
+      ? '' 
+      : num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   }
 
 }
