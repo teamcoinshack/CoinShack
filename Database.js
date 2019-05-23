@@ -22,13 +22,7 @@ export default class Database {
     let userRef = Firebase.app()
                           .database()
                           .ref('/users/' + uid);
-    console.log(uid);
-    console.log(stock);
-    console.log(initCash);
-    console.log(cash);
-    console.log(initStock);
-    console.log(rate);
-    userRef.set({
+    userRef.update({
       cash: initCash - cash,
       [stock]: initStock + (cash / rate),
     });
