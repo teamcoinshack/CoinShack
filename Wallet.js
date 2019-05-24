@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, FlatList, Button, TouchableHighlight} from 'reac
 import { List, ListItem } from 'react-native-elements';
 import Firebase from 'firebase';
 import db from './Database.js';
+import q from './Query.js';
 
 export default class Wallet extends Component {
   constructor(props) {
@@ -14,6 +15,8 @@ export default class Wallet extends Component {
       stocks: [
         {name: 'BTC'},
         {name: 'ETH'},
+        {name: 'DASH'},
+        {name: 'XRP'},
       ],
     }
 
@@ -42,6 +45,8 @@ export default class Wallet extends Component {
     const rates = {
       BTC: 10513.84,
       ETH: 238.48,
+      DASH: 222.10,
+      XRP: 0.52,
     }
     Firebase.app()
           .database()
@@ -75,12 +80,17 @@ export default class Wallet extends Component {
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.nameIcon}>
             <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.rate}>${item.rate}</Text>
           </View>
-          <View style={{ flexDirection: 'column' }}>
-            <Text style={styles.stockValue}>
+          <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+            <Text style={item.value === 0 
+                          ? styles.noValue1 
+                          : styles.stockValue1}>
               ${db.stringify((item.value * item.rate).toFixed(2))}
             </Text>
-            <Text style={styles.stockValue}>
+            <Text style={item.value === 0 
+                          ? styles.noValue2
+                          : styles.stockValue2}>
               {db.stringify(Number(item.value).toFixed(3))} {item.name}
             </Text>
           </View>
@@ -134,6 +144,13 @@ const styles = StyleSheet.create({
     flex: 0,
     fontSize: 20,
   },
+  rate: {
+    textAlignVertical: 'bottom',
+    includeFontPadding: false,
+    flex: 0,
+    fontSize: 17,
+    color: '#4a4d51',
+  },
   stockValue1: {
     paddingLeft: 16,
     flex: 0,
@@ -155,5 +172,17 @@ const styles = StyleSheet.create({
   buttonStyle: {
     fontSize: 30,
     justifyContent: 'flex-start',
-  }
+  },
+  noValue1: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 20,
+    color: '#74777c',
+  },
+  noValue2: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 15,
+    color: '#74777c',
+  },
 });

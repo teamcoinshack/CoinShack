@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { LineChart, Grid } from  'react-native-svg-charts';
+import { Dimensions, StyleSheet, View, ActivityIndicator } from 'react-native';
 
 export default class Graph extends Component {
   constructor(props) {
@@ -11,7 +12,10 @@ export default class Graph extends Component {
       mapping: {
         BTC: 'bitcoin',
         ETH: 'ethereum',
-      }
+        DASH: 'dash',
+        XRP: 'ripple',
+      },
+      isLoading: true,
     };
 
     this.fetch = this.fetch.bind(this);
@@ -27,12 +31,22 @@ export default class Graph extends Component {
           + "/market_chart?vs_currency=usd&days=30")
       .then(res => res.json())
       .then(resJSON => {
-        this.setState({ data: resJSON.prices.map(valuePair => valuePair[1]) });
+        this.setState({ 
+          data: resJSON.prices.map(valuePair => valuePair[1]), 
+          isLoading: false,
+        });
       });
   }
 
   // current staic graph
   render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator color="#00ff00" />
+        </View>
+      )
+    }
     return (
         <LineChart
             style={{ height: 400, width: 400 }}
@@ -45,3 +59,11 @@ export default class Graph extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: Math.round(Dimensions.get('window').width),
+    height: 400, 
+    justifyContent: 'center',
+  }
+})
