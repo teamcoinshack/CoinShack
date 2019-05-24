@@ -33,33 +33,33 @@ export default class BuySellPage extends Component {
     this.sellAll = this.sellAll.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { navigation } = this.props;
     const myWallet = navigation.getParam('myWallet', null);
     const thisWallet = myWallet === null ? this.state.wallet : myWallet;
     const uid = navigation.getParam('uid', null);
     const stock = navigation.getParam('stock', null);
     const rate = navigation.getParam('rate', null);
-    Firebase.app()
-            .database()
-            .ref('/users/' + uid)
-            .once('value')
-            .then((snap) => {
-              this.setState({
-                wallet: thisWallet,
-                id: uid, 
-                cash: navigation.getParam('cash', 'Loading...'),
-                stock: stock,
-                stockValue: snap.val()[stock],
-                rate: rate,
-                isLoading: false,
-              })
-            })
-            .catch((e) => {
-            });
+    try {
+      const snap = await Firebase.app()
+                               .database()
+                               .ref('/users/' + uid)
+                               .once('value')
+      this.setState({
+        wallet: thisWallet,
+        id: uid,
+        cash: navigation.getParam('cash', 'Loading...'),
+        stock: stock,
+        stockValue: snap.val()[stock],
+        rate: rate,
+        isLoading: false,
+      })
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  buy(par, haveAccount) {
+  async buy(par, haveAccount) {
     if (!haveAccount) {
       return this.setState({ stockValue: 0 }, function() {
         this.buy(par, db.createAccount(this.state.id, this.state.stock))
@@ -68,36 +68,40 @@ export default class BuySellPage extends Component {
     if ((par === 1 && this.state.cash >= this.state.moneyBuy) 
           || (par === -1 && this.state.stockValue >= this.state.stockSell)) {
       const val = par === 1 ? this.state.moneyBuy : par * this.state.moneySell;
-      const remainingCash = db.buy(
-                              this.state.id, 
-                              this.state.stock,
-                              this.state.cash, 
-                              val,
-                              this.state.stockValue, 
-                              this.state.rate
-                            );
+      try {
+        const remainingCash = await db.buy(
+                                      this.state.id, 
+                                      this.state.stock,
+                                      this.state.cash, 
+                                      val,
+                                      this.state.stockValue, 
+                                      this.state.rate
+                                    );
 
-      this.state.wallet.setState({
-        cash: remainingCash,
-        stocks: this.state
-                    .wallet
-                    .state
-                    .stocks
-                    .map(x => { 
-                      if (x.name === this.state.stock) {
-                        x.value = this.state.stockValue + (val / this.state.rate);
-                      }
-                      return x;
-                    })
-      })
-      this.setState({
-        cash: remainingCash,
-        stockValue: this.state.stockValue + (val / this.state.rate),
-        moneyBuy: null,
-        stockBuy: null,
-        moneySell: null,
-        stockSell: null,
-      })
+        this.state.wallet.setState({
+          cash: remainingCash,
+          stocks: this.state
+                      .wallet
+                      .state
+                      .stocks
+                      .map(x => { 
+                        if (x.name === this.state.stock) {
+                          x.value = this.state.stockValue + (val / this.state.rate);
+                        }
+                        return x;
+                      })
+        })
+        this.setState({
+          cash: remainingCash,
+          stockValue: this.state.stockValue + (val / this.state.rate),
+          moneyBuy: null,
+          stockBuy: null,
+          moneySell: null,
+          stockSell: null,
+        })
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       if (par === 1) {
         alert("Not enough money!");
@@ -115,7 +119,8 @@ export default class BuySellPage extends Component {
     this.buy(-1, this.state.stockValue !== undefined);
   }
 
-  sellAll() {
+  async sellAll() {
+    try {
       const remainingCash = db.buy(
                               this.state.id, 
                               this.state.stock,
@@ -136,15 +141,18 @@ export default class BuySellPage extends Component {
                     }
                     return x;
                   })
-    })
-    this.setState({
-        cash: remainingCash,
-        stockValue: 0,
-        moneyBuy: null,
-        stockBuy: null,
-        moneySell: null,
-        stockSell: null,
       })
+      this.setState({
+          cash: remainingCash,
+          stockValue: 0,
+          moneyBuy: null,
+          stockBuy: null,
+          moneySell: null,
+          stockSell: null,
+        })
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
@@ -163,7 +171,9 @@ export default class BuySellPage extends Component {
         <Text style={styles.value1}>
           {this.state.stockValue === undefined
             ? '$0.00'
-            : '$' + parseFloat(this.state.stockValue * this.state.rate).toFixed(2)
+            : '$' + db.stringify(
+                      parseFloat(this.state.stockValue * this.state.rate).toFixed(2)
+                    )
           }
         </Text>
         <Text style={styles.value2}>

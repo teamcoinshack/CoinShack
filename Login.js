@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import db from './config.js';
 import Firebase from 'firebase';
+import q from './Query.js';
 //Login credentials
 //User: admin@gmail.com
 //Pass: Test123

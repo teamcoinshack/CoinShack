@@ -28,7 +28,7 @@ export default class Graph extends Component {
   fetch(stock) {
     fetch("https://api.coingecko.com/api/v3/coins/" 
           + this.state.mapping[stock] 
-          + "/market_chart?vs_currency=usd&days=30")
+          + "/market_chart?vs_currency=sgd&days=30")
       .then(res => res.json())
       .then(resJSON => {
         this.setState({ 

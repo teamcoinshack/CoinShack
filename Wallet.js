@@ -13,84 +13,107 @@ export default class Wallet extends Component {
       id: '',
       cash: '',
       stocks: [
-        {name: 'BTC'},
-        {name: 'ETH'},
-        {name: 'DASH'},
-        {name: 'XRP'},
+        {id: 'BTC'},
+        {id: 'ETH'},
+        {id: 'DASH'},
+        {id: 'XRP'},
       ],
       totalValue: '',
     }
 
     this.renderRow = this.renderRow.bind(this); 
+    this.load = this.load.bind(this);
   }
   
-  load = (name) => {
+  load(id) {
     this.props.navigation.navigate('BuySellPage',{
       myWallet: this,
       uid: this.state.id,
       cash: this.state.cash,
-      stock: name,
+      stock: id,
       rate: this.state
                 .stocks
-                .filter(x => x.name === name)[0]
+                .filter(x => x.id === id)[0]
                 .rate,
     })
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { navigation } = this.props;
     if (navigation.getParam('error', false)) {
       alert("Error in loading");
     }
     const uid = Firebase.auth().currentUser.uid;
-    const rates = {
-      BTC: 10834.22,
-      ETH: 240.48,
-      DASH: 222.10,
-      XRP: 0.52,
-    }
-    Firebase.app()
-          .database()
-          .ref('/users/' + uid)
-          .once('value')
-          .then((snap) => {
-            this.setState({
+    const rates = [
+      {
+        id: 'BTC',
+        name: 'bitcoin',
+        rate: '',
+      },
+      {
+        id: 'ETH',
+        name: 'ethereum',
+        rate: '',
+      },
+      {
+        id: 'DASH',
+        name: 'dash',
+        rate: '',
+      },
+      {
+        id: 'XRP',
+        name: 'ripple',
+        rate: '',
+      }
+    ]
+    rates.map(async function(stock) {
+      try {
+        stock.rate = await q.fetch(stock.name);
+        return stock;
+      } catch (error) {
+        console.log(error);
+      }
+    })
+    try {
+      const snap = await Firebase.app()
+                                 .database()
+                                 .ref('/users/' + uid)
+                                 .once('value')
+      await this.setState({
               id: uid,
               cash: snap.val().cash,
               stocks: this.state.stocks
                           .map(item => ({
-                            name: item.name,
-                            rate: rates[item.name],
-                            value: snap.val()[item.name] === undefined
-                                   ? 0 
-                                   : Number(snap.val()[item.name]),
+                            id: item.id,
+                            rate: rates.filter(x => item.id === x.id)[0].rate,
+                            value: snap.val()[item.id] === undefined
+                                  ? 0 
+                                  : Number(snap.val()[item.id]),
                           }))
-            })
-          })
-          .then(() => {
-            this.setState({
+      })
+
+      await this.setState({
               totalValue: Number(this.state.cash) 
                           + this.state
                                 .stocks
                                 .map(x => x.value * x.rate)
                                 .reduce((x, y) => x + y, 0)
             })
-          })
-          .catch((e) => { 
-            this.props.navigation.navigate('Wallet', {error : true});
-          });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   renderRow({item}) {
     return (
       <TouchableHighlight 
         style={styles.row}
-        onPress={() => this.load(item.name)}
+        onPress={() => this.load(item.id)}
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.nameIcon}>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.rate}>${item.rate}</Text>
+            <Text style={styles.name}>{item.id}</Text>
+            <Text style={styles.rate}>${Number(item.rate).toFixed(2)}</Text>
           </View>
           <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
             <Text style={item.value === 0 
@@ -101,7 +124,7 @@ export default class Wallet extends Component {
             <Text style={item.value === 0 
                           ? styles.noValue2
                           : styles.stockValue2}>
-              {db.stringify(Number(item.value).toFixed(3))} {item.name}
+              {db.stringify(Number(item.value).toFixed(3))} {item.id}
             </Text>
           </View>
         </View>
@@ -122,7 +145,7 @@ export default class Wallet extends Component {
           style={styles.flatStyle}
           data={this.state.stocks}
           renderItem={this.renderRow}
-          keyExtractor={item => item.name}
+          keyExtractor={item => item.id}
         />
       </View>
     );
