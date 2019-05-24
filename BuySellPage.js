@@ -30,6 +30,7 @@ export default class BuySellPage extends Component {
     this.buy = this.buy.bind(this);
     this.buyOnPress = this.buyOnPress.bind(this);
     this.sellOnPress = this.sellOnPress.bind(this);
+    this.sellAll = this.sellAll.bind(this);
   }
 
   componentDidMount() {
@@ -90,14 +91,7 @@ export default class BuySellPage extends Component {
                     })
       })
       this.setState({
-        cash: db.buy(
-          this.state.id, 
-          this.state.stock,
-          this.state.cash, 
-          val,
-          this.state.stockValue,
-          this.state.rate
-        ),
+        cash: remainingCash,
         stockValue: this.state.stockValue + (val / this.state.rate),
         moneyBuy: null,
         stockBuy: null,
@@ -121,26 +115,66 @@ export default class BuySellPage extends Component {
     this.buy(-1, this.state.stockValue !== undefined);
   }
 
+  sellAll() {
+      const remainingCash = db.buy(
+                              this.state.id, 
+                              this.state.stock,
+                              this.state.cash, 
+                              -this.state.stockValue * this.state.rate,
+                              this.state.stockValue, 
+                              this.state.rate
+                            );
+    this.state.wallet.setState({
+      cash: remainingCash,
+      stocks: this.state
+                  .wallet
+                  .state
+                  .stocks
+                  .map(x => { 
+                    if (x.name === this.state.stock) {
+                      x.value = 0; 
+                    }
+                    return x;
+                  })
+    })
+    this.setState({
+        cash: remainingCash,
+        stockValue: 0,
+        moneyBuy: null,
+        stockBuy: null,
+        moneySell: null,
+        stockSell: null,
+      })
+  }
+
   render() {
     if (this.state.isLoading) {
       return null;
     }
     return (
       <View style={styles.container}>
-        <Button
-          onPress={()=> this.props.navigation.navigate('Main')}
-          title="Return to My Wallet"
-          color='brown'
-        />
-        <Text style={styles.cashText}>
-          {'Cash: $' + db.stringify(Number(this.state.cash).toFixed(2))}
+        <View style={{ flexDirection: 'row', flex: 0, justifyContent: 'flex-start'}}>
+          <Button
+            onPress={()=> this.props.navigation.navigate('Main')}
+            title="< My Wallet"
+            color='brown'
+          />
+        </View>
+        <Text style={styles.value1}>
+          {this.state.stockValue === undefined
+            ? '$0.00'
+            : '$' + parseFloat(this.state.stockValue * this.state.rate).toFixed(2)
+          }
         </Text>
-        <Text style={styles.cashText}>
+        <Text style={styles.value2}>
           {this.state.stockValue === undefined 
            ? '0.000 ' + this.state.stock
            : parseFloat(this.state.stockValue).toFixed(3) + ' ' + this.state.stock}
         </Text>
         <Graph stock={this.state.stock} />
+        <Text style={styles.cashText}>
+          {'My cash: $' + db.stringify(Number(this.state.cash).toFixed(2))}
+        </Text>
         <View style={styles.conversion}>
           <TextInput
             style={styles.textInput}
@@ -260,6 +294,13 @@ export default class BuySellPage extends Component {
             }
           />
         </View>
+        <View>
+          <Button
+            onPress={this.sellAll}
+            title="Sell All"
+            color="red"
+          />
+        </View>
       </View>
     );
   }
@@ -269,13 +310,14 @@ export default class BuySellPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
   cashText: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   textInput: {
@@ -288,5 +330,14 @@ const styles = StyleSheet.create({
   },
   conversion: {
     flexDirection: 'row',
-  }
+    alignItems: 'center',
+  },
+  value1: {
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  value2: {
+    fontSize: 17,
+    color: 'gray',
+  },
 });

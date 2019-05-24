@@ -18,6 +18,7 @@ export default class Wallet extends Component {
         {name: 'DASH'},
         {name: 'XRP'},
       ],
+      totalValue: '',
     }
 
     this.renderRow = this.renderRow.bind(this); 
@@ -43,8 +44,8 @@ export default class Wallet extends Component {
     }
     const uid = Firebase.auth().currentUser.uid;
     const rates = {
-      BTC: 10513.84,
-      ETH: 238.48,
+      BTC: 10834.22,
+      ETH: 240.48,
       DASH: 222.10,
       XRP: 0.52,
     }
@@ -62,8 +63,17 @@ export default class Wallet extends Component {
                             rate: rates[item.name],
                             value: snap.val()[item.name] === undefined
                                    ? 0 
-                                   : Number(snap.val()[item.name]).toFixed(3),
+                                   : Number(snap.val()[item.name]),
                           }))
+            })
+          })
+          .then(() => {
+            this.setState({
+              totalValue: Number(this.state.cash) 
+                          + this.state
+                                .stocks
+                                .map(x => x.value * x.rate)
+                                .reduce((x, y) => x + y, 0)
             })
           })
           .catch((e) => { 
@@ -104,7 +114,10 @@ export default class Wallet extends Component {
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 30, textAlign: 'center'}}>My Wallet</Text>
-        <Text style={{fontSize: 25, textAlign: 'center'}}>Cash: ${money}</Text>
+        <Text style={{fontSize: 30, textAlign: 'center'}}>
+          Total Assets: ${db.stringify(Number(this.state.totalValue).toFixed(2))}
+        </Text>
+        <Text style={{fontSize: 20, textAlign: 'center'}}>Cash: ${money}</Text>
         <FlatList
           style={styles.flatStyle}
           data={this.state.stocks}
