@@ -92,12 +92,12 @@ export default class Wallet extends Component {
                           }))
       })
 
-      await this.setState({
-              totalValue: Number(this.state.cash) 
-                          + this.state
-                                .stocks
-                                .map(x => x.value * x.rate)
-                                .reduce((x, y) => x + y, 0)
+      this.setState({
+          totalValue: Number(this.state.cash) 
+                      + this.state
+                            .stocks
+                            .map(x => x.value * x.rate)
+                            .reduce((x, y) => x + y, 0)
             })
     } catch (error) {
       console.log(error);
