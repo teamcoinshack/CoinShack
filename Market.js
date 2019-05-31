@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, FlatList, Button } from 'react-native';
 import Firebase from 'firebase';
 
-export default class News extends Component {
+export default class Market extends Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +18,7 @@ export default class News extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>News here</Text>
+        <Text>Market</Text>
       </View>
     );
   }

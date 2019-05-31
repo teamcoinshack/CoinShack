@@ -1,6 +1,14 @@
 import Firebase from 'firebase';
 
 export default class Database {
+  static async getData(userID) {
+      const snap = await Firebase.app()
+                                 .database()
+                                 .ref('/users/' + userID)
+                                 .once('value')
+      return snap;
+  }
+
   static initUser(userID) {
     let userRef = Firebase.app()
                           .database()

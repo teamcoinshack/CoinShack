@@ -41,10 +41,7 @@ export default class BuySellPage extends Component {
     const stock = navigation.getParam('stock', null);
     const rate = navigation.getParam('rate', null);
     try {
-      const snap = await Firebase.app()
-                               .database()
-                               .ref('/users/' + uid)
-                               .once('value')
+      const snap = await db.getData(uid);
       this.setState({
         wallet: thisWallet,
         id: uid,
@@ -99,6 +96,10 @@ export default class BuySellPage extends Component {
           moneySell: null,
           stockSell: null,
         })
+
+        this.props.navigation.navigate('Main', { 
+          refresh: () => this.setState({ state: this.state })
+        });
       } catch (error) {
         console.log(error);
       }

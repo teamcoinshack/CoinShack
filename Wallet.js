@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, FlatList, Button, TouchableHighlight} from 'react-native';
+import {Text, ActivityIndicator, View, StyleSheet, FlatList, Button, TouchableHighlight} from 'react-native';
 import { List, ListItem } from 'react-native-elements';
+import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from './Database.js';
 import q from './Query.js';
 
-export default class Wallet extends Component {
+class Wallet extends Component {
   constructor(props) {
     super(props);
 
@@ -17,12 +18,14 @@ export default class Wallet extends Component {
         {id: 'ETH'},
         {id: 'DASH'},
         {id: 'XRP'},
+        {id: 'LTC'},
       ],
       totalValue: '',
     }
 
     this.renderRow = this.renderRow.bind(this); 
     this.load = this.load.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
   
   load(id) {
@@ -38,11 +41,17 @@ export default class Wallet extends Component {
     })
   }
 
-  async componentDidMount() {
-    const { navigation } = this.props;
-    if (navigation.getParam('error', false)) {
-      alert("Error in loading");
+  async componentDidUpdate(prevProps) {
+    if (!prevProps.isFocused && this.props.isFocused) {
+      try {
+        await this.refresh();
+      } catch (error) {
+        console.log(error);
+      }
     }
+  }
+
+  async refresh() {
     const uid = Firebase.auth().currentUser.uid;
     const rates = [
       {
@@ -64,28 +73,29 @@ export default class Wallet extends Component {
         id: 'XRP',
         name: 'ripple',
         rate: '',
-      }
+      },
+      {
+        id: 'LTC',
+        name: 'litecoin',
+        rate: '',
+      },
     ]
-    rates.map(async function(stock) {
-      try {
-        stock.rate = await q.fetch(stock.name);
-        return stock;
-      } catch (error) {
-        console.log(error);
-      }
+    let updatedRates = rates.map(async stock => {
+      stock.rate = await q.fetch(stock.name);
+      return stock;
     })
+
+    updatedRates = await Promise.all(updatedRates);
+
     try {
-      const snap = await Firebase.app()
-                                 .database()
-                                 .ref('/users/' + uid)
-                                 .once('value')
-      await this.setState({
+      const snap = await db.getData(uid);
+      this.setState({
               id: uid,
               cash: snap.val().cash,
               stocks: this.state.stocks
                           .map(item => ({
                             id: item.id,
-                            rate: rates.filter(x => item.id === x.id)[0].rate,
+                            rate: updatedRates.filter(x => item.id === x.id)[0].rate,
                             value: snap.val()[item.id] === undefined
                                   ? 0 
                                   : Number(snap.val()[item.id]),
@@ -104,7 +114,40 @@ export default class Wallet extends Component {
     }
   }
 
+  async componentDidMount() {
+    await this.refresh();
+  }
+
   renderRow({item}) {
+    const loading = (
+      <View style={styles.loading1}>
+        <ActivityIndicator color="#4a4d51" />
+      </View>
+    )
+    const currentPrice = (
+      <Text style={styles.rate}>
+        ${Number(item.rate).toFixed(2)}
+      </Text>
+    )
+    const walletValue = (
+      <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Text style={item.value === 0 
+                          ? styles.noValue1 
+                          : styles.stockValue1}>
+          ${db.stringify((item.value * item.rate).toFixed(2))}
+        </Text>
+        <Text style={item.value === 0 
+                          ? styles.noValue2
+                          : styles.stockValue2}>
+          {db.stringify(Number(item.value).toFixed(3))} {item.id}
+        </Text>
+      </View>
+    )
+    const loading2 = (
+      <View style={styles.loading2}>
+        <ActivityIndicator color="#4a4d51" />
+      </View>
+    )
     return (
       <TouchableHighlight 
         style={styles.row}
@@ -113,20 +156,13 @@ export default class Wallet extends Component {
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.nameIcon}>
             <Text style={styles.name}>{item.id}</Text>
-            <Text style={styles.rate}>${Number(item.rate).toFixed(2)}</Text>
+            {item.rate === undefined
+              ? loading
+              : currentPrice}
           </View>
-          <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
-            <Text style={item.value === 0 
-                          ? styles.noValue1 
-                          : styles.stockValue1}>
-              ${db.stringify((item.value * item.rate).toFixed(2))}
-            </Text>
-            <Text style={item.value === 0 
-                          ? styles.noValue2
-                          : styles.stockValue2}>
-              {db.stringify(Number(item.value).toFixed(3))} {item.id}
-            </Text>
-          </View>
+          {item.rate === undefined
+            ? loading2
+            :walletValue}
         </View>
       </TouchableHighlight>
     )
@@ -136,7 +172,9 @@ export default class Wallet extends Component {
     const money = db.stringify(Number(this.state.cash).toFixed(2));
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 30, textAlign: 'center'}}>My Wallet</Text>
+        <Text style={{fontSize: 30, textAlign: 'center'}}>
+          My Wallet
+        </Text>
         <Text style={{fontSize: 30, textAlign: 'center'}}>
           Total Assets: ${db.stringify(Number(this.state.totalValue).toFixed(2))}
         </Text>
@@ -151,6 +189,8 @@ export default class Wallet extends Component {
     );
   }
 }
+
+export default withNavigationFocus(Wallet);
 
 const styles = StyleSheet.create({
   row: {
@@ -179,6 +219,14 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
     flex: 0,
     fontSize: 20,
+  },
+  loading1: {
+    alignItems: 'flex-start',
+    flex: 0,
+  },
+  loading2: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
   rate: {
     textAlignVertical: 'bottom',

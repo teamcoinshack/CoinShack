@@ -9,6 +9,7 @@ import { Platform,
 import { createStackNavigator, 
          createAppContainer,
          createBottomTabNavigator,
+         withNavigationFocus,
          HeaderBackButton, } from 'react-navigation';
 
 import Login from './Login.js';
@@ -16,6 +17,8 @@ import BuySellPage from './BuySellPage.js';
 import SignUp from './SignUp.js';
 import Wallet from './Wallet.js';
 import News from './News.js';
+import Market from './Market.js';
+import Settings from './Settings.js';
 
 const walletStack = createStackNavigator({
   Main: {
@@ -38,15 +41,27 @@ const tabs = createBottomTabNavigator({
         headerLeft: null,
       },
     },
+    Market: {
+      screen: Market,
+      navigationOptions: {
+        header: null,
+      }
+    },
     Wallet: {
       screen: walletStack,
       navigationOptions: {
         header: null,
       }
     },
+    Settings: {
+      screen: Settings,
+      navigationOptions: {
+        header: null,
+      }
+    }
   },
   {
-    initialRouteName: 'Wallet',
+    initialRouteName: 'News',
     tabBarPosition: 'bottom',
     tabBarOptions: {
       labelStyle: {

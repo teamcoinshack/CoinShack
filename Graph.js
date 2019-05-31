@@ -35,7 +35,10 @@ export default class Graph extends Component {
           data: resJSON.prices.map(valuePair => valuePair[1]), 
           isLoading: false,
         });
-      });
+      })
+      .catch(error => {
+        alert("stock not found")
+      })
   }
 
   // current staic graph
