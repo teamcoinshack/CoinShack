@@ -19,6 +19,8 @@ import Wallet from './Wallet.js';
 import News from './News.js';
 import Market from './Market.js';
 import Settings from './Settings.js';
+import Buy from './Buy.js';
+import Sell from './Sell.js';
 
 const walletStack = createStackNavigator({
   Main: {
@@ -31,7 +33,13 @@ const walletStack = createStackNavigator({
   BuySellPage: {
     screen: BuySellPage,
   },
-}, {headerMode: 'none'})
+  Buy: {
+    screen: Buy,
+  },
+  Sell: {
+    screen: Sell,
+  },
+})
 
 const tabs = createBottomTabNavigator({
     News: {
@@ -61,6 +69,7 @@ const tabs = createBottomTabNavigator({
     }
   },
   {
+    headerMode: 'none',
     initialRouteName: 'News',
     tabBarPosition: 'bottom',
     tabBarOptions: {
@@ -94,8 +103,9 @@ const AppNavigator = createStackNavigator(
         },
     },
     {
-        initialRouteName: 'Login',
-    }
+      headerMode: 'none',
+      initialRouteName: 'Login',
+    },
 );
 
 export default createAppContainer(AppNavigator);

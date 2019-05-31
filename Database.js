@@ -26,15 +26,24 @@ export default class Database {
     return true;
   }
 
-  static buy(uid, stock, initCash, cash, initStock, rate) {
-    let userRef = Firebase.app()
-                          .database()
-                          .ref('/users/' + uid);
-    userRef.update({
-      cash: initCash - cash,
-      [stock]: initStock + (cash / rate),
-    });
-    return initCash - cash;
+  static async buy(id, stock, cash, rate) {
+    try {
+      let userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + id);
+      const snap = await this.getData(id);
+      const initCash = snap.val().cash;
+      if (snap.val()[stock] === undefined) {
+        await this.createAccount(id, stock);
+      }
+      const initStock = snap.val()[stock];
+      userRef.update({
+        cash: initCash - cash,
+        [stock]: initStock + (cash / rate),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static stringify(num) {
