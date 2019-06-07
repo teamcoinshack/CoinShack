@@ -10,27 +10,28 @@ export default class Buy extends React.Component {
       id: '',
       cash: '',
       stock: '',
-      moneyBuy: '',
-      stockBuy: '',
+      actualMoneyBuy: '',
+      displayMoneyBuy: '',
+      displayStockBuy: '',
       input1: false,
       input2: false,
       rate: '', //rate is harcoded for now
     }
 
     this.buyOnPress = this.buyOnPress.bind(this);
-    this.formatMoney = this.formatMoney.bind(this);
-    this.formatStock = this.formatStock.bind(this);
   }
 
   async buyOnPress() {
     try {
-      await db.buy(
+      const res = await db.buy(
         this.state.id,
         this.state.stock,
-        this.state.moneyBuy,
+        this.state.actualMoneyBuy,
         this.state.rate,
       )
-      this.props.navigation.navigate('Main');
+      if (res !== 0) {
+        this.props.navigation.navigate('Main');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -50,98 +51,88 @@ export default class Buy extends React.Component {
     })
   }
 
-  formatMoney(money) {
-    if (money === '$' || money === '') {
-      return '';
-    }
-    let res = '';
-    if (this.state.moneyBuy.charAt(0) !== '$') {
-      res += '$';
-    }
-    if (this.state.moneyBuy.charAt(0) === '.') {
-      res += '0';
-    }
-    return res += money;
-  }
-
-  formatStock(stock) {
-    const symbol = ' ' + this.state.stock;
-    if (stock === symbol || stock === '') {
-      return '';
-    }
-    let res = '';
-    if (this.state.stockBuy.charAt(0) === '.') {
-      res += '0';
-    }
-    res += stock;
-    if (!this.state.stockBuy.includes(symbol)) {
-      res += symbol;
-    }
-    return res;
-  }
-
   render() {
     const box1 = (
       <TextInput
         style={styles.textInput}
         autoCapitalize="none"
         keyboardType='numeric'
-        placeholder={ this.state.moneyBuy === ''
-                    ? '$0.00'
-                    : '$' + parseFloat(this.state.moneyBuy).toFixed(2)} 
-        onChangeText={value => this.setState({ 
-          input1: String(value) === '' ? false : true,
-          input2: false,
-          moneyBuy: String(value) === '' 
-            ? '0' 
-            : String(value).charAt(0) === '$' 
-                ? String(value).substring(1, value.length)
-                : String(value),
-          stockBuy: Number(String(value).substring(1, value.length)) / this.state.rate,
-        })}
-        value={!this.state.input1 || this.state.moneyBuy === ''
+        placeholder={ this.state.actualMoneyBuy === ''
+                    ? '0.00'
+                    : this.state.displayMoneyBuy} 
+        onChangeText={value => Number(db.unStringify(value)) > 999999999999 
+        ? this.setState({
+            state: this.state,
+        })
+        : this.setState({ 
+            input1: String(value) === '' ? false : true,
+            input2: false,
+            actualMoneyBuy: String(value) === '' 
+              ? '0' 
+              : db.unStringify(value),
+            displayMoneyBuy: String(value) === '' 
+              ? '0.00' 
+              : db.stringify(db.unStringify(String(value))),
+            displayStockBuy:db.stringify(
+              (Number(db.unStringify(String(value)))/this.state.rate).toFixed(5)
+            ),
+          })
+        }
+        value={!this.state.input1
           ? ''
-          : this.formatMoney(this.state.moneyBuy)
+          :this.state.displayMoneyBuy
         }
       />
     )
-    const symbol = ' ' + this.state.stock;
     const box2 = (
       <TextInput
         style={styles.textInput}
         autoCapitalize="none"
         keyboardType='numeric'
-        placeholder= { this.state.stockBuy === ''
-                   ? '0.000 ' + this.state.stock
-                   : parseFloat(this.state.stockBuy).toFixed(5) + symbol}
-        onChangeText={value => this.setState({ 
-          input1: false,
-          input2: String(value) === '' ? false : true,
-          stockBuy: String(value) === '' 
-            ? '0' 
-            : String(value).includes(symbol)
-              ? String(value).substring(0, value.length - symbol.length)
-              : String(value),
-          moneyBuy: Number(String(value).substring(0, value.length - symbol.length))*this.state.rate,
-        })}
-        value={!this.state.input2 || this.state.stockBuy === '' 
+        placeholder= { this.state.displayStockBuy === ''
+                   ? '0.000'
+                   : this.state.displayStockBuy}
+        onChangeText={value => Number(db.unStringify(value)) > 99999
+        ? this.setState({
+          state: this.state,
+        })
+        : this.setState({ 
+            input1: false,
+            input2: String(value) === '' ? false : true,
+            displayStockBuy: String(value) === '' 
+              ? '0.00000' 
+              : db.stringify(db.unStringify(String(value))),
+            actualMoneyBuy: Number(db.unStringify(String(value))*this.state.rate),
+            displayMoneyBuy: db.stringify(
+              (Number(db.unStringify(value))*this.state.rate).toFixed(2)
+            ),
+          })
+        }
+        value={!this.state.input2
             ? '' 
-            : this.formatStock(this.state.stockBuy)
+            : this.state.displayStockBuy
         }
       />
     )
     return (
         <View style={styles.container}>
-          {box1}
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={this.state.input1 ? styles.selected : styles.unselected}>$</Text>
+            {box1}
+          </View>
           <View style={{flexDirection: 'row'}}>
             <Button
               onPress={this.buyOnPress}
               title="Buy"
               color='green'
-              style={{ fontSize: 40 }}
             />
           </View>
-          {box2}
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            {box2}
+            <Text style={this.state.input2 ? styles.selected : styles.unselected}>
+              {this.state.stock}
+            </Text>
+          </View>
         </View>
     )
   }
@@ -156,11 +147,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   textInput: {
-    height: 40,
-    width: '100%',
+    height: 30,
+    width: '70%',
     borderColor: '#F5FCFF',
     marginTop: 8,
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: 30,
+    alignItems: 'center',
+  },
+  selected: {
+    color: '#000000',
+    fontSize: 30,
+  },
+  unselected: {
+    color: '#C7C7CD',
+    fontSize: 30,
   },
 });

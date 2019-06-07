@@ -33,6 +33,10 @@ export default class Database {
                             .ref('/users/' + id);
       const snap = await this.getData(id);
       const initCash = snap.val().cash;
+      if (cash > initCash) {
+        alert("Not enough cash!");
+        return 0;
+      }
       if (snap.val()[stock] === undefined) {
         await this.createAccount(id, stock);
       }
@@ -47,9 +51,19 @@ export default class Database {
   }
 
   static stringify(num) {
-    return num === undefined 
-      ? '' 
-      : num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    if (num === undefined) {
+      return '';
+    } else {
+      var parts = num.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return parts.join(".");
+    }
+  }
+
+  static unStringify(num) {
+    return num === ''
+      ? ''
+      : num.toString().replace(/,/g, '');
   }
 
 }
