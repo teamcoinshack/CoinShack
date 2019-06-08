@@ -26,7 +26,7 @@ export default class Sell extends React.Component {
       const res = await db.buy(
         this.state.id,
         this.state.stock,
-        -this.state.actualMoneyBuy,
+        -this.state.actualMoneySell,
         this.state.rate,
       )
       if (res !== 0) {
