@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import {Text, ActivityIndicator, View, StyleSheet, FlatList, Button, TouchableHighlight} from 'react-native';
+import {
+  Text, 
+  ActivityIndicator, 
+  View, 
+  StyleSheet, 
+  FlatList, 
+  Button, 
+  TouchableHighlight,
+  RefreshControl, 
+} from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
@@ -7,6 +16,7 @@ import db from './Database.js';
 import q from './Query.js';
 
 class Wallet extends Component {
+
   constructor(props) {
     super(props);
 
@@ -21,11 +31,13 @@ class Wallet extends Component {
         {id: 'LTC'},
       ],
       totalValue: '',
+      refreshing: false,
     }
 
     this.renderRow = this.renderRow.bind(this); 
     this.load = this.load.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.onRefresh = this.onRefresh.bind(this);
   }
   
   load(id) {
@@ -49,6 +61,19 @@ class Wallet extends Component {
         console.log(error);
       }
     }
+  }
+
+  onRefresh() {
+    this.setState({
+      refreshing: true,
+      stocks: [
+        {id: 'BTC'},
+        {id: 'ETH'},
+        {id: 'DASH'},
+        {id: 'XRP'},
+        {id: 'LTC'},
+      ],
+    }, function() { this.refresh() })
   }
 
   async refresh() {
@@ -107,8 +132,9 @@ class Wallet extends Component {
                       + this.state
                             .stocks
                             .map(x => x.value * x.rate)
-                            .reduce((x, y) => x + y, 0)
-            })
+                            .reduce((x, y) => x + y, 0),
+          refreshing: false,
+      })
     } catch (error) {
       console.log(error);
     }
@@ -173,9 +199,6 @@ class Wallet extends Component {
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 30, textAlign: 'center'}}>
-          My Wallet
-        </Text>
-        <Text style={{fontSize: 30, textAlign: 'center'}}>
           Total Assets: ${db.stringify(Number(this.state.totalValue).toFixed(2))}
         </Text>
         <Text style={{fontSize: 20, textAlign: 'center'}}>Cash: ${money}</Text>
@@ -184,6 +207,12 @@ class Wallet extends Component {
           data={this.state.stocks}
           renderItem={this.renderRow}
           keyExtractor={item => item.id}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
         />
       </View>
     );

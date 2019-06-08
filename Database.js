@@ -41,6 +41,10 @@ export default class Database {
         await this.createAccount(id, stock);
       }
       const initStock = snap.val()[stock];
+      if (initStock + (cash / rate) < 0) {
+        alert("Not enough stock!");
+        return 0;
+      }
       userRef.update({
         cash: initCash - cash,
         [stock]: initStock + (cash / rate),
