@@ -46,30 +46,23 @@ const tabs = createBottomTabNavigator({
       screen: News,
       navigationOptions: {
         title: 'News',
-        headerLeft: null,
       },
     },
     Market: {
       screen: Market,
-      navigationOptions: {
-        header: null,
-      }
     },
     Wallet: {
       screen: walletStack,
+      headerMode: 'none',
       navigationOptions: {
         header: null,
       }
     },
     Settings: {
       screen: Settings,
-      navigationOptions: {
-        header: null,
-      }
     }
   },
   {
-    headerMode: 'none',
     initialRouteName: 'News',
     tabBarPosition: 'bottom',
     tabBarOptions: {
@@ -86,6 +79,7 @@ const AppNavigator = createStackNavigator(
           screen: Login, 
           navigationOptions: {
             headerBackTitle: "Login",
+            headerMode: 'none',
           }
         },
         Dashboard: { 
@@ -100,10 +94,12 @@ const AppNavigator = createStackNavigator(
         },
         SignUp: { 
           screen: SignUp, 
+          navigationOptions: {
+            headerMode: 'none',
+          }
         },
     },
     {
-      headerMode: 'none',
       initialRouteName: 'Login',
     },
 );

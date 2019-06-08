@@ -1,6 +1,15 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, FlatList, Button } from 'react-native';
+import {
+  Text, 
+  View, 
+  StyleSheet, 
+  FlatList, 
+  Button,
+  RefreshControl,
+  TouchableHighlight,
+} from 'react-native';
 import Firebase from 'firebase';
+import q from './Query.js';
 
 export default class News extends Component {
   constructor(props) {
@@ -8,23 +17,81 @@ export default class News extends Component {
 
     this.state = {
       id: '',
+      news: [], 
+      refreshing: false,
     }
+
+    this.load = this.load.bind(this);
+    this.refresh = this.refresh.bind(this);
+  }
+  
+  load() {
+
   }
 
-  componentDidMount() {
+  async refresh() {
+    let articles = await q.getNews();
+    this.setState({
+      news: articles
+    });
+  }
+
+  async componentDidMount() {
     this.setState({id: Firebase.auth().currentUser.uid});
+    await this.refresh();
+  }
+  renderRow({item}) {
+    return (
+      <TouchableHighlight 
+        style={styles.row}
+        onPress={() => this.load(item.url)}
+      >
+        <View style={{ flexDirection: 'row' }}>
+          <Text>{item.title}</Text>
+        </View>
+      </TouchableHighlight>
+    )
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>News here</Text>
+        <Text style={{ fontSize: 40 }}>News here</Text>
+        <FlatList
+          style={styles.flatStyle}
+          data={this.state.news}
+          renderItem={this.renderRow}
+          keyExtractor={item => item.title}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  row: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#99c0ff',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    marginBottom: 6,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -34,5 +101,8 @@ const styles = StyleSheet.create({
   cashText: {
     fontSize: 30,
     fontWeight: 'bold'
-  }
+  },
+  flatStyle: {
+    marginTop: 20,
+  },
 });
