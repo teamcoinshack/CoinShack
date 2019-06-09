@@ -21,6 +21,7 @@ import Market from './Market.js';
 import Settings from './Settings.js';
 import Buy from './Buy.js';
 import Sell from './Sell.js';
+import InternalWebpage from './InternalWebpage.js';
 
 const walletStack = createStackNavigator({
   Main: {
@@ -51,6 +52,12 @@ const newsStack = createStackNavigator({
       title: 'News'
     }
   },
+  InternalWebpage: {
+    screen: InternalWebpage,
+    navigationOptions: {
+      title: 'News'
+    }
+  }
 })
 
 const marketStack = createStackNavigator({

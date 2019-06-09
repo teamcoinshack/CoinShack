@@ -49,7 +49,7 @@ export default class BuySellPage extends Component {
       const snap = await db.getData(id);
       this.setState({
         id: id,
-        cash: navigation.getParam('cash', 'Loading...'),
+        cash: snap.val().cash,
         stock: stock,
         stockValue: snap.val()[stock],
         rate: rate,

@@ -42,9 +42,7 @@ class Wallet extends Component {
   
   load(id) {
     this.props.navigation.navigate('BuySellPage',{
-      myWallet: this,
       id: this.state.id,
-      cash: this.state.cash,
       stock: id,
       rate: this.state
                 .stocks

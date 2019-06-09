@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
   Text, 
   View, 
+  ActivityIndicator, 
   StyleSheet, 
   FlatList, 
   Button,
@@ -26,8 +27,8 @@ export default class News extends Component {
     this.refresh = this.refresh.bind(this);
   }
   
-  load() {
-
+  load(url) {
+    this.props.navigation.navigate('InternalWebpage', {url: url});  
   }
 
   async refresh() {
@@ -36,12 +37,16 @@ export default class News extends Component {
       (article.title.includes("oin") || article.title.includes("rypto"))
     )
     this.setState({
-      news: articles
+      news: articles,
+      refreshing: false,
     });
   }
 
   async componentDidMount() {
-    this.setState({id: Firebase.auth().currentUser.uid});
+    this.setState({
+      id: Firebase.auth().currentUser.uid,
+      refreshing: true,
+    });
     await this.refresh();
   }
 
@@ -59,6 +64,13 @@ export default class News extends Component {
   }
 
   render() {
+    if (this.state.refreshing) {
+      return (
+        <View>
+          <ActivityIndicator color="#4a4d51" />
+        </View>
+      )
+    }
     return (
       <View style={styles.container}>
         <FlatList
