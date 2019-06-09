@@ -19,6 +19,7 @@ export default class Sell extends React.Component {
     }
 
     this.sellOnPress = this.sellOnPress.bind(this);
+    this.sellAll = this.sellAll.bind(this);
   }
 
   async sellOnPress() {
@@ -36,6 +37,20 @@ export default class Sell extends React.Component {
       console.log(error);
     }
   }
+
+  async sellAll() {
+    try {
+      await db.sellAll(
+        this.state.id,
+        this.state.stock,
+        this.state.rate,
+      )
+      this.props.navigation.navigate('Main');
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
 
   componentDidMount() {
     const { navigation } = this.props;
@@ -132,6 +147,13 @@ export default class Sell extends React.Component {
             <Text style={this.state.input2 ? styles.selected : styles.unselected}>
               {this.state.stock}
             </Text>
+          </View>
+          <View>
+            <Button
+              onPress={this.sellAll}
+              title="Sell All"
+              color='red'
+            />
           </View>
         </View>
     )

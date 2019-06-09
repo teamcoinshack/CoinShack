@@ -7,6 +7,7 @@ import {
   Button,
   RefreshControl,
   TouchableHighlight,
+  Image,
 } from 'react-native';
 import Firebase from 'firebase';
 import q from './Query.js';
@@ -31,6 +32,9 @@ export default class News extends Component {
 
   async refresh() {
     let articles = await q.getNews();
+    articles = articles.filter(article =>
+      (article.title.includes("oin") || article.title.includes("rypto"))
+    )
     this.setState({
       news: articles
     });
@@ -40,6 +44,7 @@ export default class News extends Component {
     this.setState({id: Firebase.auth().currentUser.uid});
     await this.refresh();
   }
+
   renderRow({item}) {
     return (
       <TouchableHighlight 

@@ -9,6 +9,22 @@ export default class Database {
       return snap;
   }
 
+  static async sellAll(id, stock, rate) {
+    try {
+      let userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + id);
+      const snap = await this.getData(id);
+      const initCash = snap.val().cash;
+      userRef.update({
+        cash: initCash + (snap.val()[stock] * rate),
+        [stock]: 0,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static initUser(userID) {
     let userRef = Firebase.app()
                           .database()
@@ -18,7 +34,7 @@ export default class Database {
     });
   }
 
-  static createAccount(uid, stock) {
+  static initAccount(uid, stock) {
     Firebase.app()
             .database()
             .ref('/users/' + uid)
@@ -38,7 +54,7 @@ export default class Database {
         return 0;
       }
       if (snap.val()[stock] === undefined) {
-        await this.createAccount(id, stock);
+        await this.initAccount(id, stock);
       }
       const initStock = snap.val()[stock];
       if (initStock + (cash / rate) < 0) {

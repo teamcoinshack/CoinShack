@@ -14,6 +14,7 @@ export default class Graph extends Component {
         ETH: 'ethereum',
         DASH: 'dash',
         XRP: 'ripple',
+        LTC: 'litecoin',
       },
       isLoading: true,
     };
