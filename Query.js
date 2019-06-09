@@ -8,7 +8,8 @@ export default class Query {
   }
 
   static async getNews() {
-    let res = await fetch("https://newsapi.org/v2/everything?q=crypto&from=2019-05-08&sortBy=publishedAt&apiKey=bb387e29c09a46659af73f291edf4816");
+    const url = "https://newsapi.org/v2/everything?q=crypto&sortBy=publishedAt&apiKey=bb387e29c09a46659af73f291edf4816"
+    let res = await fetch(url);
     let data = await res.json();
     return data.articles;
   }

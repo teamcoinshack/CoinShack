@@ -38,28 +38,67 @@ const walletStack = createStackNavigator({
   },
   Sell: {
     screen: Sell,
+  }},
+  {
+    initialRouteName: 'Main',
+  }
+)
+
+const newsStack = createStackNavigator({
+  News: {
+    screen: News,
+    navigationOptions: {
+      title: 'News'
+    }
+  },
+})
+
+const marketStack = createStackNavigator({
+  Market: {
+    screen: Market,
+    navigationOptions: {
+      title: 'Market'
+    }
+  },
+})
+
+const settingsStack = createStackNavigator({
+  Settings: {
+    screen: Settings,
+    navigationOptions: {
+      title: 'Settings'
+    }
   },
 })
 
 const tabs = createBottomTabNavigator({
     News: {
-      screen: News,
+      screen: newsStack,
       navigationOptions: {
         title: 'News',
+        headerLeft: null,
       },
     },
     Market: {
-      screen: Market,
+      screen: marketStack,
+      navigationOptions: {
+        title: 'Market',
+        headerLeft: null,
+      },
     },
     Wallet: {
       screen: walletStack,
-      headerMode: 'none',
       navigationOptions: {
-        header: null,
-      }
+        title: 'Wallet',
+        headerVisible: false,
+      },
     },
     Settings: {
-      screen: Settings,
+      screen: settingsStack,
+      navigationOptions: {
+        title: 'Settings',
+        headerLeft: null,
+      },
     }
   },
   {
@@ -79,15 +118,11 @@ const AppNavigator = createStackNavigator(
           screen: Login, 
           navigationOptions: {
             headerBackTitle: "Login",
-            headerMode: 'none',
+            header: null,
           }
         },
         Dashboard: { 
           screen: tabs,
-          navigationOptions: {
-            headerMode: 'none',
-            headerLeft: null,
-          },
           tabBarOptions: {
             fontSize: 10,
           },
@@ -95,11 +130,12 @@ const AppNavigator = createStackNavigator(
         SignUp: { 
           screen: SignUp, 
           navigationOptions: {
-            headerMode: 'none',
+            header: null,
           }
         },
     },
     {
+      headerMode: 'none',
       initialRouteName: 'Login',
     },
 );

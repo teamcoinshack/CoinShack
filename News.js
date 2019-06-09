@@ -56,7 +56,6 @@ export default class News extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ fontSize: 40 }}>News here</Text>
         <FlatList
           style={styles.flatStyle}
           data={this.state.news}
