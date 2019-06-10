@@ -7,7 +7,7 @@ import {
   FlatList, 
   Button,
   RefreshControl,
-  TouchableHighlight,
+  TouchableOpacity,
   Image,
 } from 'react-native';
 import Firebase from 'firebase';
@@ -25,6 +25,7 @@ export default class News extends Component {
 
     this.load = this.load.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.renderRow = this.renderRow.bind(this);
   }
   
   load(url) {
@@ -52,14 +53,14 @@ export default class News extends Component {
 
   renderRow({item}) {
     return (
-      <TouchableHighlight 
+      <TouchableOpacity 
         style={styles.row}
         onPress={() => this.load(item.url)}
       >
         <View style={{ flexDirection: 'row' }}>
           <Text>{item.title}</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     )
   }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { WebView} from 'react-native'
+import { WebView } from 'react-native'
 
 export default class InternalWebpage extends React.Component {
   constructor(props) {
