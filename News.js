@@ -25,6 +25,7 @@ export default class News extends Component {
 
     this.load = this.load.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.renderRow = this.renderRow.bind(this); 
   }
   
   load(url) {
@@ -32,22 +33,30 @@ export default class News extends Component {
   }
 
   async refresh() {
-    let articles = await q.getNews();
-    articles = articles.filter(article =>
-      (article.title.includes("oin") || article.title.includes("rypto"))
-    )
-    this.setState({
-      news: articles,
-      refreshing: false,
-    });
+    try {
+      let articles = await q.getNews();
+      articles = articles.filter(article =>
+        (article.title.includes("oin") || article.title.includes("rypto"))
+      )
+      this.setState({
+        news: articles,
+        refreshing: false,
+      });
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   async componentDidMount() {
-    this.setState({
-      id: Firebase.auth().currentUser.uid,
-      refreshing: true,
-    });
-    await this.refresh();
+    try {
+      this.setState({
+        id: Firebase.auth().currentUser.uid,
+        refreshing: true,
+      });
+      await this.refresh();
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   renderRow({item}) {
