@@ -6,7 +6,7 @@ import {
   StyleSheet, 
   FlatList, 
   Button, 
-  TouchableHighlight,
+  TouchableOpacity,
   RefreshControl, 
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
@@ -173,7 +173,7 @@ class Wallet extends Component {
       </View>
     )
     return (
-      <TouchableHighlight 
+      <TouchableOpacity 
         style={styles.row}
         onPress={() => this.load(item.id)}
       >
@@ -188,7 +188,7 @@ class Wallet extends Component {
             ? loading2
             :walletValue}
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     )
   }
   
