@@ -62,7 +62,7 @@ export default class Login extends React.Component {
           title="Login" 
           onPress={
             () => this.handleLogin(
-              this.state.email, 
+              this.state.email.trim(), 
               this.state.password
             )
           } 
