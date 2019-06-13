@@ -38,6 +38,12 @@ export default class News extends Component {
       articles = articles.filter(article =>
         (article.title.includes("oin") || article.title.includes("rypto"))
       )
+      let count = 0;
+      articles.map(function(x) {
+        x.listId = count.toString();
+        count++;
+        return x;
+      })
       this.setState({
         news: articles,
         refreshing: false,
@@ -65,8 +71,16 @@ export default class News extends Component {
         style={styles.row}
         onPress={() => this.load(item.url)}
       >
-        <View style={{ flexDirection: 'row' }}>
-          <Text>{item.title}</Text>
+        <View style={{ flexDirection: 'row' , justifyContent: 'center',}}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={{ uri: item.urlToImage }}
+              style={styles.imageStyle}
+            />
+          </View>
+          <View style={styles.textStyle}>
+            <Text style={{ fontSize: 18 }} >{item.title}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     )
@@ -86,7 +100,7 @@ export default class News extends Component {
           style={styles.flatStyle}
           data={this.state.news}
           renderItem={this.renderRow}
-          keyExtractor={item => item.title}
+          keyExtractor={item => item.listId}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
@@ -116,6 +130,18 @@ const styles = StyleSheet.create({
     marginRight: 14,
     marginTop: 0,
     marginBottom: 6,
+  },
+  imageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  imageStyle: {
+    width: 80,
+    height: 80,
+  },
+  textStyle: {
+    flex: 1,
+    paddingLeft: 18,
   },
   container: {
     flex: 1,
