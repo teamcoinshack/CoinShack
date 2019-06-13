@@ -36,14 +36,21 @@ const walletStack = createStackNavigator({
       },
       headerTitleStyle: {
         color: '#ffffff',
+        fontSize: 20,
       }
     }
   },
   BuySellPage: {
     screen: BuySellPage,
-    headerStyle: {
-      backgroundColor: background,
-      borderBottomWidth: 0,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      }
     },
   },
   Buy: {
@@ -77,6 +84,7 @@ const newsStack = createStackNavigator(
         },
         headerTitleStyle: {
           color: '#ffffff',
+          fontSize: 20,
         }
       }
     },
@@ -89,6 +97,7 @@ const newsStack = createStackNavigator(
         },
         headerTitleStyle: {
           color: '#ffffff',
+          fontSize: 20,
         }
       }
     },
@@ -116,6 +125,7 @@ const marketStack = createStackNavigator({
       },
       headerTitleStyle: {
         color: '#ffffff',
+        fontSize: 20,
       }
     }
   },
@@ -132,6 +142,7 @@ const settingsStack = createStackNavigator({
       },
       headerTitleStyle: {
         color: '#ffffff',
+        fontSize: 20,
       }
     }
   },
@@ -174,6 +185,11 @@ const tabs = createBottomTabNavigator({
       labelStyle: {
         fontSize: 15,
         justifyContent: 'center',
+        paddingBottom: 15,
+      },
+      safeAreaInset: {
+        bottom: 'never',
+        top: 'never',
       }
     }
   },

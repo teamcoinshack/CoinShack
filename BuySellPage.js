@@ -5,6 +5,7 @@ import Graph from './Graph.js';
 import db from './Database.js';
 import Firebase from 'firebase';
 
+const background = '#373b48';
 export default class BuySellPage extends Component {
   constructor(props) {
     super(props);
@@ -63,7 +64,9 @@ export default class BuySellPage extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return null;
+      return (
+        <View style={styles.container}></View>
+      );
     }
     return (
       <View style={styles.container}>
@@ -113,18 +116,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: background,
   },
   cashText: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#ffffff',
   },
   value1: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: '#ffffff',
   },
   value2: {
     fontSize: 17,
-    color: 'gray',
+    color: '#a8a8a8',
   },
 });
