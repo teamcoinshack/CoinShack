@@ -38,6 +38,15 @@ export default class News extends Component {
       articles = articles.filter(article =>
         (article.title.includes("oin") || article.title.includes("rypto"))
       )
+      names = [];
+      newArticles = [];
+      articles.forEach(function(x) {
+        if (!names.includes(x.title)) {
+          names.push(x.title);
+          newArticles.push(x);
+        }
+      });
+      articles = newArticles;
       let count = 0;
       articles.map(function(x) {
         x.listId = count.toString();
@@ -89,8 +98,10 @@ export default class News extends Component {
   render() {
     if (this.state.refreshing) {
       return (
-        <View>
-          <ActivityIndicator color="#4a4d51" />
+        <View style={styles.loadingStyle}>
+          <View>
+            <ActivityIndicator color="#999999" />
+          </View>
         </View>
       )
     }
@@ -114,10 +125,16 @@ export default class News extends Component {
 }
 
 const styles = StyleSheet.create({
+  loadingStyle: {
+    flex: 1,
+    backgroundColor: '#212121',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
   row: {
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: '#99c0ff',
+    backgroundColor: '#999999',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -129,7 +146,7 @@ const styles = StyleSheet.create({
     marginLeft: 14,
     marginRight: 14,
     marginTop: 0,
-    marginBottom: 6,
+    marginBottom: 12,
   },
   imageContainer: {
     flexDirection: 'row',
@@ -147,7 +164,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#212121'
   },
   cashText: {
     fontSize: 30,

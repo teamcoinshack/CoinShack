@@ -22,7 +22,7 @@ export default class InternalWebpage extends React.Component {
     return (
       <WebView
         source={{ uri: this.state.url }}
-        style={{ marginTop: 20 }}
+        style={{ marginTop: 0 }}
       />
     );
   }

@@ -6,7 +6,7 @@ import q from './Query.js';
 //Login credentials
 //User: admin@gmail.com
 //Pass: Test123
-
+const background = '#373b48';
 export default class Login extends React.Component {
   state = { email: '', password: '', errorMessage: null }
 
@@ -38,7 +38,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ fontSize: 25 }}>Welcome to CoinShack</Text>
+        <Text style={{ fontSize: 25 , color: '#999999'}}>CoinShack</Text>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
@@ -47,6 +47,7 @@ export default class Login extends React.Component {
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Email"
+          placeholderTextColor="#999999"
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
@@ -55,6 +56,7 @@ export default class Login extends React.Component {
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Password"
+          placeholderTextColor="#999999"
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
@@ -81,9 +83,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: background,
   },
   textInput: {
+    color: '#ffffff',
     height: 40,
     width: '90%',
     borderWidth: 1,

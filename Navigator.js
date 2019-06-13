@@ -49,13 +49,25 @@ const newsStack = createStackNavigator({
   News: {
     screen: News,
     navigationOptions: {
-      title: 'News'
+      title: 'News',
+      headerStyle: {
+        backgroundColor: '#212121',
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+      }
     }
   },
   InternalWebpage: {
     screen: InternalWebpage,
     navigationOptions: {
-      title: 'News'
+      title: 'News',
+      headerStyle: {
+        backgroundColor: '#212121',
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+      }
     }
   }
 })
@@ -148,24 +160,3 @@ const AppNavigator = createStackNavigator(
 );
 
 export default createAppContainer(AppNavigator);
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-    textBox: {
-        fontSize: 20,
-    },
-});

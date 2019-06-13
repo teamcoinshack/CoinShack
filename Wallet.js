@@ -128,7 +128,7 @@ class Wallet extends Component {
                                   ? 0 
                                   : Number(snap.val()[item.id]),
                             image: masterObject[item.id].image,
-                            change: masterObject[item.id].change,
+                            change: Number(masterObject[item.id].change).toFixed(2),
                           }))
       })
 
@@ -159,6 +159,13 @@ class Wallet extends Component {
     const currentPrice = (
       <Text style={styles.rate}>
         ${Number(item.rate).toFixed(2)}
+      </Text>
+    )
+    const change = (
+      <Text style={item.change > 0 ? styles.up : styles.down}>
+        {item.change > 0 
+          ? ' (+' + item.change + '%)'
+          : ' ' + '('+item.change + '%)'}
       </Text>
     )
     const walletValue = (
@@ -197,6 +204,9 @@ class Wallet extends Component {
             {item.rate === undefined
               ? loading
               : currentPrice}
+            {item.rate === undefined
+             ? null
+             : change}
           </View>
           {item.rate === undefined
             ? loading2
@@ -318,5 +328,13 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: 40,
     height: 40,
+  },
+  up: {
+    fontSize: 17,
+    color: '#517751',
+  },
+  down: {
+    fontSize: 17,
+    color: '#772e2e',
   },
 });
