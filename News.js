@@ -13,6 +13,7 @@ import {
 import Firebase from 'firebase';
 import q from './Query.js';
 
+const background = '#373b48';
 export default class News extends Component {
   constructor(props) {
     super(props);
@@ -127,7 +128,7 @@ export default class News extends Component {
 const styles = StyleSheet.create({
   loadingStyle: {
     flex: 1,
-    backgroundColor: '#212121',
+    backgroundColor: background,
     flexDirection: 'column',
     justifyContent: 'center',
   },
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#212121'
+    backgroundColor: background,
   },
   cashText: {
     fontSize: 30,

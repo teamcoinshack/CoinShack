@@ -101,7 +101,7 @@ class Wallet extends Component {
     ]
 
     masterObject = {};
-    rates.forEach(async function(stock) {
+    rates.map(async function(stock) {
       try {
         const data = await q.fetch(stock.name);
         masterObject[stock.id] = {
@@ -109,12 +109,13 @@ class Wallet extends Component {
           image: data.image.small,
           change: data.market_data.price_change_percentage_24h,
         }
+        return stock;
       } catch(error) {
         console.log(error);
+        return null;
       }
     })
     await Promise.all(rates);
-
     try {
       const snap = await db.getData(uid);
       this.setState({
@@ -142,12 +143,16 @@ class Wallet extends Component {
       })
     } catch (error) {
       console.log(error);
+      this.refresh();
     }
   }
 
   async componentDidMount() {
-    await this.refresh();
-    console.log(this.state.stocks);
+    try {
+      await this.refresh();
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   renderRow({item}) {
@@ -158,7 +163,7 @@ class Wallet extends Component {
     )
     const currentPrice = (
       <Text style={styles.rate}>
-        ${Number(item.rate).toFixed(2)}
+        ${db.stringify(Number(item.rate).toFixed(2))}
       </Text>
     )
     const change = (

@@ -23,6 +23,7 @@ import Buy from './Buy.js';
 import Sell from './Sell.js';
 import InternalWebpage from './InternalWebpage.js';
 
+const background = '#373b48';
 const walletStack = createStackNavigator({
   Main: {
     screen: Wallet,
@@ -45,32 +46,44 @@ const walletStack = createStackNavigator({
   }
 )
 
-const newsStack = createStackNavigator({
-  News: {
-    screen: News,
-    navigationOptions: {
-      title: 'News',
-      headerStyle: {
-        backgroundColor: '#212121',
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
+const newsStack = createStackNavigator(
+  {
+    News: {
+      screen: News,
+      navigationOptions: {
+        title: 'News',
+        headerStyle: {
+          backgroundColor: background,
+        },
+        headerTitleStyle: {
+          color: '#ffffff',
+        }
       }
-    }
+    },
+    InternalWebpage: {
+      screen: InternalWebpage,
+      navigationOptions: {
+        title: 'News',
+        headerStyle: {
+          backgroundColor: background,
+        },
+        headerTitleStyle: {
+          color: '#ffffff',
+        }
+      }
+    },
   },
-  InternalWebpage: {
-    screen: InternalWebpage,
+  {
     navigationOptions: {
-      title: 'News',
-      headerStyle: {
-        backgroundColor: '#212121',
+      header: {
+        style: {
+          elevation: 0,
+          shadowOpacity: 0,
+        },
       },
-      headerTitleStyle: {
-        color: '#ffffff',
-      }
-    }
+    },
   }
-})
+)
 
 const marketStack = createStackNavigator({
   Market: {
