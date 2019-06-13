@@ -99,17 +99,22 @@ class Wallet extends Component {
         name: 'litecoin',
       },
     ]
+
     masterObject = {};
-    rates.forEach(async stock => {
-      const data = await q.fetch(stock.name);
-      masterObject[stock.id] = {
-        rate: data.market_data.current_price.sgd,
-        image: data.image.small,
-        change: data.market_data.price_change_percentage_24h,
+    rates.forEach(async function(stock) {
+      try {
+        const data = await q.fetch(stock.name);
+        masterObject[stock.id] = {
+          rate: data.market_data.current_price.sgd,
+          image: data.image.small,
+          change: data.market_data.price_change_percentage_24h,
+        }
+      } catch(error) {
+        console.log(error);
       }
     })
-
     await Promise.all(rates);
+
     try {
       const snap = await db.getData(uid);
       this.setState({
