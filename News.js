@@ -89,7 +89,13 @@ export default class News extends Component {
             />
           </View>
           <View style={styles.textStyle}>
-            <Text style={{ fontSize: 18 }} >{item.title}</Text>
+            <Text style={{ 
+              fontSize: 18, 
+              color: '#a4a9b9', 
+              fontWeight: '500' 
+            }}>
+              {item.title}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
   row: {
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: '#999999',
+    backgroundColor: '#515360',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',

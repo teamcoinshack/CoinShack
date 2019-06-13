@@ -37,7 +37,9 @@ const walletStack = createStackNavigator({
       headerTitleStyle: {
         color: '#ffffff',
         fontSize: 20,
-      }
+      },
+      headerBackTitle: null,
+      headerTintColor: '#ffffff',
     }
   },
   BuySellPage: {

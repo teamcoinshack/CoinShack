@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   row: {
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: '#99c0ff',
+    backgroundColor: '#515360',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -279,6 +279,8 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
     flex: 0,
     fontSize: 20,
+    color: '#dbdbdb', 
+    fontWeight: '500',
   },
   loading1: {
     alignItems: 'flex-start',
@@ -293,17 +295,22 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
     flex: 0,
     fontSize: 17,
-    color: '#4a4d51',
+    color: '#a4a9b9', 
+    fontWeight: '500',
   },
   stockValue1: {
     paddingLeft: 16,
     flex: 0,
     fontSize: 20,
+    color: '#aeb3c4', 
+    fontWeight: '500',
   },
   stockValue2: {
     paddingLeft: 16,
     flex: 0,
     fontSize: 15,
+    color: '#aeb3c4', 
+    fontWeight: '500',
   },
   flatStyle: {
     marginTop: 20,
@@ -322,12 +329,14 @@ const styles = StyleSheet.create({
     flex: 0,
     fontSize: 20,
     color: '#74777c',
+    fontWeight: '500',
   },
   noValue2: {
     paddingLeft: 16,
     flex: 0,
     fontSize: 15,
     color: '#74777c',
+    fontWeight: '500',
   },
   imageContainer: {
     flexDirection: 'row',
@@ -339,10 +348,10 @@ const styles = StyleSheet.create({
   },
   up: {
     fontSize: 17,
-    color: '#517751',
+    color: '#7aef82',
   },
   down: {
     fontSize: 17,
-    color: '#772e2e',
+    color: '#ed4444',
   },
 });
