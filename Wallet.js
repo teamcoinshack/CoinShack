@@ -3,6 +3,7 @@ import {
   Text, 
   ActivityIndicator, 
   View, 
+  Image,
   StyleSheet, 
   FlatList, 
   Button, 
@@ -80,36 +81,35 @@ class Wallet extends Component {
       {
         id: 'BTC',
         name: 'bitcoin',
-        rate: '',
       },
       {
         id: 'ETH',
         name: 'ethereum',
-        rate: '',
       },
       {
         id: 'DASH',
         name: 'dash',
-        rate: '',
       },
       {
         id: 'XRP',
         name: 'ripple',
-        rate: '',
       },
       {
         id: 'LTC',
         name: 'litecoin',
-        rate: '',
       },
     ]
-    let updatedRates = rates.map(async stock => {
-      stock.rate = await q.fetch(stock.name);
-      return stock;
+    masterObject = {};
+    rates.forEach(async stock => {
+      const data = await q.fetch(stock.name);
+      masterObject[stock.id] = {
+        rate: data.market_data.current_price.sgd,
+        image: data.image.small,
+        change: data.market_data.price_change_percentage_24h,
+      }
     })
 
-    updatedRates = await Promise.all(updatedRates);
-
+    await Promise.all(rates);
     try {
       const snap = await db.getData(uid);
       this.setState({
@@ -118,10 +118,12 @@ class Wallet extends Component {
               stocks: this.state.stocks
                           .map(item => ({
                             id: item.id,
-                            rate: updatedRates.filter(x => item.id === x.id)[0].rate,
+                            rate: masterObject[item.id].rate,
                             value: snap.val()[item.id] === undefined
                                   ? 0 
                                   : Number(snap.val()[item.id]),
+                            image: masterObject[item.id].image,
+                            change: masterObject[item.id].change,
                           }))
       })
 
@@ -140,6 +142,7 @@ class Wallet extends Component {
 
   async componentDidMount() {
     await this.refresh();
+    console.log(this.state.stocks);
   }
 
   renderRow({item}) {
@@ -178,6 +181,12 @@ class Wallet extends Component {
         onPress={() => this.load(item.id)}
       >
         <View style={{ flexDirection: 'row' }}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={{ uri: item.image }}
+              style={styles.imageStyle}
+            />
+          </View>
           <View style={styles.nameIcon}>
             <Text style={styles.name}>{item.id}</Text>
             {item.rate === undefined
@@ -238,6 +247,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   nameIcon: {
+    paddingLeft: 18,
     flex: 1,
     flexDirection: 'column',
   },
@@ -295,5 +305,13 @@ const styles = StyleSheet.create({
     flex: 0,
     fontSize: 15,
     color: '#74777c',
+  },
+  imageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  imageStyle: {
+    width: 40,
+    height: 40,
   },
 });
