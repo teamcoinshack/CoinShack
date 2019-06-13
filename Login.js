@@ -38,7 +38,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ fontSize: 25 , color: '#999999'}}>CoinShack</Text>
+        <Text style={{ fontSize: 25 , color: '#ffffff'}}>CoinShack</Text>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}

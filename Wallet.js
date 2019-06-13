@@ -16,6 +16,7 @@ import Firebase from 'firebase';
 import db from './Database.js';
 import q from './Query.js';
 
+const background = '#373b48';
 class Wallet extends Component {
 
   constructor(props) {
@@ -225,10 +226,12 @@ class Wallet extends Component {
     const money = db.stringify(Number(this.state.cash).toFixed(2));
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 30, textAlign: 'center'}}>
-          Total Assets: ${db.stringify(Number(this.state.totalValue).toFixed(2))}
+        <Text style={{color: '#ffffff', fontSize: 30, textAlign: 'center'}}>
+          ${db.stringify(Number(this.state.totalValue).toFixed(2))}
         </Text>
-        <Text style={{fontSize: 20, textAlign: 'center'}}>Cash: ${money}</Text>
+        <Text style={{color: '#ffffff', fontSize: 20, textAlign: 'center'}}>
+          Cash: ${money}
+        </Text>
         <FlatList
           style={styles.flatStyle}
           data={this.state.stocks}
@@ -307,8 +310,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 14,
     alignSelf: "stretch",
+    backgroundColor: background,
   },
   buttonStyle: {
     fontSize: 30,

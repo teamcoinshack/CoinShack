@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, FlatList, Button } from 'react-native';
 import Firebase from 'firebase';
 
+const background = '#373b48';
 export default class Settings extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: background,
   },
   cashText: {
     fontSize: 30,

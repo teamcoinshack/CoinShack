@@ -30,16 +30,35 @@ const walletStack = createStackNavigator({
     navigationOptions: {
       title: 'My Wallet',
       headerLeft: null,
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+      }
     }
   },
   BuySellPage: {
     screen: BuySellPage,
+    headerStyle: {
+      backgroundColor: background,
+      borderBottomWidth: 0,
+    },
   },
   Buy: {
     screen: Buy,
+    headerStyle: {
+      backgroundColor: background,
+      borderBottomWidth: 0,
+    },
   },
   Sell: {
     screen: Sell,
+    headerStyle: {
+      backgroundColor: background,
+      borderBottomWidth: 0,
+    },
   }},
   {
     initialRouteName: 'Main',
@@ -54,6 +73,7 @@ const newsStack = createStackNavigator(
         title: 'News',
         headerStyle: {
           backgroundColor: background,
+          borderBottomWidth: 0,
         },
         headerTitleStyle: {
           color: '#ffffff',
@@ -89,7 +109,14 @@ const marketStack = createStackNavigator({
   Market: {
     screen: Market,
     navigationOptions: {
-      title: 'Market'
+      title: 'Market',
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+      }
     }
   },
 })
@@ -98,7 +125,14 @@ const settingsStack = createStackNavigator({
   Settings: {
     screen: Settings,
     navigationOptions: {
-      title: 'Settings'
+      title: 'Settings',
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+      }
     }
   },
 })
@@ -108,28 +142,24 @@ const tabs = createBottomTabNavigator({
       screen: newsStack,
       navigationOptions: {
         title: 'News',
-        headerLeft: null,
       },
     },
     Market: {
       screen: marketStack,
       navigationOptions: {
         title: 'Market',
-        headerLeft: null,
       },
     },
     Wallet: {
       screen: walletStack,
       navigationOptions: {
         title: 'Wallet',
-        headerVisible: false,
       },
     },
     Settings: {
       screen: settingsStack,
       navigationOptions: {
         title: 'Settings',
-        headerLeft: null,
       },
     }
   },
@@ -137,8 +167,13 @@ const tabs = createBottomTabNavigator({
     initialRouteName: 'News',
     tabBarPosition: 'bottom',
     tabBarOptions: {
+      activeTintColor: '#ffffff',
+      inactiveTintColot: '#a8a8a8',
+      activeBackgroundColor: background,
+      inactiveBackgroundColor: '#000000',
       labelStyle: {
-        fontSize: 25,
+        fontSize: 15,
+        justifyContent: 'center',
       }
     }
   },
