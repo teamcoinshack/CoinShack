@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {TextInput, Text, View, StyleSheet, Button} from 'react-native';
 
-import Graph from './Graph.js';
-import db from './Database.js';
+import Graph from '../components/Graph.js';
+import db from '../Database.js';
 import Firebase from 'firebase';
 
 const background = '#373b48';

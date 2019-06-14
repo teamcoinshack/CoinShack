@@ -11,7 +11,7 @@ import {
   Image,
 } from 'react-native';
 import Firebase from 'firebase';
-import q from './Query.js';
+import q from '../Query.js';
 
 const background = '#373b48';
 export default class News extends Component {

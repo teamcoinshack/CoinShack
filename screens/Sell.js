@@ -1,8 +1,8 @@
 import React from 'react';
 import {TextInput, Text, View, StyleSheet, Button} from 'react-native';
-import db from './Database.js';
+import db from '../Database.js';
 
-export default class Buy extends React.Component {
+export default class Sell extends React.Component {
   constructor(props) {
     super(props);
 
@@ -10,23 +10,24 @@ export default class Buy extends React.Component {
       id: '',
       cash: '',
       stock: '',
-      actualMoneyBuy: '',
-      displayMoneyBuy: '',
-      displayStockBuy: '',
+      actualMoneySell: '',
+      displayMoneySell: '',
+      displayStockSell: '',
       input1: false,
       input2: false,
       rate: '', //rate is harcoded for now
     }
 
-    this.buyOnPress = this.buyOnPress.bind(this);
+    this.sellOnPress = this.sellOnPress.bind(this);
+    this.sellAll = this.sellAll.bind(this);
   }
 
-  async buyOnPress() {
+  async sellOnPress() {
     try {
       const res = await db.buy(
         this.state.id,
         this.state.stock,
-        this.state.actualMoneyBuy,
+        -this.state.actualMoneySell,
         this.state.rate,
       )
       if (res !== 0) {
@@ -36,6 +37,20 @@ export default class Buy extends React.Component {
       console.log(error);
     }
   }
+
+  async sellAll() {
+    try {
+      await db.sellAll(
+        this.state.id,
+        this.state.stock,
+        this.state.rate,
+      )
+      this.props.navigation.navigate('Main');
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
 
   componentDidMount() {
     const { navigation } = this.props;
@@ -57,9 +72,9 @@ export default class Buy extends React.Component {
         style={styles.textInput}
         autoCapitalize="none"
         keyboardType='numeric'
-        placeholder={ this.state.actualMoneyBuy === ''
+        placeholder={ this.state.actualMoneySell === ''
                     ? '0.00'
-                    : this.state.displayMoneyBuy} 
+                    : this.state.displayMoneySell} 
         onChangeText={value => Number(db.unStringify(value)) > 999999999999 
         ? this.setState({
             state: this.state,
@@ -67,20 +82,20 @@ export default class Buy extends React.Component {
         : this.setState({ 
             input1: String(value) === '' ? false : true,
             input2: false,
-            actualMoneyBuy: String(value) === '' 
+            actualMoneySell: String(value) === '' 
               ? '0' 
               : db.unStringify(value),
-            displayMoneyBuy: String(value) === '' 
+            displayMoneySell: String(value) === '' 
               ? '0.00' 
               : db.stringify(db.unStringify(String(value))),
-            displayStockBuy:db.stringify(
+            displayStockSell:db.stringify(
               (Number(db.unStringify(String(value)))/this.state.rate).toFixed(5)
             ),
           })
         }
         value={!this.state.input1
           ? ''
-          :this.state.displayMoneyBuy
+          :this.state.displayMoneySell
         }
       />
     )
@@ -89,9 +104,9 @@ export default class Buy extends React.Component {
         style={styles.textInput}
         autoCapitalize="none"
         keyboardType='numeric'
-        placeholder= { this.state.displayStockBuy === ''
+        placeholder= { this.state.displayStockSell === ''
                    ? '0.000'
-                   : this.state.displayStockBuy}
+                   : this.state.displayStockSell}
         onChangeText={value => Number(db.unStringify(value)) > 99999
         ? this.setState({
           state: this.state,
@@ -99,18 +114,18 @@ export default class Buy extends React.Component {
         : this.setState({ 
             input1: false,
             input2: String(value) === '' ? false : true,
-            displayStockBuy: String(value) === '' 
+            displayStockSell: String(value) === '' 
               ? '0.00000' 
               : db.stringify(db.unStringify(String(value))),
-            actualMoneyBuy: Number(db.unStringify(String(value))*this.state.rate),
-            displayMoneyBuy: db.stringify(
+            actualMoneySell: Number(db.unStringify(String(value))*this.state.rate),
+            displayMoneySell: db.stringify(
               (Number(db.unStringify(value))*this.state.rate).toFixed(2)
             ),
           })
         }
         value={!this.state.input2
             ? '' 
-            : this.state.displayStockBuy
+            : this.state.displayStockSell
         }
       />
     )
@@ -122,9 +137,9 @@ export default class Buy extends React.Component {
           </View>
           <View style={{flexDirection: 'row'}}>
             <Button
-              onPress={this.buyOnPress}
-              title="Buy"
-              color='green'
+              onPress={this.sellOnPress}
+              title="Sell"
+              color='red'
             />
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -132,6 +147,13 @@ export default class Buy extends React.Component {
             <Text style={this.state.input2 ? styles.selected : styles.unselected}>
               {this.state.stock}
             </Text>
+          </View>
+          <View>
+            <Button
+              onPress={this.sellAll}
+              title="Sell All"
+              color='red'
+            />
           </View>
         </View>
     )

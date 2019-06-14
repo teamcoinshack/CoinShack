@@ -1,12 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-import db from './config.js';
+import db from '../config.js';
 import Firebase from 'firebase';
-import q from './Query.js';
+import q from '../Query.js';
+
 //Login credentials
 //User: admin@gmail.com
 //Pass: Test123
+
 const background = '#373b48';
+
 export default class Login extends React.Component {
   state = { email: '', password: '', errorMessage: null }
 

@@ -12,18 +12,19 @@ import { createStackNavigator,
          withNavigationFocus,
          HeaderBackButton, } from 'react-navigation';
 
-import Login from './Login.js';
-import BuySellPage from './BuySellPage.js';
-import SignUp from './SignUp.js';
-import Wallet from './Wallet.js';
-import News from './News.js';
-import Market from './Market.js';
-import Settings from './Settings.js';
-import Buy from './Buy.js';
-import Sell from './Sell.js';
-import InternalWebpage from './InternalWebpage.js';
+import Login from './screens/Login.js';
+import BuySellPage from './screens/BuySellPage.js';
+import SignUp from './screens/SignUp.js';
+import Wallet from './screens/Wallet.js';
+import News from './screens/News.js';
+import Market from './screens/Market.js';
+import Settings from './screens/Settings.js';
+import Buy from './screens/Buy.js';
+import Sell from './screens/Sell.js';
+import InternalWebpage from './screens/InternalWebpage.js';
 
 const background = '#373b48';
+
 const walletStack = createStackNavigator({
   Main: {
     screen: Wallet,

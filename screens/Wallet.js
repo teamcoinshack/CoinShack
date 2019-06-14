@@ -13,10 +13,11 @@ import {
 import { List, ListItem } from 'react-native-elements';
 import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
-import db from './Database.js';
-import q from './Query.js';
+import db from '../Database.js';
+import q from '../Query.js';
 
 const background = '#373b48';
+
 class Wallet extends Component {
 
   constructor(props) {
@@ -236,7 +237,7 @@ class Wallet extends Component {
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
             <Image
-              source={require('./cash.png')}
+              source={require('../assets/icons/cash.png')}
               style={styles.imageStyle}
             />
           </View>

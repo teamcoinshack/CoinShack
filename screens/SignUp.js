@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import Firebase from 'firebase';
-import db from './Database.js';
+import db from '../Database.js';
 
 export default class SignUp extends React.Component {
   state = { email: '', password: '', errorMessage: null }
