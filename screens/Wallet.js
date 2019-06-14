@@ -241,7 +241,7 @@ class Wallet extends Component {
     )
     const CashRow = (
       <TouchableOpacity 
-        style={styles.row}
+        style={styles.cashRow}
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
@@ -318,6 +318,23 @@ const styles = StyleSheet.create({
     marginRight: 14,
     marginTop: 0,
     marginBottom: 6,
+  },
+  cashRow: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#515360',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    marginBottom: 6,
+    height: 60,
   },
   cashName: {
     paddingLeft: 18,

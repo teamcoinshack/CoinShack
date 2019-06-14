@@ -74,7 +74,7 @@ export default class BuySellPage extends Component {
     const money = db.stringify(Number(this.state.cash).toFixed(2));
     const CashRow = (
       <TouchableOpacity 
-        style={styles.row}
+        style={styles.cashRow}
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
@@ -179,11 +179,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: background,
   },
-  row: {
+  cashRow: {
     elevation: 1,
     borderRadius: 5,
     backgroundColor: '#515360',
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -195,6 +194,7 @@ const styles = StyleSheet.create({
     marginRight: 14,
     marginTop: 0,
     marginBottom: 6,
+    height: 60,
   },
   cashText: {
     fontSize: 20,
