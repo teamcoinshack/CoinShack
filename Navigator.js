@@ -58,17 +58,29 @@ const walletStack = createStackNavigator({
   },
   Buy: {
     screen: Buy,
-    headerStyle: {
-      backgroundColor: background,
-      borderBottomWidth: 0,
-    },
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      }
+    }
   },
   Sell: {
     screen: Sell,
-    headerStyle: {
-      backgroundColor: background,
-      borderBottomWidth: 0,
-    },
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      }
+    }
   }},
   {
     initialRouteName: 'Main',
