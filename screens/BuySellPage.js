@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {TextInput, Text, View, StyleSheet, Button} from 'react-native';
+import {
+  TextInput, 
+  Text, 
+  View, 
+  StyleSheet, 
+  Button,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
@@ -63,6 +71,37 @@ export default class BuySellPage extends Component {
 
 
   render() {
+    const money = db.stringify(Number(this.state.cash).toFixed(2));
+    const CashRow = (
+      <TouchableOpacity 
+        style={styles.row}
+      >
+        <View style={{ flexDirection: 'row' }}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../assets/icons/cash.png')}
+              style={styles.imageStyle}
+            />
+          </View>
+          <View style={styles.cashName}>
+            <Text style={styles.name}>Cash</Text>
+          </View>
+          <View style={{ 
+            flexDirection: 'column', 
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+          }}>
+            <Text style={this.state.cash === 0 
+                          ? styles.noValue1 
+                          : styles.cashValue}>
+              {this.state.cash === undefined
+               ? loading
+               : '$' + money}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
     if (this.state.isLoading) {
       return (
         <View style={styles.container}></View>
@@ -70,38 +109,60 @@ export default class BuySellPage extends Component {
     }
     return (
       <View style={styles.container}>
-        <View style={{ flexDirection: 'row', flex: 0, justifyContent: 'flex-start'}}>
+        <View style={{ paddingTop: 10}}>
         </View>
-        <Text style={styles.value1}>
-          {this.state.stockValue === undefined
-            ? '$0.00'
-            : '$' + db.stringify(
-                      parseFloat(this.state.stockValue * this.state.rate).toFixed(2)
-                    )
-          }
-        </Text>
+        {CashRow}
+        <View style={{ paddingTop: 20}}>
+        </View>
+        <View>
+          <Text style={styles.value1}>
+            {this.state.stockValue === undefined
+              ? '$0.00'
+              : '$' + db.stringify(
+                        parseFloat(this.state.stockValue * this.state.rate).toFixed(2)
+                      )
+            }
+          </Text>
+        </View>
         <Text style={styles.value2}>
           {this.state.stockValue === undefined 
            ? '0.000 ' + this.state.stock
            : parseFloat(this.state.stockValue).toFixed(3) + ' ' + this.state.stock}
         </Text>
         <Graph stock={this.state.stock} />
-        <Text style={styles.cashText}>
-          {'Cash: $' + db.stringify(Number(this.state.cash).toFixed(2))}
-        </Text>
-        <View style={{flexDirection: 'row'}}>
-          <Button
-            onPress={this.goToBuy}
-            title="Buy"
-            color='green'
-          />
+        <View style={{ paddingTop: 50}}>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <Button
+          <TouchableOpacity
+            style={styles.buttonRow}
+            onPress={this.goToBuy}
+          >
+            <View style={{ 
+              flexDirection: 'row', 
+              justifyContent: 'center',
+            }}>
+              <Text style={{ color: '#5afee8', fontSize: 20, fontWeight: '700',}}>
+                Buy
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={styles.buttonRow}
             onPress={this.goToSell}
-            title="Sell"
-            color='red'
-          />
+          >
+            <View style={{ 
+              flexDirection: 'row', 
+              justifyContent: 'center',
+            }}>
+              <Text style={{ color: '#fefb5a', fontSize: 20, fontWeight: '700',}}>
+                Sell
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{ paddingTop: 40}}>
         </View>
       </View>
     );
@@ -118,10 +179,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: background,
   },
+  row: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#515360',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    marginBottom: 6,
+  },
   cashText: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#ffffff',
+  },
+  noValue1: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 20,
+    color: '#74777c',
+    fontWeight: '500',
   },
   value1: {
     fontSize: 30,
@@ -132,4 +217,50 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#a8a8a8',
   },
+  imageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  imageStyle: {
+    width: 40,
+    height: 40,
+  },
+  cashValue: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 20,
+    color: '#aeb3c4', 
+    fontWeight: '600',
+  },
+  cashName: {
+    paddingLeft: 18,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  name: {
+    textAlignVertical: 'bottom',
+    includeFontPadding: false,
+    flex: 0,
+    fontSize: 20,
+    color: '#dbdbdb', 
+    fontWeight: '600',
+  },
+  buttonRow: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#515360',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    marginBottom: 6,
+  }
 });

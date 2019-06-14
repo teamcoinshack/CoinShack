@@ -65,7 +65,7 @@ export default class Graph extends Component {
     const Gradient = () => (
       <Defs key={'gradient'}>
         <LinearGradient id={'gradient'} x1={'0'} y={'0%'} x2={'100%'} y2={'0%'}>
-          <Stop offset={'0%'} stopColor={'#defe5a'}/>
+          <Stop offset={'0%'} stopColor={'#fefb5a'}/>
           <Stop offset={'100%'} stopColor={'#5afee8'}/>
         </LinearGradient>
       </Defs>

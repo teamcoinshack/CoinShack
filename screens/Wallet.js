@@ -33,6 +33,13 @@ class Wallet extends Component {
         {id: 'XRP'},
         {id: 'LTC'},
       ],
+      paths: {
+        BTC: require('../assets/icons/BTC.png'),
+        ETH: require('../assets/icons/ETH.png'),
+        DASH: require('../assets/icons/DASH.png'),
+        XRP: require('../assets/icons/XRP.png'),
+        LTC: require('../assets/icons/LTC.png'),
+      },
       totalValue: '',
       refreshing: false,
     }
@@ -130,7 +137,6 @@ class Wallet extends Component {
                             value: snap.val()[item.id] === undefined
                                   ? 0 
                                   : Number(snap.val()[item.id]),
-                            image: masterObject[item.id].image,
                             change: Number(masterObject[item.id].change).toFixed(2),
                           }))
       })
@@ -194,6 +200,12 @@ class Wallet extends Component {
         <ActivityIndicator color="#4a4d51" />
       </View>
     )
+    const Icon = (
+      <Image
+        source={this.state.paths[item.id]}
+        style={styles.imageStyle}
+      />
+    )
     return (
       <TouchableOpacity 
         style={styles.row}
@@ -201,10 +213,7 @@ class Wallet extends Component {
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
-            <Image
-              source={{ uri: item.image }}
-              style={styles.imageStyle}
-            />
+            {Icon}
           </View>
           <View style={styles.nameIcon}>
             <Text style={styles.name}>{item.id}</Text>
@@ -227,7 +236,7 @@ class Wallet extends Component {
     const money = db.stringify(Number(this.state.cash).toFixed(2));
     const loading = (
       <View style={styles.loading1}>
-        <ActivityIndicator color="#4a4d51" />
+        <ActivityIndicator color="#5ee2cd" />
       </View>
     )
     const CashRow = (
