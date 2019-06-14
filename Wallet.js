@@ -107,7 +107,7 @@ class Wallet extends Component {
         const data = await q.fetch(stock.name);
         masterObject[stock.id] = {
           rate: data.market_data.current_price.sgd,
-          image: data.image.small,
+          image: data.image.large,
           change: data.market_data.price_change_percentage_24h,
         }
         return stock;
@@ -224,14 +224,54 @@ class Wallet extends Component {
   
   render() {
     const money = db.stringify(Number(this.state.cash).toFixed(2));
+    const loading = (
+      <View style={styles.loading1}>
+        <ActivityIndicator color="#4a4d51" />
+      </View>
+    )
+    const CashRow = (
+      <TouchableOpacity 
+        style={styles.row}
+      >
+        <View style={{ flexDirection: 'row' }}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('./cash.png')}
+              style={styles.imageStyle}
+            />
+          </View>
+          <View style={styles.cashName}>
+            <Text style={styles.name}>Cash</Text>
+          </View>
+          <View style={{ 
+            flexDirection: 'column', 
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+          }}>
+            <Text style={this.state.cash === 0 
+                          ? styles.noValue1 
+                          : styles.cashValue}>
+              {this.state.cash === undefined
+               ? loading
+               : '$' + money}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
     return (
       <View style={styles.container}>
-        <Text style={{color: '#ffffff', fontSize: 30, textAlign: 'center'}}>
-          ${db.stringify(Number(this.state.totalValue).toFixed(2))}
-        </Text>
-        <Text style={{color: '#ffffff', fontSize: 20, textAlign: 'center'}}>
-          Cash: ${money}
-        </Text>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{
+            color: '#ffffff', 
+            fontSize: 30, 
+            textAlign: 'center',
+            fontWeight: 'bold',
+          }}>
+            ${db.stringify(Number(this.state.totalValue).toFixed(2))}
+          </Text>
+        </View>
+        {CashRow}
         <FlatList
           style={styles.flatStyle}
           data={this.state.stocks}
@@ -269,6 +309,12 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 6,
   },
+  cashName: {
+    paddingLeft: 18,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
   nameIcon: {
     paddingLeft: 18,
     flex: 1,
@@ -280,7 +326,7 @@ const styles = StyleSheet.create({
     flex: 0,
     fontSize: 20,
     color: '#dbdbdb', 
-    fontWeight: '500',
+    fontWeight: '600',
   },
   loading1: {
     alignItems: 'flex-start',
@@ -298,22 +344,29 @@ const styles = StyleSheet.create({
     color: '#a4a9b9', 
     fontWeight: '500',
   },
+  cashValue: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 20,
+    color: '#aeb3c4', 
+    fontWeight: '600',
+  },
   stockValue1: {
     paddingLeft: 16,
     flex: 0,
     fontSize: 20,
     color: '#aeb3c4', 
-    fontWeight: '500',
+    fontWeight: '600',
   },
   stockValue2: {
     paddingLeft: 16,
     flex: 0,
     fontSize: 15,
     color: '#aeb3c4', 
-    fontWeight: '500',
+    fontWeight: '600',
   },
   flatStyle: {
-    marginTop: 20,
+    marginTop: 10,
   },
   container: {
     flex: 1,
