@@ -147,7 +147,7 @@ export default class BuySellPage extends Component {
               flexDirection: 'row', 
               justifyContent: 'center',
             }}>
-              <Text style={{ color: '#14ffb0', fontSize: 20, fontWeight: '700',}}>
+              <Text style={{ color: '#14ff81', fontSize: 20, fontWeight: '700',}}>
                 Buy
               </Text>
             </View>

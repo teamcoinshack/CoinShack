@@ -1,5 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import {
+  TextInput, 
+  Text, 
+  View, 
+  StyleSheet, 
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 import db from '../config.js';
 import Firebase from 'firebase';
 import q from '../Query.js';
@@ -39,6 +46,41 @@ export default class Login extends React.Component {
   }
 
   render() {
+    const loginButton = (
+      <TouchableOpacity
+            style={styles.buttonRow}
+            onPress={
+              () => this.handleLogin(
+                this.state.email.trim(), 
+                this.state.password
+              )
+            }
+          >
+            <View style={{ 
+              flexDirection: 'row', 
+              justifyContent: 'center',
+            }}>
+              <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700',}}>
+                Login
+              </Text>
+            </View>
+          </TouchableOpacity>
+    )
+    const signupButton = (
+      <TouchableOpacity
+            style={styles.buttonRow}
+            onPress={this.goToSignUp}
+          >
+            <View style={{ 
+              flexDirection: 'row', 
+              justifyContent: 'center',
+            }}>
+              <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700',}}>
+                Sign Up
+              </Text>
+            </View>
+          </TouchableOpacity>
+    )
     return (
       <View style={styles.container}>
         <Text style={{ 
@@ -69,19 +111,12 @@ export default class Login extends React.Component {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button 
-          title="Login" 
-          onPress={
-            () => this.handleLogin(
-              this.state.email.trim(), 
-              this.state.password
-            )
-          } 
-        />
-        <Button
-          title="Don't have an account? Sign Up"
-          onPress={this.goToSignUp}
-        />
+        <View style={{ height: 65, width: '100%' }}>
+          {loginButton}
+        </View>
+        <View style={{ height: 65, width: '100%' }}>
+          {signupButton}
+        </View>
       </View>
     )
   }
@@ -103,5 +138,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderColor: 'green',
     borderRadius: 20,
+  },
+  buttonRow: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#515360',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 25,
+    marginRight: 25,
+    marginTop: 10,
   }
 })
