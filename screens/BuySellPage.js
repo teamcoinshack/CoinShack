@@ -129,7 +129,13 @@ export default class BuySellPage extends Component {
            ? '0.000 ' + this.state.stock
            : parseFloat(this.state.stockValue).toFixed(3) + ' ' + this.state.stock}
         </Text>
-        <Graph stock={this.state.stock} />
+        <Graph 
+          stock={this.state.stock}
+          height={300}
+          width={400}
+          tick={5}
+          grid={false}
+        />
         <View style={{ paddingTop: 50}}>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -141,7 +147,7 @@ export default class BuySellPage extends Component {
               flexDirection: 'row', 
               justifyContent: 'center',
             }}>
-              <Text style={{ color: '#5afee8', fontSize: 20, fontWeight: '700',}}>
+              <Text style={{ color: '#14ffb0', fontSize: 20, fontWeight: '700',}}>
                 Buy
               </Text>
             </View>
@@ -156,7 +162,7 @@ export default class BuySellPage extends Component {
               flexDirection: 'row', 
               justifyContent: 'center',
             }}>
-              <Text style={{ color: '#fefb5a', fontSize: 20, fontWeight: '700',}}>
+              <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700',}}>
                 Sell
               </Text>
             </View>

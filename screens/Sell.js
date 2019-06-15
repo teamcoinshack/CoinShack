@@ -1,7 +1,15 @@
 import React from 'react';
-import {TextInput, Text, View, StyleSheet, Button} from 'react-native';
+import {
+  TextInput, 
+  Text, 
+  View, 
+  StyleSheet, 
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 import db from '../Database.js';
 
+const background = '#373b48';
 export default class Sell extends React.Component {
   constructor(props) {
     super(props);
@@ -72,6 +80,7 @@ export default class Sell extends React.Component {
         style={styles.textInput}
         autoCapitalize="none"
         keyboardType='numeric'
+        placeholderTextColor='#919191'
         placeholder={ this.state.actualMoneySell === ''
                     ? '0.00'
                     : this.state.displayMoneySell} 
@@ -104,6 +113,7 @@ export default class Sell extends React.Component {
         style={styles.textInput}
         autoCapitalize="none"
         keyboardType='numeric'
+        placeholderTextColor='#919191'
         placeholder= { this.state.displayStockSell === ''
                    ? '0.000'
                    : this.state.displayStockSell}
@@ -129,31 +139,61 @@ export default class Sell extends React.Component {
         }
       />
     )
+    const button = (
+      <TouchableOpacity
+            style={styles.buttonRow}
+            onPress={this.sellOnPress}
+          >
+            <View style={{ 
+              flexDirection: 'row', 
+              justifyContent: 'center',
+            }}>
+              <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700',}}>
+                Sell
+              </Text>
+            </View>
+          </TouchableOpacity>
+    )
+    const sellAllButton = (
+      <TouchableOpacity
+            style={styles.buttonRow}
+            onPress={this.sellAll}
+          >
+            <View style={{ 
+              flexDirection: 'row', 
+              justifyContent: 'center',
+            }}>
+              <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700',}}>
+                Sell All
+              </Text>
+            </View>
+          </TouchableOpacity>
+    )
     return (
         <View style={styles.container}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ 
+            flexDirection: 'row', 
+            alignItems: 'flex-end', 
+            justifyContent: 'center',
+            width: '80%',
+          }}>
             <Text style={this.state.input1 ? styles.selected : styles.unselected}>$</Text>
             {box1}
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Button
-              onPress={this.sellOnPress}
-              title="Sell"
-              color='red'
-            />
+            {button}
           </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ 
+            flexDirection: 'row', 
+            alignItems: 'flex-end', 
+          }}>
             {box2}
             <Text style={this.state.input2 ? styles.selected : styles.unselected}>
               {this.state.stock}
             </Text>
           </View>
-          <View>
-            <Button
-              onPress={this.sellAll}
-              title="Sell All"
-              color='red'
-            />
+          <View style={{ flexDirection: 'row' }}>
+            {sellAllButton}
           </View>
         </View>
     )
@@ -166,22 +206,39 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: background,
   },
   textInput: {
-    width: '70%',
-    borderColor: '#F5FCFF',
+    width: 250,
     marginTop: 8,
     textAlign: 'center',
     fontSize: 30,
     alignItems: 'center',
+    color: '#ffffff',
   },
   selected: {
-    color: '#000000',
+    color: '#ffffff',
     fontSize: 30,
   },
   unselected: {
-    color: '#C7C7CD',
+    color: '#919191',
     fontSize: 30,
   },
+  buttonRow: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#515360',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 25,
+    marginRight: 25,
+    marginTop: 10,
+    marginBottom: 10,
+  }
 });

@@ -9,6 +9,9 @@ export default class Graph extends Component {
 
     this.state = {
       stock: this.props.stock,
+      height: this.props.height,
+      width: this.props.width,
+      tick: this.props.tick,
       data: [],
       mapping: {
         BTC: 'bitcoin',
@@ -34,11 +37,12 @@ export default class Graph extends Component {
                   + "/market_chart?vs_currency=sgd&days=30");
       const resJSON = await res.json();
       let count = 0;
+      const limit = this.state.tick;
       let smooth = [];
       resJSON.prices.map(valuePair => valuePair[1])
                     .forEach(function(x) {
                       if (count === 0) {
-                        count = 5;
+                        count = limit;
                         smooth.push(x);
                       } else {
                         count--;
@@ -72,7 +76,7 @@ export default class Graph extends Component {
     )
     return (
         <LineChart
-            style={{ height: 300, width: 400 }}
+            style={{ height: this.props.height, width: this.props.width }}
             data={ this.state.data }
             svg={{ 
               stroke: 'url(#gradient)', 
@@ -81,6 +85,7 @@ export default class Graph extends Component {
             contentInset={{ top: 20, bottom: 20 }}
         >
           <Gradient/>
+          {this.props.grid ? <Grid /> : null}
         </LineChart>
     )
   }

@@ -27,10 +27,18 @@ export default class News extends Component {
     this.load = this.load.bind(this);
     this.refresh = this.refresh.bind(this);
     this.renderRow = this.renderRow.bind(this);
+    this.onRefresh = this.onRefresh.bind(this);
   }
   
   load(url) {
     this.props.navigation.navigate('InternalWebpage', {url: url});  
+  }
+
+  onRefresh() {
+    this.setState({
+      refreshing: true,
+      news: [],
+    }, function() { this.refresh() })
   }
 
   async refresh() {

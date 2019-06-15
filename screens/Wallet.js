@@ -166,7 +166,7 @@ class Wallet extends Component {
   renderRow({item}) {
     const loading = (
       <View style={styles.loading1}>
-        <ActivityIndicator color="#4a4d51" />
+        <ActivityIndicator color="#ffffff" />
       </View>
     )
     const currentPrice = (
@@ -206,6 +206,32 @@ class Wallet extends Component {
         style={styles.imageStyle}
       />
     )
+    if (item.rate === undefined) {
+      return (
+      <TouchableOpacity 
+        style={styles.row}
+        onPress={() => this.load(item.id)}
+      >
+        <View style={{ 
+          flexDirection: 'row', 
+          alignItems: 'center',
+        }}>
+          <View style={styles.imageContainer}>
+            {Icon}
+          </View>
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>{item.id}</Text>
+          </View>
+          <View style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+          }}>
+            {loading}
+          </View>
+        </View>
+      </TouchableOpacity>
+      )
+    }
     return (
       <TouchableOpacity 
         style={styles.row}
@@ -215,7 +241,7 @@ class Wallet extends Component {
           <View style={styles.imageContainer}>
             {Icon}
           </View>
-          <View style={styles.nameIcon}>
+          <View style={styles.nameContainer}>
             <Text style={styles.name}>{item.id}</Text>
             {item.rate === undefined
               ? loading
@@ -342,7 +368,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  nameIcon: {
+  nameContainer: {
     paddingLeft: 18,
     flex: 1,
     flexDirection: 'column',

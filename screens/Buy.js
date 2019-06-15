@@ -69,7 +69,7 @@ export default class Buy extends React.Component {
         style={styles.textInput}
         autoCapitalize="none"
         keyboardType='numeric'
-        placeholderTextColor='#a8a8a8'
+        placeholderTextColor='#919191'
         placeholder={ this.state.actualMoneyBuy === ''
                     ? '0.00'
                     : this.state.displayMoneyBuy} 
@@ -102,7 +102,7 @@ export default class Buy extends React.Component {
         style={styles.textInput}
         autoCapitalize="none"
         keyboardType='numeric'
-        placeholderTextColor='#a8a8a8'
+        placeholderTextColor='#919191'
         placeholder= { this.state.displayStockBuy === ''
                    ? '0.000'
                    : this.state.displayStockBuy}
@@ -137,7 +137,7 @@ export default class Buy extends React.Component {
               flexDirection: 'row', 
               justifyContent: 'center',
             }}>
-              <Text style={{ color: '#5afee8', fontSize: 20, fontWeight: '700',}}>
+              <Text style={{ color: '#14ffb0', fontSize: 20, fontWeight: '700',}}>
                 Buy
               </Text>
             </View>
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   unselected: {
-    color: '#a8a8a8',
+    color: '#919191',
     fontSize: 30,
   },
   buttonRow: {
