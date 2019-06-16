@@ -22,6 +22,7 @@ import Settings from './screens/Settings.js';
 import Buy from './screens/Buy.js';
 import Sell from './screens/Sell.js';
 import InternalWebpage from './screens/InternalWebpage.js';
+import Info from './screens/Info.js';
 
 const background = '#373b48';
 
@@ -132,6 +133,20 @@ const newsStack = createStackNavigator(
 const marketStack = createStackNavigator({
   Market: {
     screen: Market,
+    navigationOptions: {
+      title: 'Market',
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      }
+    }
+  },
+  Info: {
+    screen: Info,
     navigationOptions: {
       title: 'Market',
       headerStyle: {

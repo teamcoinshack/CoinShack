@@ -6,6 +6,7 @@ import {
   StyleSheet, 
   TouchableOpacity,
   Button,
+  Dimensions,
 } from 'react-native';
 import db from '../config.js';
 import Firebase from 'firebase';
@@ -83,39 +84,47 @@ export default class Login extends React.Component {
     )
     return (
       <View style={styles.container}>
-        <Text style={{ 
-          fontSize: 25, 
-          color: '#ffffff', 
-          fontWeight: 'bold' 
-        }}>
-          CoinShack
-        </Text>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ 
+            fontSize: 25, 
+            color: '#ffffff', 
+            fontWeight: 'bold' 
+          }}>
+            CoinShack
+          </Text>
+        </View>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
           </Text>}
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Email"
-          placeholderTextColor="#999999"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
-          placeholderTextColor="#999999"
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        <View style={{ height: 65, width: '100%' }}>
-          {loginButton}
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Email"
+            placeholderTextColor="#999999"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
         </View>
-        <View style={{ height: 65, width: '100%' }}>
-          {signupButton}
+        <View style={styles.inputContainer}>
+          <TextInput
+            secureTextEntry
+            style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Password"
+            placeholderTextColor="#999999"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
+        </View>
+        <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+          <View style={{ height: 65, width: '100%' }}>
+            {loginButton}
+          </View>
+          <View style={{ height: 65, width: '100%' }}>
+            {signupButton}
+          </View>
         </View>
       </View>
     )
@@ -123,21 +132,34 @@ export default class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    borderBottomColor: '#515360',
+    borderBottomWidth: 3,
+    width: Math.round(Dimensions.get('window').width) * 0.7,
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  textInput: {
+    elevation: 1,
+    borderRadius: 5,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    height: 60,
+    width: Math.round(Dimensions.get('window').width) * 0.7,
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#ffffff',
+  },
   container: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: background,
-  },
-  textInput: {
-    color: '#ffffff',
-    height: 40,
-    width: '90%',
-    borderWidth: 1,
-    marginTop: 8,
-    textAlign: 'center',
-    borderColor: 'green',
-    borderRadius: 20,
   },
   buttonRow: {
     elevation: 1,
@@ -154,5 +176,6 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginRight: 25,
     marginTop: 10,
+    width: Math.round(Dimensions.get('window').width) * 0.5,
   }
 })

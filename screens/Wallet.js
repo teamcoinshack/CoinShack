@@ -142,37 +142,6 @@ class Wallet extends Component {
         <ActivityIndicator color="#ffffff" />
       </View>
     )
-    const currentPrice = (
-      <Text style={styles.rate}>
-        ${db.stringify(Number(item.rate).toFixed(2))}
-      </Text>
-    )
-    const change = (
-      <Text style={item.change > 0 ? styles.up : styles.down}>
-        {item.change > 0 
-          ? ' (+' + item.change + '%)'
-          : ' ' + '('+item.change + '%)'}
-      </Text>
-    )
-    const walletValue = (
-      <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
-        <Text style={item.value === 0 
-                          ? styles.noValue1 
-                          : styles.stockValue1}>
-          ${db.stringify((item.value * item.rate).toFixed(2))}
-        </Text>
-        <Text style={item.value === 0 
-                          ? styles.noValue2
-                          : styles.stockValue2}>
-          {db.stringify(Number(item.value).toFixed(3))} {item.id}
-        </Text>
-      </View>
-    )
-    const loading2 = (
-      <View style={styles.loading2}>
-        <ActivityIndicator color="#4a4d51" />
-      </View>
-    )
     const Icon = (
       <Image
         source={this.state.paths[item.name]}
@@ -204,6 +173,37 @@ class Wallet extends Component {
       </TouchableOpacity>
       )
     }
+    const currentPrice = (
+      <Text style={styles.rate}>
+        ${db.stringify(Number(item.rate).toFixed(2))}
+      </Text>
+    )
+    const change = (
+      <Text style={item.change > 0 ? styles.up : styles.down}>
+        {item.change > 0 
+          ? ' (+' + item.change + '%)'
+          : ' ' + '('+item.change + '%)'}
+      </Text>
+    )
+    const walletValue = (
+      <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Text style={item.value === 0 
+                          ? styles.noValue1 
+                          : styles.stockValue1}>
+          ${db.stringify((item.value * item.rate).toFixed(2))}
+        </Text>
+        <Text style={item.value === 0 
+                          ? styles.noValue2
+                          : styles.stockValue2}>
+          {db.stringify(Number(item.value).toFixed(3))} {item.id}
+        </Text>
+      </View>
+    )
+    const loading2 = (
+      <View style={styles.loading2}>
+        <ActivityIndicator color="#4a4d51" />
+      </View>
+    )
     return (
       <TouchableOpacity 
         style={styles.row}

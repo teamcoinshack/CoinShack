@@ -46,6 +46,13 @@ class Market extends Component {
     this.onRefresh = this.onRefresh.bind(this);
   }
 
+  load(name) {
+    this.props.navigation.navigate('Info', {
+      data: data,
+      name: name,
+    });
+  }
+
   async componentDidMount() {
     try {
       await this.refresh()
@@ -88,6 +95,7 @@ class Market extends Component {
       }
       const curr = this.state.currs[this.state.current];
       const data = await q.fetch(curr.name);
+      curr.data = data;
       curr.id = data.symbol.toUpperCase();
       curr.rate = data.market_data.current_price.sgd;
       curr.change = data.market_data.price_change_percentage_24h;
