@@ -30,12 +30,13 @@ class Market extends Component {
         {name: 'ripple'},
         {name: 'litecoin'},
       ],
+      datas: {},
       paths: {
-        BTC: require('../assets/icons/BTC.png'),
-        ETH: require('../assets/icons/ETH.png'),
-        DASH: require('../assets/icons/DASH.png'),
-        XRP: require('../assets/icons/XRP.png'),
-        LTC: require('../assets/icons/LTC.png'),
+        bitcoin: require('../assets/icons/BTC.png'),
+        ethereum: require('../assets/icons/ETH.png'),
+        dash: require('../assets/icons/DASH.png'),
+        ripple: require('../assets/icons/XRP.png'),
+        litecoin: require('../assets/icons/LTC.png'),
       },
       current: 0,
       refreshing: false,
@@ -44,12 +45,14 @@ class Market extends Component {
     this.renderRow = this.renderRow.bind(this); 
     this.refresh = this.refresh.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
+    this.load = this.load.bind(this);
   }
 
   load(name) {
     this.props.navigation.navigate('Info', {
-      data: data,
+      data: this.state.datas[name],
       name: name,
+      path: this.state.paths[name],
     });
   }
 
@@ -101,7 +104,10 @@ class Market extends Component {
       curr.change = data.market_data.price_change_percentage_24h;
       let arr = this.state.currs;
       arr[this.state.current] = curr;
+      let datas = this.state.datas;
+      datas[curr.name] = data;
       this.setState({
+        datas: datas,
         currs: arr,
         current: this.state.current + 1,
       })
@@ -131,7 +137,7 @@ class Market extends Component {
     )
     const Icon = (
       <Image
-        source={this.state.paths[item.id]}
+        source={this.state.paths[item.name]}
         style={styles.imageStyle}
       />
     )
@@ -139,7 +145,6 @@ class Market extends Component {
       return (
         <TouchableOpacity 
           style={styles.row}
-          //onPress={() => this.load(item.id)}
         >
           {loading}
         </TouchableOpacity>
@@ -148,7 +153,7 @@ class Market extends Component {
     return (
       <TouchableOpacity 
         style={styles.row}
-        //onPress={() => this.load(item.id)}
+        onPress={() => this.load(item.name)}
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
