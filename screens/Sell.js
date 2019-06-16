@@ -15,15 +15,15 @@ export default class Sell extends React.Component {
     super(props);
 
     this.state = {
-      id: '',
-      cash: '',
-      stock: '',
+      uid: null,
+      cash: null,
+      id: null,
+      rate: null,
       actualMoneySell: '',
       displayMoneySell: '',
       displayStockSell: '',
       input1: false,
       input2: false,
-      rate: '', //rate is harcoded for now
     }
 
     this.sellOnPress = this.sellOnPress.bind(this);
@@ -33,8 +33,8 @@ export default class Sell extends React.Component {
   async sellOnPress() {
     try {
       const res = await db.buy(
+        this.state.uid,
         this.state.id,
-        this.state.stock,
         -this.state.actualMoneySell,
         this.state.rate,
       )
@@ -49,8 +49,8 @@ export default class Sell extends React.Component {
   async sellAll() {
     try {
       await db.sellAll(
+        this.state.uid,
         this.state.id,
-        this.state.stock,
         this.state.rate,
       )
       this.props.navigation.navigate('Main');
@@ -62,14 +62,14 @@ export default class Sell extends React.Component {
 
   componentDidMount() {
     const { navigation } = this.props;
+    const uid = navigation.getParam('uid', null);
     const id = navigation.getParam('id', null);
-    const stock = navigation.getParam('stock', null);
     const rate = navigation.getParam('rate', null);
     const cash = navigation.getParam('cash', null);
     this.setState({
-      id: id,
+      uid: uid,
       cash: cash,
-      stock: stock,
+      id: id,
       rate: rate,
     })
   }
@@ -189,7 +189,7 @@ export default class Sell extends React.Component {
           }}>
             {box2}
             <Text style={this.state.input2 ? styles.selected : styles.unselected}>
-              {this.state.stock}
+              {this.state.id}
             </Text>
           </View>
           <View style={{ flexDirection: 'row' }}>

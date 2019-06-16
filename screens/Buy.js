@@ -15,15 +15,15 @@ export default class Buy extends React.Component {
     super(props);
 
     this.state = {
-      id: '',
-      cash: '',
-      stock: '',
+      uid: null,
+      id: null,
+      rate: null,
+      cash: null,
       actualMoneyBuy: '',
       displayMoneyBuy: '',
       displayStockBuy: '',
       input1: false,
       input2: false,
-      rate: '', //rate is harcoded for now
     }
 
     this.buyOnPress = this.buyOnPress.bind(this);
@@ -36,8 +36,8 @@ export default class Buy extends React.Component {
         return;
       }
       const res = await db.buy(
+        this.state.uid,
         this.state.id,
-        this.state.stock,
         this.state.actualMoneyBuy,
         this.state.rate,
       )
@@ -51,15 +51,15 @@ export default class Buy extends React.Component {
 
   componentDidMount() {
     const { navigation } = this.props;
+    const uid = navigation.getParam('uid', null);
     const id = navigation.getParam('id', null);
-    const stock = navigation.getParam('stock', null);
     const rate = navigation.getParam('rate', null);
     const cash = navigation.getParam('cash', null);
     this.setState({
+      uid: uid,
       id: id,
-      cash: cash,
-      stock: stock,
       rate: rate,
+      cash: cash,
     })
   }
 
@@ -163,7 +163,7 @@ export default class Buy extends React.Component {
           }}>
             {box2}
             <Text style={this.state.input2 ? styles.selected : styles.unselected}>
-              {this.state.stock}
+              {this.state.id}
             </Text>
           </View>
         </View>

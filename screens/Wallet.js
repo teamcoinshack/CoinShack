@@ -24,24 +24,25 @@ class Wallet extends Component {
     super(props);
 
     this.state = {
-      id: '',
-      cash: '',
-      stocks: [
-        {id: 'BTC'},
-        {id: 'ETH'},
-        {id: 'DASH'},
-        {id: 'XRP'},
-        {id: 'LTC'},
+      uid: '',
+      cash: null,
+      currs: [
+        {name: 'bitcoin'},
+        {name: 'ethereum'},
+        {name: 'dash'},
+        {name: 'ripple'},
+        {name: 'litecoin'},
       ],
       paths: {
-        BTC: require('../assets/icons/BTC.png'),
-        ETH: require('../assets/icons/ETH.png'),
-        DASH: require('../assets/icons/DASH.png'),
-        XRP: require('../assets/icons/XRP.png'),
-        LTC: require('../assets/icons/LTC.png'),
+        bitcoin: require('../assets/icons/BTC.png'),
+        ethereum: require('../assets/icons/ETH.png'),
+        dash: require('../assets/icons/DASH.png'),
+        ripple: require('../assets/icons/XRP.png'),
+        litecoin: require('../assets/icons/LTC.png'),
       },
-      totalValue: '',
+      totalValue: null,
       refreshing: false,
+      current: 0,
     }
 
     this.renderRow = this.renderRow.bind(this); 
@@ -50,14 +51,11 @@ class Wallet extends Component {
     this.onRefresh = this.onRefresh.bind(this);
   }
   
-  load(id) {
+  load(name) {
     this.props.navigation.navigate('BuySellPage',{
-      id: this.state.id,
-      stock: id,
-      rate: this.state
-                .stocks
-                .filter(x => x.id === id)[0]
-                .rate,
+      uid: this.state.uid,
+      name: name,
+      path: this.state.paths[name],
     })
   }
 
@@ -73,82 +71,57 @@ class Wallet extends Component {
 
   onRefresh() {
     this.setState({
+      current: 0,
       refreshing: true,
-      stocks: [
-        {id: 'BTC'},
-        {id: 'ETH'},
-        {id: 'DASH'},
-        {id: 'XRP'},
-        {id: 'LTC'},
+      totalValue: null,
+      cash: null,
+      currs: [
+        {name: 'bitcoin'},
+        {name: 'ethereum'},
+        {name: 'dash'},
+        {name: 'ripple'},
+        {name: 'litecoin'},
       ],
     }, function() { this.refresh() })
   }
 
   async refresh() {
-    const uid = Firebase.auth().currentUser.uid;
-    const rates = [
-      {
-        id: 'BTC',
-        name: 'bitcoin',
-      },
-      {
-        id: 'ETH',
-        name: 'ethereum',
-      },
-      {
-        id: 'DASH',
-        name: 'dash',
-      },
-      {
-        id: 'XRP',
-        name: 'ripple',
-      },
-      {
-        id: 'LTC',
-        name: 'litecoin',
-      },
-    ]
-
-    masterObject = {};
-    rates.map(async function(stock) {
-      try {
-        const data = await q.fetch(stock.name);
-        masterObject[stock.id] = {
-          rate: data.market_data.current_price.sgd,
-          image: data.image.large,
-          change: data.market_data.price_change_percentage_24h,
-        }
-        return stock;
-      } catch(error) {
-        console.log(error);
-        return null;
-      }
-    })
-    await Promise.all(rates);
     try {
-      const snap = await db.getData(uid);
-      this.setState({
-              id: uid,
-              cash: snap.val().cash,
-              stocks: this.state.stocks
-                          .map(item => ({
-                            id: item.id,
-                            rate: masterObject[item.id].rate,
-                            value: snap.val()[item.id] === undefined
-                                  ? 0 
-                                  : Number(snap.val()[item.id]),
-                            change: Number(masterObject[item.id].change).toFixed(2),
-                          }))
-      })
-
-      this.setState({
+      if (this.state.current >= this.state.currs.length) {
+        this.setState({
           totalValue: Number(this.state.cash) 
                       + this.state
-                            .stocks
+                            .currs
                             .map(x => x.value * x.rate)
                             .reduce((x, y) => x + y, 0),
+          current: 0,
           refreshing: false,
+        });
+        return;
+      }
+      const uid = Firebase.auth().currentUser.uid;
+      const curr = this.state.currs[this.state.current];
+      const data = await q.fetch(curr.name);
+      const snap = await db.getData(uid);
+      if (this.state.current === 0) {
+        this.setState({
+          uid: uid,
+          cash: snap.val().cash,
+        })
+      }
+      curr.id = data.symbol.toUpperCase();
+      curr.rate = data.market_data.current_price.sgd;
+      curr.change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
+      curr.value = snap.val()[data.symbol.toUpperCase()] === undefined 
+                      ? 0
+                      : Number(snap.val()[data.symbol.toUpperCase()]);
+      let arr = this.state.currs;
+      arr[this.state.current] = curr;
+      this.setState({
+        currs: arr,
+        current: this.state.current + 1,
       })
+      this.refresh();
     } catch (error) {
       console.log(error);
       this.refresh();
@@ -202,7 +175,7 @@ class Wallet extends Component {
     )
     const Icon = (
       <Image
-        source={this.state.paths[item.id]}
+        source={this.state.paths[item.name]}
         style={styles.imageStyle}
       />
     )
@@ -210,7 +183,6 @@ class Wallet extends Component {
       return (
       <TouchableOpacity 
         style={styles.row}
-        onPress={() => this.load(item.id)}
       >
         <View style={{ 
           flexDirection: 'row', 
@@ -235,7 +207,7 @@ class Wallet extends Component {
     return (
       <TouchableOpacity 
         style={styles.row}
-        onPress={() => this.load(item.id)}
+        onPress={() => this.load(item.name)}
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
@@ -262,7 +234,7 @@ class Wallet extends Component {
     const money = db.stringify(Number(this.state.cash).toFixed(2));
     const loading = (
       <View style={styles.loading1}>
-        <ActivityIndicator color="#5ee2cd" />
+        <ActivityIndicator color="#ffffff" />
       </View>
     )
     const CashRow = (
@@ -295,24 +267,29 @@ class Wallet extends Component {
         </View>
       </TouchableOpacity>
     )
+    const assetsValue = (
+      <Text style={{
+        color: '#ffffff', 
+        fontSize: 30, 
+        textAlign: 'center',
+        fontWeight: 'bold',
+      }}>
+        ${db.stringify(Number(this.state.totalValue).toFixed(2))}
+      </Text>
+    );
     return (
       <View style={styles.container}>
-        <View style={{ marginBottom: 20 }}>
-          <Text style={{
-            color: '#ffffff', 
-            fontSize: 30, 
-            textAlign: 'center',
-            fontWeight: 'bold',
-          }}>
-            ${db.stringify(Number(this.state.totalValue).toFixed(2))}
-          </Text>
+        <View style={{ marginBottom: 20, alignItems: 'center', }}>
+          {this.state.totalValue === null
+            ? loading
+            : assetsValue}
         </View>
         {CashRow}
         <FlatList
           style={styles.flatStyle}
-          data={this.state.stocks}
+          data={this.state.currs}
           renderItem={this.renderRow}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.name}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}

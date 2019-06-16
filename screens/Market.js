@@ -88,7 +88,6 @@ class Market extends Component {
       }
       const curr = this.state.currs[this.state.current];
       const data = await q.fetch(curr.name);
-      console.log(data);
       curr.id = data.symbol.toUpperCase();
       curr.rate = data.market_data.current_price.sgd;
       curr.change = data.market_data.price_change_percentage_24h;
@@ -98,7 +97,6 @@ class Market extends Component {
         currs: arr,
         current: this.state.current + 1,
       })
-      console.log(arr);
       this.refresh();
     } catch(error) {
       console.log(error);
@@ -166,7 +164,7 @@ class Market extends Component {
           marginTop: 20,
         }}>
           <Graph 
-            stock={item.id} 
+            name={item.name} 
             height={200}
             width={300}
             tick={10}

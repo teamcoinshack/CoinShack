@@ -3,6 +3,7 @@ import {
   TextInput, 
   Text, 
   View, 
+  ActivityIndicator, 
   StyleSheet, 
   Button,
   Image,
@@ -11,6 +12,7 @@ import {
 
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
+import q from '../Query.js';
 import Firebase from 'firebase';
 
 const background = '#373b48';
@@ -19,11 +21,13 @@ export default class BuySellPage extends Component {
     super(props);
 
     this.state = {
-      id: '',
-      cash: '',
-      stock: '',
-      stockValue: '',
-      rate: '', //rate is harcoded for now
+      name: null,
+      uid: null,
+      cash: null,
+      change: null,
+      id: null,
+      stockValue: null,
+      rate: null,
       isLoading: true,
     }
 
@@ -33,8 +37,8 @@ export default class BuySellPage extends Component {
 
   goToBuy() {
     this.props.navigation.navigate('Buy', {
+      uid: this.state.uid,
       id: this.state.id,
-      stock: this.state.stock,
       rate: this.state.rate,
       cash: this.state.cash,
     })
@@ -42,27 +46,34 @@ export default class BuySellPage extends Component {
 
   goToSell() {
     this.props.navigation.navigate('Sell', {
+      uid: this.state.uid,
       id: this.state.id,
-      stock: this.state.stock,
       rate: this.state.rate,
       cash: this.state.cash,
     })
   }
 
   async componentDidMount() {
-    const { navigation } = this.props;
-    const id = navigation.getParam('id', null);
-    const stock = navigation.getParam('stock', null);
-    const rate = navigation.getParam('rate', null);
     try {
-      const snap = await db.getData(id);
+      const { navigation } = this.props;
+      const uid = navigation.getParam('uid', null);
+      const name = navigation.getParam('name', null);
+      const path = navigation.getParam('path', null);
+      const data = await q.fetch(name);
+      const rate = Number(data.market_data.current_price.sgd).toFixed(2);
+      const snap = await db.getData(uid);
+      const change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
+      const id = data.symbol.toUpperCase();
       this.setState({
-        id: id,
+        uid: uid,
         cash: snap.val().cash,
-        stock: stock,
-        stockValue: snap.val()[stock],
+        change: change,
+        id: id,
+        name: name,
+        stockValue: snap.val()[id],
         rate: rate,
         isLoading: false,
+        path: path,
       })
     } catch (error) {
       console.log(error);
@@ -71,10 +82,22 @@ export default class BuySellPage extends Component {
 
 
   render() {
+    const loading = (
+      <View style={styles.loading1}>
+        <ActivityIndicator color="#ffffff" />
+      </View>
+    );
     const money = db.stringify(Number(this.state.cash).toFixed(2));
+    const cashValue = (
+      <Text style={this.state.cash === 0 
+                    ? styles.noValue1 
+                    : styles.cashValue}>
+         ${money}
+      </Text>
+    );
     const CashRow = (
       <TouchableOpacity 
-        style={styles.cashRow}
+        style={styles.row}
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
@@ -91,13 +114,49 @@ export default class BuySellPage extends Component {
             alignItems: 'flex-end',
             justifyContent: 'center',
           }}>
-            <Text style={this.state.cash === 0 
+            {this.state.cash === undefined
+              ? loading
+              : cashValue}
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
+    const walletValue = (
+      <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Text style={this.state.stockValue === 0 
                           ? styles.noValue1 
-                          : styles.cashValue}>
-              {this.state.cash === undefined
-               ? loading
-               : '$' + money}
-            </Text>
+                          : styles.stockValue1}>
+          ${db.stringify((this.state.stockValue * this.state.rate).toFixed(2))}
+        </Text>
+        <Text style={this.state.stockValue === 0 
+                          ? styles.noValue2
+                          : styles.stockValue2}>
+          {db.stringify(Number(this.state.stockValue).toFixed(3))} {this.state.id}
+        </Text>
+      </View>
+    )
+    const currRow = (
+      <TouchableOpacity 
+        style={styles.row}
+      >
+        <View style={{ flexDirection: 'row' }}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={this.state.path}
+              style={styles.imageStyle}
+            />
+          </View>
+          <View style={styles.cashName}>
+            <Text style={styles.name}>{this.state.id}</Text>
+          </View>
+          <View style={{ 
+            flexDirection: 'column', 
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+          }}>
+            {this.state.cash === undefined
+              ? loading
+              : walletValue}
           </View>
         </View>
       </TouchableOpacity>
@@ -107,36 +166,48 @@ export default class BuySellPage extends Component {
         <View style={styles.container}></View>
       );
     }
+    const change = (
+      <Text style={this.state.change > 0 ? styles.up : styles.down}>
+        {this.state.change > 0 
+          ? ' +' + this.state.change + '% in the past 24h'
+          : ' ' + this.state.change + '% in the past 24h'}
+      </Text>
+    )
     return (
       <View style={styles.container}>
         <View style={{ paddingTop: 10}}>
         </View>
         {CashRow}
+        {currRow}
         <View style={{ paddingTop: 20}}>
         </View>
-        <View>
-          <Text style={styles.value1}>
-            {this.state.stockValue === undefined
-              ? '$0.00'
-              : '$' + db.stringify(
-                        parseFloat(this.state.stockValue * this.state.rate).toFixed(2)
-                      )
-            }
-          </Text>
+        <View style={{
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+        }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-start'}}>
+            <Text style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+              color: '#ffffff',
+            }}>
+              $
+            </Text>
+            <Text style={styles.value1}>
+              {db.stringify(this.state.rate)}
+            </Text>
+          </View>
+          {change}
         </View>
-        <Text style={styles.value2}>
-          {this.state.stockValue === undefined 
-           ? '0.000 ' + this.state.stock
-           : parseFloat(this.state.stockValue).toFixed(3) + ' ' + this.state.stock}
-        </Text>
         <Graph 
-          stock={this.state.stock}
+          name={this.state.name}
           height={300}
           width={400}
           tick={5}
           grid={false}
         />
-        <View style={{ paddingTop: 50}}>
+        <View style={{ paddingTop: 20}}>
         </View>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity
@@ -185,7 +256,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: background,
   },
-  cashRow: {
+  row: {
     elevation: 1,
     borderRadius: 5,
     backgroundColor: '#515360',
@@ -214,6 +285,13 @@ const styles = StyleSheet.create({
     color: '#74777c',
     fontWeight: '500',
   },
+  noValue2: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 15,
+    color: '#74777c',
+    fontWeight: '500',
+  },
   value1: {
     fontSize: 30,
     fontWeight: 'bold',
@@ -222,6 +300,20 @@ const styles = StyleSheet.create({
   value2: {
     fontSize: 17,
     color: '#a8a8a8',
+  },
+  stockValue1: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 20,
+    color: '#aeb3c4', 
+    fontWeight: '600',
+  },
+  stockValue2: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 15,
+    color: '#aeb3c4', 
+    fontWeight: '600',
   },
   imageContainer: {
     flexDirection: 'row',
@@ -268,5 +360,13 @@ const styles = StyleSheet.create({
     marginRight: 14,
     marginTop: 0,
     marginBottom: 6,
-  }
+  },
+  up: {
+    fontSize: 17,
+    color: '#7aef82',
+  },
+  down: {
+    fontSize: 17,
+    color: '#ed4444',
+  },
 });

@@ -13,13 +13,6 @@ export default class Graph extends Component {
       width: this.props.width,
       tick: this.props.tick,
       data: [],
-      mapping: {
-        BTC: 'bitcoin',
-        ETH: 'ethereum',
-        DASH: 'dash',
-        XRP: 'ripple',
-        LTC: 'litecoin',
-      },
       isLoading: true,
     };
 
@@ -33,7 +26,7 @@ export default class Graph extends Component {
   async fetch(stock) {
     try {
       const res = await fetch("https://api.coingecko.com/api/v3/coins/" 
-                  + this.state.mapping[stock] 
+                  + this.props.name
                   + "/market_chart?vs_currency=sgd&days=30");
       const resJSON = await res.json();
       let count = 0;
@@ -53,7 +46,8 @@ export default class Graph extends Component {
         isLoading: false,
       });
     } catch(error) {
-        alert("stock not found");
+      console.log(error);
+      alert("stock not found");
     }
   }
 

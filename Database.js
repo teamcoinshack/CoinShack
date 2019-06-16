@@ -42,28 +42,30 @@ export default class Database {
     return true;
   }
 
-  static async buy(id, stock, cash, rate) {
+  static async buy(uid, id, cash, rate) {
     try {
       let userRef = Firebase.app()
                             .database()
-                            .ref('/users/' + id);
-      const snap = await this.getData(id);
+                            .ref('/users/' + uid);
+      console.log(uid);
+      const snap = await this.getData(uid);
+      console.log(snap.val());
       const initCash = snap.val().cash;
       if (cash > initCash) {
         alert("Not enough cash!");
         return 0;
       }
-      if (snap.val()[stock] === undefined) {
-        await this.initAccount(id, stock);
+      if (snap.val()[id] === undefined) {
+        await this.initAccount(uid, id);
       }
-      const initStock = snap.val()[stock];
+      const initStock = snap.val()[id];
       if (initStock + (cash / rate) < 0) {
         alert("Not enough stock!");
         return 0;
       }
       userRef.update({
         cash: initCash - cash,
-        [stock]: initStock + (cash / rate),
+        [id]: initStock + (cash / rate),
       });
     } catch (error) {
       console.log(error);
