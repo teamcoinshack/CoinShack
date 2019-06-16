@@ -268,14 +268,22 @@ class Wallet extends Component {
       </TouchableOpacity>
     )
     const assetsValue = (
-      <Text style={{
-        color: '#ffffff', 
-        fontSize: 30, 
-        textAlign: 'center',
-        fontWeight: 'bold',
-      }}>
-        ${db.stringify(Number(this.state.totalValue).toFixed(2))}
-      </Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-start'}}>
+        <Text style={{
+          fontSize: 18,
+          fontWeight: 'bold',
+          color: '#ffffff',
+        }}>
+          $
+        </Text>
+        <Text style={{
+          fontSize: 30, 
+          fontWeight: 'bold',
+          color: '#ffffff',
+        }}>
+          {db.stringify(Number(this.state.totalValue).toFixed(2))}
+        </Text>
+      </View>
     );
     return (
       <View style={styles.container}>
