@@ -1,16 +1,23 @@
 import React from 'react';
-import { Platform, 
-         StyleSheet, 
-         Text, 
-         View, 
-         Button, 
-         TextInput, 
-         TouchableHighlight } from 'react-native';
-import { createStackNavigator, 
-         createAppContainer,
-         createBottomTabNavigator,
-         withNavigationFocus,
-         HeaderBackButton, } from 'react-navigation';
+
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  TouchableHighlight
+} from 'react-native';
+
+import {
+  createStackNavigator,
+  createAppContainer,
+  createBottomTabNavigator,
+  withNavigationFocus,
+  HeaderBackButton,
+} from 'react-navigation';
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Login from './screens/Login.js';
@@ -86,7 +93,8 @@ const walletStack = createStackNavigator({
       },
       headerTintColor: '#ffffff',
     }
-  }},
+  }
+},
   {
     initialRouteName: 'Main',
   }
@@ -187,12 +195,13 @@ const settingsStack = createStackNavigator({
   },
 })
 
-const tabs = createBottomTabNavigator({
+const tabs = createBottomTabNavigator(
+  {
     News: {
       screen: newsStack,
       navigationOptions: {
         title: 'News',
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon
             name="newspaper"
             size={24}
@@ -205,9 +214,9 @@ const tabs = createBottomTabNavigator({
       screen: marketStack,
       navigationOptions: {
         title: 'Market',
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon
-            name="newspaper"
+            name="store"
             size={24}
             color={tintColor}
           />
@@ -218,9 +227,9 @@ const tabs = createBottomTabNavigator({
       screen: walletStack,
       navigationOptions: {
         title: 'Wallet',
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon
-            name="newspaper"
+            name="wallet"
             size={24}
             color={tintColor}
           />
@@ -231,9 +240,9 @@ const tabs = createBottomTabNavigator({
       screen: settingsStack,
       navigationOptions: {
         title: 'Settings',
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon
-            name="newspaper"
+            name="settings"
             size={24}
             color={tintColor}
           />
@@ -251,14 +260,13 @@ const tabs = createBottomTabNavigator({
       inactiveBackgroundColor: '#000000',
       labelStyle: {
         fontSize: 15,
-        justifyContent: 'center',
-        paddingBottom: 15,
       },
       style: {
         height: 64,
       },
       tabStyle: {
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 5,
       },
       safeAreaInset: {
         bottom: 'never',
@@ -270,31 +278,31 @@ const tabs = createBottomTabNavigator({
 );
 
 const AppNavigator = createStackNavigator(
-    {
-        Login: { 
-          screen: Login, 
-          navigationOptions: {
-            headerBackTitle: "Login",
-            header: null,
-          }
-        },
-        Dashboard: { 
-          screen: tabs,
-          tabBarOptions: {
-            fontSize: 10,
-          },
-        },
-        SignUp: { 
-          screen: SignUp, 
-          navigationOptions: {
-            header: null,
-          }
-        },
+  {
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        headerBackTitle: "Login",
+        header: null,
+      }
     },
-    {
-      headerMode: 'none',
-      initialRouteName: 'Login',
+    Dashboard: {
+      screen: tabs,
+      tabBarOptions: {
+        fontSize: 10,
+      },
     },
+    SignUp: {
+      screen: SignUp,
+      navigationOptions: {
+        header: null,
+      }
+    },
+  },
+  {
+    headerMode: 'none',
+    initialRouteName: 'Login',
+  },
 );
 
 export default createAppContainer(AppNavigator);
