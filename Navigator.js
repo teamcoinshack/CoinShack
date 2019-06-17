@@ -11,6 +11,7 @@ import { createStackNavigator,
          createBottomTabNavigator,
          withNavigationFocus,
          HeaderBackButton, } from 'react-navigation';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Login from './screens/Login.js';
 import BuySellPage from './screens/BuySellPage.js';
@@ -191,24 +192,52 @@ const tabs = createBottomTabNavigator({
       screen: newsStack,
       navigationOptions: {
         title: 'News',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="newspaper"
+            size={24}
+            color={tintColor}
+          />
+        ),
       },
     },
     Market: {
       screen: marketStack,
       navigationOptions: {
         title: 'Market',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="newspaper"
+            size={24}
+            color={tintColor}
+          />
+        ),
       },
     },
     Wallet: {
       screen: walletStack,
       navigationOptions: {
         title: 'Wallet',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="newspaper"
+            size={24}
+            color={tintColor}
+          />
+        ),
       },
     },
     Settings: {
       screen: settingsStack,
       navigationOptions: {
         title: 'Settings',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="newspaper"
+            size={24}
+            color={tintColor}
+          />
+        ),
       },
     }
   },
@@ -225,10 +254,17 @@ const tabs = createBottomTabNavigator({
         justifyContent: 'center',
         paddingBottom: 15,
       },
+      style: {
+        height: 64,
+      },
+      tabStyle: {
+        alignItems: 'center'
+      },
       safeAreaInset: {
         bottom: 'never',
         top: 'never',
-      }
+      },
+      showIcon: true
     }
   },
 );
