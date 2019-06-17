@@ -54,7 +54,8 @@ const walletStack = createStackNavigator({
       headerTitleStyle: {
         color: '#ffffff',
         fontSize: 20,
-      }
+      },
+      headerTintColor: '#ffffff',
     },
   },
   Buy: {
@@ -67,7 +68,8 @@ const walletStack = createStackNavigator({
       headerTitleStyle: {
         color: '#ffffff',
         fontSize: 20,
-      }
+      },
+      headerTintColor: '#ffffff',
     }
   },
   Sell: {
@@ -80,7 +82,8 @@ const walletStack = createStackNavigator({
       headerTitleStyle: {
         color: '#ffffff',
         fontSize: 20,
-      }
+      },
+      headerTintColor: '#ffffff',
     }
   }},
   {
@@ -101,7 +104,8 @@ const newsStack = createStackNavigator(
         headerTitleStyle: {
           color: '#ffffff',
           fontSize: 20,
-        }
+        },
+        headerTintColor: '#ffffff',
       }
     },
     InternalWebpage: {
@@ -114,7 +118,8 @@ const newsStack = createStackNavigator(
         headerTitleStyle: {
           color: '#ffffff',
           fontSize: 20,
-        }
+        },
+        headerTintColor: '#ffffff',
       }
     },
   },
@@ -142,7 +147,8 @@ const marketStack = createStackNavigator({
       headerTitleStyle: {
         color: '#ffffff',
         fontSize: 20,
-      }
+      },
+      headerTintColor: '#ffffff',
     }
   },
   Info: {
@@ -156,7 +162,8 @@ const marketStack = createStackNavigator({
       headerTitleStyle: {
         color: '#ffffff',
         fontSize: 20,
-      }
+      },
+      headerTintColor: '#ffffff',
     }
   },
 })
@@ -173,7 +180,8 @@ const settingsStack = createStackNavigator({
       headerTitleStyle: {
         color: '#ffffff',
         fontSize: 20,
-      }
+      },
+      headerTintColor: '#ffffff',
     }
   },
 })
