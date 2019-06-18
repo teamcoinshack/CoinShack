@@ -19,7 +19,32 @@ import q from '../Query.js';
 const background = '#373b48';
 
 export default class Login extends React.Component {
-  state = { email: '', password: '', errorMessage: null }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: '',
+      errorMessage: null
+    }
+
+    this.fbProvider = new Firebase.auth.FacebookAuthProvider();
+    this.fbProvider.addScope("user_friends");
+  }
+
+  handleFbLogin = () => {
+    Firebase.auth()
+            .signInWithPopup(this.fbProvider)
+            .then(result => {
+              this.props.navigation.navigate('Dashboard')
+            })
+            .catch(error => {
+              let errorCode = error.code;
+              let errorMessage = error.message;
+              // TODO: handle error, check which error will be thrown for fb login
+              alert(errorMessage);
+            })
+  }
 
   handleLogin = (email, pass) => {
     success = true;
@@ -49,39 +74,57 @@ export default class Login extends React.Component {
   render() {
     const loginButton = (
       <TouchableOpacity
-            style={styles.buttonRow}
-            onPress={
-              () => this.handleLogin(
-                this.state.email.trim(), 
-                this.state.password
-              )
-            }
-          >
-            <View style={{ 
-              flexDirection: 'row', 
-              justifyContent: 'center',
-            }}>
-              <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700',}}>
-                Login
-              </Text>
-            </View>
-          </TouchableOpacity>
-    )
+        style={styles.buttonRow}
+        onPress={
+          () => this.handleLogin(
+            this.state.email.trim(),
+            this.state.password
+          )
+        }
+      >
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+          <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700', }}>
+            Login
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+
+    const fbLoginButton = (
+      <TouchableOpacity
+        style={styles.buttonRow}
+        onPress={this.handleFbLogin}
+      >
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+          <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700', }}>
+            Login
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+
     const signupButton = (
       <TouchableOpacity
-            style={styles.buttonRow}
-            onPress={this.goToSignUp}
-          >
-            <View style={{ 
-              flexDirection: 'row', 
-              justifyContent: 'center',
-            }}>
-              <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700',}}>
-                Sign Up
-              </Text>
-            </View>
-          </TouchableOpacity>
-    )
+        style={styles.buttonRow}
+        onPress={this.goToSignUp}
+      >
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+          <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700', }}>
+            Sign Up
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+
     return (
       <View style={styles.container}>
         <View style={{ marginBottom: 20 }}>
@@ -121,6 +164,9 @@ export default class Login extends React.Component {
         <View style={{ flexDirection: 'column', alignItems: 'center', }}>
           <View style={{ height: 65, width: '100%' }}>
             {loginButton}
+          </View>
+          <View style={{ height: 65, width: '100%' }}>
+            {fbLoginButton}
           </View>
           <View style={{ height: 65, width: '100%' }}>
             {signupButton}
