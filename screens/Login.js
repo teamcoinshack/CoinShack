@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   TextInput, 
   Text, 
@@ -8,6 +8,7 @@ import {
   Button,
   Dimensions,
 } from 'react-native';
+import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../config.js';
 import Firebase from 'firebase';
 import q from '../Query.js';
@@ -33,17 +34,31 @@ export default class Login extends React.Component {
   }
 
   handleFbLogin = () => {
-    Firebase.auth()
-            .signInWithPopup(this.fbProvider)
-            .then(result => {
-              this.props.navigation.navigate('Dashboard')
+    LoginManager
+      .logInWithReadPermissions(['public_profile', 'user_friends', 'email'])
+      .then(result => {
+        if (result.isCancelled) {
+          alert("Sign in cancelled", "Please try again!");
+        } else {
+          AccessToken
+            .getCurrentAccessToken()
+            .then(data => {
+              const credential = Firebase
+                .auth
+                .FacebookAuthProvider.credential(data.accessToken);
+              Firebase
+                .auth()
+                .signInWithCredential(credential)
+                .then(() => this.props.navigation.navigate('Dashboard'))
+                .catch(error => {
+                  let errorCode = error.code;
+                  let errorMessage = error.message;
+                  // TODO: handle fb login errors
+                  alert("Login failed", errorMessage);
+                })
             })
-            .catch(error => {
-              let errorCode = error.code;
-              let errorMessage = error.message;
-              // TODO: handle error, check which error will be thrown for fb login
-              alert(errorMessage);
-            })
+        }
+      })
   }
 
   handleLogin = (email, pass) => {
@@ -103,7 +118,7 @@ export default class Login extends React.Component {
           justifyContent: 'center',
         }}>
           <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700', }}>
-            Login
+            Facebook Login
           </Text>
         </View>
       </TouchableOpacity>
