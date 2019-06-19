@@ -16,6 +16,7 @@ import Firebase from 'firebase';
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
 import q from '../Query.js';
+
 const background = '#373b48';
 
 export default class Info extends React.Component {
@@ -35,47 +36,54 @@ export default class Info extends React.Component {
     const data = navigation.getParam('data', null);
     const name = navigation.getParam('name', null);
     const path = navigation.getParam('path', null);
-    console.log(path);
+    // console.log(path);
     this.setState({
       name: name,
       path: path,
       data: data,
     });
   }
+
   render() {
     if (this.state.data === null || this.state.data === undefined) {
       return null;
     }
-    const Icon = (
+
+    const icon = (
       <Image
         source={this.state.path}
         style={styles.imageStyle}
       />
     );
+
     const rate = this.state.data === null 
                  ? undefined
                  : Number(this.state.data.market_data.current_price.sgd).toFixed(2);
+
     const currentPrice = (
       <Text style={styles.rate}>
         ${db.stringify(rate)}
       </Text>
     );
+
     const points = this.state.data === null
                    ? undefined
                    : this.state.data.market_data.price_change_percentage_24h;
+
     const change = (
       <Text style={points > 0 ? styles.up : styles.down}>
         {points > 0 
-          ? ' (+' + Number(points).toFixed(2) + '%)'
-          : ' ' + '('+ Number(points).toFixed(2) + '%)'}
+          ? ` (+ ${Number(points).toFixed(2)}%)`
+          : ` (${Number(points).toFixed(2)}%)`}
       </Text>
     );
+
     return (
       <ScrollView style={styles.container}>
         <View style={styles.row}>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.imageContainer}>
-              {Icon}
+              {icon}
             </View>
             <View style={styles.nameContainer}>
               <Text style={styles.name}>{this.state.name}</Text>

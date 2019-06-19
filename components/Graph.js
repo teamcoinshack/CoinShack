@@ -11,38 +11,32 @@ export default class Graph extends Component {
       stock: this.props.stock,
       height: this.props.height,
       width: this.props.width,
-      tick: this.props.tick,
       data: [],
       isLoading: true,
     };
 
-    this.fetch = this.fetch.bind(this);
+    this.fetchStockPrices = this.fetchStockPrices.bind(this);
   }
 
   componentDidMount() {
-    this.fetch(this.state.stock);
+    this.fetchStockPrices(this.state.stock);
   }
   
-  async fetch(stock) {
+  async fetchStockPrices(stock) {
     try {
       const res = await fetch("https://api.coingecko.com/api/v3/coins/" 
                   + this.props.name
                   + "/market_chart?vs_currency=sgd&days=30");
       const resJSON = await res.json();
-      let count = 0;
-      const limit = this.state.tick;
-      let smooth = [];
-      resJSON.prices.map(valuePair => valuePair[1])
-                    .forEach(function(x) {
-                      if (count === 0) {
-                        count = limit;
-                        smooth.push(x);
-                      } else {
-                        count--;
-                      }
-                    })
+
+      let stockPrices = resJSON.prices.map(valuePair => valuePair[1]);
+      let data = [];
+      for (let i = 0; i < stockPrices.length; i += this.props.tick) {
+        data.push(stockPrices[i]);
+      }
+
       this.setState({ 
-        data: smooth, 
+        data: data, 
         isLoading: false,
       });
     } catch(error) {
@@ -60,14 +54,16 @@ export default class Graph extends Component {
         </View>
       )
     }
+
     const Gradient = () => (
-      <Defs key={'gradient'}>
-        <LinearGradient id={'gradient'} x1={'0'} y={'0%'} x2={'100%'} y2={'0%'}>
-          <Stop offset={'0%'} stopColor={'#fefb5a'}/>
-          <Stop offset={'100%'} stopColor={'#5afee8'}/>
+      <Defs key='gradient'>
+        <LinearGradient id='gradient' x1='0' y='0%' x2='100%' y2='0%'>
+          <Stop offset='0%' stopColor='#fefb5a'/>
+          <Stop offset='100%' stopColor='#5afee8'/>
         </LinearGradient>
       </Defs>
     )
+
     return (
         <LineChart
             style={{ height: this.props.height, width: this.props.width }}
