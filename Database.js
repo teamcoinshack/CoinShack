@@ -25,6 +25,9 @@ export default class Database {
     }
   }
 
+
+  // can consider using cloud functions for new user creation,
+  // set cash value, send email bla bla
   static initUser(userID) {
     let userRef = Firebase.app()
                           .database()

@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
   Button,
   Dimensions,
+  Alert,
 } from 'react-native';
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
-import db from '../config.js';
+import config from '../config.js';
+import db from '../Database.js';
 import Firebase from 'firebase';
 import q from '../Query.js';
 
@@ -38,7 +40,7 @@ export default class Login extends React.Component {
       .logInWithReadPermissions(['public_profile', 'user_friends', 'email'])
       .then(result => {
         if (result.isCancelled) {
-          alert("Sign in cancelled", "Please try again!");
+          Alert.alert("Sign in cancelled", "Please try again!");
         } else {
           AccessToken
             .getCurrentAccessToken()
@@ -49,12 +51,17 @@ export default class Login extends React.Component {
               Firebase
                 .auth()
                 .signInWithCredential(credential)
+                .then(result => {
+                  if (result.additionalUserInfo.isNewUser) {
+                    db.initUser(result.user.uid);
+                  }
+                })
                 .then(() => this.props.navigation.navigate('Dashboard'))
                 .catch(error => {
                   let errorCode = error.code;
                   let errorMessage = error.message;
                   // TODO: handle fb login errors
-                  alert("Login failed", errorMessage);
+                  Alert.alert("Login failed", errorMessage);
                 })
             })
         }
