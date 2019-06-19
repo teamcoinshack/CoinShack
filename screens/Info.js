@@ -102,6 +102,7 @@ export default class Info extends React.Component {
               width={300}
               tick={10}
               grid={true}
+              days={30}
             />
           </View>
           <View style={styles.description}>

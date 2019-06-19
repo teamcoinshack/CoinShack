@@ -206,6 +206,7 @@ export default class BuySellPage extends Component {
           width={400}
           tick={5}
           grid={false}
+          days={30}
         />
         <View style={{ paddingTop: 20}}>
         </View>

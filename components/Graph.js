@@ -25,8 +25,9 @@ export default class Graph extends Component {
   async fetchStockPrices(stock) {
     try {
       const res = await fetch("https://api.coingecko.com/api/v3/coins/" 
-                  + this.props.name
-                  + "/market_chart?vs_currency=sgd&days=30");
+                              + this.props.name
+                              + "/market_chart?vs_currency=sgd&days="
+                              + this.props.days);
       const resJSON = await res.json();
 
       let stockPrices = resJSON.prices.map(valuePair => valuePair[1]);

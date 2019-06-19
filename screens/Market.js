@@ -182,6 +182,7 @@ class Market extends Component {
             width={300}
             tick={10}
             grid={true}
+            days={30}
           />
         </View>
       </TouchableOpacity>
