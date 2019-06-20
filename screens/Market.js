@@ -100,7 +100,7 @@ class Market extends Component {
       const data = await q.fetch(curr.name);
       curr.data = data;
       curr.id = data.symbol.toUpperCase();
-      curr.rate = data.market_data.current_price.sgd;
+      curr.rate = data.market_data.current_price.usd;
       curr.change = data.market_data.price_change_percentage_24h;
       let arr = this.state.currs;
       arr[this.state.current] = curr;

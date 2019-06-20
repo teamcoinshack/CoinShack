@@ -26,7 +26,7 @@ export default class Graph extends Component {
     try {
       const res = await fetch("https://api.coingecko.com/api/v3/coins/" 
                               + this.props.name
-                              + "/market_chart?vs_currency=sgd&days="
+                              + "/market_chart?vs_currency=usd&days="
                               + this.props.days);
       const resJSON = await res.json();
 

@@ -60,7 +60,7 @@ export default class BuySellPage extends Component {
       const name = navigation.getParam('name', null);
       const path = navigation.getParam('path', null);
       const data = await q.fetch(name);
-      const rate = Number(data.market_data.current_price.sgd).toFixed(2);
+      const rate = Number(data.market_data.current_price.usd).toFixed(2);
       const snap = await db.getData(uid);
       const change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
       const id = data.symbol.toUpperCase();

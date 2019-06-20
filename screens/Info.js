@@ -58,7 +58,7 @@ export default class Info extends React.Component {
 
     const rate = this.state.data === null 
                  ? undefined
-                 : Number(this.state.data.market_data.current_price.sgd).toFixed(2);
+                 : Number(this.state.data.market_data.current_price.usd).toFixed(2);
 
     const currentPrice = (
       <Text style={styles.rate}>

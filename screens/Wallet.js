@@ -110,7 +110,7 @@ class Wallet extends Component {
         })
       }
       curr.id = data.symbol.toUpperCase();
-      curr.rate = data.market_data.current_price.sgd;
+      curr.rate = data.market_data.current_price.usd;
       curr.change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
       curr.value = snap.val()[data.symbol.toUpperCase()] === undefined 
                       ? 0
