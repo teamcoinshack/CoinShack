@@ -3,6 +3,7 @@ import {
   TextInput, 
   Text, 
   View, 
+  ScrollView,
   ActivityIndicator, 
   StyleSheet, 
   Button,
@@ -182,75 +183,79 @@ export default class BuySellPage extends Component {
     );
 
     return (
-      <View style={styles.container}>
-        <View style={{ paddingTop: 10}}>
-        </View>
-        {cashRow}
-        {currRow}
-        <View style={{ paddingTop: 20}}>
-        </View>
-        <View style={{
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-        }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'flex-start'}}>
-            <Text style={{
-              fontSize: 18,
-              fontWeight: 'bold',
-              color: '#ffffff',
-            }}>
-              $
-            </Text>
-            <Text style={styles.value1}>
-              {db.stringify(this.state.rate)}
-            </Text>
+      <ScrollView style={{
+        backgroundColor: background,
+      }}>
+        <View style={styles.container}>
+          <View style={{ paddingTop: 10}}>
           </View>
-          {change}
-        </View>
-        <Graph 
-          name={this.state.name}
-          height={300}
-          width={400}
-          tick={5}
-          grid={false}
-          days={30}
-        />
-        <View style={{ paddingTop: 20}}>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            style={styles.buttonRow}
-            onPress={this.goToBuy}
-          >
-            <View style={{ 
-              flexDirection: 'row', 
-              justifyContent: 'center',
-            }}>
-              <Text style={{ color: '#14ff81', fontSize: 20, fontWeight: '700',}}>
-                Buy
+          {cashRow}
+          {currRow}
+          <View style={{ paddingTop: 20}}>
+          </View>
+          <View style={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start'}}>
+              <Text style={{
+                fontSize: 18,
+                fontWeight: 'bold',
+                color: '#ffffff',
+              }}>
+                $
+              </Text>
+              <Text style={styles.value1}>
+                {db.stringify(this.state.rate)}
               </Text>
             </View>
-          </TouchableOpacity>
+            {change}
+          </View>
+          <Graph 
+            name={this.state.name}
+            height={250}
+            width={400}
+            tick={5}
+            grid={false}
+            days={30}
+          />
+          <View style={{ paddingTop: 20}}>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+              style={styles.buttonRow}
+              onPress={this.goToBuy}
+            >
+              <View style={{ 
+                flexDirection: 'row', 
+                justifyContent: 'center',
+              }}>
+                <Text style={{ color: '#14ff81', fontSize: 20, fontWeight: '700',}}>
+                  Buy
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+              style={styles.buttonRow}
+              onPress={this.goToSell}
+            >
+              <View style={{ 
+                flexDirection: 'row', 
+                justifyContent: 'center',
+              }}>
+                <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700',}}>
+                  Sell
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{ paddingTop: 40}}>
+          </View>
         </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            style={styles.buttonRow}
-            onPress={this.goToSell}
-          >
-            <View style={{ 
-              flexDirection: 'row', 
-              justifyContent: 'center',
-            }}>
-              <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700',}}>
-                Sell
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={{ paddingTop: 40}}>
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 }
