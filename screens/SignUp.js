@@ -1,8 +1,16 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import {
+  TextInput, 
+  Text, 
+  View, 
+  StyleSheet, 
+  Dimensions,
+  Alert,
+} from 'react-native';
 import Firebase from 'firebase';
 import db from '../Database.js';
 
+const background = '#373b48';
 export default class SignUp extends React.Component {
   state = { email: '', password: '', errorMessage: null }
 
@@ -31,38 +39,56 @@ export default class SignUp extends React.Component {
   render() {
       return (
         <View style={styles.container}>
-          <Text style={{ fontSize: 25 }}>Sign Up</Text>
+          <View style={{ marginBottom: 20 }}>
+            <Text style={{ 
+              fontSize: 25, 
+              color: '#ffffff', 
+              fontWeight: 'bold' 
+            }}>
+            Sign Up
+            </Text>
+          </View>
           {this.state.errorMessage &&
             <Text style={{ color: 'red' }}>
               {this.state.errorMessage}
             </Text>}
-          <TextInput
-            placeholder="Email"
-            autoCapitalize="none"
-            style={styles.textInput}
-            onChangeText={email => this.setState({ email })}
-            value={this.state.email}
-          />
-          <TextInput
-            secureTextEntry
-            placeholder="Password"
-            autoCapitalize="none"
-            style={styles.textInput}
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-          />
-          <Button 
-            title="Sign Up" 
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="#999999"
+              autoCapitalize="none"
+              style={styles.textInput}
+              onChangeText={email => this.setState({ email })}
+              value={this.state.email}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              secureTextEntry
+              placeholder="Password"
+              placeholderTextColor="#999999"
+              autoCapitalize="none"
+              style={styles.textInput}
+              onChangeText={password => this.setState({ password })}
+              value={this.state.password}
+            />
+          </View>
+          <MyButton
+            text="Sign Up"
             onPress={() =>
               this.handleSignUp(
                 this.state.email, 
                 this.state.password
               )
             } 
+            textColor="#00f9ff"
+            width={Math.round(Dimensions.get('window').width) * 0.5}
           />
-          <Button
-            title="Already have an account? Login"
+          <MyButton
+            text="Back to Login"
             onPress={() => this.props.navigation.navigate('Login')}
+            textColor="#00f9ff"
+            width={Math.round(Dimensions.get('window').width) * 0.5}
           />
         </View>
       )
@@ -71,17 +97,31 @@ export default class SignUp extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: background,
+  },
+  inputContainer: {
+    borderBottomColor: '#515360',
+    borderBottomWidth: 3,
+    width: Math.round(Dimensions.get('window').width) * 0.7,
+    alignItems: 'center',
+    marginBottom: 6,
   },
   textInput: {
-    height: 40,
-    width: '90%',
-    borderWidth: 1,
-    marginTop: 8,
+    elevation: 1,
+    borderRadius: 5,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    height: 60,
+    width: Math.round(Dimensions.get('window').width) * 0.7,
     textAlign: 'center',
-    borderColor: 'green',
-    borderRadius: 20,
-  }
+    fontSize: 20,
+    color: '#ffffff',
+  },
 })

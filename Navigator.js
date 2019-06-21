@@ -260,9 +260,10 @@ const tabs = createBottomTabNavigator(
       inactiveBackgroundColor: '#000000',
       labelStyle: {
         fontSize: 15,
+        marginBottom: 12,
       },
       style: {
-        height: 64,
+        height: 75,
       },
       tabStyle: {
         alignItems: 'center',
@@ -271,6 +272,7 @@ const tabs = createBottomTabNavigator(
       safeAreaInset: {
         bottom: 'never',
         top: 'never',
+        margin: 10,
       },
       showIcon: true
     }
