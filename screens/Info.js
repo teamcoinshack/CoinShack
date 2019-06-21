@@ -1,25 +1,20 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text, 
   View, 
   ScrollView,
   ActivityIndicator, 
   StyleSheet, 
-  FlatList, 
-  Button,
   RefreshControl,
   Image,
-  TouchableOpacity,
 } from 'react-native';
-import { withNavigationFocus } from 'react-navigation';
-import Firebase from 'firebase';
+import MyButton from '../components/MyButton.js';
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
-import q from '../Query.js';
 
 const background = '#373b48';
 
-export default class Info extends React.Component {
+export default class Info extends Component {
 
   constructor(props) {
     super(props);
@@ -28,6 +23,7 @@ export default class Info extends React.Component {
       name: null,
       path: null,
       data: null,
+      graphDays: 30,
     }
   }
 
@@ -102,18 +98,42 @@ export default class Info extends React.Component {
               width={300}
               tick={10}
               grid={true}
-              days={30}
+              days={this.state.graphDays}
             />
           </View>
-          <View style={styles.description}>
+
+          {/* <View style={styles.description}>
             <Text style={{
               color: '#ffffff',
               fontSize: 15,
             }}>
               {this.state.data.description.en}
             </Text>
-          </View>
+          </View> */}
         </View>
+
+        <View style={styles.graphDaysButtons}>
+            <MyButton
+              text="24H"
+              onPress={() => this.setState({ graphDays: 1 })}
+              width={100}
+            />
+            <MyButton
+              text="1W"
+              onPress={() => this.setState({ graphDays: 7 })}
+              width={100}
+            />
+            <MyButton
+              text="15D"
+              onPress={() => this.setState({ graphDays: 15 })}
+              width={100}
+            />
+            <MyButton
+              text="1M"
+              onPress={() => this.setState({ graphDays: 30 })}
+              width={100}
+            />
+          </View>
       </ScrollView>
     )
   }
@@ -182,4 +202,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#ed4444',
   },
+  graphDaysButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 10,
+  }
 })

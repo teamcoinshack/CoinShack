@@ -21,6 +21,12 @@ export default class Graph extends Component {
   componentDidMount() {
     this.fetchStockPrices(this.state.stock);
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.days !== prevProps.days) {
+      this.fetchStockPrices(this.state.stock);
+    }
+  }
   
   async fetchStockPrices(stock) {
     try {
