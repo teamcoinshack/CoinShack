@@ -64,13 +64,14 @@ export default class BuySellPage extends Component {
       const snap = await db.getData(uid);
       const change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
       const id = data.symbol.toUpperCase();
+      const amt = snap.val()[id] === undefined ? 0 : snap.val()[id];
       this.setState({
         uid: uid,
         cash: snap.val().cash,
         change: change,
         id: id,
         name: name,
-        stockValue: snap.val()[id],
+        stockValue: amt,
         rate: rate,
         isLoading: false,
         path: path,
