@@ -123,11 +123,13 @@ class Market extends Component {
         <ActivityIndicator color="#ffffff" />
       </View>
     )
+
     const currentPrice = (
       <Text style={styles.rate}>
         ${db.stringify(Number(item.rate).toFixed(2))}
       </Text>
     )
+
     const change = (
       <Text style={item.change > 0 ? styles.up : styles.down}>
         {item.change > 0 
@@ -135,12 +137,14 @@ class Market extends Component {
           : ' ' + '('+ Number(item.change).toFixed(2) + '%)'}
       </Text>
     )
-    const Icon = (
+
+    const icon = (
       <Image
         source={this.state.paths[item.name]}
         style={styles.imageStyle}
       />
     )
+
     if (item.rate === undefined) {
       return (
         <TouchableOpacity 
@@ -150,6 +154,7 @@ class Market extends Component {
         </TouchableOpacity>
       );
     }
+
     return (
       <TouchableOpacity 
         style={styles.row}
@@ -159,7 +164,7 @@ class Market extends Component {
           <View style={styles.imageContainer}>
             {item.rate === undefined 
               ? loading
-              : Icon}
+              : icon}
           </View>
           <View style={styles.nameContainer}>
             <Text style={styles.name}>{item.id}</Text>
@@ -181,7 +186,7 @@ class Market extends Component {
             height={200}
             width={300}
             tick={10}
-            grid={true}
+            grid={false}
             days={30}
           />
         </View>

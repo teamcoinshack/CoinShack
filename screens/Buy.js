@@ -96,7 +96,8 @@ export default class Buy extends React.Component {
           :this.state.displayMoneyBuy
         }
       />
-    )
+    );
+
     const box2 = (
       <TextInput
         style={styles.textInput}
@@ -127,22 +128,24 @@ export default class Buy extends React.Component {
             : this.state.displayStockBuy
         }
       />
-    )
+    );
+
     const button = (
       <TouchableOpacity
-            style={styles.buttonRow}
-            onPress={this.buyOnPress}
-          >
-            <View style={{ 
-              flexDirection: 'row', 
-              justifyContent: 'center',
-            }}>
-              <Text style={{ color: '#14ffb0', fontSize: 20, fontWeight: '700',}}>
-                Buy
-              </Text>
-            </View>
-          </TouchableOpacity>
-    )
+        style={styles.buttonRow}
+        onPress={this.buyOnPress}
+      >
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+          <Text style={{ color: '#14ffb0', fontSize: 20, fontWeight: '700', }}>
+            Buy
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+    
     return (
         <View style={styles.container}>
           <View style={{ 

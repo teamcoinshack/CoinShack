@@ -80,14 +80,15 @@ export default class BuySellPage extends Component {
     }
   }
 
-
   render() {
     const loading = (
       <View style={styles.loading1}>
         <ActivityIndicator color="#ffffff" />
       </View>
     );
+
     const money = db.stringify(Number(this.state.cash).toFixed(2));
+
     const cashValue = (
       <Text style={this.state.cash === 0 
                     ? styles.noValue1 
@@ -95,7 +96,8 @@ export default class BuySellPage extends Component {
          ${money}
       </Text>
     );
-    const CashRow = (
+
+    const cashRow = (
       <TouchableOpacity 
         style={styles.row}
       >
@@ -120,7 +122,8 @@ export default class BuySellPage extends Component {
           </View>
         </View>
       </TouchableOpacity>
-    )
+    );
+
     const walletValue = (
       <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
         <Text style={this.state.stockValue === 0 
@@ -134,7 +137,8 @@ export default class BuySellPage extends Component {
           {db.stringify(Number(this.state.stockValue).toFixed(3))} {this.state.id}
         </Text>
       </View>
-    )
+    );
+    
     const currRow = (
       <TouchableOpacity 
         style={styles.row}
@@ -160,24 +164,27 @@ export default class BuySellPage extends Component {
           </View>
         </View>
       </TouchableOpacity>
-    )
+    );
+
     if (this.state.isLoading) {
       return (
         <View style={styles.container}></View>
       );
     }
+
     const change = (
       <Text style={this.state.change > 0 ? styles.up : styles.down}>
         {this.state.change > 0 
           ? ' +' + this.state.change + '% in the past 24h'
           : ' ' + this.state.change + '% in the past 24h'}
       </Text>
-    )
+    );
+
     return (
       <View style={styles.container}>
         <View style={{ paddingTop: 10}}>
         </View>
-        {CashRow}
+        {cashRow}
         {currRow}
         <View style={{ paddingTop: 20}}>
         </View>

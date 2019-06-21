@@ -10,6 +10,7 @@ import {
 import db from '../Database.js';
 
 const background = '#373b48';
+
 export default class Sell extends React.Component {
   constructor(props) {
     super(props);
@@ -107,7 +108,8 @@ export default class Sell extends React.Component {
           :this.state.displayMoneySell
         }
       />
-    )
+    );
+
     const box2 = (
       <TextInput
         style={styles.textInput}
@@ -138,7 +140,8 @@ export default class Sell extends React.Component {
             : this.state.displayStockSell
         }
       />
-    )
+    );
+
     const button = (
       <TouchableOpacity
             style={styles.buttonRow}
@@ -153,22 +156,24 @@ export default class Sell extends React.Component {
               </Text>
             </View>
           </TouchableOpacity>
-    )
+    );
+
     const sellAllButton = (
       <TouchableOpacity
-            style={styles.buttonRow}
-            onPress={this.sellAll}
-          >
-            <View style={{ 
-              flexDirection: 'row', 
-              justifyContent: 'center',
-            }}>
-              <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700',}}>
-                Sell All
-              </Text>
-            </View>
-          </TouchableOpacity>
-    )
+        style={styles.buttonRow}
+        onPress={this.sellAll}
+      >
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+          <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700', }}>
+            Sell All
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+
     return (
         <View style={styles.container}>
           <View style={{ 
@@ -196,7 +201,7 @@ export default class Sell extends React.Component {
             {sellAllButton}
           </View>
         </View>
-    )
+    );
   }
 }
 

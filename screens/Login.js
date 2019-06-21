@@ -4,11 +4,10 @@ import {
   Text, 
   View, 
   StyleSheet, 
-  TouchableOpacity,
-  Button,
   Dimensions,
   Alert,
 } from 'react-native';
+import MyButton from '../components/MyButton.js';
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import config from '../config.js';
 import db from '../Database.js';
@@ -94,59 +93,6 @@ export default class Login extends React.Component {
   }
 
   render() {
-    const loginButton = (
-      <TouchableOpacity
-        style={styles.buttonRow}
-        onPress={
-          () => this.handleLogin(
-            this.state.email.trim(),
-            this.state.password
-          )
-        }
-      >
-        <View style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-          <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700', }}>
-            Login
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-
-    const fbLoginButton = (
-      <TouchableOpacity
-        style={styles.buttonRow}
-        onPress={this.handleFbLogin}
-      >
-        <View style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-          <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700', }}>
-            Facebook Login
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-
-    const signupButton = (
-      <TouchableOpacity
-        style={styles.buttonRow}
-        onPress={this.goToSignUp}
-      >
-        <View style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-          <Text style={{ color: '#00f9ff', fontSize: 20, fontWeight: '700', }}>
-            Sign Up
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-
     return (
       <View style={styles.container}>
         <View style={{ marginBottom: 20 }}>
@@ -184,15 +130,27 @@ export default class Login extends React.Component {
           />
         </View>
         <View style={{ flexDirection: 'column', alignItems: 'center', }}>
-          <View style={{ height: 65, width: '100%' }}>
-            {loginButton}
-          </View>
-          <View style={{ height: 65, width: '100%' }}>
-            {fbLoginButton}
-          </View>
-          <View style={{ height: 65, width: '100%' }}>
-            {signupButton}
-          </View>
+          <MyButton
+            text="Login"
+            onPress={() => this.handleLogin(
+              this.state.email.trim(),
+              this.state.password
+            )}
+            textColor="#00f9ff"
+            width={Math.round(Dimensions.get('window').width) * 0.5}
+          />
+          <MyButton
+            text="Facebook Login"
+            onPress={this.handleFbLogin}
+            textColor="#00f9ff"
+            width={Math.round(Dimensions.get('window').width) * 0.5}
+          />
+          <MyButton
+            text="Sign Up"
+            onPress={this.goToSignUp}
+            textColor="#00f9ff"
+            width={Math.round(Dimensions.get('window').width) * 0.5}
+          />
         </View>
       </View>
     )
@@ -229,21 +187,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: background,
   },
-  buttonRow: {
-    elevation: 1,
-    borderRadius: 5,
-    backgroundColor: '#515360',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 18,
-    paddingRight: 16,
-    marginLeft: 25,
-    marginRight: 25,
-    marginTop: 10,
-    width: Math.round(Dimensions.get('window').width) * 0.5,
-  }
 })
