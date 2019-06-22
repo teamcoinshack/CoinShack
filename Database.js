@@ -40,6 +40,12 @@ export default class Database {
     userRef.set({
       cash: 1000000.00,
     });
+    let alerts = Firebase.app()
+                         .database()
+                         .ref('/users/' + userID + '/alerts/');
+    alerts.set({
+      BTC: []
+    })
   }
 
   static async changePassword(user, newPass) {
