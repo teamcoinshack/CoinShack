@@ -25,20 +25,30 @@ export default class Info extends Component {
       path: null,
       data: null,
       graphDays: 30,
+      alerts: null,
     }
   }
 
-  componentDidMount() {
-    const { navigation } = this.props;
-    const data = navigation.getParam('data', null);
-    const name = navigation.getParam('name', null);
-    const path = navigation.getParam('path', null);
-    // console.log(path);
-    this.setState({
-      name: name,
-      path: path,
-      data: data,
-    });
+  async componentDidMount() {
+    try {
+      const { navigation } = this.props;
+      const data = navigation.getParam('data', null);
+      const name = navigation.getParam('name', null);
+      const path = navigation.getParam('path', null);
+      const uid = navigation.getParam('uid', null);
+      const snap = await db.getData(uid);
+      const alerts = snap.val().alerts === undefined 
+                      ? [] 
+                      : snap.val().alerts[name];
+      this.setState({
+        name: name,
+        path: path,
+        data: data,
+        alerts: alerts
+      });
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   render() {
@@ -129,49 +139,75 @@ export default class Info extends Component {
               isLoading={true}
             />
           </View>
-
-          {/* <View style={styles.description}>
-            <Text style={{
-              color: '#ffffff',
-              fontSize: 15,
-            }}>
-              {this.state.data.description.en}
-            </Text>
-          </View> */}
         </View>
-
         <View style={styles.graphDaysButtons}>
-            <MarketButton
-              text="24H"
-              onPress={() => this.setState({ graphDays: 1 })}
-              height={50}
-              selected={this.state.graphDays === 1}
-            />
-            <MarketButton
-              text="1W"
-              onPress={() => this.setState({ graphDays: 7 })}
-              height={50}
-              selected={this.state.graphDays === 7}
-            />
-            <MarketButton
-              text="15D"
-              onPress={() => this.setState({ graphDays: 15 })}
-              height={50}
-              selected={this.state.graphDays === 15}
-            />
-            <MarketButton
-              text="1M"
-              onPress={() => this.setState({ graphDays: 30 })}
-              height={50}
-              selected={this.state.graphDays === 30}
-            />
+          <MarketButton
+            text="24H"
+            onPress={() => this.setState({ graphDays: 1 })}
+            height={50}
+            selected={this.state.graphDays === 1}
+          />
+          <MarketButton
+            text="1W"
+            onPress={() => this.setState({ graphDays: 7 })}
+            height={50}
+            selected={this.state.graphDays === 7}
+          />
+          <MarketButton
+            text="15D"
+            onPress={() => this.setState({ graphDays: 15 })}
+            height={50}
+            selected={this.state.graphDays === 15}
+          />
+          <MarketButton
+            text="1M"
+            onPress={() => this.setState({ graphDays: 30 })}
+            height={50}
+            selected={this.state.graphDays === 30}
+          />
+        </View>
+        <View style={styles.alerts}>
+          <View style={{ 
+            marginTop: 10,
+            flexDirection: 'row', 
+          }}>
+            <Text style={{ 
+              fontSize: 25, 
+              color: '#ffffff', 
+              fontWeight: 'bold' 
+            }}>
+              Alerts
+            </Text>
           </View>
+          <View style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+          }}>
+            <TouchableOpacity style={{
+              height: 60,
+              width: 60,
+              backgroundColor: background,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+              <Text style={{ fontSize: 40, color: '#ffffff'}}>
+                +
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  alerts: {
+    flexDirection: 'row',
+    marginLeft: 30,
+    marginRight: 16,
+  },
   container: {
     flex: 1,
     alignSelf: "stretch",

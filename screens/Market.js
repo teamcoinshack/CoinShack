@@ -53,6 +53,7 @@ class Market extends Component {
       data: this.state.datas[name],
       name: name,
       path: this.state.paths[name],
+      uid: Firebase.auth().currentUser.uid,
     });
   }
 
