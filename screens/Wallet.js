@@ -7,6 +7,7 @@ import {
   StyleSheet, 
   FlatList, 
   Button, 
+  Dimensions,
   TouchableOpacity,
   RefreshControl, 
 } from 'react-native';
@@ -139,7 +140,11 @@ class Wallet extends Component {
   renderRow({item}) {
     const loading = (
       <View style={styles.loading1}>
-        <ActivityIndicator color="#ffffff" />
+          <MyBar
+            height={65}
+            width={Math.round(Dimensions.get('window').width)}
+            flexStart={true}
+          />
       </View>
     )
     const Icon = (
@@ -199,11 +204,6 @@ class Wallet extends Component {
         </Text>
       </View>
     )
-    const loading2 = (
-      <View style={styles.loading2}>
-        <ActivityIndicator color="#4a4d51" />
-      </View>
-    )
     return (
       <TouchableOpacity 
         style={styles.row}
@@ -223,7 +223,7 @@ class Wallet extends Component {
              : change}
           </View>
           {item.rate === undefined
-            ? loading2
+            ? null
             :walletValue}
         </View>
       </TouchableOpacity>
@@ -234,10 +234,42 @@ class Wallet extends Component {
     const money = db.stringify(Number(this.state.cash).toFixed(2));
     const loading = (
       <View style={styles.loading1}>
-        <ActivityIndicator color="#ffffff" />
+          <MyBar
+            height={65}
+            width={Math.round(Dimensions.get('window').width)}
+          />
       </View>
     )
-    const CashRow = (
+    const CashRow = this.state.cash === null
+    ? (
+      <TouchableOpacity 
+        style={styles.cashRow}
+      >
+        <View style={{ flexDirection: 'row' }}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../assets/icons/cash.png')}
+              style={styles.imageStyle}
+            />
+          </View>
+          <View style={styles.cashName}>
+            <Text style={styles.name}>Cash</Text>
+          </View>
+          <View style={{ 
+            flexDirection: 'column', 
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+          }}>
+            <MyBar
+              height={60}
+              width={Math.round(Dimensions.get('window').width)}
+              flexStart={true}
+            />
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
+    : (
       <TouchableOpacity 
         style={styles.cashRow}
       >

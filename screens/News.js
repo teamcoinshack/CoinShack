@@ -9,9 +9,11 @@ import {
   RefreshControl,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from 'react-native';
 import Firebase from 'firebase';
 import q from '../Query.js';
+import MyBar from '../components/MyBar.js';
 
 const background = '#373b48';
 export default class News extends Component {
@@ -114,9 +116,10 @@ export default class News extends Component {
     if (this.state.refreshing) {
       return (
         <View style={styles.loadingStyle}>
-          <View>
-            <ActivityIndicator color="#999999" />
-          </View>
+          <MyBar
+            height={Math.round(Dimensions.get('window').height)}
+            width={Math.round(Dimensions.get('window').width)}
+          />
         </View>
       )
     }

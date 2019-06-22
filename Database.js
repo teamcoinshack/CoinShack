@@ -16,10 +16,15 @@ export default class Database {
                             .ref('/users/' + id);
       const snap = await this.getData(id);
       const initCash = snap.val().cash;
+      if (snap.val()[stock] === 0 || snap.val()[stock] === undefined) {
+        alert("No cryptocurrency to sell!");
+        return 1;
+      }
       userRef.update({
         cash: initCash + (snap.val()[stock] * rate),
         [stock]: 0,
       });
+      return 0;
     } catch (error) {
       console.log(error);
     }
@@ -56,20 +61,25 @@ export default class Database {
       const initCash = snap.val().cash;
       if (cash > initCash) {
         alert("Not enough cash!");
-        return 0;
+        return 1;
       }
       if (snap.val()[id] === undefined) {
         await this.initAccount(uid, id);
       }
       const initStock = snap.val()[id];
       if (initStock + (cash / rate) < 0) {
-        alert("Not enough stock!");
-        return 0;
+        alert("Not enough cryptocurrency!");
+        return 1;
+      }
+      if (initStock === 0) {
+        alert("No cryptocurrency to sell!");
+        return 1;
       }
       userRef.update({
         cash: initCash - cash,
         [id]: initStock + (cash / rate),
       });
+      return 0;
     } catch (error) {
       console.log(error);
     }

@@ -114,6 +114,8 @@ export default class Info extends Component {
           <View style={{
             marginTop: 20,
             marginBottom: 20,
+            flexDirection: 'column',
+            alignItems: 'center',
           }}>
             <Graph 
               name={this.state.name} 
@@ -122,6 +124,7 @@ export default class Info extends Component {
               tick={5}
               grid={true}
               days={this.state.graphDays}
+              isLoading={true}
             />
           </View>
 

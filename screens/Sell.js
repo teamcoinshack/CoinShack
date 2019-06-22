@@ -39,7 +39,7 @@ export default class Sell extends React.Component {
         -this.state.actualMoneySell,
         this.state.rate,
       )
-      if (res !== 0) {
+      if (res === 0) {
         this.props.navigation.navigate('Main');
       }
     } catch (error) {
@@ -49,12 +49,14 @@ export default class Sell extends React.Component {
 
   async sellAll() {
     try {
-      await db.sellAll(
+      const res = await db.sellAll(
         this.state.uid,
         this.state.id,
         this.state.rate,
       )
-      this.props.navigation.navigate('Main');
+      if (res === 0) {
+        this.props.navigation.navigate('Main');
+      }
     } catch(error) {
       console.log(error);
     }

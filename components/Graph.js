@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { LineChart, Grid } from  'react-native-svg-charts';
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
-import { Dimensions, StyleSheet, View, ActivityIndicator } from 'react-native';
+import { Dimensions, StyleSheet, View, } from 'react-native';
+import MyBar from './MyBar.js';
 
 export default class Graph extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class Graph extends Component {
       height: this.props.height,
       width: this.props.width,
       data: [],
-      isLoading: true,
+      isLoading: this.props.isLoading,
     };
 
     this.fetchStockPrices = this.fetchStockPrices.bind(this);
@@ -30,6 +31,9 @@ export default class Graph extends Component {
   
   async fetchStockPrices(stock) {
     try {
+      this.setState({
+        isLoading: true,
+      });
       const res = await fetch("https://api.coingecko.com/api/v3/coins/" 
                               + this.props.name
                               + "/market_chart?vs_currency=usd&days="
@@ -56,12 +60,12 @@ export default class Graph extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <View style={styles.container}>
-          <ActivityIndicator color="#00ff00" />
-        </View>
+        <MyBar
+          height={this.state.height}
+          width={Math.round(Dimensions.get('window').width)}
+        />
       )
     }
-
     const Gradient = () => (
       <Defs key='gradient'>
         <LinearGradient id='gradient' x1='0' y='0%' x2='100%' y2='0%'>
@@ -87,11 +91,3 @@ export default class Graph extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: Math.round(Dimensions.get('window').width),
-    height: 300, 
-    justifyContent: 'center',
-  }
-})
