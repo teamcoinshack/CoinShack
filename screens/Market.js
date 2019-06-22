@@ -118,12 +118,6 @@ class Market extends Component {
   }
 
   renderRow({item}) {
-    const loading = (
-      <View style={styles.loading}>
-        <ActivityIndicator color="#ffffff" />
-      </View>
-    )
-
     const currentPrice = (
       <Text style={styles.rate}>
         ${db.stringify(Number(item.rate).toFixed(2))}
@@ -150,7 +144,6 @@ class Market extends Component {
         <TouchableOpacity 
           style={styles.row}
         >
-          {loading}
         </TouchableOpacity>
       );
     }
@@ -163,7 +156,7 @@ class Market extends Component {
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
             {item.rate === undefined 
-              ? loading
+              ? null
               : icon}
           </View>
           <View style={styles.nameContainer}>
@@ -171,7 +164,7 @@ class Market extends Component {
           </View>
           <View style={styles.ratesContainer}>
             {item.rate === undefined
-              ? loading
+              ? null
               : currentPrice}
             {item.change === undefined
               ? null
@@ -246,11 +239,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#dbdbdb', 
     fontWeight: '600',
-  },
-  loading: {
-    height: 200,
-    flexDirection: 'row',
-    justifyContent: 'center',
   },
   ratesContainer: {
     flexDirection: 'column',

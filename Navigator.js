@@ -31,6 +31,7 @@ import Buy from './screens/Buy.js';
 import Sell from './screens/Sell.js';
 import InternalWebpage from './screens/InternalWebpage.js';
 import Info from './screens/Info.js';
+import ChangePassword from './screens/ChangePassword.js';
 
 const background = '#373b48';
 
@@ -180,6 +181,21 @@ const marketStack = createStackNavigator({
 const settingsStack = createStackNavigator({
   Settings: {
     screen: Settings,
+    navigationOptions: {
+      title: 'Settings',
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      },
+      headerTintColor: '#ffffff',
+    }
+  },
+  ChangePassword: {
+    screen: ChangePassword,
     navigationOptions: {
       title: 'Settings',
       headerStyle: {

@@ -104,7 +104,9 @@ export default class Info extends Component {
               {icon}
             </View>
             <View style={styles.nameContainer}>
-              <Text style={styles.name}>{this.state.name}</Text>
+              <Text style={styles.name}>
+                {this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1)}
+              </Text>
             </View>
             <View style={styles.ratesContainer}>
               {currentPrice}

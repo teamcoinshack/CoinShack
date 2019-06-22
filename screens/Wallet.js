@@ -70,20 +70,27 @@ class Wallet extends Component {
     }
   }
 
-  onRefresh() {
-    this.setState({
-      current: 0,
-      refreshing: true,
-      totalValue: null,
-      cash: null,
-      currs: [
-        {name: 'bitcoin'},
-        {name: 'ethereum'},
-        {name: 'dash'},
-        {name: 'ripple'},
-        {name: 'litecoin'},
-      ],
-    }, function() { this.refresh() })
+  async onRefresh() {
+    try {
+      await this.setState({
+        state: null,
+      })
+      this.setState({
+        current: 0,
+        refreshing: true,
+        totalValue: null,
+        cash: null,
+        currs: [
+          {name: 'bitcoin'},
+          {name: 'ethereum'},
+          {name: 'dash'},
+          {name: 'ripple'},
+          {name: 'litecoin'},
+        ],
+      }, function() { this.refresh() })
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   async refresh() {

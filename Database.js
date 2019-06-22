@@ -42,6 +42,14 @@ export default class Database {
     });
   }
 
+  static async changePassword(user, newPass) {
+    try {
+      await user.updatePassword(newPass);
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   static initAccount(uid, stock) {
     Firebase.app()
             .database()
