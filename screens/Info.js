@@ -4,6 +4,7 @@ import {
   View, 
   ScrollView,
   ActivityIndicator, 
+  TouchableOpacity,
   StyleSheet, 
   RefreshControl,
   Image,
@@ -74,6 +75,27 @@ export default class Info extends Component {
       </Text>
     );
 
+    const MarketButton = props => (
+      <View style={{height: 50, flex: 1}}>
+        <TouchableOpacity
+          style={props.selected ? styles.selected : styles.button}
+          onPress={props.onPress}
+        >
+          <View style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}>
+            <Text style={{
+              color: '#ffffff',
+              fontSize: 20,
+              fontWeight: '700',}}>
+              {props.text}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+
     return (
       <ScrollView style={styles.container}>
         <View style={styles.row}>
@@ -91,12 +113,13 @@ export default class Info extends Component {
           </View>
           <View style={{
             marginTop: 20,
+            marginBottom: 20,
           }}>
             <Graph 
               name={this.state.name} 
               height={200}
               width={300}
-              tick={10}
+              tick={5}
               grid={true}
               days={this.state.graphDays}
             />
@@ -113,25 +136,29 @@ export default class Info extends Component {
         </View>
 
         <View style={styles.graphDaysButtons}>
-            <MyButton
+            <MarketButton
               text="24H"
               onPress={() => this.setState({ graphDays: 1 })}
-              width={100}
+              height={50}
+              selected={this.state.graphDays === 1}
             />
-            <MyButton
+            <MarketButton
               text="1W"
               onPress={() => this.setState({ graphDays: 7 })}
-              width={100}
+              height={50}
+              selected={this.state.graphDays === 7}
             />
-            <MyButton
+            <MarketButton
               text="15D"
               onPress={() => this.setState({ graphDays: 15 })}
-              width={100}
+              height={50}
+              selected={this.state.graphDays === 15}
             />
-            <MyButton
+            <MarketButton
               text="1M"
               onPress={() => this.setState({ graphDays: 30 })}
-              width={100}
+              height={50}
+              selected={this.state.graphDays === 30}
             />
           </View>
       </ScrollView>
@@ -154,13 +181,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     paddingTop: 15,
-    paddingBottom: 15,
     paddingLeft: 18,
-    paddingRight: 16,
+    paddingRight: 18,
     marginLeft: 14,
     marginRight: 14,
     marginTop: 0,
-    marginBottom: 6,
   },
   imageContainer: {
     flexDirection: 'row',
@@ -203,8 +228,31 @@ const styles = StyleSheet.create({
     color: '#ed4444',
   },
   graphDaysButtons: {
+    flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: 10,
+    justifyContent: 'space-evenly',
+    marginTop: -5,
+    marginLeft: 14,
+    marginRight: 14,
+  },
+  button: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: background,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  selected: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#515360',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
   }
 })
