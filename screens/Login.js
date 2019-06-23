@@ -8,11 +8,11 @@ import {
   Alert,
 } from 'react-native';
 import MyButton from '../components/MyButton.js';
-import { LoginManager, AccessToken } from 'react-native-fbsdk'
+import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { GoogleSignin } from 'react-native-google-signin';
 import config from '../config.js';
 import db from '../Database.js';
 import Firebase from 'firebase';
-import q from '../Query.js';
 
 //Login credentials
 //User: admin@gmail.com
@@ -30,8 +30,8 @@ export default class Login extends React.Component {
       errorMessage: null
     }
 
-    this.fbProvider = new Firebase.auth.FacebookAuthProvider();
-    this.fbProvider.addScope("user_friends");
+    this.googleProvider = new Firebase.auth.GoogleAuthProvider();
+    GoogleSignin.configure();
   }
 
   handleFbLogin = () => {
@@ -46,46 +46,72 @@ export default class Login extends React.Component {
             .then(data => {
               const credential = Firebase
                 .auth
-                .FacebookAuthProvider.credential(data.accessToken);
-              Firebase
+                .FacebookAuthProvider
+                .credential(data.accessToken);
+              return Firebase
                 .auth()
-                .signInWithCredential(credential)
-                .then(result => {
-                  if (result.additionalUserInfo.isNewUser) {
-                    db.initUser(result.user.uid);
-                  }
-                })
-                .then(() => this.props.navigation.navigate('Dashboard'))
-                .catch(error => {
-                  let errorCode = error.code;
-                  let errorMessage = error.message;
-                  // TODO: handle fb login errors
-                  Alert.alert("Login failed", errorMessage);
-                })
+                .signInWithCredential(credential);
+            })
+            .then(result => {
+              if (result.additionalUserInfo.isNewUser) {
+                db.initUser(result.user.uid);
+              }
+            })
+            .then(() => this.props.navigation.navigate('Dashboard'))
+            .catch(error => {
+              let errorCode = error.code;
+              let errorMessage = error.message;
+              // TODO: handle fb login errors
+              Alert.alert("Login failed", errorMessage);
             })
         }
       })
   }
 
+  handleGoogleLogin = () => {
+    GoogleSignin
+      .signIn()
+      .then(data => {
+        const credential = Firebase
+          .auth
+          .GoogleAuthProvider
+          .credential(data.idToken, data.accessToken)
+        return Firebase
+          .auth()
+          .signInWithCredential(credential);
+      })
+      .then(result => {
+        if (result.additionalUserInfo.isNewUser) {
+          db.initUser(result.user.uid);
+        }
+      })
+      .then(() => this.props.navigation.navigate('Dashboard'))
+      .catch(error => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        // TODO: handle google login errors
+        Alert.alert("Login failed", errorMessage);
+      })
+  }
+
   handleLogin = (email, pass) => {
-    success = true;
-    Firebase.auth()
-            .signInWithEmailAndPassword(email, pass)
-            .then(() => (
-              this.props.navigation.navigate('Dashboard')
-            ))
-            .catch(function(error) {
-              success = false;
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              if (errorCode === 'auth/wrong-password') {
-                alert('Incorrect password.');
-              } else if (errorCode === 'auth/invalid-email') {
-                alert('Invalid email! Have you signed up?');
-              } else if (errorCode === 'auth/user-not-found'){
-                alert('User not found. Have you signed up?');
-              }
-            })
+    Firebase
+      .auth()
+      .signInWithEmailAndPassword(email, pass)
+      .then(() => (
+        this.props.navigation.navigate('Dashboard')
+      ))
+      .catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          alert('Incorrect password.');
+        } else if (errorCode === 'auth/invalid-email') {
+          alert('Invalid email! Have you signed up?');
+        } else if (errorCode === 'auth/user-not-found') {
+          alert('User not found. Have you signed up?');
+        }
+      })
   }
 
   goToSignUp = () => {
@@ -142,6 +168,12 @@ export default class Login extends React.Component {
           <MyButton
             text="Facebook Login"
             onPress={this.handleFbLogin}
+            textColor="#00f9ff"
+            width={Math.round(Dimensions.get('window').width) * 0.5}
+          />
+          <MyButton
+            text="Google Login"
+            onPress={this.handleGoogleLogin}
             textColor="#00f9ff"
             width={Math.round(Dimensions.get('window').width) * 0.5}
           />

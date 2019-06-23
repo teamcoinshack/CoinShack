@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "1059449383508",
+    "firebase_url": "https://coinshack-533be.firebaseio.com",
+    "project_id": "coinshack-533be",
+    "storage_bucket": "coinshack-533be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059449383508:android:08e1d475a086a360",
+        "android_client_info": {
+          "package_name": "Coin.Shack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059449383508-d02foaf0fsgvqrjvqds5lh8fimilc93v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "Coin.Shack",
+            "certificate_hash": "f38f0f3eeb03fa807c98a45a8a0c63112deed140"
+          }
+        },
+        {
+          "client_id": "1059449383508-9bauukjp2kc92p6aolrbcsdie9e7aril.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "Coin.Shack",
+            "certificate_hash": "bc33ff79e3488d2ddb9a30195e8e22afcf8e8887"
+          }
+        },
+        {
+          "client_id": "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMvf8bBpWOqiBC3Gc0p2Rt4cSN13MEKt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1059449383508-gm5bjqm6md6ldtu28tp0kbvo90t4cimq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "CoinShack"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059449383508:android:50fbfb72342a0540",
+        "android_client_info": {
+          "package_name": "com.coinshack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059449383508-mb192aqdlbblgaloe49d899nhsm578du.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coinshack",
+            "certificate_hash": "f38f0f3eeb03fa807c98a45a8a0c63112deed140"
+          }
+        },
+        {
+          "client_id": "1059449383508-e9s2ah6rocebkilp96jg0s290sim0ajm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coinshack",
+            "certificate_hash": "bc33ff79e3488d2ddb9a30195e8e22afcf8e8887"
+          }
+        },
+        {
+          "client_id": "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMvf8bBpWOqiBC3Gc0p2Rt4cSN13MEKt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1059449383508-gm5bjqm6md6ldtu28tp0kbvo90t4cimq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "CoinShack"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 18,
     color: '#ffffff',
+    padding: 10,
   },
   inputContainer: {
     borderBottomColor: '#515360',
