@@ -30,6 +30,7 @@ export default class News extends Component {
     this.refresh = this.refresh.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
+    this.timePublished = this.timePublished.bind(this);
   }
   
   load(url) {
@@ -86,6 +87,20 @@ export default class News extends Component {
     }
   }
 
+  timePublished(date) {
+    const published = new Date(date);
+    const now = new Date();
+    const milis = now.getTime();
+    const hour = Math.round((milis - published) / 3600000);
+    if (hour === 0) {
+      return 'now';
+    }
+    if (hour === 1) {
+      return '1 hour ago';
+    }
+    return hour + ' hours ago';
+  }
+
   renderRow({item}) {
     return (
       <TouchableOpacity 
@@ -105,7 +120,7 @@ export default class News extends Component {
           <View style={styles.textStyle}>
             <Text style={{ 
               fontSize: 18, 
-              color: '#a4a9b9', 
+              color: '#bec4d8', 
               fontWeight: '500' 
             }}>
               {item.title}
@@ -119,17 +134,21 @@ export default class News extends Component {
         }}>
           <View style={styles.sourceStyle}>
             <Text style={{
-              fontSize: 15,
-              color: '#ffffff',
-              fontWeight: '500',
+              fontSize: 13,
+              color: '#9196a5',
+              fontWeight: '700',
             }}>
               {item.source.name.toUpperCase().slice(-4) === '.COM'
-                ? item.source.name.toUpperCase().slice(0, -4)
-                : item.source.name.toUpperCase()}
+                ? item.source.name.toUpperCase().slice(0, -4).replace(/ /g, '')
+                : item.source.name.toUpperCase().replace(/ /g, '')}
             </Text>
           </View>
           <View style={styles.timeStyle}>
-            <Text>Time here</Text>
+            <Text style={{
+              fontSize: 15,
+              color: '#9196a5',
+              fontWeight: '600',
+            }}>{this.timePublished(item.publishedAt)}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -170,6 +189,7 @@ const styles = StyleSheet.create({
   sourceStyle: {
     flex: 1,
     alignItems: 'flex-start',
+    paddingTop: 5,
   },
   timeStyle: {
     flex: 1,
@@ -189,7 +209,7 @@ const styles = StyleSheet.create({
     width: Math.round(Dimensions.get('window').width) - 28, 
     alignItems: 'center',
     paddingTop: 15,
-    paddingBottom: 15,
+    paddingBottom: 13,
     paddingLeft: 18,
     paddingRight: 18,
     marginLeft: 14,
