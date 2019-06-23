@@ -85,7 +85,7 @@ export default class Database {
         alert("Not enough cryptocurrency!");
         return 1;
       }
-      if (initStock === 0) {
+      if (initStock === 0 && cash < 0) {
         alert("No cryptocurrency to sell!");
         return 1;
       }
