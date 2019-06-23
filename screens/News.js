@@ -47,8 +47,8 @@ export default class News extends Component {
     try {
       let articles = await q.getNews();
       articles = articles.filter(article =>
-        (article.description.includes("oin") 
-          || article.description.includes("rypto"))
+        (article.title.includes("oin") 
+          || article.title.includes("rypto"))
       )
       names = [];
       newArticles = [];
