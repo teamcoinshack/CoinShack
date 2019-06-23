@@ -40,7 +40,6 @@ export default class News extends Component {
   onRefresh() {
     this.setState({
       refreshing: true,
-      news: [],
     }, function() { this.refresh() })
   }
 
@@ -156,7 +155,7 @@ export default class News extends Component {
   }
 
   render() {
-    if (this.state.refreshing) {
+    if (this.state.news.length === 0) {
       return (
         <View style={styles.loadingStyle}>
           <MyBar
