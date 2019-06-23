@@ -31,7 +31,9 @@ export default class Login extends React.Component {
     }
 
     this.googleProvider = new Firebase.auth.GoogleAuthProvider();
-    GoogleSignin.configure();
+    GoogleSignin.configure({
+      webClientId: "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
+    });
   }
 
   handleFbLogin = () => {
@@ -90,7 +92,7 @@ export default class Login extends React.Component {
         let errorCode = error.code;
         let errorMessage = error.message;
         // TODO: handle google login errors
-        Alert.alert("Login failed", errorMessage);
+        Alert.alert("Login failed", errorCode + " " + errorMessage);
       })
   }
 
