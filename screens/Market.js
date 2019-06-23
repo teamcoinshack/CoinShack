@@ -9,12 +9,14 @@ import {
   RefreshControl,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
 import q from '../Query.js';
+import MyBar from '../components/MyBar.js';
 
 const background = '#373b48';
 
@@ -145,6 +147,17 @@ class Market extends Component {
         <TouchableOpacity 
           style={styles.row}
         >
+          <View style={{ 
+            flexDirection: 'row', 
+          }}>
+            <View style={styles.imageContainer}>
+              {icon}
+            </View>
+          </View>
+          <MyBar
+            height={200}
+            width={Math.round(Dimensions.get('window').width)}
+          />
         </TouchableOpacity>
       );
     }
