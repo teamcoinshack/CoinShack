@@ -41,7 +41,7 @@ export default class Buy extends React.Component {
         this.state.actualMoneyBuy,
         this.state.rate,
       )
-      if (res !== 0) {
+      if (res === 0) {
         this.props.navigation.navigate('Main');
       }
     } catch (error) {

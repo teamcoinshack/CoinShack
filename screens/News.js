@@ -47,7 +47,8 @@ export default class News extends Component {
     try {
       let articles = await q.getNews();
       articles = articles.filter(article =>
-        (article.title.includes("oin") || article.title.includes("rypto"))
+        (article.description.includes("oin") 
+          || article.description.includes("rypto"))
       )
       names = [];
       newArticles = [];
@@ -91,7 +92,10 @@ export default class News extends Component {
         style={styles.row}
         onPress={() => this.load(item.url)}
       >
-        <View style={{ flexDirection: 'row' , justifyContent: 'center',}}>
+        <View style={{ 
+          flexDirection: 'row', 
+          justifyContent: 'center',
+        }}>
           <View style={styles.imageContainer}>
             <Image
               source={{ uri: item.urlToImage }}
@@ -106,6 +110,26 @@ export default class News extends Component {
             }}>
               {item.title}
             </Text>
+          </View>
+        </View>
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingTop: 5,
+        }}>
+          <View style={styles.sourceStyle}>
+            <Text style={{
+              fontSize: 15,
+              color: '#ffffff',
+              fontWeight: '500',
+            }}>
+              {item.source.name.toUpperCase().slice(-4) === '.COM'
+                ? item.source.name.toUpperCase().slice(0, -4)
+                : item.source.name.toUpperCase()}
+            </Text>
+          </View>
+          <View style={styles.timeStyle}>
+            <Text>Time here</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -143,6 +167,14 @@ export default class News extends Component {
 }
 
 const styles = StyleSheet.create({
+  sourceStyle: {
+    flex: 1,
+    alignItems: 'flex-start',
+  },
+  timeStyle: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
   loadingStyle: {
     flex: 1,
     backgroundColor: background,
@@ -153,22 +185,20 @@ const styles = StyleSheet.create({
     elevation: 1,
     borderRadius: 5,
     backgroundColor: '#515360',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    width: Math.round(Dimensions.get('window').width) - 28, 
     alignItems: 'center',
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft: 18,
-    paddingRight: 16,
+    paddingRight: 18,
     marginLeft: 14,
     marginRight: 14,
     marginTop: 0,
     marginBottom: 12,
   },
   imageContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'center',
   },
   imageStyle: {
     width: 80,
