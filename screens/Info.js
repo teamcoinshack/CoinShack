@@ -9,8 +9,10 @@ import {
   RefreshControl,
   Dimensions,
   Image,
+  FlatList,
   TextInput,
 } from 'react-native';
+import Firebase from 'firebase';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import MyButton from '../components/MyButton.js';
 import Graph from '../components/Graph.js';
@@ -27,11 +29,13 @@ export default class Info extends Component {
       name: null,
       path: null,
       data: null,
+      rate: null,
       graphDays: 30,
       alerts: null,
       alertValue: '',
     }
     this.addAlert = this.addAlert.bind(this);
+    this.renderRow = this.renderRow.bind(this);
   }
 
   async componentDidMount() {
@@ -41,14 +45,13 @@ export default class Info extends Component {
       const name = navigation.getParam('name', null);
       const path = navigation.getParam('path', null);
       const uid = navigation.getParam('uid', null);
-      const snap = await db.getData(uid);
-      const alerts = snap.val().alerts === undefined 
-                      ? [] 
-                      : snap.val().alerts[name];
+      const rate = data.market_data.current_price.usd.toFixed(2);
+      const alerts = await db.getAlerts(uid, name);
       this.setState({
         name: name,
         path: path,
         data: data,
+        rate: rate,
         alerts: alerts
       });
     } catch(error) {
@@ -57,7 +60,33 @@ export default class Info extends Component {
   }
 
   async addAlert() {
-    
+    try {
+      if (this.state.alertValue <= 0) {
+        alert('Invalid Price!');
+        return;
+      }
+      await db.addAlert(
+        this.state.name,
+        Firebase.auth().currentUser.uid,
+        this.state.alertValue,
+        this.state.alertValue > this.state.rate,
+        true
+      );
+      this.RBSheet.close();
+      //refresh alerts
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  renderRow({item}) {
+    return (
+      <View style={styles.alertRow}>
+        <View style={{ flexDirection: 'row' }}>
+          <Text>{item.price}</Text>
+        </View>
+      </View>
+    )
   }
 
   render() {
@@ -72,13 +101,9 @@ export default class Info extends Component {
       />
     );
 
-    const rate = this.state.data === null 
-                 ? undefined
-                 : Number(this.state.data.market_data.current_price.usd).toFixed(2);
-
     const currentPrice = (
       <Text style={styles.rate}>
-        ${db.stringify(rate)}
+        ${db.stringify(this.state.rate)}
       </Text>
     );
 
@@ -127,7 +152,7 @@ export default class Info extends Component {
         <View style={styles.currentPriceContainer}>
           <View>
             <Text style={styles.currentPrice}>
-              {this.state.data.symbol.toUpperCase()} is at ${db.stringify(rate)}
+              {this.state.data.symbol.toUpperCase()} is at ${db.stringify(this.state.rate)}
             </Text>
           </View>
         </View>
@@ -138,7 +163,7 @@ export default class Info extends Component {
             </Text>
             {this.state.alertValue === ''
               ? null
-              : Number(this.state.alertValue) >= rate
+              : Number(this.state.alertValue) >= this.state.rate
                 ? above
                 : below}
           </View>
@@ -239,36 +264,45 @@ export default class Info extends Component {
         </View>
         <View style={styles.alerts}>
           <View style={{ 
-            marginTop: 10,
+            marginTop: 5,
             flexDirection: 'row', 
+            alignItems: 'center',
           }}>
             <Text style={{ 
+              marginLeft: 5,
               fontSize: 25, 
               color: '#ffffff', 
-              fontWeight: 'bold' 
+              fontWeight: 'bold', 
             }}>
               Alerts
             </Text>
+            <View style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+            }}>
+              <TouchableOpacity 
+                style={{
+                  height: 60,
+                  width: 60,
+                  backgroundColor: background,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}
+                onPress={() => this.RBSheet.open()}
+              >
+                <Text style={{ fontSize: 40, color: '#ffffff'}}>
+                  +
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-          }}>
-            <TouchableOpacity 
-              style={{
-                height: 60,
-                width: 60,
-                backgroundColor: background,
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}
-              onPress={() => this.RBSheet.open()}
-            >
-              <Text style={{ fontSize: 40, color: '#ffffff'}}>
-                +
-              </Text>
-            </TouchableOpacity>
+            <FlatList
+              style={styles.flatStyle}
+              data={this.state.alerts}
+              renderItem={this.renderRow}
+              keyExtractor={item => item.price}
+            />
             <RBSheet
               ref={ref => {
                 this.RBSheet = ref;
@@ -285,7 +319,6 @@ export default class Info extends Component {
             >
               {AlertSheet}
             </RBSheet>
-          </View>
         </View>
       </ScrollView>
     )
@@ -294,9 +327,9 @@ export default class Info extends Component {
 
 const styles = StyleSheet.create({
   alerts: {
-    flexDirection: 'row',
-    marginLeft: 30,
-    marginRight: 16,
+    flexDirection: 'column',
+    marginLeft: 14,
+    marginRight: 14,
   },
   container: {
     flex: 1,
@@ -316,6 +349,18 @@ const styles = StyleSheet.create({
     marginLeft: 14,
     marginRight: 14,
     marginTop: 0,
+  },
+  alertRow: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#515360',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    paddingTop: 15,
+    paddingLeft: 18,
+    paddingRight: 18,
+    marginTop: 10,
   },
   imageContainer: {
     flexDirection: 'row',

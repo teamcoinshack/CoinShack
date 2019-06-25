@@ -42,9 +42,69 @@ export default class Database {
       alerts: {
         bitcoin: 0,
         ethereum: 0,
-
+        dash: 0,
+        ripple: 0,
+        litecoin: 0,
       }
     });
+  }
+  
+  static async addAlert(name, uid, price, notifyWhenAbove, active) {
+    try {
+      const snap = await Firebase.app()
+                                 .database()
+                                 .ref('/users/' + uid)
+                                 .once('value')
+      const alerts = snap.val().alerts[name];
+      if (alerts === 0) {
+        //no alerts yet. Create an array and insert
+        let arr = [];
+        arr.push({
+          price: price,
+          notifyWhenAbove: notifyWhenAbove,
+          active: active,
+        });
+        let userRef = Firebase.app()
+                              .database()
+                              .ref('/users/' + uid + '/alerts/');
+        userRef.update({
+          [name]: arr,
+        });
+        return 0;
+      } else {
+        //take old array, append new alert, push new array back
+        alerts.push({
+          price: price,
+          notifyWhenAbove: notifyWhenAbove,
+          active: active,
+        });
+        let userRef = Firebase.app()
+                              .database()
+                              .ref('/users/' + uid + '/alerts/');
+        userRef.update({
+          [name]: alerts,
+        });
+        return 0;
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  static async getAlerts(uid, name) {
+    try {
+      const snap = await Firebase.app()
+                                 .database()
+                                 .ref('/users/' + uid)
+                                 .once('value')
+      const alerts = snap.val().alerts[name];
+      if (alerts === 0) {
+        return [];
+      }
+      return alerts;
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   static async changePassword(user, newPass) {
@@ -68,7 +128,6 @@ export default class Database {
       let userRef = Firebase.app()
                             .database()
                             .ref('/users/' + uid);
-      console.log(uid);
       const snap = await this.getData(uid);
       console.log(snap.val());
       const initCash = snap.val().cash;
