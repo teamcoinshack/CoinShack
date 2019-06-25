@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
   StyleSheet, 
   RefreshControl,
+  Dimensions,
   Image,
+  TextInput,
 } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import AlertSheet from '../components/AddAlertSheet.js';
 import MyButton from '../components/MyButton.js';
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
@@ -28,6 +29,7 @@ export default class Info extends Component {
       data: null,
       graphDays: 30,
       alerts: null,
+      alertValue: '',
     }
     this.addAlert = this.addAlert.bind(this);
   }
@@ -54,7 +56,8 @@ export default class Info extends Component {
     }
   }
 
-  addAlert() {
+  async addAlert() {
+    
   }
 
   render() {
@@ -109,6 +112,68 @@ export default class Info extends Component {
             </Text>
           </View>
         </TouchableOpacity>
+      </View>
+    )
+    const above = (
+      <Text style={styles.wildcard}> above</Text>
+    )
+
+    const below = (
+      <Text style={styles.wildcard}> below</Text>
+    )
+
+    const AlertSheet = (
+      <View style={styles.RBcontainer}>
+        <View style={styles.currentPriceContainer}>
+          <View>
+            <Text style={styles.currentPrice}>
+              {this.state.data.symbol.toUpperCase()} is at ${db.stringify(rate)}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.messageContainer}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.message1}>
+              Alert me when the price is
+            </Text>
+            {this.state.alertValue === ''
+              ? null
+              : Number(this.state.alertValue) >= rate
+                ? above
+                : below}
+          </View>
+          <View style={styles.alertValueContainer}>
+            <Text style={styles.message1}>$</Text>
+            <TextInput
+              style={styles.textInput}
+              autoCapitalize="none"
+              keyboardType='numeric'
+              placeholderTextColor='#919191'
+              placeholder={ this.state.alertValue === ''
+                          ? '0.00'
+                          : this.state.alertValue} 
+              onChangeText={value => this.setState({
+                alertValue: db.unStringify(value),
+              })}
+              value={db.stringify(String(this.state.alertValue))}
+            />
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              style={styles.buttonRow}
+              onPress={this.addAlert}
+            >
+              <View style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}>
+                <Text style={{ color: '#14ffb0', fontSize: 20, fontWeight: '700', }}>
+                  Add Alert
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     )
 
@@ -218,7 +283,7 @@ export default class Info extends Component {
                 }
               }}
             >
-              <AlertSheet rate={rate} />
+              {AlertSheet}
             </RBSheet>
           </View>
         </View>
@@ -235,7 +300,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    alignSelf: "stretch",
     backgroundColor: background,
     flexDirection: 'column',
   },
@@ -320,5 +384,68 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-  }
+  },
+  RBcontainer: {
+    width: Math.round(Dimensions.get('window').width),
+    flex: 1,
+  },
+  currentPrice: {
+    fontSize: 23,
+    color: '#dbdbdb',
+    fontWeight: '600',
+  },
+  currentPriceContainer: {
+    margin: 20,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  rateContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  messageContainer: {
+    flexDirection: 'column',
+    margin: 20,
+    marginTop: 0,
+    alignItems: 'flex-start',
+  },
+  message1: {
+    fontSize: 20,
+    color: '#dbdbdb',
+    fontWeight: '500',
+  },
+  textInput: {
+    marginLeft: 3,
+    textAlign: 'center',
+    fontSize: 30,
+    alignItems: 'center',
+    color: '#ffffff',
+  },
+  wildcard: {
+    fontSize: 20,
+    color: '#7d96e8',
+    fontWeight: '500',
+  },
+  buttonRow: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#515360',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
+    margin: 20,
+  },
+  alertValueContainer: {
+    borderBottomColor: '#515360',
+    borderBottomWidth: 3,
+    width: Math.round(Dimensions.get('window').width) - 40,
+    marginTop: 5,
+    flexDirection: 'row',
+  },
 })
