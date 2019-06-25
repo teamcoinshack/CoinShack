@@ -40,11 +40,9 @@ export default class Database {
     userRef.set({
       cash: 1000000.00,
       alerts: {
-        BTC: [],
-        ETH: [],
-        DASH: [],
-        XRP: [],
-        LTC: [],
+        bitcoin: 0,
+        ethereum: 0,
+
       }
     });
   }

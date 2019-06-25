@@ -17,6 +17,7 @@ import Graph from '../components/Graph.js';
 import db from '../Database.js';
 import q from '../Query.js';
 import MyBar from '../components/MyBar.js';
+import Masterlist from '../Masterlist.js';
 
 const background = '#373b48';
 
@@ -25,13 +26,7 @@ class Market extends Component {
     super(props);
 
     this.state = {
-      currs: [
-        {name: 'bitcoin'},
-        {name: 'ethereum'},
-        {name: 'dash'},
-        {name: 'ripple'},
-        {name: 'litecoin'},
-      ],
+      currs: Masterlist.map(a => Object.assign({}, a)),
       datas: {},
       paths: {
         bitcoin: require('../assets/icons/BTC.png'),
@@ -80,13 +75,7 @@ class Market extends Component {
   onRefresh() {
     this.setState({
       refreshing: true,
-      currs: [
-        {name: 'bitcoin'},
-        {name: 'ethereum'},
-        {name: 'dash'},
-        {name: 'ripple'},
-        {name: 'litecoin'},
-      ],
+      currs: Masterlist,
     }, function() { this.refresh() })
   }
 

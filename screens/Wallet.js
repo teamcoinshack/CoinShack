@@ -16,6 +16,7 @@ import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from '../Database.js';
 import q from '../Query.js';
+import Masterlist from '../Masterlist.js';
 
 const background = '#373b48';
 
@@ -27,13 +28,7 @@ class Wallet extends Component {
     this.state = {
       uid: '',
       cash: null,
-      currs: [
-        {name: 'bitcoin'},
-        {name: 'ethereum'},
-        {name: 'dash'},
-        {name: 'ripple'},
-        {name: 'litecoin'},
-      ],
+      currs: Masterlist.map(a => Object.assign({}, a)),
       paths: {
         bitcoin: require('../assets/icons/BTC.png'),
         ethereum: require('../assets/icons/ETH.png'),
@@ -80,13 +75,7 @@ class Wallet extends Component {
         refreshing: true,
         totalValue: null,
         cash: null,
-        currs: [
-          {name: 'bitcoin'},
-          {name: 'ethereum'},
-          {name: 'dash'},
-          {name: 'ripple'},
-          {name: 'litecoin'},
-        ],
+        currs: Masterlist.map(a => Object.assign({}, a)),
       }, function() { this.refresh() })
     } catch(error) {
       console.log(error);

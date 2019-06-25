@@ -27,6 +27,7 @@ export default class Info extends Component {
       graphDays: 30,
       alerts: null,
     }
+    this.addAlert = this.addAlert.bind(this);
   }
 
   async componentDidMount() {
@@ -49,6 +50,9 @@ export default class Info extends Component {
     } catch(error) {
       console.log(error);
     }
+  }
+
+  addAlert() {
   }
 
   render() {
@@ -184,13 +188,16 @@ export default class Info extends Component {
             flexDirection: 'row',
             justifyContent: 'flex-end',
           }}>
-            <TouchableOpacity style={{
-              height: 60,
-              width: 60,
-              backgroundColor: background,
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
+            <TouchableOpacity 
+              style={{
+                height: 60,
+                width: 60,
+                backgroundColor: background,
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}
+              onPress={this.addAlert}
+            >
               <Text style={{ fontSize: 40, color: '#ffffff'}}>
                 +
               </Text>
