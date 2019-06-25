@@ -70,7 +70,7 @@ export default class Login extends React.Component {
       })
   }
 
-  handleGoogleLogin = () => {
+  handleGoogleLogin = () => { // should probably auto signout
     GoogleSignin
       .signIn()
       .then(data => {
