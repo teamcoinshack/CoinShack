@@ -9,6 +9,8 @@ import {
   RefreshControl,
   Image,
 } from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import AlertSheet from '../components/AddAlertSheet.js';
 import MyButton from '../components/MyButton.js';
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
@@ -196,12 +198,28 @@ export default class Info extends Component {
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}
-              onPress={this.addAlert}
+              onPress={() => this.RBSheet.open()}
             >
               <Text style={{ fontSize: 40, color: '#ffffff'}}>
                 +
               </Text>
             </TouchableOpacity>
+            <RBSheet
+              ref={ref => {
+                this.RBSheet = ref;
+              }}
+              height={300}
+              duration={250}
+              customStyles={{
+                container: {
+                  backgroundColor: background,
+                  justifyContent: 'center',
+                  alignItems: 'flex-start',
+                }
+              }}
+            >
+              <AlertSheet rate={rate} />
+            </RBSheet>
           </View>
         </View>
       </ScrollView>
