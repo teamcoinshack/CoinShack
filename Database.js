@@ -110,9 +110,15 @@ export default class Database {
       let userRef = Firebase.app()
                             .database()
                             .ref('/users/' + uid + '/alerts/');
-      userRef.update({
-        [name]: alerts,
-      });
+      if (alerts.length === 0) {
+        userRef.update({
+          [name]: 0.
+        });
+      } else {
+        userRef.update({
+          [name]: alerts,
+        });
+      }
       return 0;
     } catch(error) {
       console.log(error);
