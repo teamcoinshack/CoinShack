@@ -69,6 +69,7 @@ export default class Graph extends Component {
         />
       )
     }
+    
     const Gradient = () => (
       <Defs key='gradient'>
         <LinearGradient id='gradient' x1='0' y='0%' x2='100%' y2='0%'>
@@ -76,21 +77,21 @@ export default class Graph extends Component {
           <Stop offset='100%' stopColor='#5afee8'/>
         </LinearGradient>
       </Defs>
-    )
+    );
 
     return (
-        <LineChart
-            style={{ height: this.props.height, width: this.props.width }}
-            data={ this.state.data }
-            svg={{ 
-              stroke: 'url(#gradient)', 
-              strokeWidth: 2,  
-            }}
-            contentInset={{ top: 20, bottom: 20 }}
-        >
-          <Gradient/>
-          {this.props.grid ? <Grid /> : null}
-        </LineChart>
-    )
+      <LineChart
+        style={{ height: this.props.height, width: this.props.width }}
+        data={this.state.data}
+        svg={{
+          stroke: 'url(#gradient)',
+          strokeWidth: 2,
+        }}
+        contentInset={{ top: 20, bottom: 20 }}
+      >
+        <Gradient />
+        {this.props.grid ? <Grid /> : null}
+      </LineChart>
+    );
   }
 }

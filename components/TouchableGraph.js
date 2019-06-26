@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LineChart, Grid } from  'react-native-svg-charts';
+import { VictoryChart, VictoryLine } from 'victory-native';
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
 import { Dimensions, StyleSheet, View, } from 'react-native';
 import MyBar from './MyBar.js';
@@ -70,29 +70,15 @@ export default class TouchableGraph extends Component {
         />
       )
     }
-    const Gradient = () => (
-      <Defs key='gradient'>
-        <LinearGradient id='gradient' x1='0' y='0%' x2='100%' y2='0%'>
-          <Stop offset='0%' stopColor='#fefb5a'/>
-          <Stop offset='100%' stopColor='#5afee8'/>
-        </LinearGradient>
-      </Defs>
-    )
 
     return (
-        <LineChart
-            style={{ height: this.props.height, width: this.props.width }}
-            data={ this.state.data }
-            svg={{ 
-              stroke: 'url(#gradient)', 
-              strokeWidth: 2,  
-            }}
-            contentInset={{ top: 20, bottom: 20 }}
-        >
-          <Gradient/>
-          {this.props.grid ? <Grid /> : null}
-          <GraphCursor/>
-        </LineChart>
-    )
+      <VictoryChart>
+        <VictoryLine
+          data={this.state.data}
+          x={0}
+          y={1}
+        />
+      </VictoryChart>
+    );
   }
 }

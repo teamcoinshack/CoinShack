@@ -321,7 +321,7 @@ export default class Info extends Component {
             </RBSheet>
         </View>
       </ScrollView>
-    )
+    );
   }
 }
 
