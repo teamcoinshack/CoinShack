@@ -18,13 +18,12 @@
     "react-native-google-signin": "^2.0.0",
     "react-native-progress": "^3.6.0",
     "react-native-raw-bottom-sheet": "^2.0.2",
-    "react-native-reanimated": "^1.1.0",
-    "react-native-redash": "^6.3.1",
     "react-native-svg": "^9.4.0",
     "react-native-svg-charts": "^5.2.0",
     "react-native-vector-icons": "^6.4.2",
     "react-native-webview": "^5.11.0",
     "react-navigation": "^3.9.2",
+    "victory-native": "^32.0.2",
     "xcode": "^2.0.0"
   },
   "devDependencies": {

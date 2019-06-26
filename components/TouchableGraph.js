@@ -4,7 +4,6 @@ import { Defs, LinearGradient, Stop } from 'react-native-svg';
 import { Dimensions, StyleSheet, View, } from 'react-native';
 import MyBar from './MyBar.js';
 
-
 // TODO
 export default class TouchableGraph extends Component {
   constructor(props) {
@@ -92,6 +91,7 @@ export default class TouchableGraph extends Component {
         >
           <Gradient/>
           {this.props.grid ? <Grid /> : null}
+          <GraphCursor/>
         </LineChart>
     )
   }
