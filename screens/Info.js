@@ -13,6 +13,7 @@ import {
   TextInput,
 } from 'react-native';
 import Firebase from 'firebase';
+import Swipeable from 'react-native-swipeable';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import MyButton from '../components/MyButton.js';
 import Graph from '../components/Graph.js';
@@ -26,6 +27,7 @@ export default class Info extends Component {
     super(props);
 
     this.state = {
+      uid: null,
       name: null,
       path: null,
       data: null,
@@ -36,6 +38,8 @@ export default class Info extends Component {
     }
     this.addAlert = this.addAlert.bind(this);
     this.renderRow = this.renderRow.bind(this);
+    this.refreshAlerts = this.refreshAlerts.bind(this);
+    this.deleteAlert = this.deleteAlert.bind(this);
   }
 
   async componentDidMount() {
@@ -48,6 +52,7 @@ export default class Info extends Component {
       const rate = data.market_data.current_price.usd.toFixed(2);
       const alerts = await db.getAlerts(uid, name);
       this.setState({
+        uid: uid,
         name: name,
         path: path,
         data: data,
@@ -65,6 +70,7 @@ export default class Info extends Component {
         alert('Invalid Price!');
         return;
       }
+      this.RBSheet.close();
       await db.addAlert(
         this.state.name,
         Firebase.auth().currentUser.uid,
@@ -72,26 +78,73 @@ export default class Info extends Component {
         this.state.alertValue > this.state.rate,
         true
       );
-      this.RBSheet.close();
+      this.setState({
+        alertValue: '',
+      })
       //refresh alerts
+      this.refreshAlerts();
+    } catch(error) {
+      console.log(error);
+    }
+  }
+  
+  async deleteAlert(index) {
+    try {
+      await db.deleteAlert(this.state.uid, index, this.state.name);
+      this.refreshAlerts();
     } catch(error) {
       console.log(error);
     }
   }
 
   renderRow({item}) {
+    const rightButtons = [
+      <TouchableOpacity 
+        style={styles.deleteButton}
+        onPress={() => this.deleteAlert(item.index)} 
+      >
+        <Image
+          source={require('../assets/icons/trash.png')}
+          style={styles.imageStyle}
+        />
+      </TouchableOpacity>
+    ]
+    const direction = item.notifyWhenAbove ? 'above ' : 'below ';
+
     return (
-      <View style={styles.alertRow}>
-        <View style={{ flexDirection: 'row' }}>
-          <Text>{item.price}</Text>
+      <Swipeable 
+        rightButtons={rightButtons}
+      >
+        <View style={styles.alertRow}>
+          <View style={{ 
+            flexDirection: 'row',
+            alignItems: 'center',
+
+          }}>
+            <Text style={styles.alertDetail}>
+              {this.state.data.symbol.toUpperCase()} is 
+              {' ' + direction + db.stringify(item.price)}
+            </Text>
+          </View>
         </View>
-      </View>
+      </Swipeable>
     )
+  }
+
+  async refreshAlerts() {
+    try {
+      const alerts = await db.getAlerts(this.state.uid, this.state.name);
+      this.setState({
+        alerts: alerts
+      });
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   render() {
     if (this.state.data === null || this.state.data === undefined) {
-      return null;
+      return (<View style={styles.container}></View>);
     }
 
     const icon = (
@@ -201,6 +254,30 @@ export default class Info extends Component {
         </View>
       </View>
     )
+    const noAlerts = (
+      <View style={{
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'center',
+      }}>
+        <Text style={{
+          color: '#7c7c7c',
+          fontWeight: '500',
+          fontSize: 23,
+        }}>
+          No alerts to show
+        </Text>
+      </View>
+    )
+
+    const alertList = (
+      <FlatList
+        style={styles.flatStyle}
+        data={this.state.alerts}
+        renderItem={this.renderRow}
+        keyExtractor={item => item.price}
+      />
+    )
 
     return (
       <ScrollView style={styles.container}>
@@ -297,12 +374,9 @@ export default class Info extends Component {
               </TouchableOpacity>
             </View>
           </View>
-            <FlatList
-              style={styles.flatStyle}
-              data={this.state.alerts}
-              renderItem={this.renderRow}
-              keyExtractor={item => item.price}
-            />
+          {this.state.alerts.length === 0
+           ? noAlerts
+           : alertList}
             <RBSheet
               ref={ref => {
                 this.RBSheet = ref;
@@ -350,6 +424,19 @@ const styles = StyleSheet.create({
     marginRight: 14,
     marginTop: 0,
   },
+  deleteButton: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#e55b6e',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 18,
+    marginTop: 10,
+  },
   alertRow: {
     elevation: 1,
     borderRadius: 5,
@@ -358,6 +445,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     paddingTop: 15,
+    paddingBottom: 15,
     paddingLeft: 18,
     paddingRight: 18,
     marginTop: 10,
@@ -493,4 +581,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     flexDirection: 'row',
   },
+  alertDetail: {
+    color: '#dbdbdb',
+    fontWeight: '500',
+    fontSize: 20,
+  },
+  imageStyle: {
+    height: 30,
+    width: 30,
+  }
 })

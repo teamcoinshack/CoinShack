@@ -60,6 +60,7 @@ export default class Database {
         //no alerts yet. Create an array and insert
         let arr = [];
         arr.push({
+          index: 0,
           price: price,
           notifyWhenAbove: notifyWhenAbove,
           active: active,
@@ -77,6 +78,7 @@ export default class Database {
           price: price,
           notifyWhenAbove: notifyWhenAbove,
           active: active,
+          index: alerts.length,
         });
         let userRef = Firebase.app()
                               .database()
@@ -86,6 +88,38 @@ export default class Database {
         });
         return 0;
       }
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  static async deleteAlert(uid, index, name) {
+    try {
+      const snap = await Firebase.app()
+                                 .database()
+                                 .ref('/users/' + uid)
+                                 .once('value')
+      let alerts = snap.val().alerts[name];
+      console.log(alerts);
+      alerts.splice(index, 1);
+      for (let i = 0; i < alerts.length; i++) {
+        let obj = alerts[i];
+        obj.index = i;
+        alerts[i] = obj;
+      }
+      let userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + uid + '/alerts/');
+      if (alerts.length === 0) {
+        userRef.update({
+          [name]: 0.
+        });
+      } else {
+        userRef.update({
+          [name]: alerts,
+        });
+      }
+      return 0;
     } catch(error) {
       console.log(error);
     }
