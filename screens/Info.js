@@ -78,6 +78,9 @@ export default class Info extends Component {
         this.state.alertValue > this.state.rate,
         true
       );
+      this.setState({
+        alertValue: '',
+      })
       //refresh alerts
       this.refreshAlerts();
     } catch(error) {
@@ -251,6 +254,30 @@ export default class Info extends Component {
         </View>
       </View>
     )
+    const noAlerts = (
+      <View style={{
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'center',
+      }}>
+        <Text style={{
+          color: '#7c7c7c',
+          fontWeight: '500',
+          fontSize: 23,
+        }}>
+          No alerts to show
+        </Text>
+      </View>
+    )
+
+    const alertList = (
+      <FlatList
+        style={styles.flatStyle}
+        data={this.state.alerts}
+        renderItem={this.renderRow}
+        keyExtractor={item => item.price}
+      />
+    )
 
     return (
       <ScrollView style={styles.container}>
@@ -347,12 +374,9 @@ export default class Info extends Component {
               </TouchableOpacity>
             </View>
           </View>
-            <FlatList
-              style={styles.flatStyle}
-              data={this.state.alerts}
-              renderItem={this.renderRow}
-              keyExtractor={item => item.price}
-            />
+          {this.state.alerts.length === 0
+           ? noAlerts
+           : alertList}
             <RBSheet
               ref={ref => {
                 this.RBSheet = ref;
