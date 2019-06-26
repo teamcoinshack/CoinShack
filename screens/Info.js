@@ -100,7 +100,10 @@ export default class Info extends Component {
         style={styles.deleteButton}
         onPress={() => this.deleteAlert(item.index)} 
       >
-        <Text>Delete</Text>
+        <Image
+          source={require('../assets/icons/trash.png')}
+          style={styles.imageStyle}
+        />
       </TouchableOpacity>
     ]
     const direction = item.notifyWhenAbove ? 'above ' : 'below ';
@@ -108,7 +111,6 @@ export default class Info extends Component {
     return (
       <Swipeable 
         rightButtons={rightButtons}
-        rightActionActivationDistance={20}
       >
         <View style={styles.alertRow}>
           <View style={{ 
@@ -404,7 +406,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e55b6e',
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft: 18,
@@ -559,5 +561,9 @@ const styles = StyleSheet.create({
     color: '#dbdbdb',
     fontWeight: '500',
     fontSize: 20,
+  },
+  imageStyle: {
+    height: 30,
+    width: 30,
   }
 })
