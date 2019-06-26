@@ -16,6 +16,7 @@ import Firebase from 'firebase';
 import Swipeable from 'react-native-swipeable';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import MyButton from '../components/MyButton.js';
+import TouchableGraph from '../components/TouchableGraph';
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
 
@@ -302,7 +303,7 @@ export default class Info extends Component {
             flexDirection: 'column',
             alignItems: 'center',
           }}>
-            <Graph 
+            <TouchableGraph
               name={this.state.name} 
               height={200}
               width={300}

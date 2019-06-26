@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VictoryChart, VictoryLine } from 'victory-native';
+import { VictoryChart, VictoryLine, VictoryVoronoiContainer, VictoryTooltip } from 'victory-native';
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
 import { Dimensions, StyleSheet, View, } from 'react-native';
 import MyBar from './MyBar.js';
@@ -71,10 +71,21 @@ export default class TouchableGraph extends Component {
       )
     }
 
+    // TODO FIX STYLING AND CHANGE TOOLBOX CONTENT
+    // NOW TESTING FIRST
     return (
-      <VictoryChart>
+      <VictoryChart
+        containerComponent={
+          <VictoryVoronoiContainer
+            labels={d => {
+              console.log(d);
+              return `x: ${d._x} y: ${d._y}`}} // to change, testing
+            labelComponent={<VictoryTooltip cornerRadius={0} flyoutStyle={{fill: "white"}}/>}
+          />
+        }
+      >
         <VictoryLine
-          data={this.state.data}
+          data={this.state.data} // need to change data to fit x and y
           x={0}
           y={1}
         />
