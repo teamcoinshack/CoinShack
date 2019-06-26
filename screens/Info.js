@@ -91,7 +91,7 @@ export default class Info extends Component {
 
   render() {
     if (this.state.data === null || this.state.data === undefined) {
-      return null;
+      return (<View style={styles.container}></View>);
     }
 
     const icon = (
