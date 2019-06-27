@@ -1,6 +1,8 @@
 import React from 'react';
 import {
   TextInput, 
+  TouchableOpacity,
+  Image,
   Text, 
   View, 
   StyleSheet, 
@@ -165,25 +167,29 @@ export default class Login extends React.Component {
               this.state.password
             )}
             textColor="#00f9ff"
-            width={Math.round(Dimensions.get('window').width) * 0.5}
+            width={Math.round(Dimensions.get('window').width) * 0.7}
           />
           <MyButton
+            path={require('../assets/icons/fb.png')}
+            image={true}
             text="Facebook Login"
             onPress={this.handleFbLogin}
             textColor="#00f9ff"
-            width={Math.round(Dimensions.get('window').width) * 0.5}
+            width={Math.round(Dimensions.get('window').width) * 0.7}
           />
           <MyButton
+            path={require('../assets/icons/google.png')}
+            image={true}
             text="Google Login"
             onPress={this.handleGoogleLogin}
             textColor="#00f9ff"
-            width={Math.round(Dimensions.get('window').width) * 0.5}
+            width={Math.round(Dimensions.get('window').width) * 0.7}
           />
           <MyButton
             text="Sign Up"
             onPress={this.goToSignUp}
             textColor="#00f9ff"
-            width={Math.round(Dimensions.get('window').width) * 0.5}
+            width={Math.round(Dimensions.get('window').width) * 0.7}
           />
         </View>
       </View>

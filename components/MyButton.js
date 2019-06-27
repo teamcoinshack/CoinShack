@@ -1,7 +1,19 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { 
+  TouchableOpacity, 
+  StyleSheet, 
+  Text, 
+  View,
+  Image,
+} from 'react-native';
 
 export default MyButton = props => {
+  const image = (
+    <Image 
+      source={props.path}
+      style={styles.imageStyle}
+    />
+  );
   return (
     <View style={{height: props.height, width: props.width}}>
       <TouchableOpacity
@@ -10,9 +22,23 @@ export default MyButton = props => {
       >
         <View style={{
           flexDirection: 'row',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
         }}>
-          <Text style={{ color: props.textColor, fontSize: 20, fontWeight: '700' }}>
+          {props.image ? image : null}
+        </View>
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flex: 1,
+        }}>
+         <Text 
+            style={{ 
+              color: props.textColor, 
+              fontSize: 20, 
+              fontWeight: '700' 
+            }}>
             {props.text}
           </Text> 
         </View>
@@ -34,9 +60,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#515360',
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 10,
-    margin: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
+  imageStyle: {
+    height: 45,
+    width: 45,
+  }
 });

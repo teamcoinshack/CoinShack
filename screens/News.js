@@ -111,7 +111,7 @@ export default class News extends Component {
           justifyContent: 'center',
         }}>
           <View style={styles.imageContainer}>
-            { item.urlToImage === null 
+            { item.urlToImage === null || item.urlToImage === ''
               ? (
                 <Image
                   source={require('../assets/icons/news.png')}
