@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Text, 
-  View, 
+  Text,
+  View,
   ScrollView,
-  ActivityIndicator, 
+  ActivityIndicator,
   TouchableOpacity,
-  StyleSheet, 
+  StyleSheet,
   RefreshControl,
   Dimensions,
   Image,
@@ -37,6 +37,7 @@ export default class Info extends Component {
       alerts: null,
       alertValue: '',
       currentlyOpenedItem: null,
+      refreshing: false,
     }
     this.addAlert = this.addAlert.bind(this);
     this.renderRow = this.renderRow.bind(this);
@@ -91,10 +92,13 @@ export default class Info extends Component {
       console.log(error);
     }
   }
-  
+
   async deleteAlert(index) {
     try {
       await db.deleteAlert(this.state.uid, index, this.state.name);
+      this.setState({
+        currentlyOpenedItem: null,
+      })
       this.refreshAlerts();
     } catch(error) {
       console.log(error);
@@ -112,7 +116,7 @@ export default class Info extends Component {
   }
 
   openItem(ref) {
-    if (this.state.currentlyOpenedItem !== null 
+    if (this.state.currentlyOpenedItem !== null
       && this.state.currentlyOpenedItem !== ref) {
       this.state.currentlyOpenedItem.recenter();
     }
@@ -122,9 +126,9 @@ export default class Info extends Component {
 
   renderRow({item}) {
     const rightButtons = [
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.deleteButton}
-        onPress={() => this.deleteAlert(item.index)} 
+        onPress={() => this.deleteAlert(item.index)}
       >
         <Image
           source={require('../assets/icons/trash.png')}
@@ -134,7 +138,7 @@ export default class Info extends Component {
     ]
     const direction = item.notifyWhenAbove ? 'above ' : 'below ';
     return (
-      <Swipeable 
+      <Swipeable
         onRef={ref => item.ref = ref}
         rightButtons={rightButtons}
         onRightButtonsOpenRelease={() => this.openItem(item.ref)}
@@ -145,13 +149,13 @@ export default class Info extends Component {
         }}
       >
         <View style={styles.alertRow}>
-          <View style={{ 
+          <View style={{
             flexDirection: 'row',
             alignItems: 'center',
 
           }}>
             <Text style={styles.alertDetail}>
-              {this.state.data.symbol.toUpperCase()} is 
+              {this.state.data.symbol.toUpperCase()} is
               {' ' + direction + db.stringify(item.price)}
             </Text>
           </View>
@@ -162,9 +166,13 @@ export default class Info extends Component {
 
   async refreshAlerts() {
     try {
+      this.setState({
+        refreshing: true,
+      });
       const alerts = await db.getAlerts(this.state.uid, this.state.name);
       this.setState({
-        alerts: alerts
+        alerts: alerts,
+        refreshing: false,
       });
     } catch(error) {
       console.log(error);
@@ -175,6 +183,16 @@ export default class Info extends Component {
     if (this.state.data === null || this.state.data === undefined) {
       return (<View style={styles.container}></View>);
     }
+
+    const loading = (
+      <View style={styles.loading1}>
+          <MyBar
+            height={65}
+            width={Math.round(Dimensions.get('window').width * 0.7)}
+            flexStart={true}
+          />
+      </View>
+    )
 
     const icon = (
       <Image
@@ -195,7 +213,7 @@ export default class Info extends Component {
 
     const change = (
       <Text style={points > 0 ? styles.up : styles.down}>
-        {points > 0 
+        {points > 0
           ? ` (+ ${Number(points).toFixed(2)}%)`
           : ` (${Number(points).toFixed(2)}%)`}
       </Text>
@@ -258,7 +276,7 @@ export default class Info extends Component {
               placeholderTextColor='#919191'
               placeholder={ this.state.alertValue === ''
                           ? '0.00'
-                          : this.state.alertValue} 
+                          : this.state.alertValue}
               onChangeText={value => this.setState({
                 alertValue: db.unStringify(value),
               })}
@@ -304,12 +322,12 @@ export default class Info extends Component {
         style={styles.flatStyle}
         data={this.state.alerts}
         renderItem={this.renderRow}
-        keyExtractor={item => item.price}
+        keyExtractor={item => item.index.toString()}
       />
     )
 
     return (
-      <ScrollView 
+      <ScrollView
         style={styles.container}
         onScroll={this.closeOpenedItem}
       >
@@ -334,7 +352,7 @@ export default class Info extends Component {
             alignItems: 'center',
           }}>
             <TouchableGraph
-              name={this.state.name} 
+              name={this.state.name}
               height={300}
               width={350}
               days={this.state.graphDays}
@@ -369,16 +387,16 @@ export default class Info extends Component {
           />
         </View>
         <View style={styles.alerts}>
-          <View style={{ 
+          <View style={{
             marginTop: 5,
-            flexDirection: 'row', 
+            flexDirection: 'row',
             alignItems: 'center',
           }}>
-            <Text style={{ 
+            <Text style={{
               marginLeft: 5,
-              fontSize: 25, 
-              color: '#ffffff', 
-              fontWeight: 'bold', 
+              fontSize: 25,
+              color: '#ffffff',
+              fontWeight: 'bold',
             }}>
               Alerts
             </Text>
@@ -387,7 +405,7 @@ export default class Info extends Component {
               flexDirection: 'row',
               justifyContent: 'flex-end',
             }}>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={{
                   height: 60,
                   width: 60,
@@ -403,9 +421,11 @@ export default class Info extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          {this.state.alerts.length === 0
-           ? noAlerts
-           : alertList}
+          {this.state.refreshing
+          ? loading
+          : this.state.alerts.length === 0
+              ? noAlerts
+              : alertList}
             <RBSheet
               ref={ref => {
                 this.RBSheet = ref;
@@ -488,7 +508,7 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
     flex: 0,
     fontSize: 20,
-    color: '#dbdbdb', 
+    color: '#dbdbdb',
     fontWeight: '600',
   },
   imageStyle: {
