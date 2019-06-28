@@ -42,8 +42,8 @@ export default class Graph extends Component {
 
       let stockPrices = resJSON.prices.map(valuePair => valuePair[1]);
       let data = [];
-      let min = stockPrices[0]
-      let max = stockPrices[0]
+      let min = stockPrices[0];
+      let max = stockPrices[0];
       for (let i = 0; i < stockPrices.length; i += this.props.tick) {
         min = stockPrices[i] < min ? stockPrices[i] : min;
         max = stockPrices[i] > max ? stockPrices[i] : max;

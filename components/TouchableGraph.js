@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Dimensions, StyleSheet, View, } from 'react-native';
 import { VictoryChart, VictoryLine, VictoryVoronoiContainer,
   VictoryTooltip, VictoryAxis } from 'victory-native';
-import { Dimensions, StyleSheet, View, } from 'react-native';
+  import { Defs, LinearGradient, Stop } from 'react-native-svg';
 import MyBar from './MyBar.js';
 
 // TODO
@@ -23,10 +24,10 @@ export default class TouchableGraph extends Component {
     // 15 days - 1h intervals, 361 values
     // 30 days - 1h intervals, 723 values
     this.dayToPointsMap = {
-      "1": 12,
-      "7": 6,
-      "15": 12,
-      "30": 24,
+      1: 12,
+      7: 6,
+      15: 12,
+      30: 24,
     };
 
     this.fetchStockPrices = this.fetchStockPrices.bind(this);
@@ -60,8 +61,6 @@ export default class TouchableGraph extends Component {
       const resJSON = await res.json();
 
       let stockPrices = resJSON.prices;
-      console.log(stockPrices.length); //
-
       let data = [];
       for (let i = 0; i < stockPrices.length; i += this.dayToPointsMap[this.props.days]) { // i will depend on days TODO!
         data.push(stockPrices[i]);
@@ -134,6 +133,12 @@ export default class TouchableGraph extends Component {
           />
         }
       > 
+        <Defs key='gradient'>
+          <LinearGradient id='gradient' x1='0%' y1='0%' x2='100%' y2='0%'>
+            <Stop offset='0%' stopColor='#fefb5a'/>
+            <Stop offset='100%' stopColor='#5afee8'/>
+          </LinearGradient>
+        </Defs>
         <VictoryAxis
           tickFormat={x => this.getXAxisLabel(x)}
         />
@@ -145,6 +150,11 @@ export default class TouchableGraph extends Component {
           data={this.state.data} // need to change data to fit x and y
           x={0}
           y={1}
+          style={{
+            data: {
+              stroke: "url(#gradient)"
+            }
+          }}
         />
       </VictoryChart>
     );
