@@ -36,11 +36,14 @@ export default class Info extends Component {
       graphDays: 30,
       alerts: null,
       alertValue: '',
+      currentlyOpenedItem: null,
     }
     this.addAlert = this.addAlert.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.refreshAlerts = this.refreshAlerts.bind(this);
     this.deleteAlert = this.deleteAlert.bind(this);
+    this.closeOpenedItem = this.closeOpenedItem.bind(this);
+    this.openItem = this.openItem.bind(this);
   }
 
   async componentDidMount() {
@@ -98,6 +101,25 @@ export default class Info extends Component {
     }
   }
 
+  closeOpenedItem() {
+    console.log('closing');
+    if (this.state.currentlyOpenedItem !== null) {
+      this.state.currentlyOpenedItem.recenter();
+      this.setState({
+        currentlyOpenedItem: null,
+      })
+    }
+  }
+
+  openItem(ref) {
+    if (this.state.currentlyOpenedItem !== null 
+      && this.state.currentlyOpenedItem !== ref) {
+      this.state.currentlyOpenedItem.recenter();
+    }
+    this.setState({ currentlyOpenedItem: ref})
+  }
+
+
   renderRow({item}) {
     const rightButtons = [
       <TouchableOpacity 
@@ -111,10 +133,16 @@ export default class Info extends Component {
       </TouchableOpacity>
     ]
     const direction = item.notifyWhenAbove ? 'above ' : 'below ';
-
     return (
       <Swipeable 
+        onRef={ref => item.ref = ref}
         rightButtons={rightButtons}
+        onRightButtonsOpenRelease={() => this.openItem(item.ref)}
+        onRightButtonCloseRelease={() => {
+          this.setState({
+            currentlyOpenItem: null
+          })
+        }}
       >
         <View style={styles.alertRow}>
           <View style={{ 
@@ -281,7 +309,10 @@ export default class Info extends Component {
     )
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView 
+        style={styles.container}
+        onScroll={this.closeOpenedItem}
+      >
         <View style={styles.row}>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.imageContainer}>

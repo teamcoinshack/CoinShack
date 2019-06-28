@@ -100,7 +100,6 @@ export default class Database {
                                  .ref('/users/' + uid)
                                  .once('value')
       let alerts = snap.val().alerts[name];
-      console.log(alerts);
       alerts.splice(index, 1);
       for (let i = 0; i < alerts.length; i++) {
         let obj = alerts[i];
