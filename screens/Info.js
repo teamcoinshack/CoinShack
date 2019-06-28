@@ -307,8 +307,6 @@ export default class Info extends Component {
               name={this.state.name} 
               height={200}
               width={300}
-              tick={5}
-              grid={true}
               days={this.state.graphDays}
               isLoading={true}
             />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { VictoryChart, VictoryLine, VictoryVoronoiContainer, VictoryTooltip } from 'victory-native';
-import { Defs, LinearGradient, Stop } from 'react-native-svg';
 import { Dimensions, StyleSheet, View, } from 'react-native';
 import MyBar from './MyBar.js';
 
@@ -18,6 +17,7 @@ export default class TouchableGraph extends Component {
     };
 
     this.fetchStockPrices = this.fetchStockPrices.bind(this);
+    this.getFormattedDate = this.getFormattedDate.bind(this);
   }
 
   componentDidMount() {
@@ -35,19 +35,21 @@ export default class TouchableGraph extends Component {
       this.setState({
         isLoading: true,
       });
+
+      // api results:
+      // 1 day - 5min intervals
+      // 7 days and above - 1h intervals 
       const res = await fetch("https://api.coingecko.com/api/v3/coins/" 
                               + this.props.name
                               + "/market_chart?vs_currency=usd&days="
                               + this.props.days);
       const resJSON = await res.json();
 
-      let stockPrices = resJSON.prices.map(valuePair => valuePair[1]);
+      let stockPrices = resJSON.prices;
+      console.log(stockPrices.length); //
+
       let data = [];
-      let min = stockPrices[0]
-      let max = stockPrices[0]
-      for (let i = 0; i < stockPrices.length; i += this.props.tick) {
-        min = stockPrices[i] < min ? stockPrices[i] : min;
-        max = stockPrices[i] > max ? stockPrices[i] : max;
+      for (let i = 0; i < stockPrices.length; i += 24) { // i will depend on days TODO!
         data.push(stockPrices[i]);
       }
       this.setState({ 
@@ -56,8 +58,14 @@ export default class TouchableGraph extends Component {
       });
     } catch(error) {
       console.log(error);
-      alert("stock not found");
+      alert("Stock not found"); // change this error message?
     }
+  }
+
+  getFormattedDate(unixTime) {
+    let date = new Date(unixTime);
+    // getMonth() starts from 0, Jan = 0
+    return `${date.getDate()}/${date.getMonth() + 1} ${date.getHours()}:${date.getMinutes()}`;
   }
 
   // current staic graph
@@ -78,8 +86,7 @@ export default class TouchableGraph extends Component {
         containerComponent={
           <VictoryVoronoiContainer
             labels={d => {
-              console.log(d);
-              return `x: ${d._x} y: ${d._y}`}} // to change, testing
+              return `$${d[1].toFixed(2)}\n${this.getFormattedDate(d[0])}`}}
             labelComponent={<VictoryTooltip cornerRadius={0} flyoutStyle={{fill: "white"}}/>}
           />
         }
