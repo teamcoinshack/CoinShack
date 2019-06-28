@@ -17,6 +17,18 @@ export default class TouchableGraph extends Component {
       isLoading: this.props.isLoading,
     };
 
+    // api results:
+    // 1 day - 5min intervals, 289 values
+    // 7 days - 1h intervals, 169 values
+    // 15 days - 1h intervals, 361 values
+    // 30 days - 1h intervals, 723 values
+    this.dayToPointsMap = {
+      "1": 12,
+      "7": 6,
+      "15": 12,
+      "30": 24,
+    };
+
     this.fetchStockPrices = this.fetchStockPrices.bind(this);
     this.getDDMM = this.getDDMM.bind(this);
     this.getHHMM = this.getHHMM.bind(this);
@@ -41,9 +53,6 @@ export default class TouchableGraph extends Component {
         isLoading: true,
       });
 
-      // api results:
-      // 1 day - 5min intervals
-      // 7 days and above - 1h intervals 
       const res = await fetch("https://api.coingecko.com/api/v3/coins/" 
                               + this.props.name
                               + "/market_chart?vs_currency=usd&days="
@@ -54,7 +63,7 @@ export default class TouchableGraph extends Component {
       console.log(stockPrices.length); //
 
       let data = [];
-      for (let i = 0; i < stockPrices.length; i += 24) { // i will depend on days TODO!
+      for (let i = 0; i < stockPrices.length; i += this.dayToPointsMap[this.props.days]) { // i will depend on days TODO!
         data.push(stockPrices[i]);
       }
       this.setState({ 
@@ -120,8 +129,7 @@ export default class TouchableGraph extends Component {
         domainPadding={{ x: [20, 0], y: [20, 0] }}
         containerComponent={
           <VictoryVoronoiContainer
-            labels={d => {
-              return `$${d[1].toFixed(2)}\n${this.getFormattedDate(d[0])}`}}
+            labels={d => `$${d[1].toFixed(2)}\n${this.getFormattedDate(d[0])}`}
             labelComponent={<VictoryTooltip cornerRadius={0} flyoutStyle={{fill: "white"}}/>}
           />
         }
@@ -131,7 +139,7 @@ export default class TouchableGraph extends Component {
         />
         <VictoryAxis
           dependentAxis
-          tickFormat={y => this.getYAxisLabel(y)} // should probably manually change x axis labels depending on graphDays
+          tickFormat={y => this.getYAxisLabel(y)}
         />
         <VictoryLine
           data={this.state.data} // need to change data to fit x and y
