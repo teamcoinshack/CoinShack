@@ -6,6 +6,7 @@ import {
   StyleSheet, 
   TouchableOpacity,
   Button,
+  Dimensions,
 } from 'react-native';
 import db from '../Database.js';
 
@@ -24,6 +25,7 @@ export default class Buy extends React.Component {
       displayStockBuy: '',
       input1: false,
       input2: false,
+      refreshing: false,
     }
 
     this.buyOnPress = this.buyOnPress.bind(this);
@@ -35,6 +37,7 @@ export default class Buy extends React.Component {
         alert("Minimum purchase is $1");
         return;
       }
+      this.setState({ refreshing: true });
       const res = await db.buy(
         this.state.uid,
         this.state.id,
@@ -64,6 +67,22 @@ export default class Buy extends React.Component {
   }
 
   render() {
+    const loading = (
+      <View style={styles.loading1}>
+          <MyBar
+            height={65}
+            width={Math.round(Dimensions.get('window').width * 0.7)}
+            flexStart={true}
+          />
+      </View>
+    )
+    if (this.state.refreshing) {
+      return (
+        <View style={styles.container}>
+          {loading}
+        </View>
+      )
+    }
     const box1 = (
       <TextInput
         style={styles.textInput}

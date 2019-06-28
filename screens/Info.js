@@ -479,7 +479,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 15,
     paddingHorizontal: 18,
-    marginTop: 10,
+    marginBottom: 10,
   },
   alertRow: {
     elevation: 1,
@@ -490,7 +490,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingVertical: 15,
     paddingHorizontal: 18,
-    marginTop: 10,
+    marginBottom: 10,
   },
   imageContainer: {
     flexDirection: 'row',

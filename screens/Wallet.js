@@ -68,7 +68,7 @@ class Wallet extends Component {
   async onRefresh() {
     try {
       await this.setState({
-        state: null,
+        currs: null,
       })
       this.setState({
         current: 0,
