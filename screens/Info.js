@@ -329,17 +329,14 @@ export default class Info extends Component {
             </View>
           </View>
           <View style={{
-            marginTop: 20,
-            marginBottom: 20,
-            flexDirection: 'column',
+            flex: 1,
+            paddingVertical: 10,
             alignItems: 'center',
           }}>
             <TouchableGraph
               name={this.state.name} 
-              height={200}
-              width={300}
-              tick={5}
-              grid={true}
+              height={300}
+              width={350}
               days={this.state.graphDays}
               isLoading={true}
             />
@@ -434,8 +431,7 @@ export default class Info extends Component {
 const styles = StyleSheet.create({
   alerts: {
     flexDirection: 'column',
-    marginLeft: 14,
-    marginRight: 14,
+    marginHorizontal: 14,
   },
   container: {
     flex: 1,
@@ -450,10 +446,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     paddingTop: 15,
-    paddingLeft: 18,
-    paddingRight: 18,
-    marginLeft: 14,
-    marginRight: 14,
+    paddingHorizontal: 18,
+    marginHorizontal: 14,
     marginTop: 0,
   },
   deleteButton: {
@@ -463,10 +457,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 18,
-    paddingRight: 18,
+    paddingVertical: 15,
+    paddingHorizontal: 18,
     marginTop: 10,
   },
   alertRow: {
@@ -476,10 +468,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 18,
-    paddingRight: 18,
+    paddingVertical: 15,
+    paddingHorizontal: 18,
     marginTop: 10,
   },
   imageContainer: {
@@ -527,8 +517,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: 'space-evenly',
     marginTop: -5,
-    marginLeft: 14,
-    marginRight: 14,
+    marginHorizontal: 14,
   },
   button: {
     elevation: 1,
@@ -600,8 +589,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingVertical: 15,
     paddingLeft: 18,
     paddingRight: 16,
     margin: 20,

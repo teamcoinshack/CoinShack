@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { VictoryChart, VictoryLine, VictoryVoronoiContainer, VictoryTooltip } from 'victory-native';
-import { Defs, LinearGradient, Stop } from 'react-native-svg';
+import { VictoryChart, VictoryLine, VictoryVoronoiContainer,
+  VictoryTooltip, VictoryAxis } from 'victory-native';
 import { Dimensions, StyleSheet, View, } from 'react-native';
 import MyBar from './MyBar.js';
 
@@ -17,7 +17,24 @@ export default class TouchableGraph extends Component {
       isLoading: this.props.isLoading,
     };
 
+    // api results:
+    // 1 day - 5min intervals, 289 values
+    // 7 days - 1h intervals, 169 values
+    // 15 days - 1h intervals, 361 values
+    // 30 days - 1h intervals, 723 values
+    this.dayToPointsMap = {
+      "1": 12,
+      "7": 6,
+      "15": 12,
+      "30": 24,
+    };
+
     this.fetchStockPrices = this.fetchStockPrices.bind(this);
+    this.getDDMM = this.getDDMM.bind(this);
+    this.getHHMM = this.getHHMM.bind(this);
+    this.getFormattedDate = this.getFormattedDate.bind(this);
+    this.getXAxisLabel = this.getXAxisLabel.bind(this);
+    this.getYAxisLabel = this.getYAxisLabel.bind(this);
   }
 
   componentDidMount() {
@@ -35,19 +52,18 @@ export default class TouchableGraph extends Component {
       this.setState({
         isLoading: true,
       });
+
       const res = await fetch("https://api.coingecko.com/api/v3/coins/" 
                               + this.props.name
                               + "/market_chart?vs_currency=usd&days="
                               + this.props.days);
       const resJSON = await res.json();
 
-      let stockPrices = resJSON.prices.map(valuePair => valuePair[1]);
+      let stockPrices = resJSON.prices;
+      console.log(stockPrices.length); //
+
       let data = [];
-      let min = stockPrices[0]
-      let max = stockPrices[0]
-      for (let i = 0; i < stockPrices.length; i += this.props.tick) {
-        min = stockPrices[i] < min ? stockPrices[i] : min;
-        max = stockPrices[i] > max ? stockPrices[i] : max;
+      for (let i = 0; i < stockPrices.length; i += this.dayToPointsMap[this.props.days]) { // i will depend on days TODO!
         data.push(stockPrices[i]);
       }
       this.setState({ 
@@ -56,11 +72,44 @@ export default class TouchableGraph extends Component {
       });
     } catch(error) {
       console.log(error);
-      alert("stock not found");
+      alert("Stock not found"); // change this error message?
     }
   }
 
-  // current staic graph
+  getDDMM(unixTime) {
+    let date = new Date(unixTime);
+    // getMonth() starts from 0, Jan = 0
+    return `${date.getDate()}/${date.getMonth() + 1}`;
+  }
+
+  getHHMM(unixTime) {
+    let date = new Date(unixTime);
+    return `${String(date.getHours()).padStart(2, 0)}:${String(date.getMinutes()).padStart(2, 0)}`;
+  }
+
+  getFormattedDate(unixTime) {
+    let date = new Date(unixTime);
+    // getMonth() starts from 0, Jan = 0
+    return `${date.getDate()}/${date.getMonth() + 1} ` +
+      `${String(date.getHours()).padStart(2, 0)}:${String(date.getMinutes()).padStart(2, 0)}`;
+  }
+
+  getXAxisLabel(unixTime) {
+    if (this.props.days === 1) {
+      return this.getHHMM(unixTime);
+    } else {
+      return this.getDDMM(unixTime);
+    }
+  }
+
+  getYAxisLabel(amount) {
+    if (amount >= 1000) {
+      return "$" + Math.round(amount / 1000) + "K";
+    } else {
+      return "$" + amount;
+    }
+  }
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -75,15 +124,23 @@ export default class TouchableGraph extends Component {
     // NOW TESTING FIRST
     return (
       <VictoryChart
+        height={this.props.height}
+        width={this.props.width}
+        domainPadding={{ x: [20, 0], y: [20, 0] }}
         containerComponent={
           <VictoryVoronoiContainer
-            labels={d => {
-              console.log(d);
-              return `x: ${d._x} y: ${d._y}`}} // to change, testing
+            labels={d => `$${d[1].toFixed(2)}\n${this.getFormattedDate(d[0])}`}
             labelComponent={<VictoryTooltip cornerRadius={0} flyoutStyle={{fill: "white"}}/>}
           />
         }
-      >
+      > 
+        <VictoryAxis
+          tickFormat={x => this.getXAxisLabel(x)}
+        />
+        <VictoryAxis
+          dependentAxis
+          tickFormat={y => this.getYAxisLabel(y)}
+        />
         <VictoryLine
           data={this.state.data} // need to change data to fit x and y
           x={0}
