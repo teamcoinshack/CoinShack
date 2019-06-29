@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   TextInput, 
-  TouchableOpacity,
   Image,
   Text, 
   View, 
@@ -125,6 +124,13 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Image
+          source={require('../assets/icons/CoinShackIcon.png')}
+          style={{
+            height: 100,
+            width: 100,
+          }}
+        />
         <View style={{ marginBottom: 20 }}>
           <Text style={{ 
             fontSize: 25, 
