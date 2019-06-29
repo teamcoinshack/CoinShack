@@ -38,6 +38,7 @@ export default class Buy extends React.Component {
         return;
       }
       this.setState({ refreshing: true });
+      console.log(this.state.id);
       const res = await db.buy(
         this.state.uid,
         this.state.id,
