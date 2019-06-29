@@ -57,10 +57,12 @@ export default class Login extends React.Component {
             })
             .then(result => {
               if (result.additionalUserInfo.isNewUser) {
-                db.initUser(result.user.uid);
+                db.initUser(result.user.uid, false);
               }
             })
-            .then(() => this.props.navigation.navigate('Dashboard'))
+            .then(
+              () => this.props.navigation.navigate('Dashboard', {emailLogin: false})
+            )
             .catch(error => {
               let errorCode = error.code;
               let errorMessage = error.message;
@@ -85,10 +87,12 @@ export default class Login extends React.Component {
       })
       .then(result => {
         if (result.additionalUserInfo.isNewUser) {
-          db.initUser(result.user.uid);
+          db.initUser(result.user.uid, false);
         }
       })
-      .then(() => this.props.navigation.navigate('Dashboard'))
+      .then(
+        () => this.props.navigation.navigate('Dashboard', {emailLogin: false})
+      )
       .catch(error => {
         let errorCode = error.code;
         let errorMessage = error.message;
@@ -102,7 +106,7 @@ export default class Login extends React.Component {
       .auth()
       .signInWithEmailAndPassword(email, pass)
       .then(() => (
-        this.props.navigation.navigate('Dashboard')
+        this.props.navigation.navigate('Dashboard') 
       ))
       .catch(function (error) {
         var errorCode = error.code;

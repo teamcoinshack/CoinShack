@@ -33,7 +33,7 @@ export default class Database {
 
   // can consider using cloud functions for new user creation,
   // set cash value, send email bla bla
-  static initUser(userID) {
+  static initUser(userID, emailLogin) {
     let userRef = Firebase.app()
                           .database()
                           .ref('/users/' + userID);
@@ -45,7 +45,8 @@ export default class Database {
         dash: 0,
         ripple: 0,
         litecoin: 0,
-      }
+      },
+      emailLogin: emailLogin,
     });
   }
   

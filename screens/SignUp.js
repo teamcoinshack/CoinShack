@@ -19,7 +19,7 @@ export default class SignUp extends React.Component {
     Firebase.auth()
             .createUserWithEmailAndPassword(email, pass)
             .then(() => (
-                db.initUser(Firebase.auth().currentUser.uid)
+                db.initUser(Firebase.auth().currentUser.uid, true)
             ))
             .then(() => (
               this.props.navigation.navigate('News')
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     height: 60,
     width: Math.round(Dimensions.get('window').width) * 0.7,
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 20,
     color: '#ffffff',
   },

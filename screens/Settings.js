@@ -20,13 +20,23 @@ export default class Settings extends Component {
     super(props);
 
     this.state = {
-      id: '',
+      id: null,
+      emailLogin: null,
     }
     this.logout = this.logout.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({id: Firebase.auth().currentUser.uid});
+  async componentDidMount() {
+    try {
+      const uid = Firebase.auth().currentUser.uid;
+      const snap = await db.getData(uid);
+      this.setState({
+        id: uid,
+        emailLogin: snap.val().emailLogin,
+      });
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   changePassword = () => {
@@ -43,17 +53,20 @@ export default class Settings extends Component {
   }
 
   render() {
+    const changePasswordButton = (
+      <MyButton
+        text="Change Password"
+        onPress={this.changePassword}
+        textColor="#00f9ff"
+        width={Math.round(Dimensions.get('window').width) * 0.6}
+      />
+    )
     return (
       <ScrollView 
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        <MyButton
-          text="Change Password"
-          onPress={this.changePassword}
-          textColor="#00f9ff"
-          width={Math.round(Dimensions.get('window').width) * 0.6}
-        />
+        {this.state.emailLogin ? changePasswordButton : null}
         <MyButton
           text="Logout"
           onPress={this.logout}

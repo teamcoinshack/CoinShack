@@ -430,7 +430,7 @@ export default class Info extends Component {
               ref={ref => {
                 this.RBSheet = ref;
               }}
-              height={300}
+              height={500}
               duration={250}
               customStyles={{
                 container: {
