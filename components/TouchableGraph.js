@@ -129,7 +129,13 @@ export default class TouchableGraph extends Component {
         containerComponent={
           <VictoryVoronoiContainer
             labels={d => `$${d[1].toFixed(2)}\n${this.getFormattedDate(d[0])}`}
-            labelComponent={<VictoryTooltip cornerRadius={0} flyoutStyle={{fill: "white"}}/>}
+            labelComponent={
+              <VictoryTooltip
+                cornerRadius={5}
+                flyoutStyle={{ fill: "#dbdbdb" }}
+                style={{ fontSize: 16 }}
+              />
+            }
           />
         }
       > 
@@ -141,13 +147,23 @@ export default class TouchableGraph extends Component {
         </Defs>
         <VictoryAxis
           tickFormat={x => this.getXAxisLabel(x)}
+          style={{
+            axis: {stroke: "#dbdbdb"},
+            ticks: {stroke: "#dbdbdb", size: 5},
+            tickLabels: {fill: "#dbdbdb"},
+          }}
         />
         <VictoryAxis
           dependentAxis
           tickFormat={y => this.getYAxisLabel(y)}
+          style={{
+            axis: {stroke: "#dbdbdb"},
+            ticks: {stroke: "#dbdbdb", size: 5},
+            tickLabels: {fill: "#dbdbdb"},
+          }}
         />
         <VictoryLine
-          data={this.state.data} // need to change data to fit x and y
+          data={this.state.data}
           x={0}
           y={1}
           style={{
