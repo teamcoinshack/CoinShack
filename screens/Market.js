@@ -62,11 +62,6 @@ class Market extends Component {
     }
   }
 
-  async componentDidUpdate(prevProps) {
-    if (!prevProps.isFocused && this.props.isFocused) {
-    }
-  }
-
   onRefresh() {
     this.setState({
       refreshing: true,
