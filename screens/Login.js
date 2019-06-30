@@ -30,7 +30,7 @@ export default class Login extends React.Component {
       password: '',
       errorMessage: null
     }
-
+    this.handleLogin = this.handleLogin.bind(this);
     this.googleProvider = new Firebase.auth.GoogleAuthProvider();
     GoogleSignin.configure({
       webClientId: "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
@@ -101,7 +101,14 @@ export default class Login extends React.Component {
       })
   }
 
-  handleLogin = (email, pass) => {
+  handleLogin(email, pass) {
+    if (email === '') {
+      alert('Please enter email!');
+      return;
+    } else if (pass === '') {
+      alert('Please enter password!');
+      return;
+    }
     Firebase
       .auth()
       .signInWithEmailAndPassword(email, pass)

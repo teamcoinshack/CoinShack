@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {
-  Text, 
-  ActivityIndicator, 
-  View, 
+  Text,
+  ActivityIndicator,
+  View,
   Image,
-  StyleSheet, 
-  FlatList, 
-  Button, 
+  StyleSheet,
+  FlatList,
+  Button,
   Dimensions,
   TouchableOpacity,
-  RefreshControl, 
+  RefreshControl,
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { withNavigationFocus } from 'react-navigation';
@@ -41,35 +41,23 @@ class Wallet extends Component {
       current: 0,
     }
 
-    this.renderRow = this.renderRow.bind(this); 
+    this.renderRow = this.renderRow.bind(this);
     this.load = this.load.bind(this);
     this.refresh = this.refresh.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
   }
-  
+
   load(name) {
     this.props.navigation.navigate('BuySellPage',{
       uid: this.state.uid,
       name: name,
       path: this.state.paths[name],
+      callback: this.refresh,
     })
-  }
-
-  async componentDidUpdate(prevProps) {
-    if (!prevProps.isFocused && this.props.isFocused) {
-      try {
-        await this.refresh();
-      } catch (error) {
-        console.log(error);
-      }
-    }
   }
 
   async onRefresh() {
     try {
-      await this.setState({
-        currs: null,
-      })
       this.setState({
         current: 0,
         refreshing: true,
@@ -86,7 +74,7 @@ class Wallet extends Component {
     try {
       if (this.state.current >= this.state.currs.length) {
         this.setState({
-          totalValue: Number(this.state.cash) 
+          totalValue: Number(this.state.cash)
                       + this.state
                             .currs
                             .map(x => x.value * x.rate)
@@ -101,7 +89,7 @@ class Wallet extends Component {
       const data = await q.fetch(curr.name);
       const snap = await db.getData(uid);
       if (this.state.current === 0) {
-        this.setState({
+        await this.setState({
           uid: uid,
           cash: snap.val().cash,
         })
@@ -109,12 +97,12 @@ class Wallet extends Component {
       curr.id = data.symbol.toUpperCase();
       curr.rate = data.market_data.current_price.usd;
       curr.change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
-      curr.value = snap.val()[data.symbol.toUpperCase()] === undefined 
+      curr.value = snap.val()[data.symbol.toUpperCase()] === undefined
                       ? 0
                       : Number(snap.val()[data.symbol.toUpperCase()]);
       let arr = this.state.currs;
       arr[this.state.current] = curr;
-      this.setState({
+      await this.setState({
         currs: arr,
         current: this.state.current + 1,
       })
@@ -151,11 +139,11 @@ class Wallet extends Component {
     )
     if (item.rate === undefined) {
       return (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.row}
       >
-        <View style={{ 
-          flexDirection: 'row', 
+        <View style={{
+          flexDirection: 'row',
           alignItems: 'center',
         }}>
           <View style={styles.imageContainer}>
@@ -181,19 +169,19 @@ class Wallet extends Component {
     )
     const change = (
       <Text style={item.change > 0 ? styles.up : styles.down}>
-        {item.change > 0 
+        {item.change > 0
           ? ' (+' + item.change + '%)'
           : ' ' + '('+item.change + '%)'}
       </Text>
     )
     const walletValue = (
       <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
-        <Text style={item.value === 0 
-                          ? styles.noValue1 
+        <Text style={item.value === 0
+                          ? styles.noValue1
                           : styles.stockValue1}>
           ${db.stringify((item.value * item.rate).toFixed(2))}
         </Text>
-        <Text style={item.value === 0 
+        <Text style={item.value === 0
                           ? styles.noValue2
                           : styles.stockValue2}>
           {db.stringify(Number(item.value).toFixed(3))} {item.id}
@@ -201,7 +189,7 @@ class Wallet extends Component {
       </View>
     )
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.row}
         onPress={() => this.load(item.name)}
       >
@@ -225,7 +213,7 @@ class Wallet extends Component {
       </TouchableOpacity>
     )
   }
-  
+
   render() {
     const money = db.stringify(Number(this.state.cash).toFixed(2));
     const loading = (
@@ -238,7 +226,7 @@ class Wallet extends Component {
     )
     const CashRow = this.state.cash === null
     ? (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.cashRow}
       >
         <View style={{ flexDirection: 'row' }}>
@@ -251,8 +239,8 @@ class Wallet extends Component {
           <View style={styles.cashName}>
             <Text style={styles.name}>Cash</Text>
           </View>
-          <View style={{ 
-            flexDirection: 'column', 
+          <View style={{
+            flexDirection: 'column',
             alignItems: 'flex-end',
             justifyContent: 'center',
           }}>
@@ -266,7 +254,7 @@ class Wallet extends Component {
       </TouchableOpacity>
     )
     : (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.cashRow}
       >
         <View style={{ flexDirection: 'row' }}>
@@ -279,13 +267,13 @@ class Wallet extends Component {
           <View style={styles.cashName}>
             <Text style={styles.name}>Cash</Text>
           </View>
-          <View style={{ 
-            flexDirection: 'column', 
+          <View style={{
+            flexDirection: 'column',
             alignItems: 'flex-end',
             justifyContent: 'center',
           }}>
-            <Text style={this.state.cash === 0 
-                          ? styles.noValue1 
+            <Text style={this.state.cash === 0
+                          ? styles.noValue1
                           : styles.cashValue}>
               {this.state.cash === undefined
                ? loading
@@ -305,7 +293,7 @@ class Wallet extends Component {
           $
         </Text>
         <Text style={{
-          fontSize: 30, 
+          fontSize: 30,
           fontWeight: 'bold',
           color: '#ffffff',
         }}>
@@ -391,7 +379,7 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
     flex: 0,
     fontSize: 20,
-    color: '#dbdbdb', 
+    color: '#dbdbdb',
     fontWeight: '600',
   },
   loading1: {
@@ -407,28 +395,28 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
     flex: 0,
     fontSize: 17,
-    color: '#a4a9b9', 
+    color: '#a4a9b9',
     fontWeight: '500',
   },
   cashValue: {
     paddingLeft: 16,
     flex: 0,
     fontSize: 20,
-    color: '#aeb3c4', 
+    color: '#aeb3c4',
     fontWeight: '600',
   },
   stockValue1: {
     paddingLeft: 16,
     flex: 0,
     fontSize: 20,
-    color: '#aeb3c4', 
+    color: '#aeb3c4',
     fontWeight: '600',
   },
   stockValue2: {
     paddingLeft: 16,
     flex: 0,
     fontSize: 15,
-    color: '#aeb3c4', 
+    color: '#aeb3c4',
     fontWeight: '600',
   },
   flatStyle: {

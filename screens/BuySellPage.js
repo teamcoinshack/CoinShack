@@ -30,6 +30,7 @@ export default class BuySellPage extends Component {
       stockValue: null,
       rate: null,
       isLoading: true,
+      callback: null,
     }
 
     this.goToBuy = this.goToBuy.bind(this);
@@ -42,6 +43,7 @@ export default class BuySellPage extends Component {
       id: this.state.id,
       rate: this.state.rate,
       cash: this.state.cash,
+      callback: this.state.callback,
     })
   }
 
@@ -51,6 +53,7 @@ export default class BuySellPage extends Component {
       id: this.state.id,
       rate: this.state.rate,
       cash: this.state.cash,
+      callback: this.state.callback,
     })
   }
 
@@ -60,6 +63,7 @@ export default class BuySellPage extends Component {
       const uid = navigation.getParam('uid', null);
       const name = navigation.getParam('name', null);
       const path = navigation.getParam('path', null);
+      const callback = navigation.getParam('callback', null);
       const data = await q.fetch(name);
       const rate = Number(data.market_data.current_price.usd).toFixed(2);
       const snap = await db.getData(uid);
@@ -67,6 +71,7 @@ export default class BuySellPage extends Component {
       const id = data.symbol.toUpperCase();
       const amt = snap.val()[id] === undefined ? 0 : snap.val()[id];
       this.setState({
+        callback: callback,
         uid: uid,
         cash: snap.val().cash,
         change: change,

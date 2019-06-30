@@ -64,18 +64,13 @@ class Market extends Component {
 
   async componentDidUpdate(prevProps) {
     if (!prevProps.isFocused && this.props.isFocused) {
-      try {
-        await this.refresh();
-      } catch (error) {
-        console.log(error);
-      }
     }
   }
 
   onRefresh() {
     this.setState({
       refreshing: true,
-      currs: Masterlist,
+      currs: Masterlist.map(a => Object.assign({}, a)),
     }, function() { this.refresh() })
   }
 

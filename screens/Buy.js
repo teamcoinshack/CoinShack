@@ -26,6 +26,7 @@ export default class Buy extends React.Component {
       input1: false,
       input2: false,
       refreshing: false,
+      callback: null,
     }
 
     this.buyOnPress = this.buyOnPress.bind(this);
@@ -38,7 +39,6 @@ export default class Buy extends React.Component {
         return;
       }
       this.setState({ refreshing: true });
-      console.log(this.state.id);
       const res = await db.buy(
         this.state.uid,
         this.state.id,
@@ -46,6 +46,7 @@ export default class Buy extends React.Component {
         this.state.rate,
       )
       if (res === 0) {
+        this.state.callback();
         this.props.navigation.navigate('Main');
       }
     } catch (error) {
@@ -59,7 +60,9 @@ export default class Buy extends React.Component {
     const id = navigation.getParam('id', null);
     const rate = navigation.getParam('rate', null);
     const cash = navigation.getParam('cash', null);
+    const callback = navigation.getParam('callback', null);
     this.setState({
+      callback: callback,
       uid: uid,
       id: id,
       rate: rate,

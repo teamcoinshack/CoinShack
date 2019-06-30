@@ -76,10 +76,10 @@ export default class Database {
       } else {
         //take old array, append new alert, push new array back
         alerts.push({
+          index: alerts.length,
           price: price,
           notifyWhenAbove: notifyWhenAbove,
           active: active,
-          index: alerts.length,
         });
         let userRef = Firebase.app()
                               .database()

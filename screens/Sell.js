@@ -6,6 +6,7 @@ import {
   StyleSheet, 
   TouchableOpacity,
   Button,
+  Dimensions,
 } from 'react-native';
 import db from '../Database.js';
 
@@ -25,6 +26,8 @@ export default class Sell extends React.Component {
       displayStockSell: '',
       input1: false,
       input2: false,
+      refreshing: false,
+      callback: null,
     }
 
     this.sellOnPress = this.sellOnPress.bind(this);
@@ -33,6 +36,7 @@ export default class Sell extends React.Component {
 
   async sellOnPress() {
     try {
+      this.setState({ refreshing: true });
       const res = await db.buy(
         this.state.uid,
         this.state.id,
@@ -40,6 +44,7 @@ export default class Sell extends React.Component {
         this.state.rate,
       )
       if (res === 0) {
+        this.state.callback();
         this.props.navigation.navigate('Main');
       }
     } catch (error) {
@@ -49,12 +54,14 @@ export default class Sell extends React.Component {
 
   async sellAll() {
     try {
+      this.setState({ refreshing: true });
       const res = await db.sellAll(
         this.state.uid,
         this.state.id,
         this.state.rate,
       )
       if (res === 0) {
+        this.state.callback();
         this.props.navigation.navigate('Main');
       }
     } catch(error) {
@@ -69,7 +76,9 @@ export default class Sell extends React.Component {
     const id = navigation.getParam('id', null);
     const rate = navigation.getParam('rate', null);
     const cash = navigation.getParam('cash', null);
+    const callback = navigation.getParam('callback', null);
     this.setState({
+      callback: callback,
       uid: uid,
       cash: cash,
       id: id,
@@ -78,6 +87,22 @@ export default class Sell extends React.Component {
   }
 
   render() {
+    const loading = (
+      <View style={styles.loading1}>
+          <MyBar
+            height={65}
+            width={Math.round(Dimensions.get('window').width * 0.7)}
+            flexStart={true}
+          />
+      </View>
+    )
+    if (this.state.refreshing) {
+      return (
+        <View style={styles.container}>
+          {loading}
+        </View>
+      )
+    }
     const box1 = (
       <TextInput
         style={styles.textInput}
