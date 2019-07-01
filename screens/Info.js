@@ -43,6 +43,7 @@ export default class Info extends Component {
     this.renderRow = this.renderRow.bind(this);
     this.refreshAlerts = this.refreshAlerts.bind(this);
     this.deleteAlert = this.deleteAlert.bind(this);
+    this.toggleAlert = this.toggleAlert.bind(this);
     this.closeOpenedItem = this.closeOpenedItem.bind(this);
     this.openItem = this.openItem.bind(this);
   }
@@ -88,6 +89,15 @@ export default class Info extends Component {
       })
       //refresh alerts
       this.refreshAlerts();
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  async toggleAlert(index) {
+    try {
+      await db.toggleAlert(this.state.uid, index, this.state.name);
+      this.refreshStaticAlerts();
     } catch(error) {
       console.log(error);
     }
@@ -152,16 +162,41 @@ export default class Info extends Component {
           <View style={{
             flexDirection: 'row',
             alignItems: 'center',
-
           }}>
             <Text style={styles.alertDetail}>
               {this.state.data.symbol.toUpperCase()} is
               {' ' + direction + db.stringify(item.price)}
             </Text>
           </View>
+          <View style={{ 
+            flexDirection: 'row',
+            justifyContent: 'flex-end', 
+            flex: 1,
+            marginRight: 5,
+          }}>
+            <TouchableOpacity 
+              style={item.active ? styles.active : styles.inactive}
+              onPress={() => this.toggleAlert(item.index)}
+            >
+              <Text style={styles.activeButton}>
+                {item.active ? 'ACTIVE' : 'INACTIVE'}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Swipeable>
     )
+  }
+
+  async refreshStaticAlerts() {
+    try {
+      const alerts = await db.getAlerts(this.state.uid, this.state.name);
+      this.setState({
+        alerts: alerts,
+      });
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   async refreshAlerts() {
@@ -277,7 +312,11 @@ export default class Info extends Component {
               placeholder={ this.state.alertValue === ''
                           ? '0.00'
                           : this.state.alertValue}
-              onChangeText={value => this.setState({
+              onChangeText={value => Number(db.unStringify(value)) > 999999 
+              ? this.setState({
+                  state: this.state,
+                })
+              : this.setState({
                 alertValue: db.unStringify(value),
               })}
               value={db.stringify(String(this.state.alertValue))}
@@ -486,7 +525,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#515360',
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'flex-start',
     paddingVertical: 15,
     paddingHorizontal: 18,
@@ -629,5 +668,26 @@ const styles = StyleSheet.create({
   imageStyle: {
     height: 30,
     width: 30,
+  },
+  active: {
+    borderRadius: 5,
+    justifyContent: 'flex-end',
+    padding: 10,
+    width: 90,
+    backgroundColor: '#367a4e',
+    alignItems: 'center',
+  },
+  inactive: {
+    borderRadius: 5,
+    justifyContent: 'flex-end',
+    padding: 10,
+    width: 90,
+    alignItems: 'center',
+    backgroundColor: '#8c3e3e',
+  },
+  activeButton: {
+    fontSize: 15,
+    color: '#ffffff',
+    fontWeight: '500',
   }
 })

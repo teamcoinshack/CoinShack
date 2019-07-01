@@ -125,6 +125,28 @@ export default class Database {
     }
   }
 
+  static async toggleAlert(uid, index, name) {
+    try {
+      const snap = await Firebase.app()
+                                 .database()
+                                 .ref('/users/' + uid)
+                                 .once('value')
+      let alerts = snap.val().alerts[name];
+      let curr = alerts[index];
+      console.log(curr);
+      curr.active = !alerts[index].active;
+      alerts[index] = curr;
+      let userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + uid + '/alerts/');
+      userRef.update({
+        [name]: alerts,
+      });
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   static async getAlerts(uid, name) {
     try {
       const snap = await Firebase.app()

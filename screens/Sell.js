@@ -75,7 +75,9 @@ export default class Sell extends React.Component {
     const uid = navigation.getParam('uid', null);
     const id = navigation.getParam('id', null);
     const rate = navigation.getParam('rate', null);
+    const path = navigation.getParam('path', null);
     const cash = navigation.getParam('cash', null);
+    const stockValue = navigation.getParam('stockValue', null);
     const callback = navigation.getParam('callback', null);
     this.setState({
       callback: callback,
@@ -83,26 +85,47 @@ export default class Sell extends React.Component {
       cash: cash,
       id: id,
       rate: rate,
+      path: path,
+      stockValue: stockValue,
     })
   }
 
   render() {
     const loading = (
-      <View style={styles.loading1}>
+      <View style={styles.loading}>
+        <View style={styles.loading1}>
           <MyBar
             height={65}
             width={Math.round(Dimensions.get('window').width * 0.7)}
             flexStart={true}
           />
+        </View>
       </View>
     )
-    if (this.state.refreshing) {
-      return (
-        <View style={styles.container}>
-          {loading}
-        </View>
-      )
-    }
+    const money = db.stringify(Number(this.state.cash).toFixed(2));
+
+    const cashValue = (
+      <Text style={this.state.cash === 0 
+                    ? styles.noValue1 
+                    : styles.cashValue}>
+         ${money}
+      </Text>
+    );
+
+    const walletValue = (
+      <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Text style={this.state.stockValue === 0 
+                          ? styles.noValue1 
+                          : styles.stockValue1}>
+          ${db.stringify((this.state.stockValue * this.state.rate).toFixed(2))}
+        </Text>
+        <Text style={this.state.stockValue === 0 
+                          ? styles.noValue2
+                          : styles.stockValue2}>
+          {db.stringify(Number(this.state.stockValue).toFixed(3))} {this.state.id}
+        </Text>
+      </View>
+    );
     const box1 = (
       <TextInput
         style={styles.textInput}
@@ -201,32 +224,55 @@ export default class Sell extends React.Component {
       </TouchableOpacity>
     );
 
+    const inputs = (
+      <View>
+        <View style={{ 
+          flexDirection: 'row', 
+          alignItems: 'flex-end', 
+          justifyContent: 'center',
+          width: '80%',
+        }}>
+          <Text style={this.state.input1 ? styles.selected : styles.unselected}>
+            $
+          </Text>
+          {box1}
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          {button}
+        </View>
+        <View style={{ 
+          flexDirection: 'row', 
+          alignItems: 'flex-end', 
+        }}>
+          {box2}
+          <Text style={this.state.input2 ? styles.selected : styles.unselected}>
+            {this.state.id}
+          </Text>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          {sellAllButton}
+        </View>
+      </View>
+    )
+
     return (
         <View style={styles.container}>
-          <View style={{ 
-            flexDirection: 'row', 
-            alignItems: 'flex-end', 
-            justifyContent: 'center',
-            width: '80%',
+          <View style={{
+            marginTop: 10,
+            marginBottom: 100,
           }}>
-            <Text style={this.state.input1 ? styles.selected : styles.unselected}>$</Text>
-            {box1}
+            <MyRow 
+              text='Cash'
+              path={require('../assets/icons/cash.png')}  
+              right={cashValue}
+            />
+            <MyRow
+              text={this.state.id}
+              path={this.state.path}
+              right={walletValue}
+            />
           </View>
-          <View style={{flexDirection: 'row'}}>
-            {button}
-          </View>
-          <View style={{ 
-            flexDirection: 'row', 
-            alignItems: 'flex-end', 
-          }}>
-            {box2}
-            <Text style={this.state.input2 ? styles.selected : styles.unselected}>
-              {this.state.id}
-            </Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            {sellAllButton}
-          </View>
+          {this.state.refreshing ? loading : inputs }
         </View>
     );
   }
@@ -234,6 +280,13 @@ export default class Sell extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: background,
+  },
+  loading: {
     flexDirection: 'column',
     flex: 1,
     justifyContent: 'center',
@@ -272,5 +325,71 @@ const styles = StyleSheet.create({
     marginRight: 25,
     marginTop: 10,
     marginBottom: 10,
-  }
+  },
+  noValue1: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 20,
+    color: '#74777c',
+    fontWeight: '500',
+  },
+  noValue2: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 15,
+    color: '#74777c',
+    fontWeight: '500',
+  },
+  value1: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#ffffff',
+  },
+  value2: {
+    fontSize: 17,
+    color: '#a8a8a8',
+  },
+  stockValue1: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 20,
+    color: '#aeb3c4', 
+    fontWeight: '600',
+  },
+  stockValue2: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 15,
+    color: '#aeb3c4', 
+    fontWeight: '600',
+  },
+  imageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  imageStyle: {
+    width: 40,
+    height: 40,
+  },
+  cashValue: {
+    paddingLeft: 16,
+    flex: 0,
+    fontSize: 20,
+    color: '#aeb3c4', 
+    fontWeight: '600',
+  },
+  cashName: {
+    paddingLeft: 18,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  name: {
+    textAlignVertical: 'bottom',
+    includeFontPadding: false,
+    flex: 0,
+    fontSize: 20,
+    color: '#dbdbdb', 
+    fontWeight: '600',
+  },
 });

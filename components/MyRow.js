@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
+//Required parameters are text, path, right(content)
 
 export default MyRow = props => (
       <TouchableOpacity 

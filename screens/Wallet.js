@@ -97,7 +97,7 @@ class Wallet extends Component {
       curr.id = data.symbol.toUpperCase();
       curr.rate = data.market_data.current_price.usd;
       curr.change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
-      curr.value = snap.val()[data.symbol.toUpperCase()] === undefined
+      curr.value = (!(data.symbol.toUpperCase() in snap.val()))
                       ? 0
                       : Number(snap.val()[data.symbol.toUpperCase()]);
       let arr = this.state.currs;

@@ -32,6 +32,7 @@ export default class BuySellPage extends Component {
       rate: null,
       isLoading: true,
       callback: null,
+      path: null,
     }
 
     this.goToBuy = this.goToBuy.bind(this);
@@ -45,6 +46,8 @@ export default class BuySellPage extends Component {
       rate: this.state.rate,
       cash: this.state.cash,
       callback: this.state.callback,
+      path: this.state.path,
+      stockValue: this.state.stockValue,
     })
   }
 
@@ -55,6 +58,8 @@ export default class BuySellPage extends Component {
       rate: this.state.rate,
       cash: this.state.cash,
       callback: this.state.callback,
+      path: this.state.path,
+      stockValue: this.state.stockValue,
     })
   }
 
@@ -139,18 +144,18 @@ export default class BuySellPage extends Component {
         backgroundColor: background,
       }}>
         <View style={styles.container}>
-          <View style={{ paddingTop: 10}}>
+          <View style={{ marginTop: 10 }}>
+            <MyRow 
+              text='Cash'
+              path={require('../assets/icons/cash.png')}  
+              right={cashValue}
+            />
+            <MyRow
+              text={this.state.id}
+              path={this.state.path}
+              right={walletValue}
+            />
           </View>
-          <MyRow 
-            text='Cash'
-            path={require('../assets/icons/cash.png')}  
-            right={cashValue}
-          />
-          <MyRow
-            text={this.state.id}
-            path={this.state.path}
-            right={walletValue}
-          />
           <View style={{ paddingTop: 20}}>
           </View>
           <View style={{
