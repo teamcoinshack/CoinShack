@@ -109,6 +109,10 @@ export default class Login extends React.Component {
       alert('Please enter password!');
       return;
     }
+    this.setState({
+      email: '',
+      password: '',
+    });
     Firebase
       .auth()
       .signInWithEmailAndPassword(email, pass)

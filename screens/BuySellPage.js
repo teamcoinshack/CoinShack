@@ -15,6 +15,7 @@ import Graph from '../components/Graph.js';
 import db from '../Database.js';
 import q from '../Query.js';
 import Firebase from 'firebase';
+import MyRow from './MyRow.js';
 
 const background = '#373b48';
 export default class BuySellPage extends Component {
@@ -104,33 +105,6 @@ export default class BuySellPage extends Component {
       </Text>
     );
 
-    const cashRow = (
-      <TouchableOpacity 
-        style={styles.row}
-      >
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.imageContainer}>
-            <Image
-              source={require('../assets/icons/cash.png')}
-              style={styles.imageStyle}
-            />
-          </View>
-          <View style={styles.cashName}>
-            <Text style={styles.name}>Cash</Text>
-          </View>
-          <View style={{ 
-            flexDirection: 'column', 
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-          }}>
-            {this.state.cash === undefined
-              ? loading
-              : cashValue}
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-
     const walletValue = (
       <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
         <Text style={this.state.stockValue === 0 
@@ -146,33 +120,6 @@ export default class BuySellPage extends Component {
       </View>
     );
     
-    const currRow = (
-      <TouchableOpacity 
-        style={styles.row}
-      >
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.imageContainer}>
-            <Image
-              source={this.state.path}
-              style={styles.imageStyle}
-            />
-          </View>
-          <View style={styles.cashName}>
-            <Text style={styles.name}>{this.state.id}</Text>
-          </View>
-          <View style={{ 
-            flexDirection: 'column', 
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-          }}>
-            {this.state.cash === undefined
-              ? loading
-              : walletValue}
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-
     if (this.state.isLoading) {
       return (
         <View style={styles.container}></View>
@@ -194,8 +141,16 @@ export default class BuySellPage extends Component {
         <View style={styles.container}>
           <View style={{ paddingTop: 10}}>
           </View>
-          {cashRow}
-          {currRow}
+          <MyRow 
+            text='Cash'
+            path={require('../assets/icons/cash.png')}  
+            right={cashValue}
+          />
+          <MyRow
+            text={this.state.id}
+            path={this.state.path}
+            right={walletValue}
+          />
           <View style={{ paddingTop: 20}}>
           </View>
           <View style={{
