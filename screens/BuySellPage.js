@@ -15,7 +15,7 @@ import Graph from '../components/Graph.js';
 import db from '../Database.js';
 import q from '../Query.js';
 import Firebase from 'firebase';
-import MyRow from './MyRow.js';
+import MyRow from '../components/MyRow.js';
 
 const background = '#373b48';
 export default class BuySellPage extends Component {
