@@ -31,12 +31,30 @@ export default class Buy extends React.Component {
     }
 
     this.buyOnPress = this.buyOnPress.bind(this);
+    this.resetState = this.resetState.bind(this);
+  }
+
+  resetState() {
+    this.setState({ 
+      refreshing: false,
+      actualMoneyBuy: '',
+      displayMoneyBuy: '',
+      displayStockBuy: '',
+      input1: false,
+      input2: false,
+    });
   }
 
   async buyOnPress() {
     try {
+      if (this.state.actualMoneyBuy <= 0) {
+        alert("Invalid amount!");
+        this.resetState();
+        return;
+      }
       if (this.state.actualMoneyBuy < 1) {
         alert("Minimum purchase is $1");
+        this.resetState();
         return;
       }
       this.setState({ refreshing: true });
@@ -50,6 +68,7 @@ export default class Buy extends React.Component {
         this.state.callback();
         this.props.navigation.navigate('Main');
       }
+      this.resetState();
     } catch (error) {
       console.log(error);
     }

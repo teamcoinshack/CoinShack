@@ -32,10 +32,16 @@ export default class Sell extends React.Component {
 
     this.sellOnPress = this.sellOnPress.bind(this);
     this.sellAll = this.sellAll.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
   async sellOnPress() {
     try {
+      if (this.state.actualMoneySell <= 0) {
+        alert("Invalid amount!");
+        this.resetState();
+        return;
+      }
       this.setState({ refreshing: true });
       const res = await db.buy(
         this.state.uid,
@@ -47,13 +53,30 @@ export default class Sell extends React.Component {
         this.state.callback();
         this.props.navigation.navigate('Main');
       }
+      this.resetState();
     } catch (error) {
       console.log(error);
     }
   }
 
+  resetState() {
+    this.setState({ 
+      refreshing: false,
+      actualMoneySell: '',
+      displayMoneySell: '',
+      displayStockSell: '',
+      input1: false,
+      input2: false,
+    });
+  }
+
   async sellAll() {
     try {
+      if (this.state.actualMoneySell <= 0) {
+        alert("Invalid amount!");
+        this.resetState();
+        return;
+      }
       this.setState({ refreshing: true });
       const res = await db.sellAll(
         this.state.uid,
@@ -64,6 +87,7 @@ export default class Sell extends React.Component {
         this.state.callback();
         this.props.navigation.navigate('Main');
       }
+      this.resetState();
     } catch(error) {
       console.log(error);
     }
