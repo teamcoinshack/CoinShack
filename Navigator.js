@@ -7,7 +7,7 @@ import {
   View,
   Button,
   TextInput,
-  TouchableHighlight
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -26,11 +26,12 @@ import SignUp from './screens/SignUp.js';
 import Wallet from './screens/Wallet.js';
 import News from './screens/News.js';
 import Market from './screens/Market.js';
-import Settings from './screens/Settings.js';
+import Profile, {toSettings} from './screens/Profile.js';
 import Buy from './screens/Buy.js';
 import Sell from './screens/Sell.js';
 import InternalWebpage from './screens/InternalWebpage.js';
 import Info from './screens/Info.js';
+import Settings from './screens/Settings.js';
 import ChangePassword from './screens/ChangePassword.js';
 
 const background = '#373b48';
@@ -178,7 +179,34 @@ const marketStack = createStackNavigator({
   },
 })
 
-const settingsStack = createStackNavigator({
+const profileStack = createStackNavigator({
+  Profile: {
+    screen: Profile,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Profile',
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerRight: (
+        <TouchableOpacity
+          style={{ marginRight: 15 }}
+          onPress={() => navigation.navigate('Settings')} 
+        >
+          <Icon
+            name="settings"
+            size={24}
+            color={'#ffffff'}
+          />
+        </TouchableOpacity>
+      ),
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      },
+      headerTintColor: '#ffffff',
+    })
+  },
   Settings: {
     screen: Settings,
     navigationOptions: {
@@ -252,13 +280,13 @@ const tabs = createBottomTabNavigator(
         ),
       },
     },
-    Settings: {
-      screen: settingsStack,
+    Profile: {
+      screen: profileStack,
       navigationOptions: {
-        title: 'Settings',
+        title: 'Profile',
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            name="settings"
+            name="human-greeting"
             size={24}
             color={tintColor}
           />

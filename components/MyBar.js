@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-native-progress';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 const background = '#373b48';
 export default MyBar = props => {
