@@ -3,21 +3,18 @@ import {
   Text,
   View,
   ScrollView,
-  ActivityIndicator,
   TouchableOpacity,
   StyleSheet,
-  RefreshControl,
   Dimensions,
   Image,
   FlatList,
   TextInput,
+  Switch,
 } from 'react-native';
 import Firebase from 'firebase';
 import Swipeable from 'react-native-swipeable';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import MyButton from '../components/MyButton.js';
 import TouchableGraph from '../components/TouchableGraph';
-import Graph from '../components/Graph.js';
 import db from '../Database.js';
 
 const background = '#373b48';
@@ -97,8 +94,10 @@ export default class Info extends Component {
 
   async toggleAlert(index) {
     try {
+      let alerts = [...this.state.alerts];
+      alerts[index].active = !alerts[index].active;
+      this.setState({ alerts });
       await db.toggleAlert(this.state.uid, index, this.state.name);
-      this.refreshStaticAlerts();
     } catch(error) {
       console.log(error);
     }
@@ -175,29 +174,14 @@ export default class Info extends Component {
             flex: 1,
             marginRight: 5,
           }}>
-            <TouchableOpacity 
-              style={item.active ? styles.active : styles.inactive}
-              onPress={() => this.toggleAlert(item.index)}
-            >
-              <Text style={styles.activeButton}>
-                {item.active ? 'ACTIVE' : 'INACTIVE'}
-              </Text>
-            </TouchableOpacity>
+            <Switch
+              value={item.active}
+              onValueChange={() => this.toggleAlert(item.index)}
+            />
           </View>
         </View>
       </Swipeable>
     )
-  }
-
-  async refreshStaticAlerts() {
-    try {
-      const alerts = await db.getAlerts(this.state.uid, this.state.name);
-      this.setState({
-        alerts: alerts,
-      });
-    } catch(error) {
-      console.log(error);
-    }
   }
 
   async refreshAlerts() {
@@ -670,25 +654,4 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
   },
-  active: {
-    borderRadius: 5,
-    justifyContent: 'flex-end',
-    padding: 10,
-    width: 90,
-    backgroundColor: '#367a4e',
-    alignItems: 'center',
-  },
-  inactive: {
-    borderRadius: 5,
-    justifyContent: 'flex-end',
-    padding: 10,
-    width: 90,
-    alignItems: 'center',
-    backgroundColor: '#8c3e3e',
-  },
-  activeButton: {
-    fontSize: 15,
-    color: '#ffffff',
-    fontWeight: '500',
-  }
 })

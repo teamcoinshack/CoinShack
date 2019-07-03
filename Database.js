@@ -144,10 +144,7 @@ export default class Database {
                                  .ref('/users/' + uid)
                                  .once('value')
       let alerts = snap.val().alerts[name];
-      let curr = alerts[index];
-      console.log(curr);
-      curr.active = !alerts[index].active;
-      alerts[index] = curr;
+      alerts[index].active = !alerts[index].active;
       let userRef = Firebase.app()
                             .database()
                             .ref('/users/' + uid + '/alerts/');
