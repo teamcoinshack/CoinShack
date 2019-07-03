@@ -32,6 +32,7 @@ import Sell from './screens/Sell.js';
 import InternalWebpage from './screens/InternalWebpage.js';
 import Info from './screens/Info.js';
 import Settings from './screens/Settings.js';
+import History from './screens/History.js';
 import ChangePassword from './screens/ChangePassword.js';
 
 const background = '#373b48';
@@ -39,9 +40,37 @@ const background = '#373b48';
 const walletStack = createStackNavigator({
   Main: {
     screen: Wallet,
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => ({
       title: 'My Wallet',
       headerLeft: null,
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerRight: (
+        <TouchableOpacity
+          style={{ marginRight: 15 }}
+          onPress={() => navigation.navigate('History')} 
+        >
+          <Icon
+            name="notebook"
+            size={24}
+            color={'#ffffff'}
+          />
+        </TouchableOpacity>
+      ),
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      },
+      headerBackTitle: null,
+      headerTintColor: '#ffffff',
+    })
+  },
+  History: {
+    screen: History,
+    navigationOptions: {
+      title: 'History',
       headerStyle: {
         backgroundColor: background,
         borderBottomWidth: 0,
@@ -50,9 +79,8 @@ const walletStack = createStackNavigator({
         color: '#ffffff',
         fontSize: 20,
       },
-      headerBackTitle: null,
       headerTintColor: '#ffffff',
-    }
+    },
   },
   BuySellPage: {
     screen: BuySellPage,

@@ -72,11 +72,6 @@ export default class Sell extends React.Component {
 
   async sellAll() {
     try {
-      if (this.state.actualMoneySell <= 0) {
-        alert("Invalid amount!");
-        this.resetState();
-        return;
-      }
       this.setState({ refreshing: true });
       const res = await db.sellAll(
         this.state.uid,
@@ -87,7 +82,6 @@ export default class Sell extends React.Component {
         this.state.callback();
         this.props.navigation.navigate('Main');
       }
-      this.resetState();
     } catch(error) {
       console.log(error);
     }

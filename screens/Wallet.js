@@ -6,7 +6,6 @@ import {
   Image,
   StyleSheet,
   FlatList,
-  Button,
   Dimensions,
   TouchableOpacity,
   RefreshControl,
@@ -84,22 +83,28 @@ class Wallet extends Component {
         });
         return;
       }
-      const uid = Firebase.auth().currentUser.uid;
-      const curr = this.state.currs[this.state.current];
-      const data = await q.fetch(curr.name);
-      const snap = await db.getData(uid);
+      let snaps;
       if (this.state.current === 0) {
+        //for first query, snap
+        const uid = Firebase.auth().currentUser.uid;
+        const snap = await db.getData(uid);
         await this.setState({
+          data: snap.val(),
           uid: uid,
           cash: snap.val().cash,
         })
+        snaps = snap.val();
+      } else {
+        snaps = this.state.data;
       }
+      const curr = this.state.currs[this.state.current];
+      const data = await q.fetch(curr.name);
       curr.id = data.symbol.toUpperCase();
       curr.rate = data.market_data.current_price.usd;
       curr.change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
-      curr.value = (!(data.symbol.toUpperCase() in snap.val()))
+      curr.value = (!(data.symbol.toUpperCase() in snaps))
                       ? 0
-                      : Number(snap.val()[data.symbol.toUpperCase()]);
+                      : Number(snaps[data.symbol.toUpperCase()]);
       let arr = this.state.currs;
       arr[this.state.current] = curr;
       await this.setState({

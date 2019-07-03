@@ -3,6 +3,7 @@ import {
   TextInput, 
   Text, 
   View, 
+  ScrollView,
   StyleSheet, 
   TouchableOpacity,
   Button,
@@ -241,6 +242,9 @@ export default class Buy extends React.Component {
     )
     
     return (
+      <ScrollView style={{
+        backgroundColor: background,
+      }}>
         <View style={styles.container}>
           <View style={{
             marginTop: 10,
@@ -259,6 +263,7 @@ export default class Buy extends React.Component {
           </View>
           {this.state.refreshing ? loading : inputs }
         </View>
+      </ScrollView>
     )
   }
 }

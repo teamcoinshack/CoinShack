@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-native-progress';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 
 const background = '#373b48';
 export default MyBar = props => {
@@ -23,3 +23,8 @@ export default MyBar = props => {
     </View>
   );
 } 
+
+MyBar.defaultProps = {
+  height: 65,
+  width: Math.round(Dimensions.get('window').width),
+}

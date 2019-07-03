@@ -7,17 +7,19 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
+import { Avatar } from 'react-native-elements';
 //Required parameters are text, path, right(content)
 
 export default ProfileTab = props => (
-      <TouchableOpacity 
+      <View 
         style={styles.row}
       >
         <View style={{ 
           flexDirection: 'row', 
         }}>
           <View style={styles.imageAndNameContainer}>
-            <Image
+            <Avatar
+              rounded
               source={props.path}
               style={styles.imageStyle}
             />
@@ -43,7 +45,9 @@ export default ProfileTab = props => (
           <View style={styles.info}>
             <Text style={styles.header}>Net Worth</Text>
             <View style={styles.border}>
-              <Text style={styles.value}>{props.value}</Text>
+              {props.refreshing
+               ? ( <MyBar height={20} flexStart={true}/> )
+               : ( <Text style={styles.value}>{props.value}</Text> )}
             </View>
           </View>
         </View>
@@ -63,7 +67,7 @@ export default ProfileTab = props => (
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
 );
 
 ProfileTab.defaultProps = {
@@ -73,6 +77,7 @@ ProfileTab.defaultProps = {
   name: 'Bob',
   achieveCount: 0,
   fav: 'Bitcoin',
+  value: -1,
 }
 
 const styles = StyleSheet.create({

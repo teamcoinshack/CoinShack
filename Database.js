@@ -20,13 +20,23 @@ export default class Database {
         alert("No cryptocurrency to sell!");
         return 1;
       }
+      let hist = ('history' in snap.val()) ? snap.val().history : [];
+      hist.unshift({
+        symbol: stock,
+        buy: false,
+        date: new Date(),
+        coinValue: snap.val()[stock], 
+        rate: rate,
+      })
       userRef.update({
         cash: initCash + (snap.val()[stock] * rate),
         [stock]: 0,
+        history: hist,
       });
       return 0;
     } catch (error) {
       console.log(error);
+      alert('Something broke! :(');
     }
   }
 
@@ -171,7 +181,7 @@ export default class Database {
     }
   }
 
-  static async buy(uid, id, cash, rate) {
+  static async buy(uid, stock, cash, rate) {
     try {
       let userRef = Firebase.app()
                             .database()
@@ -183,10 +193,10 @@ export default class Database {
         return 1;
       }
       let initStock;
-      if (!(id in snap.val())) {
+      if (!([stock] in snap.val())) {
         initStock = 0;
       } else {
-        initStock = snap.val()[id];
+        initStock = snap.val()[stock];
       }
       if (initStock + (cash / rate) < 0) {
         alert("Not enough cryptocurrency!");
@@ -196,9 +206,18 @@ export default class Database {
         alert("No cryptocurrency to sell!");
         return 1;
       }
+      let hist = ('history' in snap.val()) ? snap.val().history : [];
+      hist.unshift({
+        symbol: stock,
+        buy: cash > 0,
+        date: new Date(),
+        coinValue: Math.abs(cash / rate),
+        rate: rate
+      })
       userRef.update({
         cash: initCash - cash,
-        [id]: initStock + (cash / rate),
+        [stock]: initStock + (cash / rate),
+        history: hist
       });
       return 0;
     } catch (error) {

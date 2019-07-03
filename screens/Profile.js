@@ -8,11 +8,14 @@ import {
   Button,
   ScrollView,
   Alert,
+  RefreshControl,
 } from 'react-native';
 import Firebase from 'firebase';
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
 import ProfileTab from '../components/ProfileTab.js';
+import Masterlist from '../Masterlist.js';
+import q from '../Query.js';
 
 const background = '#373b48';
 
@@ -22,14 +25,41 @@ export default class Profile extends Component {
 
     this.state = {
       id: null,
+      refreshing: false,
+    }
+    this.refresh = this.refresh.bind(this);
+  }
+
+  async componentDidMount() {
+    try {
+      await this.refresh();
+    } catch(error) {
+      console.log(error);
     }
   }
 
-  componentDidMount() {
-    const uid = Firebase.auth().currentUser.uid;
-    this.setState({
-      id: uid,
-    });
+  async refresh() {
+    try {
+      this.setState({
+        refreshing: true,
+      });
+      const currs = Masterlist.map(a => Object.assign({}, a));
+      const uid = Firebase.auth().currentUser.uid;
+      const snap = await db.getData(uid);
+      let totalValue = snap.val().cash;
+      for (let i = 0; i < currs.length; i++) {
+        const curr = currs[i];
+        const data = await q.fetch(curr.name);
+        const rate = data.market_data.current_price.usd;
+        totalValue += (rate * snap.val()[data.symbol.toUpperCase()]);
+      }
+      this.setState({
+        totalValue: '$' + db.stringify(totalValue.toFixed(2)),
+        refreshing: false,
+      })
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   render() {
@@ -37,8 +67,17 @@ export default class Profile extends Component {
       <ScrollView 
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.refresh}
+          />
+        }
       >
-        <ProfileTab value={1000}/>
+        <ProfileTab 
+          refreshing={this.state.refreshing}
+          value={this.state.totalValue}
+        />
       </ScrollView>
     );
   }
