@@ -448,7 +448,7 @@ export default class Info extends Component {
           </View>
           {this.state.refreshing
           ? loading
-          : this.state.alerts === 0
+          : this.state.alerts.length === 0
               ? noAlerts
               : alertList}
           <RBSheet

@@ -59,7 +59,7 @@ export default class Database {
                                  .database()
                                  .ref('/users/' + uid)
                                  .once('value')
-      let alerts = snap.val().alerts === 0 ? [] : snap.val().alerts;
+      let alerts = (!('alerts' in snap.val())) ? [] : snap.val().alerts;
       if (!(name in alerts)) {
         //no alerts yet. Create an array and insert
         let arr = [];
@@ -118,15 +118,16 @@ export default class Database {
         obj.index = i;
         alerts[i] = obj;
       }
-      let userRef = Firebase.app()
+      let alertRef = Firebase.app()
                             .database()
                             .ref('/users/' + uid + '/alerts/');
+      let userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + uid);
       if (alerts.length === 0) {
-        userRef.update({
-          [name]: 0.
-        });
+        userRef.child('alerts').remove();
       } else {
-        userRef.update({
+        alertRef.update({
           [name]: alerts,
         });
       }

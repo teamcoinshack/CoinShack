@@ -46,6 +46,7 @@
 		374DA9E322BFB693002087B6 /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374DA9E122BFB693002087B6 /* GoogleSignInDependencies.framework */; };
 		374DA9E522BFB6B0002087B6 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 374DA9E422BFB6B0002087B6 /* GoogleSignIn.bundle */; };
 		374DA9EA22BFB807002087B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 374DA9E922BFB806002087B6 /* GoogleService-Info.plist */; };
+		377D8D7E22CCF176001E9772 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 377D8D4F22CCF176001E9772 /* GoogleSignIn.bundle */; };
 		3823332CCEB04A6F8C818606 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01902CC2F18245BFA1B433E3 /* FBSDKLoginKit.framework */; };
 		38CDF6491E3F40A1BBAE3630 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF387077EF254724A9B964DD /* FontAwesome.ttf */; };
 		3A8D371B176C41D789FCBB6A /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F85904990243405193506695 /* libRNSVG-tvOS.a */; };
@@ -449,6 +450,7 @@
 		374DA9E622BFB6E5002087B6 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
 		374DA9E722BFB7E9002087B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		374DA9E922BFB806002087B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		377D8D4F22CCF176001E9772 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = ../../google_signin_sdk_4_4_0/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		43F2EB8AFD224C19B98B27E9 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6B6696951F90476EB2660031 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				377D8D4F22CCF176001E9772 /* GoogleSignIn.bundle */,
 			);
 			name = CoinShack;
 			sourceTree = "<group>";
@@ -1417,6 +1420,7 @@
 				541D18472D0D4C549CB08C39 /* MaterialCommunityIcons.ttf in Resources */,
 				4C5E31383B8D4D60AE80A907 /* MaterialIcons.ttf in Resources */,
 				B959857213B34E27ADB38D8A /* Octicons.ttf in Resources */,
+				377D8D7E22CCF176001E9772 /* GoogleSignIn.bundle in Resources */,
 				374DA9EA22BFB807002087B6 /* GoogleService-Info.plist in Resources */,
 				36A4E18A2AED4FB9BA8A615C /* SimpleLineIcons.ttf in Resources */,
 				404361D0C3CE4D7C97F2D4EF /* Zocial.ttf in Resources */,
