@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   TextInput, 
   Image,
@@ -21,7 +21,7 @@ import Firebase from 'firebase';
 
 const background = '#373b48';
 
-export default class Login extends React.Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -67,9 +67,7 @@ export default class Login extends React.Component {
                 db.initUser(result.user.uid, false);
               }
             })
-            .then(
-              () => this.props.navigation.navigate('Dashboard', {emailLogin: false})
-            )
+            .then(() => this.props.navigation.navigate('Dashboard'))
             .catch(error => {
               let errorCode = error.code;
               let errorMessage = error.message;
@@ -97,9 +95,7 @@ export default class Login extends React.Component {
           db.initUser(result.user.uid, false);
         }
       })
-      .then(
-        () => this.props.navigation.navigate('Dashboard', {emailLogin: false})
-      )
+      .then(() => this.props.navigation.navigate('Dashboard'))
       .catch(error => {
         let errorCode = error.code;
         let errorMessage = error.message;

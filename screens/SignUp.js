@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
   TextInput, 
   Text, 
@@ -11,7 +11,7 @@ import Firebase from 'firebase';
 import db from '../Database.js';
 
 const background = '#373b48';
-export default class SignUp extends React.Component {
+export default class SignUp extends Component {
   state = { email: '', password: '', errorMessage: null }
 
   handleSignUp = (email, pass) => {

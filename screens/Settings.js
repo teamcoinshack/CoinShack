@@ -15,7 +15,6 @@ export default class Settings extends Component {
 
     this.state = {
       id: null,
-      emailLogin: null,
     }
     this.logout = this.logout.bind(this);
     this.isEmailLogin = this.isEmailLogin.bind(this);
@@ -27,7 +26,6 @@ export default class Settings extends Component {
       const snap = await db.getData(uid);
       this.setState({
         id: uid,
-        emailLogin: snap.val().emailLogin,
       });
     } catch(error) {
       console.log(error);
@@ -49,7 +47,7 @@ export default class Settings extends Component {
 
   isEmailLogin() {
     let user = Firebase.auth().currentUser;
-    let provider = user.providerData[0].providerId
+    let provider = user.providerData[0].providerId;
     return provider === "password";
   }
 
