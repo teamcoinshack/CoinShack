@@ -49,14 +49,8 @@ export default class Database {
                           .ref('/users/' + userID);
     userRef.set({
       cash: 1000000.00,
-      alerts: {
-        bitcoin: 0,
-        ethereum: 0,
-        dash: 0,
-        ripple: 0,
-        litecoin: 0,
-      },
       emailLogin: emailLogin,
+      alerts: 0,
     });
   }
   
@@ -66,8 +60,8 @@ export default class Database {
                                  .database()
                                  .ref('/users/' + uid)
                                  .once('value')
-      const alerts = snap.val().alerts[name];
-      if (alerts === 0) {
+      let alerts = snap.val().alerts === 0 ? [] : snap.val().alerts;
+      if (!(name in alerts)) {
         //no alerts yet. Create an array and insert
         let arr = [];
         arr.push({
@@ -79,11 +73,19 @@ export default class Database {
         let userRef = Firebase.app()
                               .database()
                               .ref('/users/' + uid + '/alerts/');
-        userRef.update({
-          [name]: arr,
-        });
+        if (snap.val().alerts === 0) {
+          //no alerts for all crypto
+          userRef.set({
+            [name]: arr,
+          })
+        } else {
+          userRef.update({
+            [name]: arr,
+          });
+        }
         return 0;
       } else {
+        const alerts = snap.val().alerts[name];
         //take old array, append new alert, push new array back
         alerts.push({
           index: alerts.length,
@@ -91,10 +93,10 @@ export default class Database {
           notifyWhenAbove: notifyWhenAbove,
           active: active,
         });
-        let userRef = Firebase.app()
+        let alertRef = Firebase.app()
                               .database()
                               .ref('/users/' + uid + '/alerts/');
-        userRef.update({
+        alertRef.update({
           [name]: alerts,
         });
         return 0;
@@ -163,11 +165,12 @@ export default class Database {
                                  .database()
                                  .ref('/users/' + uid)
                                  .once('value')
-      const alerts = snap.val().alerts[name];
-      if (alerts === 0) {
+      let alerts;
+      alerts = ('alerts' in snap.val()) ? snap.val().alerts : [];
+      if (alerts.length === 0) {
         return [];
       }
-      return alerts;
+      return ([name] in alerts) ? alerts[name] : [];
     } catch(error) {
       console.log(error);
     }

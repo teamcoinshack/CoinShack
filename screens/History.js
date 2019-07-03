@@ -45,7 +45,8 @@ export default class History extends Component {
     const year = d.getFullYear();
 
     let hour = d.getHours();
-    const min = d.getMinutes();
+    let min = d.getMinutes();
+    min = min < 10 ? '0' + min : min;
     const postfix = hour >= 12 ? ' PM' : ' AM';
     hour = hour > 13 ? hour - 12 : hour;
 
