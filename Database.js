@@ -30,9 +30,9 @@ export default class Database {
       })
       userRef.update({
         cash: initCash + (snap.val()[stock] * rate),
-        [stock]: 0,
         history: hist,
       });
+      userRef.child(stock).remove();
       return 0;
     } catch (error) {
       console.log(error);
