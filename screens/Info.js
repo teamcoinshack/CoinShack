@@ -54,6 +54,7 @@ export default class Info extends Component {
       const uid = navigation.getParam('uid', null);
       const rate = data.market_data.current_price.usd.toFixed(2);
       const alerts = await db.getAlerts(uid, name);
+      console.log(alerts);
       this.setState({
         uid: uid,
         name: name,
@@ -446,8 +447,8 @@ export default class Info extends Component {
             </View>
           </View>
           {this.state.refreshing
-            ? loading
-            : this.state.alerts.length === 0
+          ? loading
+          : this.state.alerts === 0
               ? noAlerts
               : alertList}
           <RBSheet
