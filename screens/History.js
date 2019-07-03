@@ -20,7 +20,8 @@ export default class History extends Component {
     super(props);
 
     this.state = {
-      history: [] 
+      history: [], 
+      refreshing: true,
     }
     this.renderRow = this.renderRow.bind(this);
   }
@@ -29,8 +30,10 @@ export default class History extends Component {
     try {
       const uid = Firebase.auth().currentUser.uid;
       const snap = await db.getData(uid);
+      let hist = ('history' in snap.val()) ? snap.val().history : [];
       this.setState({
-        history: snap.val().history,
+        history: hist,
+        refreshing: false,
       })
       console.log(snap.val().history);
     } catch(error) {
@@ -81,14 +84,46 @@ export default class History extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
+    const noHistory = (
+      <View style={{
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'center',
+        marginTop: 20,
+      }}>
+        <Text style={{
+          color: '#7c7c7c',
+          fontWeight: '500',
+          fontSize: 23,
+        }}>
+          No history to show
+        </Text>
+      </View>
+    )
+    const loading = (
+      <View style={styles.loading1}>
+          <MyBar
+            height={65}
+            width={Math.round(Dimensions.get('window').width * 0.7)}
+            flexStart={true}
+          />
+      </View>
+    )
+    const historyList = (
         <FlatList
           style={styles.flatStyle}
           data={this.state.history}
           renderItem={this.renderRow}
           keyExtractor={item => item.date}
         />
+    )
+    return (
+      <View style={styles.container}>
+        {this.state.refreshing
+          ? loading
+          : this.state.history.length === 0
+            ? noHistory
+            : historyList}
       </View>
     )
   }
@@ -102,6 +137,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "stretch",
     backgroundColor: background,
+    justifyContent: 'center'
   },
   row: {
     elevation: 1,

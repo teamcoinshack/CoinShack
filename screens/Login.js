@@ -101,35 +101,39 @@ export default class Login extends React.Component {
       })
   }
 
-  handleLogin(email, pass) {
-    if (email === '') {
-      alert('Please enter email!');
-      return;
-    } else if (pass === '') {
-      alert('Please enter password!');
-      return;
+  async handleLogin(email, pass) {
+    try {
+      if (email === '') {
+        alert('Please enter email!');
+        return;
+      } else if (pass === '') {
+        alert('Please enter password!');
+        return;
+      }
+      await Firebase
+        .auth()
+        .signInWithEmailAndPassword(email, pass)
+        .then(() => (
+          this.props.navigation.navigate('Dashboard') 
+        ))
+        .catch(function (error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          if (errorCode === 'auth/wrong-password') {
+            alert('Incorrect password.');
+          } else if (errorCode === 'auth/invalid-email') {
+            alert('Invalid email! Have you signed up?');
+          } else if (errorCode === 'auth/user-not-found') {
+            alert('User not found. Have you signed up?');
+          }
+        })
+      this.setState({
+        email: '',
+        password: '',
+      });
+    } catch(error) {
+      console.log(error);
     }
-    this.setState({
-      email: '',
-      password: '',
-    });
-    Firebase
-      .auth()
-      .signInWithEmailAndPassword(email, pass)
-      .then(() => (
-        this.props.navigation.navigate('Dashboard') 
-      ))
-      .catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        if (errorCode === 'auth/wrong-password') {
-          alert('Incorrect password.');
-        } else if (errorCode === 'auth/invalid-email') {
-          alert('Invalid email! Have you signed up?');
-        } else if (errorCode === 'auth/user-not-found') {
-          alert('User not found. Have you signed up?');
-        }
-      })
   }
 
   goToSignUp = () => {
