@@ -323,7 +323,8 @@ export default class Info extends Component {
           </View>
         </View>
       </View>
-    )
+    );
+
     const noAlerts = (
       <View style={{
         flexDirection: 'row',
@@ -338,7 +339,7 @@ export default class Info extends Component {
           No alerts to show
         </Text>
       </View>
-    )
+    );
 
     const alertList = (
       <FlatList
@@ -347,7 +348,7 @@ export default class Info extends Component {
         renderItem={this.renderRow}
         keyExtractor={item => item.index.toString()}
       />
-    )
+    );
 
     return (
       <ScrollView
@@ -445,26 +446,26 @@ export default class Info extends Component {
             </View>
           </View>
           {this.state.refreshing
-          ? loading
-          : this.state.alerts.length === 0
+            ? loading
+            : this.state.alerts.length === 0
               ? noAlerts
               : alertList}
-            <RBSheet
-              ref={ref => {
-                this.RBSheet = ref;
-              }}
-              height={520}
-              duration={250}
-              customStyles={{
-                container: {
-                  backgroundColor: background,
-                  justifyContent: 'center',
-                  alignItems: 'flex-start',
-                }
-              }}
-            >
-              {AlertSheet}
-            </RBSheet>
+          <RBSheet
+            ref={ref => {
+              this.RBSheet = ref;
+            }}
+            height={520}
+            duration={250}
+            customStyles={{
+              container: {
+                backgroundColor: background,
+                justifyContent: 'center',
+                alignItems: 'flex-start',
+              }
+            }}
+          >
+            {AlertSheet}
+          </RBSheet>
         </View>
       </ScrollView>
     );

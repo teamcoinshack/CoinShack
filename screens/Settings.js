@@ -1,16 +1,10 @@
 import React, {Component} from 'react';
 import {
-  Text, 
-  View, 
   Dimensions,
   StyleSheet, 
-  FlatList, 
-  Button,
   ScrollView,
-  Alert,
 } from 'react-native';
 import Firebase from 'firebase';
-import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
 
 const background = '#373b48';
@@ -24,6 +18,7 @@ export default class Settings extends Component {
       emailLogin: null,
     }
     this.logout = this.logout.bind(this);
+    this.isEmailLogin = this.isEmailLogin.bind(this);
   }
 
   async componentDidMount() {
@@ -52,6 +47,12 @@ export default class Settings extends Component {
             })
   }
 
+  isEmailLogin() {
+    let user = Firebase.auth().currentUser;
+    let provider = user.providerData[0].providerId
+    return provider === "password";
+  }
+
   render() {
     const changePasswordButton = (
       <MyButton
@@ -60,13 +61,14 @@ export default class Settings extends Component {
         textColor="#00f9ff"
         width={Math.round(Dimensions.get('window').width) * 0.6}
       />
-    )
+    );
+
     return (
       <ScrollView 
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        {this.state.emailLogin ? changePasswordButton : null}
+        {this.isEmailLogin() && changePasswordButton}
         <MyButton
           text="Logout"
           onPress={this.logout}

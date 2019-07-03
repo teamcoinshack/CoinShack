@@ -35,6 +35,13 @@ export default class Login extends React.Component {
     GoogleSignin.configure({
       webClientId: "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
     });
+
+    Firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in
+        this.props.navigation.navigate('Dashboard');
+      }
+    });
   }
 
   handleFbLogin = () => {
@@ -116,9 +123,7 @@ export default class Login extends React.Component {
     Firebase
       .auth()
       .signInWithEmailAndPassword(email, pass)
-      .then(() => (
-        this.props.navigation.navigate('Dashboard') 
-      ))
+      .then(() => this.props.navigation.navigate('Dashboard'))
       .catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
