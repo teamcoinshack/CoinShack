@@ -37,7 +37,7 @@ export default class Login extends Component {
     });
 
     Firebase.auth().onAuthStateChanged(user => {
-      if (user) {
+      if (user && !user.isNew) {
         // User is signed in
         this.props.navigation.navigate('Dashboard');
       }
@@ -64,10 +64,16 @@ export default class Login extends Component {
             })
             .then(result => {
               if (result.additionalUserInfo.isNewUser) {
-                db.initUser(result.user.uid, false);
+                Firebase.auth().currentUser.isNew = true;
+                db.initUser(result.user.uid);
+                return true;
+              } else {
+                return false;
               }
             })
-            .then(() => this.props.navigation.navigate('Dashboard'))
+            .then(isNew => isNew
+              ? this.props.navigation.navigate('Intro')
+              : this.props.navigation.navigate('Dashboard'))
             .catch(error => {
               let errorCode = error.code;
               let errorMessage = error.message;
@@ -92,10 +98,16 @@ export default class Login extends Component {
       })
       .then(result => {
         if (result.additionalUserInfo.isNewUser) {
-          db.initUser(result.user.uid, false);
+          Firebase.auth().currentUser.isNew = true;
+          db.initUser(result.user.uid);
+          return true;
+        } else {
+          return false;
         }
       })
-      .then(() => this.props.navigation.navigate('Dashboard'))
+      .then(isNew => isNew
+        ? this.props.navigation.navigate('Intro')
+        : this.props.navigation.navigate('Dashboard'))
       .catch(error => {
         let errorCode = error.code;
         let errorMessage = error.message;

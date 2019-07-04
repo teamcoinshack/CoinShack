@@ -34,6 +34,7 @@ import Info from './screens/Info.js';
 import Settings from './screens/Settings.js';
 import History from './screens/History.js';
 import ChangePassword from './screens/ChangePassword.js';
+import Intro from './screens/Intro.js';
 
 const background = '#373b48';
 
@@ -357,6 +358,12 @@ const AppNavigator = createStackNavigator(
       screen: Login,
       navigationOptions: {
         headerBackTitle: "Login",
+        header: null,
+      }
+    },
+    Intro: {
+      screen: Intro,
+      navigationOptions: {
         header: null,
       }
     },

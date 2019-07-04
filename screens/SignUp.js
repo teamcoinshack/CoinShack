@@ -18,11 +18,12 @@ export default class SignUp extends Component {
     success = true;
     Firebase.auth()
             .createUserWithEmailAndPassword(email, pass)
+            .then(() => {
+              Firebase.auth().currentUser.isNew = true;
+              db.initUser(Firebase.auth().currentUser.uid, true)
+            })
             .then(() => (
-                db.initUser(Firebase.auth().currentUser.uid, true)
-            ))
-            .then(() => (
-              this.props.navigation.navigate('News')
+              this.props.navigation.navigate('Intro')
             ))
             .catch((error) => {
               success = false;

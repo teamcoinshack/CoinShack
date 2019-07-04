@@ -58,6 +58,7 @@ export default class Profile extends Component {
         totalValue += (rate * amountOfCoins); 
       }
       this.setState({
+        username: Firebase.auth().currentUser.displayName,
         totalValue: '$' + db.stringify(totalValue.toFixed(2)),
         refreshing: false,
       })

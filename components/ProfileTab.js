@@ -32,7 +32,7 @@ export default ProfileTab = props => (
                 fontWeight: '500',
                 fontSize: 25,
                 marginBottom: 5,
-              }}>{props.name}</Text>
+              }}>{props.username}</Text>
               <Text style={{
                 color: '#c2c2c2',
                 fontWeight: '500',
@@ -74,7 +74,7 @@ ProfileTab.defaultProps = {
   textColor: "#ffffff",
   path: require('../assets/icons/noPic.png'),
   title: 'Novice',
-  name: 'Bob',
+  username: 'Bob',
   achieveCount: 0,
   fav: 'Bitcoin',
   value: -1,
