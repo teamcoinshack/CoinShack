@@ -51,7 +51,11 @@ export default class Profile extends Component {
         const curr = currs[i];
         const data = await q.fetch(curr.name);
         const rate = data.market_data.current_price.usd;
-        totalValue += (rate * snap.val()[data.symbol.toUpperCase()]);
+        let amountOfCoins;
+        amountOfCoins = (data.symbol.toUpperCase() in snap.val())
+                        ? snap.val()[data.symbol.toUpperCase()]
+                        : 0;
+        totalValue += (rate * amountOfCoins); 
       }
       this.setState({
         totalValue: '$' + db.stringify(totalValue.toFixed(2)),
