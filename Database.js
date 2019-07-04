@@ -61,7 +61,7 @@ export default class Database {
                                  .once('value')
       let alerts = (!('alerts' in snap.val())) ? [] : snap.val().alerts;
       if (!(name in alerts)) {
-        //no alerts yet. Create an array and insert
+        //no alerts yet for this particular coin. Create an array and insert
         let arr = [];
         arr.push({
           index: 0,
@@ -72,16 +72,9 @@ export default class Database {
         let userRef = Firebase.app()
                               .database()
                               .ref('/users/' + uid + '/alerts/');
-        if (snap.val().alerts === 0) {
-          //no alerts for all crypto
-          userRef.set({
-            [name]: arr,
-          })
-        } else {
-          userRef.update({
-            [name]: arr,
-          });
-        }
+        userRef.update({
+          [name]: arr,
+        });
         return 0;
       } else {
         const alerts = snap.val().alerts[name];
@@ -125,7 +118,7 @@ export default class Database {
                             .database()
                             .ref('/users/' + uid);
       if (alerts.length === 0) {
-        userRef.child('alerts').remove();
+        alertRef.child(name).remove();
       } else {
         alertRef.update({
           [name]: alerts,
