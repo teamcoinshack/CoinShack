@@ -72,15 +72,16 @@ class Wallet extends Component {
   async refresh() {
     try {
       if (this.state.current >= this.state.currs.length) {
-        this.setState({
-          totalValue: Number(this.state.cash)
+        const total = Number(this.state.cash)
                       + this.state
                             .currs
                             .map(x => x.value * x.rate)
-                            .reduce((x, y) => x + y, 0),
+                            .reduce((x, y) => x + y, 0);
+        this.setState({
+          totalValue: total,
           current: 0,
           refreshing: false,
-        });
+        }, db.updateTotal(this.state.uid, total));
         return;
       }
       let snaps;
@@ -99,19 +100,19 @@ class Wallet extends Component {
       }
       const curr = this.state.currs[this.state.current];
       const data = await q.fetch(curr.name);
+      const wallet = ('wallet' in snaps) ? snaps.wallet : [];
       curr.id = data.symbol.toUpperCase();
       curr.rate = data.market_data.current_price.usd;
       curr.change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
-      curr.value = (!(data.symbol.toUpperCase() in snaps))
+      curr.value = (wallet === [] || !(curr.id in wallet))
                       ? 0
-                      : Number(snaps[data.symbol.toUpperCase()]);
+                      : Number(wallet[curr.id]);
       let arr = this.state.currs;
       arr[this.state.current] = curr;
-      await this.setState({
+      this.setState({
         currs: arr,
         current: this.state.current + 1,
-      })
-      this.refresh();
+      }, () => this.refresh())
     } catch (error) {
       console.log(error);
       this.refresh();

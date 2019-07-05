@@ -14,42 +14,60 @@ export default class Database {
       let userRef = Firebase.app()
                             .database()
                             .ref('/users/' + id);
+      let walletRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + id + '/wallet/');
       const snap = await this.getData(id);
-      const initCash = snap.val().cash;
-      if (snap.val()[stock] === 0 || snap.val()[stock] === undefined) {
+      if (!('wallet' in snap.val())) {
         alert("No cryptocurrency to sell!");
         return 1;
       }
+      let wallet = snap.val().wallet;
+      if (!(stock in wallet)) {
+        alert("No cryptocurrency to sell!");
+        return 1;
+      }
+      const initCash = snap.val().cash;
       let hist = ('history' in snap.val()) ? snap.val().history : [];
       hist.unshift({
         symbol: stock,
         buy: false,
         date: new Date(),
-        coinValue: snap.val()[stock], 
+        coinValue: snap.val().wallet[stock], 
         rate: rate,
       })
       userRef.update({
-        cash: initCash + (snap.val()[stock] * rate),
+        cash: initCash + (snap.val().wallet[stock] * rate),
         history: hist,
       });
-      userRef.child(stock).remove();
+      walletRef.child(stock).remove();
       return 0;
     } catch (error) {
       console.log(error);
       alert('Something broke! :(');
     }
   }
-
+  
+  static updateTotal(uid, total) {
+    let userRef = Firebase.app()
+                          .database()
+                          .ref('/users/' + uid);
+    userRef.update({
+      totalValue: total,
+    });
+  }
 
   // can consider using cloud functions for new user creation,
   // set cash value, send email bla bla
-  static initUser(userID) {
+  static initUser(userID, username) {
     let userRef = Firebase.app()
                           .database()
                           .ref('/users/' + userID);
     userRef.set({
+      username: username,
       cash: 1000000.00,
       alerts: 0,
+      totalValue: 0,
     });
   }
   
@@ -67,7 +85,7 @@ export default class Database {
           index: 0,
           price: price,
           notifyWhenAbove: notifyWhenAbove,
-          active: active,
+          active : active,
         });
         let userRef = Firebase.app()
                               .database()
@@ -176,20 +194,21 @@ export default class Database {
 
   static async buy(uid, stock, cash, rate) {
     try {
-      let userRef = Firebase.app()
-                            .database()
-                            .ref('/users/' + uid);
       const snap = await this.getData(uid);
+      const userRef = Firebase.app()
+                              .database()
+                              .ref('/users/' + uid);
+      let wallet = (!('wallet' in snap.val())) ? [] : snap.val().wallet;
       const initCash = snap.val().cash;
       if (cash > initCash) {
         alert("Not enough cash!");
         return 1;
       }
       let initStock;
-      if (!([stock] in snap.val())) {
+      if (!(stock in wallet)){
         initStock = 0;
       } else {
-        initStock = snap.val()[stock];
+        initStock = wallet[stock];
       }
       if (initStock + (cash / rate) < 0) {
         alert("Not enough cryptocurrency!");
@@ -207,11 +226,20 @@ export default class Database {
         coinValue: Math.abs(cash / rate),
         rate: rate
       })
+      if (!('wallet' in snap.val())) {
+        //entire wallet not present
+        wallet = {
+          [stock]: initStock + (cash / rate),
+        }
+      } else {
+        //wallet present
+        wallet[stock] = initStock + (cash / rate);
+      }
       userRef.update({
         cash: initCash - cash,
-        [stock]: initStock + (cash / rate),
-        history: hist
-      });
+        wallet: wallet,
+        history: hist,
+      })
       return 0;
     } catch (error) {
       console.log(error);

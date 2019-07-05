@@ -65,7 +65,10 @@ export default class Login extends Component {
             .then(result => {
               if (result.additionalUserInfo.isNewUser) {
                 Firebase.auth().currentUser.isNew = true;
-                db.initUser(result.user.uid);
+                db.initUser(
+                  result.user.uid, 
+                  Firebase.auth().currentUser.displayName
+                );
                 return true;
               } else {
                 return false;
@@ -99,7 +102,10 @@ export default class Login extends Component {
       .then(result => {
         if (result.additionalUserInfo.isNewUser) {
           Firebase.auth().currentUser.isNew = true;
-          db.initUser(result.user.uid);
+          db.initUser(
+            result.user.uid, 
+            Firebase.auth().currentUser.displayName
+          );
           return true;
         } else {
           return false;

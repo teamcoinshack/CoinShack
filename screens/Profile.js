@@ -43,23 +43,12 @@ export default class Profile extends Component {
       this.setState({
         refreshing: true,
       });
-      const currs = Masterlist.map(a => Object.assign({}, a));
       const uid = Firebase.auth().currentUser.uid;
       const snap = await db.getData(uid);
-      let totalValue = snap.val().cash;
-      for (let i = 0; i < currs.length; i++) {
-        const curr = currs[i];
-        const data = await q.fetch(curr.name);
-        const rate = data.market_data.current_price.usd;
-        let amountOfCoins;
-        amountOfCoins = (data.symbol.toUpperCase() in snap.val())
-                        ? snap.val()[data.symbol.toUpperCase()]
-                        : 0;
-        totalValue += (rate * amountOfCoins); 
-      }
+      console.log(snap.val());
       this.setState({
-        username: Firebase.auth().currentUser.displayName,
-        totalValue: '$' + db.stringify(totalValue.toFixed(2)),
+        username: snap.val().username,
+        totalValue: '$' + db.stringify(snap.val().totalValue.toFixed(2)),
         refreshing: false,
       })
     } catch(error) {
@@ -82,6 +71,7 @@ export default class Profile extends Component {
         <ProfileTab 
           refreshing={this.state.refreshing}
           value={this.state.totalValue}
+          username={this.state.username}
         />
       </ScrollView>
     );

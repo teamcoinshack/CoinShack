@@ -75,7 +75,11 @@ export default class BuySellPage extends Component {
       const snap = await db.getData(uid);
       const change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
       const id = data.symbol.toUpperCase();
-      const amt = snap.val()[id] === undefined ? 0 : snap.val()[id];
+      const amt = (!('wallet' in snap.val()))
+        ? 0 
+        : (!(id in snap.val().wallet)) 
+          ? 0 
+          : snap.val().wallet[id];
       this.setState({
         callback: callback,
         uid: uid,

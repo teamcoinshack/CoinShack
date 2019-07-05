@@ -12,15 +12,20 @@ import db from '../Database.js';
 
 const background = '#373b48';
 export default class SignUp extends Component {
-  state = { email: '', password: '', errorMessage: null }
+  state = { 
+    username: '',
+    email: '', 
+    password: '', 
+    errorMessage: null 
+  }
 
-  handleSignUp = (email, pass) => {
+  handleSignUp = (email, pass, username) => {
     success = true;
     Firebase.auth()
             .createUserWithEmailAndPassword(email, pass)
             .then(() => {
               Firebase.auth().currentUser.isNew = true;
-              db.initUser(Firebase.auth().currentUser.uid, true)
+              db.initUser(Firebase.auth().currentUser.uid, username)
             })
             .then(() => (
               this.props.navigation.navigate('Intro')
@@ -55,7 +60,7 @@ export default class SignUp extends Component {
             </Text>}
           <View style={styles.inputContainer}>
             <TextInput
-              placeholder="Email"
+              placeholder=" Username"
               placeholderTextColor="#999999"
               autoCapitalize="none"
               style={styles.textInput}
@@ -65,8 +70,18 @@ export default class SignUp extends Component {
           </View>
           <View style={styles.inputContainer}>
             <TextInput
+              placeholder=" Email"
+              placeholderTextColor="#999999"
+              autoCapitalize="none"
+              style={styles.textInput}
+              onChangeText={username => this.setState({ username })}
+              value={this.state.user}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <TextInput
               secureTextEntry
-              placeholder="Password"
+              placeholder=" Password"
               placeholderTextColor="#999999"
               autoCapitalize="none"
               style={styles.textInput}
