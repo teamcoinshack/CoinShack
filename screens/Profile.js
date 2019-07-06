@@ -62,7 +62,6 @@ export default class Profile extends Component {
                               }
                             })
                         )
-      console.log(coins);
       let favCoin;
       if (!wallet) {
         favCoin = 'None :(';
@@ -74,7 +73,6 @@ export default class Profile extends Component {
           }
         }
         favCoin = coins[max][1];
-        console.log(favCoin);
       }
       this.setState({
         username: snap.val().username,
