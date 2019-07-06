@@ -4,4 +4,12 @@ export default Masterlist = [
   {name: 'dash'},
   {name: 'ripple'},
   {name: 'litecoin'},
-]
+];
+
+export const Mapping = {
+  BTC: 'bitcoin',
+  ETH: 'ethereum',
+  DASH: 'dash',
+  XRP: 'ripple',
+  LTC: 'litecoin',
+};

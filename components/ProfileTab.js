@@ -63,7 +63,9 @@ export default ProfileTab = props => (
           <View style={styles.info}>
             <Text style={styles.header}>Favourite Cryptocurrency</Text>
             <View style={styles.border}>
-              <Text style={styles.value}>{props.fav}</Text>
+              {props.refreshing
+               ? ( <MyBar height={20} flexStart={true}/> )
+               : ( <Text style={styles.value}>{props.favourite}</Text> )}
             </View>
           </View>
         </View>
@@ -76,7 +78,7 @@ ProfileTab.defaultProps = {
   title: 'Novice',
   username: 'Bob',
   achieveCount: 0,
-  fav: 'Bitcoin',
+  favourite: 'Bitcoin',
   value: -1,
 }
 

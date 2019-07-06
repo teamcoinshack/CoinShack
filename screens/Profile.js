@@ -14,7 +14,7 @@ import Firebase from 'firebase';
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
 import ProfileTab from '../components/ProfileTab.js';
-import Masterlist from '../Masterlist.js';
+import { Masterlist, Mapping } from '../Masterlist.js';
 import q from '../Query.js';
 
 const background = '#373b48';
@@ -45,11 +45,42 @@ export default class Profile extends Component {
       });
       const uid = Firebase.auth().currentUser.uid;
       const snap = await db.getData(uid);
-      console.log(snap.val());
+      let wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
+      let coins = await Promise.all(
+                          Object.keys(wallet)
+                            .map(async function(symbol) {
+                              try {
+                                let arr = [];
+                                arr[0] = symbol;
+                                arr[1] = Mapping[symbol];
+                                const data = await q.fetch(Mapping[symbol]);
+                                const rate = data.market_data.current_price.usd;
+                                arr[2] = wallet[symbol] * rate;
+                                return arr;
+                              } catch(error) {
+                                console.log(error);
+                              }
+                            })
+                        )
+      console.log(coins);
+      let favCoin;
+      if (!wallet) {
+        favCoin = 'None :(';
+      } else {
+        let max = 0;
+        for (let counter = 1; counter < coins.length; counter++) {
+          if (coins[max][2] < coins[counter][2]) {
+            max = counter;
+          }
+        }
+        favCoin = coins[max][1];
+        console.log(favCoin);
+      }
       this.setState({
         username: snap.val().username,
         totalValue: '$' + db.stringify(snap.val().totalValue.toFixed(2)),
         refreshing: false,
+        favourite: wallet ? favCoin.charAt(0).toUpperCase() + favCoin.slice(1) : favCoin,
       })
     } catch(error) {
       console.log(error);
@@ -72,6 +103,7 @@ export default class Profile extends Component {
           refreshing={this.state.refreshing}
           value={this.state.totalValue}
           username={this.state.username}
+          favourite={this.state.favourite}
         />
       </ScrollView>
     );

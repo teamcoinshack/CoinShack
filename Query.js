@@ -1,3 +1,4 @@
+import { Mapping } from './Masterlist.js';
 export default class Query {
 
   static async fetch(stock) {
@@ -12,5 +13,14 @@ export default class Query {
     let res = await fetch(url);
     let data = await res.json();
     return data.articles;
+  }
+  
+  static async fetchBySymbol(symbol) {
+    try {
+      const res = await this.fetch(Mapping[symbol]);
+      return res;
+    } catch(error) {
+      console.log(error);
+    }
   }
 }
