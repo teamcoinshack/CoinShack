@@ -172,10 +172,11 @@ export default class Database {
                                  .database()
                                  .ref('/users/' + uid)
                                  .once('value');
-      let alerts = ('alerts' in snap.val()) ? snap.val().alerts : [];
-      if (alerts === []) {
+      let alerts = ('alerts' in snap.val()) ? snap.val().alerts : false;
+      if (!alerts) {
         return [];
       }
+      console.log(name in alerts);
       return (name in alerts) ? alerts[name] : [];
     } catch(error) {
       console.log(error);
