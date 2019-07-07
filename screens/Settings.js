@@ -9,6 +9,7 @@ import Firebase from 'firebase';
 import db from '../Database.js';
 import MyButton from '../components/MyButton.js';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { GoogleSignin } from 'react-native-google-signin';
 
 
 const background = '#373b48';
@@ -29,6 +30,15 @@ export default class Settings extends Component {
     this.changePassword = this.changePassword.bind(this);
     this.changePasswordButton = this.changePasswordButton.bind(this);
     this.linkFbButton = this.linkFbButton.bind(this);
+    this.isNotGoogleLogin = this.isNotGoogleLogin.bind(this);
+    this.linkGoogleButton = this.linkGoogleButton.bind(this);
+    this.linkGoogleAcc = this.linkGoogleAcc.bind(this);
+
+    this.googleProvider = new Firebase.auth.GoogleAuthProvider();
+    
+    GoogleSignin.configure({
+      webClientId: "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
+    });
   }
 
   async componentDidMount() {
@@ -71,6 +81,10 @@ export default class Settings extends Component {
     return !(this.getAuthProviders().includes("facebook.com"));
   }
 
+  isNotGoogleLogin() {
+    return !(this.getAuthProviders().includes("google.com"));
+  }
+
   linkFbAcc() {
     LoginManager
       .logInWithReadPermissions(['public_profile', 'user_friends', 'email'])
@@ -91,6 +105,27 @@ export default class Settings extends Component {
           .currentUser
           .linkWithCredential(credential);
       }) // TODO: probably need to have snackbar that say linking successful and then hide the link fb button
+      .catch(error => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        // TODO: handle fb link errors
+        Alert.alert("Linking failed", errorMessage);
+      });
+  }
+
+  linkGoogleAcc() {
+    GoogleSignin
+      .signIn()
+      .then(data => {
+        const credential = Firebase
+          .auth
+          .GoogleAuthProvider
+          .credential(data.idToken, data.accessToken)
+        return Firebase
+          .auth()
+          .currentUser
+          .linkWithCredential(credential);
+      })
       .catch(error => {
         let errorCode = error.code;
         let errorMessage = error.message;
@@ -121,6 +156,17 @@ export default class Settings extends Component {
     );
   }
 
+  linkGoogleButton() {
+    return (
+      <MyButton
+        text="Link Google"
+        onPress={this.linkGoogleAcc}
+        textColor="#00f9ff"
+        width={Math.round(Dimensions.get('window').width) * 0.6}
+      />
+    );
+  }
+
   render() {
     return (
       <ScrollView 
@@ -129,6 +175,7 @@ export default class Settings extends Component {
       >
         {this.isEmailLogin() && this.changePasswordButton()}
         {this.isNotFbLogin() && this.linkFbButton()}
+        {this.isNotGoogleLogin() && this.linkGoogleButton()}
         <MyButton
           text="Logout"
           onPress={this.logout}

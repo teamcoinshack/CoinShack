@@ -15,9 +15,9 @@ import config from '../config.js';
 import db from '../Database.js';
 import Firebase from 'firebase';
 
-//Login credentials
-//User: admin@gmail.com
-//Pass: Test123
+// Login credentials
+// User: admin@gmail.com
+// Pass: Test123
 
 const background = '#373b48';
 
@@ -32,6 +32,7 @@ export default class Login extends Component {
     }
     this.handleLogin = this.handleLogin.bind(this);
     this.googleProvider = new Firebase.auth.GoogleAuthProvider();
+    
     GoogleSignin.configure({
       webClientId: "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
     });

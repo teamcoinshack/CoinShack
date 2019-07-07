@@ -96,7 +96,7 @@ export default class Database {
         return 0;
       } else {
         const alerts = snap.val().alerts[name];
-        //take old array, append new alert, push new array back
+        // take old array, append new alert, push new array back
         alerts.push({
           index: alerts.length,
           price: price,
@@ -172,9 +172,10 @@ export default class Database {
       const snap = await Firebase.app()
                                  .database()
                                  .ref('/users/' + uid)
-                                 .once('value')
-      let alerts;
-      alerts = ('alerts' in snap.val()) ? snap.val().alerts : [];
+                                 .once('value');
+      let alerts = ('alerts' in snap.val())
+                   ? snap.val().alerts
+                   : [];
       if (alerts.length === 0) {
         return [];
       }
