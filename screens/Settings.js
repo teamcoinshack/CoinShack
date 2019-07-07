@@ -22,9 +22,9 @@ export default class Settings extends Component {
     };
 
     this.logout = this.logout.bind(this);
-    this.getAuthProvider = this.getAuthProvider.bind(this);
+    this.getAuthProviders = this.getAuthProviders.bind(this);
     this.isEmailLogin = this.isEmailLogin.bind(this);
-    this.isGoogleLogin = this.isGoogleLogin.bind(this);
+    this.isNotFbLogin = this.isNotFbLogin.bind(this);
     this.linkFbAcc = this.linkFbAcc.bind(this);
     this.changePassword = this.changePassword.bind(this);
     this.changePasswordButton = this.changePasswordButton.bind(this);
@@ -56,21 +56,19 @@ export default class Settings extends Component {
             })
   }
 
-  getAuthProvider() {
+  getAuthProviders() {
     let user = Firebase.auth().currentUser;
-    console.log(user.providerData); //
-    let provider = user.providerData[0].providerId;
-    // google.com for google, password for email
-    // console.log(provider);
-    return provider;
+    let providersArr = user.providerData;
+    // google.com for google, password for email, facebook.com for fb
+    return providersArr.map(providerObj => providerObj.providerId);
   }
 
   isEmailLogin() {
-    return this.getAuthProvider() === "password";
+    return this.getAuthProviders().includes("password");
   }
 
-  isGoogleLogin() {
-    return this.getAuthProvider() === "google.com";
+  isNotFbLogin() {
+    return !(this.getAuthProviders().includes("facebook.com"));
   }
 
   linkFbAcc() {
@@ -92,28 +90,13 @@ export default class Settings extends Component {
           .auth()
           .currentUser
           .linkWithCredential(credential);
-      })
+      }) // TODO: probably need to have snackbar that say linking successful and then hide the link fb button
       .catch(error => {
         let errorCode = error.code;
         let errorMessage = error.message;
         // TODO: handle fb link errors
         Alert.alert("Linking failed", errorMessage);
       });
-
-    // let fbProvider = new Firebase.auth.FacebookAuthProvider();
-    // return Firebase
-    //   .auth()
-    //   .currentUser
-    //   .linkWithPopup(fbProvider)
-    //   .then(result => {
-    //     let credential = result.credential;
-    //     let user = result.user;
-    //     // ....
-    //   })
-    //   .catch(error => {
-    //     // handle error here
-    //     console.log(error);
-    //   });
   }
 
   changePasswordButton() {
@@ -145,7 +128,7 @@ export default class Settings extends Component {
         contentContainerStyle={styles.contentContainer}
       >
         {this.isEmailLogin() && this.changePasswordButton()}
-        {this.isGoogleLogin() && this.linkFbButton()}
+        {this.isNotFbLogin() && this.linkFbButton()}
         <MyButton
           text="Logout"
           onPress={this.logout}
