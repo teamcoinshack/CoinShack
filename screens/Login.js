@@ -189,7 +189,7 @@ export default class Login extends Component {
           <TextInput
             style={styles.textInput}
             autoCapitalize="none"
-            placeholder="Email"
+            placeholder=" Email"
             placeholderTextColor="#999999"
             onChangeText={email => this.setState({ email })}
             value={this.state.email}
@@ -200,7 +200,7 @@ export default class Login extends Component {
             secureTextEntry
             style={styles.textInput}
             autoCapitalize="none"
-            placeholder="Password"
+            placeholder=" Password"
             placeholderTextColor="#999999"
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
@@ -263,7 +263,6 @@ const styles = StyleSheet.create({
     marginRight: 14,
     marginTop: 0,
     height: 60,
-    width: Math.round(Dimensions.get('window').width) * 0.7,
     textAlign: 'left',
     fontSize: 20,
     color: '#ffffff',

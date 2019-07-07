@@ -70,7 +70,12 @@ export default class Info extends Component {
 
   async addAlert() {
     try {
+      console.log(this.state.alertValue);
       if (this.state.alertValue <= 0) {
+        alert('Invalid Price!');
+        return;
+      }
+      if (isNaN(this.state.alertValue)) {
         alert('Invalid Price!');
         return;
       }
