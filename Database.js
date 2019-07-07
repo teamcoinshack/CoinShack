@@ -66,7 +66,6 @@ export default class Database {
     userRef.set({
       username: username,
       cash: 1000000.00,
-      alerts: 0,
       totalValue: 0,
     });
   }
@@ -173,13 +172,11 @@ export default class Database {
                                  .database()
                                  .ref('/users/' + uid)
                                  .once('value');
-      let alerts = ('alerts' in snap.val())
-                   ? snap.val().alerts
-                   : [];
-      if (alerts.length === 0) {
+      let alerts = ('alerts' in snap.val()) ? snap.val().alerts : [];
+      if (alerts === []) {
         return [];
       }
-      return ([name] in alerts) ? alerts[name] : [];
+      return (name in alerts) ? alerts[name] : [];
     } catch(error) {
       console.log(error);
     }
