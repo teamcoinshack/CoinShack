@@ -59,12 +59,13 @@ export default class News extends Component {
         }
       });
       articles = newArticles;
-      let count = 0;
-      articles.map(function(x) {
-        x.listId = count.toString();
-        count++;
-        return x;
-      })
+      // let count = 0;
+      // articles.map(function(x) {
+      //   x.listId = count.toString();
+      //   count++;
+      //   return x;
+      // })
+      articles.map((x, index) => x.listId = index);
       this.setState({
         news: articles,
         refreshing: false,
@@ -181,7 +182,7 @@ export default class News extends Component {
           style={styles.flatStyle}
           data={this.state.news}
           renderItem={this.renderRow}
-          keyExtractor={item => item.listId}
+          // keyExtractor={item => item.listId}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
