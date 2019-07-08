@@ -35,6 +35,9 @@ import Settings from './screens/Settings.js';
 import History from './screens/History.js';
 import ChangePassword from './screens/ChangePassword.js';
 import Intro from './screens/Intro.js';
+import Social from './screens/Social.js';
+import Search from './screens/Search.js';
+
 
 const background = '#373b48';
 
@@ -42,7 +45,7 @@ const walletStack = createStackNavigator({
   Main: {
     screen: Wallet,
     navigationOptions: ({ navigation }) => ({
-      title: 'My Wallet',
+      title: 'Wallet',
       headerLeft: null,
       headerStyle: {
         backgroundColor: background,
@@ -175,6 +178,51 @@ const newsStack = createStackNavigator(
   }
 )
 
+const socialStack = createStackNavigator({
+  Social: {
+    screen: Social,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Social',
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerRight: (
+        <TouchableOpacity
+          style={{ marginRight: 15 }}
+          onPress={() => navigation.navigate('Notifications')} 
+        >
+          <Icon
+            name="bell"
+            size={24}
+            color={'#ffffff'}
+          />
+        </TouchableOpacity>
+      ),
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      },
+      headerTintColor: '#ffffff',
+    })
+  },
+  Search: {
+    screen: Search,
+    navigationOptions: {
+      title: 'Search',
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      },
+      headerTintColor: '#ffffff',
+    }
+  },
+})
+
 const marketStack = createStackNavigator({
   Market: {
     screen: Market,
@@ -290,6 +338,19 @@ const tabs = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Icon
             name="store"
+            size={24}
+            color={tintColor}
+          />
+        ),
+      },
+    },
+    Social: {
+      screen: socialStack,
+      navigationOptions: {
+        title: 'Social',
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="earth"
             size={24}
             color={tintColor}
           />

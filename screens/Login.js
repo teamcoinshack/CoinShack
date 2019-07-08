@@ -67,7 +67,7 @@ export default class Login extends Component {
               if (result.additionalUserInfo.isNewUser) {
                 Firebase.auth().currentUser.isNew = true;
                 db.initUser(
-                  result.user.uid, 
+                  Firebase.auth().currentUser,
                   Firebase.auth().currentUser.displayName
                 );
                 return true;
@@ -104,7 +104,7 @@ export default class Login extends Component {
         if (result.additionalUserInfo.isNewUser) {
           Firebase.auth().currentUser.isNew = true;
           db.initUser(
-            result.user.uid, 
+            Firebase.auth().currentUser,
             Firebase.auth().currentUser.displayName
           );
           return true;
@@ -261,8 +261,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 14,
     marginRight: 14,
-    marginTop: 0,
     height: 60,
+    width: Math.round(Dimensions.get('window').width) * 0.7,
     textAlign: 'left',
     fontSize: 20,
     color: '#ffffff',
