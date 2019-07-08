@@ -246,7 +246,6 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: 'row',
     borderBottomColor: '#515360',
     borderBottomWidth: 3,
     width: Math.round(Dimensions.get('window').width) * 0.7,

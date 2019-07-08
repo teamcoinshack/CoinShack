@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   RefreshControl,
 } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
 import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from '../Database.js';
