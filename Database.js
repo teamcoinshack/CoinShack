@@ -77,6 +77,7 @@ export default class Database {
         username: username,
         cash: 10000.00,
         totalValue: 0,
+        email: user.email,
       });
       let usernames = (!snap.val() || (!('usernames' in snap.val()))) 
                         ? {} 
@@ -298,7 +299,21 @@ export default class Database {
                                         .startAt(query)
                                         .endAt(query + '\uf8ff')
                                         .once("value");
-      console.log(userSnap.val());
+      const emailSnap = await emailsRef.orderByValue()
+                                       .startAt(query)
+                                       .endAt(query + '\uf8ff')
+                                       .once("value");
+      let res = [];
+      for (let uid in userSnap.val()) {
+        res.push(uid);
+      }
+      for (let uid in emailSnap.val()) {
+        if (!res.includes(uid)) {
+          res.push(uid);
+        }
+      }
+      console.log(res);
+      return res;
     } catch(error) {
       console.log(error);
     }
