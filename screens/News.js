@@ -45,21 +45,25 @@ export default class News extends Component {
 
   async refresh() {
     try {
-      let articles = await q.getNews();
-      articles = articles.filter(article =>
-        (article.title.toLowerCase().includes("coin") 
-          || article.title.toLowerCase().includes("crypto"))
-      );
-      names = [];
-      newArticles = [];
-      articles.forEach(function(x) {
-        if (!names.includes(x.title)) {
-          names.push(x.title);
-          newArticles.push(x);
+      let articles = await q.getNews("cryptocurrency");
+      // TODO: let articles = await q.getNews(this.state.topics or smthg);
+
+      // articles = articles.filter(article =>
+      //   (article.title.toLowerCase().includes("coin") 
+      //     || article.title.toLowerCase().includes("crypto"))
+      // );
+
+      titles = [];
+      articles = articles.filter(x => {
+        if (titles.includes(x.title)) {
+          return false;
+        } else {
+          titles.push(x.title);
+          return true;
         }
       });
-      articles = newArticles;
-      articles.map((x, index) => x.listId = "" + index);
+      articles.forEach((x, index) => x.listId = "" + index);
+
       this.setState({
         news: articles,
         refreshing: false,
@@ -76,7 +80,7 @@ export default class News extends Component {
         refreshing: true,
       });
       await this.refresh();
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
