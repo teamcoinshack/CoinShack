@@ -25,7 +25,7 @@ export default class SignUp extends Component {
             .createUserWithEmailAndPassword(email, pass)
             .then(() => {
               Firebase.auth().currentUser.isNew = true;
-              db.initUser(Firebase.auth().currentUser.uid, username)
+              db.initUser(Firebase.auth().currentUser, username)
             })
             .then(() => (
               this.props.navigation.navigate('Intro')
@@ -64,8 +64,8 @@ export default class SignUp extends Component {
               placeholderTextColor="#999999"
               autoCapitalize="none"
               style={styles.textInput}
-              onChangeText={email => this.setState({ email })}
-              value={this.state.email}
+              onChangeText={username => this.setState({ username })}
+              value={this.state.username}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -74,8 +74,8 @@ export default class SignUp extends Component {
               placeholderTextColor="#999999"
               autoCapitalize="none"
               style={styles.textInput}
-              onChangeText={username => this.setState({ username })}
-              value={this.state.user}
+              onChangeText={email => this.setState({ email })}
+              value={this.state.email}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -94,7 +94,8 @@ export default class SignUp extends Component {
             onPress={() =>
               this.handleSignUp(
                 this.state.email, 
-                this.state.password
+                this.state.password,
+                this.state.username,
               )
             } 
             textColor="#00f9ff"

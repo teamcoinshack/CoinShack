@@ -47,7 +47,7 @@ export default class Database {
       alert('Something broke! :(');
     }
   }
-  
+
   static updateTotal(uid, total) {
     let userRef = Firebase.app()
                           .database()
@@ -59,15 +59,40 @@ export default class Database {
 
   // can consider using cloud functions for new user creation,
   // set cash value, send email bla bla
-  static initUser(userID, username) {
-    let userRef = Firebase.app()
-                          .database()
-                          .ref('/users/' + userID);
-    userRef.set({
-      username: username,
-      cash: 1000000.00,
-      totalValue: 0,
-    });
+  static async initUser(user, username) {
+    try {
+      console.log(user);
+      const userID = user.uid;
+      let userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + userID);
+      let dataRef = Firebase.app()
+                            .database()
+                            .ref('/usersData/');
+      const snap = await Firebase.app()
+                                 .database()
+                                 .ref('/usersData/')
+                                 .once('value');
+      userRef.set({
+        username: username,
+        cash: 10000.00,
+        totalValue: 0,
+      });
+      let usernames = (!snap.val() || (!('usernames' in snap.val()))) 
+                        ? {} 
+                        : snap.val().usernames;
+      usernames[userID] = username;
+      let emails = (!snap.val() || (!('emails' in snap.val())))
+                      ? {}
+                      : snap.val().emails;
+      emails[userID] = user.email;
+      dataRef.update({
+        usernames: usernames,
+        emails: emails,
+      })
+    } catch(error) {
+      console.log(error);
+    }
   }
   
   static async addAlert(name, uid, price, notifyWhenAbove, active) {
@@ -259,6 +284,24 @@ export default class Database {
     return num === ''
       ? ''
       : num.toString().replace(/,/g, '');
+  }
+
+  static async search(query) {
+    try {
+      const usernameRef = Firebase.app()
+                              .database()
+                              .ref('/usersData/usernames/');
+      const emailsRef = Firebase.app()
+                              .database()
+                              .ref('/usersData/emails/');
+      const userSnap = await usernameRef.orderByValue()
+                                        .startAt(query)
+                                        .endAt(query + '\uf8ff')
+                                        .once("value");
+      console.log(userSnap.val());
+    } catch(error) {
+      console.log(error);
+    }
   }
 
 }

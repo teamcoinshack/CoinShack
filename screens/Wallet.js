@@ -19,7 +19,7 @@ import Masterlist from '../Masterlist.js';
 
 const background = '#373b48';
 
-class Wallet extends Component {
+export default class Wallet extends Component {
 
   constructor(props) {
     super(props);
@@ -331,8 +331,6 @@ class Wallet extends Component {
     );
   }
 }
-
-export default withNavigationFocus(Wallet);
 
 const styles = StyleSheet.create({
   row: {
