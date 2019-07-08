@@ -47,9 +47,9 @@ export default class News extends Component {
     try {
       let articles = await q.getNews();
       articles = articles.filter(article =>
-        (article.title.includes("oin") 
-          || article.title.includes("rypto"))
-      )
+        (article.title.toLowerCase().includes("coin") 
+          || article.title.toLowerCase().includes("crypto"))
+      );
       names = [];
       newArticles = [];
       articles.forEach(function(x) {
@@ -59,13 +59,7 @@ export default class News extends Component {
         }
       });
       articles = newArticles;
-      // let count = 0;
-      // articles.map(function(x) {
-      //   x.listId = count.toString();
-      //   count++;
-      //   return x;
-      // })
-      articles.map((x, index) => x.listId = index);
+      articles.map((x, index) => x.listId = "" + index);
       this.setState({
         news: articles,
         refreshing: false,
@@ -182,7 +176,7 @@ export default class News extends Component {
           style={styles.flatStyle}
           data={this.state.news}
           renderItem={this.renderRow}
-          // keyExtractor={item => item.listId}
+          keyExtractor={item => item.listId}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
