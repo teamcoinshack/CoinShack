@@ -24,6 +24,15 @@ export default Searchbar = props => (
       onChangeText={props.onChangeText}
       value={props.search}
     />
+    <TouchableOpacity
+      onPress={props.removeText}
+    >
+      <Icon
+        name="close"
+        size={24}
+        color={'#ffffff'}
+      />
+    </TouchableOpacity>
   </View>
 );
 
@@ -37,13 +46,13 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   textInput: {
+    flex: 1,
     elevation: 1,
     borderRadius: 5,
     flexDirection: 'column',
     alignItems: 'center',
     height: 60,
     marginLeft: 5,
-    width: Math.round(Dimensions.get('window').width * 0.8),
     fontSize: 20,
     color: '#ffffff',
   },
