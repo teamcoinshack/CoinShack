@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text, 
-  View, 
-  ActivityIndicator, 
+  View,
+  ScrollView,
   StyleSheet, 
   FlatList, 
-  Button,
   RefreshControl,
   TouchableOpacity,
   Image,
@@ -14,16 +13,26 @@ import {
 import Firebase from 'firebase';
 import q from '../Query.js';
 import MyBar from '../components/MyBar.js';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import { coinTitles } from '../Masterlist.js';
+import { CheckBox } from 'react-native-elements';
 
 const background = '#373b48';
+
 export default class News extends Component {
   constructor(props) {
     super(props);
+
+    let coinFilters = coinTitles.reduce((acc, curr) => {
+      return {...acc, [curr]: true};
+    }, {});
 
     this.state = {
       id: '',
       news: [], 
       refreshing: false,
+      allCrypto: true,
+      ...coinFilters,
     }
 
     this.load = this.load.bind(this);
@@ -31,6 +40,10 @@ export default class News extends Component {
     this.renderRow = this.renderRow.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.timePublished = this.timePublished.bind(this);
+    this.toggleFilter = this.toggleFilter.bind(this);
+    this.renderFilterSheet = this.renderFilterSheet.bind(this);
+    this.getCheckBoxOnPress = this.getCheckBoxOnPress.bind(this);
+    this.toggleAllCrypto = this.toggleAllCrypto.bind(this);
   }
   
   load(url) {
@@ -45,13 +58,27 @@ export default class News extends Component {
 
   async refresh() {
     try {
-      let articles = await q.getNews("cryptocurrency");
-      // TODO: let articles = await q.getNews(this.state.topics or smthg);
+      let topics = "";
+      if (this.state.allCrypto) { // get news of all cryptos
+        topics = "+cryptocurrency";
+        for (title of coinTitles) {
+          if (!(this.state[title])) {
+            topics += ("-" + title); // filter out this coin
+          }
+        }
+      } else { // get news of these cryptos only
+        for (title of coinTitles) {
+          if (this.state[title]) {
+            topics += ("+" + title); // include this coin
+          }
+        }
+      }
 
-      // articles = articles.filter(article =>
-      //   (article.title.toLowerCase().includes("coin") 
-      //     || article.title.toLowerCase().includes("crypto"))
-      // );
+      if (topics === "") {
+        topics = "cryptocurrency";
+      }
+
+      let articles = await q.getNews(topics);
 
       titles = [];
       articles = articles.filter(x => {
@@ -74,6 +101,8 @@ export default class News extends Component {
   }
 
   async componentDidMount() {
+    this.props.navigation.setParams({ toggleFilter: this.toggleFilter });
+
     try {
       this.setState({
         id: Firebase.auth().currentUser.uid,
@@ -99,7 +128,86 @@ export default class News extends Component {
     return hour + ' hours ago';
   }
 
-  renderRow({item}) {
+  // when allCrypto is false and toggled to true, set all coins to true
+  // when allCrypto is true, only toggle itself to false
+  toggleAllCrypto() {
+    let newCoinStates = {};
+    
+    if (!(this.state.allCrypto)) {
+      newCoinStates = coinTitles.reduce((acc, curr) => {
+        return {...acc, [curr]: true};
+      }, {});
+    }
+
+    this.setState({
+      allCrypto: !(this.state.allCrypto),
+      ...newCoinStates,
+    });
+  }
+
+  getCheckBoxOnPress(coinTitle) {
+    return () => this.setState({ [coinTitle]: !this.state[coinTitle] });
+  }
+
+  toggleFilter() {
+    this.RBSheet.open();
+  }
+
+  renderFilterSheet() {
+    return (
+      <RBSheet
+        ref={ref => this.RBSheet = ref}
+        height={Math.round(Dimensions.get('window').height) / 2 - 100}
+        duration={250}
+        onClose={this.refresh}
+        customStyles={{
+          container: {
+            backgroundColor: background,
+            alignItems: 'stretch',
+          }
+        }}
+      >
+        <ScrollView contentContainerStyle={styles.filterContainer}>
+          <Text style={styles.filterSheetHeader}>
+            Show news about
+          </Text>
+          <CheckBox
+            title="All Cryptocurrencies"
+            checked={this.state.allCrypto}
+            onPress={this.toggleAllCrypto}
+            containerStyle={{
+              backgroundColor: "#515360",
+              borderColor: "#515360",
+            }}
+            textStyle={{
+              color: "#ffffff",
+            }}
+            checkedColor="#00f9ff"
+          />
+          {coinTitles.map((title, key) => {
+             return (
+              <CheckBox
+                key={key}
+                title={title}
+                checked={this.state[title]}
+                onPress={this.getCheckBoxOnPress(title)}
+                containerStyle={{
+                  backgroundColor: "#515360",
+                  borderColor: "#515360",
+                }}
+                textStyle={{
+                  color: "#ffffff",
+                }}
+                checkedColor="#00f9ff"
+              />
+            );
+          })}
+        </ScrollView>
+      </RBSheet>
+    );
+  }
+
+  renderRow({ item }) {
     return (
       <TouchableOpacity 
         style={styles.row}
@@ -172,8 +280,9 @@ export default class News extends Component {
             width={Math.round(Dimensions.get('window').width)}
           />
         </View>
-      )
+      );
     }
+
     return (
       <View style={styles.container}>
         <FlatList
@@ -188,6 +297,7 @@ export default class News extends Component {
             />
           }
         />
+        {this.renderFilterSheet()}
       </View>
     );
   }
@@ -218,10 +328,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 15,
     paddingBottom: 13,
-    paddingLeft: 18,
-    paddingRight: 18,
-    marginLeft: 14,
-    marginRight: 14,
+    paddingHorizontal: 18,
+    marginHorizontal: 14,
     marginTop: 0,
     marginBottom: 12,
   },
@@ -242,11 +350,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: background,
   },
+  filterContainer: {
+    marginVertical: 12,
+    marginHorizontal: 4,
+    paddingBottom: 20,
+  },
   cashText: {
     fontSize: 30,
     fontWeight: 'bold'
   },
   flatStyle: {
     marginTop: 20,
+  },
+  filterSheetHeader: {
+    fontSize: 20,
+    textAlign: "center",
+    paddingBottom: 7,
+    color: '#dbdbdb',
+    fontWeight: '500',
   },
 });

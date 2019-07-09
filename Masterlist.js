@@ -13,3 +13,11 @@ export const Mapping = {
   XRP: 'ripple',
   LTC: 'litecoin',
 };
+
+export const coinTitles = [
+  "Bitcoin",
+  "Ethereum",
+  "DASH",
+  "XRP",
+  "Litecoin",
+];

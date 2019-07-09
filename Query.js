@@ -10,17 +10,13 @@ export default class Query {
     return data;
   }
 
-  static async getNews(...topics) {
-    try {
-      let allArticles = [];
-      for (topic of topics) {
-        const url = `https://newsapi.org/v2/everything?q=${topic}`
-          + `&sortBy=publishedAt&language=en&pageSize=30&apiKey=${NEWS_API_KEY}`;
-        let res = await fetch(url);
-        let data = await res.json();
-        allArticles.push(...(data.articles));
-      }
-      return allArticles;
+  static async getNews(topics) {
+    try {      
+      const url = `https://newsapi.org/v2/everything?q=${topics}`
+        + `&sortBy=publishedAt&language=en&pageSize=60&apiKey=${NEWS_API_KEY}`;
+      let res = await fetch(url);
+      let data = await res.json();
+      return data.articles;
     } catch (error) {
       console.log(error);
       return [];

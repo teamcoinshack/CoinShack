@@ -38,7 +38,6 @@ import Intro from './screens/Intro.js';
 import Social from './screens/Social.js';
 import Search from './screens/Search.js';
 
-
 const background = '#373b48';
 
 const walletStack = createStackNavigator({
@@ -138,18 +137,30 @@ const newsStack = createStackNavigator(
   {
     News: {
       screen: News,
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'News',
         headerStyle: {
           backgroundColor: background,
           borderBottomWidth: 0,
         },
+        headerRight: (
+          <TouchableOpacity
+            style={{ marginRight: 15 }}
+            onPress={navigation.getParam('toggleFilter', null)} 
+          >
+            <Icon
+              name="filter-variant"
+              size={24}
+              color={'#ffffff'}
+            />
+          </TouchableOpacity>
+        ),
         headerTitleStyle: {
           color: '#ffffff',
           fontSize: 20,
         },
         headerTintColor: '#ffffff',
-      }
+      })
     },
     InternalWebpage: {
       screen: InternalWebpage,
