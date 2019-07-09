@@ -54,7 +54,6 @@ export default class Info extends Component {
       const uid = navigation.getParam('uid', null);
       const rate = data.market_data.current_price.usd.toFixed(2);
       const alerts = await db.getAlerts(uid, name);
-      console.log(alerts);
       this.setState({
         uid: uid,
         name: name,
@@ -70,16 +69,31 @@ export default class Info extends Component {
 
   async addAlert() {
     try {
-      console.log(this.state.alertValue);
       if (this.state.alertValue <= 0) {
         alert('Invalid Price!');
         return;
       }
+
       if (isNaN(this.state.alertValue)) {
         alert('Invalid Price!');
         return;
       }
+
       this.RBSheet.close();
+
+      let newAlerts= [...this.state.alerts];
+      newAlerts.push({
+        index: this.state.alerts.length,
+        price: this.state.alertValue,
+        notifyWhenAbove: this.state.alertValue > this.state.rate,
+        active: true,
+      });
+
+      this.setState({
+        alertValue: '',
+        alerts: newAlerts,
+      });
+
       await db.addAlert(
         this.state.name,
         Firebase.auth().currentUser.uid,
@@ -87,11 +101,6 @@ export default class Info extends Component {
         this.state.alertValue > this.state.rate,
         true
       );
-      this.setState({
-        alertValue: '',
-      })
-      //refresh alerts
-      this.refreshAlerts();
     } catch(error) {
       console.log(error);
     }
@@ -110,18 +119,24 @@ export default class Info extends Component {
 
   async deleteAlert(index) {
     try {
-      await db.deleteAlert(this.state.uid, index, this.state.name);
+      this.state.currentlyOpenedItem.recenter();
+
+      let newAlerts = [...this.state.alerts];
+      newAlerts.splice(index, 1);
+      newAlerts.forEach((obj, index) => obj.index = index);
+
       this.setState({
         currentlyOpenedItem: null,
-      })
-      this.refreshAlerts();
+        alerts: newAlerts,
+      });
+
+      await db.deleteAlert(this.state.uid, index, this.state.name);
     } catch(error) {
       console.log(error);
     }
   }
 
   closeOpenedItem() {
-    console.log('closing');
     if (this.state.currentlyOpenedItem !== null) {
       this.state.currentlyOpenedItem.recenter();
       this.setState({
@@ -135,11 +150,11 @@ export default class Info extends Component {
       && this.state.currentlyOpenedItem !== ref) {
       this.state.currentlyOpenedItem.recenter();
     }
-    this.setState({ currentlyOpenedItem: ref})
+    this.setState({ currentlyOpenedItem: ref});
   }
 
 
-  renderRow({item}) {
+  renderRow({ item }) {
     const rightButtons = [
       <TouchableOpacity
         style={styles.deleteButton}
@@ -157,9 +172,9 @@ export default class Info extends Component {
         onRef={ref => item.ref = ref}
         rightButtons={rightButtons}
         onRightButtonsOpenRelease={() => this.openItem(item.ref)}
-        onRightButtonCloseRelease={() => {
+        onRightButtonsCloseRelease={() => {
           this.setState({
-            currentlyOpenItem: null
+            currentlyOpenedItem: null
           })
         }}
       >

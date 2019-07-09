@@ -64,8 +64,8 @@ export default class Database {
                                  .ref('/users/' + uid)
                                  .once('value')
       let alerts = (!('alerts' in snap.val())) ? [] : snap.val().alerts;
-      if (!(name in alerts)) {
-        //no alerts yet for this particular coin. Create an array and insert
+      if (!(name in alerts)) {  
+        // no alerts yet for this particular coin. Create an array and insert
         let arr = [];
         arr.push({
           index: 0,
@@ -110,17 +110,12 @@ export default class Database {
                                  .once('value')
       let alerts = snap.val().alerts[name];
       alerts.splice(index, 1);
-      for (let i = 0; i < alerts.length; i++) {
-        let obj = alerts[i];
-        obj.index = i;
-        alerts[i] = obj;
-      }
+      alerts.forEach((obj, index) => obj.index = index);
+      
       let alertRef = Firebase.app()
                             .database()
                             .ref('/users/' + uid + '/alerts/');
-      let userRef = Firebase.app()
-                            .database()
-                            .ref('/users/' + uid);
+
       if (alerts.length === 0) {
         alertRef.child(name).remove();
       } else {
