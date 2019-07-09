@@ -119,18 +119,24 @@ export default class Info extends Component {
 
   async deleteAlert(index) {
     try {
-      await db.deleteAlert(this.state.uid, index, this.state.name);
+      this.state.currentlyOpenedItem.recenter();
+
+      let newAlerts = [...this.state.alerts];
+      newAlerts.splice(index, 1);
+      newAlerts.forEach((obj, index) => obj.index = index);
+
       this.setState({
         currentlyOpenedItem: null,
-      })
-      this.refreshAlerts();
+        alerts: newAlerts,
+      });
+
+      await db.deleteAlert(this.state.uid, index, this.state.name);
     } catch(error) {
       console.log(error);
     }
   }
 
   closeOpenedItem() {
-    console.log('closing');
     if (this.state.currentlyOpenedItem !== null) {
       this.state.currentlyOpenedItem.recenter();
       this.setState({
@@ -144,11 +150,11 @@ export default class Info extends Component {
       && this.state.currentlyOpenedItem !== ref) {
       this.state.currentlyOpenedItem.recenter();
     }
-    this.setState({ currentlyOpenedItem: ref})
+    this.setState({ currentlyOpenedItem: ref});
   }
 
 
-  renderRow({item}) {
+  renderRow({ item }) {
     const rightButtons = [
       <TouchableOpacity
         style={styles.deleteButton}
@@ -166,9 +172,9 @@ export default class Info extends Component {
         onRef={ref => item.ref = ref}
         rightButtons={rightButtons}
         onRightButtonsOpenRelease={() => this.openItem(item.ref)}
-        onRightButtonCloseRelease={() => {
+        onRightButtonsCloseRelease={() => {
           this.setState({
-            currentlyOpenItem: null
+            currentlyOpenedItem: null
           })
         }}
       >
