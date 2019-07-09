@@ -4,10 +4,12 @@ import {
   View, 
   StyleSheet, 
   TouchableOpacity,
-  Dimensions,
   Image,
 } from 'react-native';
-//Required parameters are text, path, right(content)
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+// Required parameters are text, path, right(content)
 
 export default MyRow = props => (
       <TouchableOpacity 
@@ -15,10 +17,17 @@ export default MyRow = props => (
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
-            <Image
-              source={props.path}
-              style={styles.imageStyle}
-            />
+            {props.isCash
+              ? <Icon
+                  name="cash-usd"
+                  size={40}
+                  color={'#ffffff'}
+                />
+              : <Image
+                  source={props.path}
+                  style={styles.imageStyle}
+                />
+            }
           </View>
           <View style={styles.cashName}>
             <Text style={styles.name}>

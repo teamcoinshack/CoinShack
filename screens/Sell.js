@@ -281,6 +281,7 @@ export default class Sell extends React.Component {
           }}>
             <MyRow 
               text='Cash'
+              isCash
               path={require('../assets/icons/cash.png')}  
               right={cashValue}
             />

@@ -151,6 +151,7 @@ export default class BuySellPage extends Component {
           <View style={{ marginTop: 10 }}>
             <MyRow 
               text='Cash'
+              isCash
               path={require('../assets/icons/cash.png')}  
               right={cashValue}
             />

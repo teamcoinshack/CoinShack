@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
   Text,
-  ActivityIndicator,
   View,
   Image,
   StyleSheet,
@@ -15,6 +14,7 @@ import Firebase from 'firebase';
 import db from '../Database.js';
 import q from '../Query.js';
 import Masterlist from '../Masterlist.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const background = '#373b48';
 
@@ -236,9 +236,10 @@ export default class Wallet extends Component {
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
-            <Image
-              source={require('../assets/icons/cash.png')}
-              style={styles.imageStyle}
+            <Icon
+              name="cash-usd"
+              size={40}
+              color={'#ffffff'}
             />
           </View>
           <View style={styles.cashName}>
@@ -264,9 +265,10 @@ export default class Wallet extends Component {
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
-            <Image
-              source={require('../assets/icons/cash.png')}
-              style={styles.imageStyle}
+            <Icon
+              name="cash-usd"
+              size={40}
+              color={'#ffffff'}
             />
           </View>
           <View style={styles.cashName}>
