@@ -29,6 +29,7 @@ export default class Requests extends Component {
       refreshing: true,
     }
     this.renderRow = this.renderRow.bind(this);
+    this.refresh = this.refresh.bind(this);
     this.accept = this.accept.bind(this);
     this.reject = this.reject.bind(this);
   }
@@ -51,11 +52,10 @@ export default class Requests extends Component {
 
   }
 
-  async componentDidMount() {
+  async refresh() {
     try {
       const uid = Firebase.auth().currentUser.uid;
       let reqs = await db.getRequests(uid);
-      console.log(reqs);
       reqs = await Promise.all(
                     reqs.map(async function(uid) {
                       try {
@@ -82,6 +82,14 @@ export default class Requests extends Component {
         refreshing: false,
       })
     } catch(error) {
+      console.log(error);
+    }
+  }
+
+  async componentDidMount() {
+    try {
+      await this.refresh();
+    } catch (error) {
       console.log(error);
     }
   }

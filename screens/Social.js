@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
   Text,
   ActivityIndicator,
+  ScrollView,
   View,
   Image,
   StyleSheet,
@@ -29,9 +30,20 @@ export default class Social extends Component {
       friends: [],
       refreshing: true,
     }
+    this.refresh = this.refresh.bind(this);
+    this.renderRow = this.renderRow.bind(this);
+    this.load = this.load.bind(this);
+  }
+
+  load(friend) {
+    this.props.navigation.navigate('FriendsProfile',{
+      uid: this.state.uid,
+      friendName: friend.username,
+      friendUid: friend.uid,
+    })
   }
   
-  async componentDidMount() {
+  async refresh() {
     try {
       let friends = await db.getFriends(Firebase.auth().currentUser.uid); 
       friends = await Promise.all(
@@ -55,9 +67,18 @@ export default class Social extends Component {
                     })
                   )
       this.setState({
+        uid: Firebase.auth().currentUser.uid,
         friends: friends,
         refreshing: false,
       })
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+  async componentDidMount() {
+    try {
+      await this.refresh();
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +88,7 @@ export default class Social extends Component {
     return ( 
       <TouchableOpacity
         style={styles.row}
-        onPress={() => this.load(item.uid)}
+        onPress={() => this.load(item)}
       >
         <Avatar
           rounded
@@ -122,7 +143,16 @@ export default class Social extends Component {
       </View>
     )
     return (
-      <View style={styles.container}>
+      <ScrollView 
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.refresh}
+          />
+        }
+      >
         <MyButton
           text="Search for new friends"
           onPress={() => this.props.navigation.navigate('Search')}
@@ -137,7 +167,7 @@ export default class Social extends Component {
           : this.state.friends.length === 0
             ? noFriends
             : friendsList}
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -147,7 +177,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "stretch",
     backgroundColor: background,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: background,
   },
   friendsHeader: {
     flexDirection: 'row',
@@ -195,5 +230,8 @@ const styles = StyleSheet.create({
   text3: {
     fontSize: 20,
     color: '#faed27',
+  },
+  flatStyle: {
+    marginTop: 20,
   }
 });

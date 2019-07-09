@@ -355,25 +355,26 @@ export default class Database {
   static async deleteFriend(uid, friendUid) {
     //not done
     try {
-      const friendRef =  Firebase.app()
-                                 .database()
-                                 .ref('/friends/' + uid);
-      const snap =  await Firebase.app()
-                                  .database()
-                                  .ref('/friends/' + uid + '/friendsList/')
-                                  .once('value');
-      const res = await Firebase.app()
-                                .database()
-                                .ref('/friends/' + uid + '/friendsList/')
-                                .orderByValue()
-                                .equalTo(friendUid)
-                                .once('value');
-      console.log(res);
-      if (res) {
+      let myFriends = await this.getFriends(uid);
+      let friendsFriends = await this.getFriends(friendUid);
+      if (myFriends.includes(friendUid) && friendsFriends.includes(uid)) {
+        myFriends = myFriends.filter(ids => ids !== friendUid);
+        friendsFriends = friendsFriends.filter(ids => ids !== uid);
+        const myRef =  Firebase.app()
+                                   .database()
+                                   .ref('/friends/' + uid);
+        const friendsRef =  Firebase.app()
+                                   .database()
+                                   .ref('/friends/' + friendUid);
+        myRef.update({
+          friendsList: myFriends,
+        })
+        friendsRef.update({
+          friendsList: friendsFriends,
+        })
         return 0;
-      } else {
-        return 1;
       }
+      return 1;
     } catch (error) {
       console.log(error);
     }
@@ -405,24 +406,32 @@ export default class Database {
 
   static async acceptRequest(uid, friendUid) {
     try {
-      const snap = await Firebase.app()
+      const mySnap = await Firebase.app()
                             .database()
                             .ref('/friends/' + uid + '/requestsList/')
                             .orderByValue()
                             .equalTo(friendUid)
                             .once('value');
-      if (snap.val() && snap.val().length === 1) {
-        const friendRef =  Firebase.app()
+      if (mySnap.val() && mySnap.val().length === 1) {
+        const myRef =  Firebase.app()
                                    .database()
                                    .ref('/friends/' + uid);
-        const req = snap.val()[0];
+        const friendsRef =  Firebase.app()
+                                   .database()
+                                   .ref('/friends/' + friendUid);
+        const req = mySnap.val()[0];
+        let friendsfriends = await this.getFriends(friendUid);
         let reqs = await this.getRequests(uid);
         let friends = await this.getFriends(uid);
         reqs = reqs.filter(request => request !== req); 
         friends.push(friendUid);
-        friendRef.update({
+        friendsfriends.push(uid);
+        myRef.update({
           requestsList: reqs,
           friendsList: friends,
+        })
+        friendsRef.update({
+          friendsList: friendsfriends,
         })
         return 0;
       }

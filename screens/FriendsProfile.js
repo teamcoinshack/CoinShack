@@ -52,13 +52,12 @@ export default class FriendsProfile extends Component {
   }
 
   deleteFriend() {
-    //not complete
     const res = db.deleteFriend(this.state.uid, this.state.friendUid);
     if (res === 0) {
-      alert("Friend request sent!");
+      alert("Friend deleted :(");
       this.refresh();
     } else {
-      alert("Unable to add friend");
+      alert("Unable to delete friend");
     }
   }
 
