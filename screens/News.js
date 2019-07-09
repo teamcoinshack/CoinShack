@@ -59,22 +59,13 @@ export default class News extends Component {
   async refresh() {
     try {
       let topics = "";
-      if (this.state.allCrypto) { // get news of all cryptos
-        topics = "+cryptocurrency";
-        for (title of coinTitles) {
-          if (!(this.state[title])) {
-            topics += ("-" + title); // filter out this coin
-          }
-        }
-      } else { // get news of these cryptos only
+      if (!(this.state.allCrypto)) { // get news of these cryptos only
         for (title of coinTitles) {
           if (this.state[title]) {
             topics += ("+" + title); // include this coin
           }
         }
-      }
-
-      if (topics === "") {
+      } else { // get news of all cryptos
         topics = "cryptocurrency";
       }
 
@@ -119,25 +110,26 @@ export default class News extends Component {
     const now = new Date();
     const milis = now.getTime();
     const hour = Math.round((milis - published) / 3600000);
+    const day = Math.round((milis - published) / 86400000);
     if (hour === 0) {
       return 'now';
-    }
-    if (hour === 1) {
+    } else if (hour === 1) {
       return '1 hour ago';
+    } else if (hour < 24) {
+      return hour + ' hours ago';
+    } else if (day === 1) {
+      return '1 day ago';
+    } else {
+      return day + ' days ago';
     }
-    return hour + ' hours ago';
   }
 
   // when allCrypto is false and toggled to true, set all coins to true
   // when allCrypto is true, only toggle itself to false
   toggleAllCrypto() {
-    let newCoinStates = {};
-    
-    if (!(this.state.allCrypto)) {
-      newCoinStates = coinTitles.reduce((acc, curr) => {
-        return {...acc, [curr]: true};
-      }, {});
-    }
+    let newCoinStates = coinTitles.reduce((acc, curr) => {
+      return {...acc, [curr]: !(this.state.allCrypto)};
+    }, {});
 
     this.setState({
       allCrypto: !(this.state.allCrypto),
