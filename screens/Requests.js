@@ -1,64 +1,63 @@
 import React, {Component} from 'react';
 import {
-  Text,
-  ActivityIndicator,
-  View,
-  Image,
-  StyleSheet,
-  FlatList,
+  Text, 
+  View, 
   Dimensions,
+  StyleSheet, 
+  FlatList, 
+  ScrollView,
+  Alert,
   TouchableOpacity,
   RefreshControl,
 } from 'react-native';
-import { Avatar } from 'react-native-elements';
-import { withNavigationFocus } from 'react-navigation';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Firebase from 'firebase';
+import { Avatar } from 'react-native-elements';
+import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
-import q from '../Query.js';
-import Masterlist from '../Masterlist.js';
-import Searchbar from '../components/Searchbar.js';
+import MyBar from '../components/MyBar.js';
 
 const background = '#373b48';
 
-export default class Search extends Component {
-
+export default class Requests extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      results: [],
-      loading: false,
-      query: '',
+      uid: null,
+      requests: [], 
+      refreshing: true,
     }
-    this.fastLoad = this.fastLoad.bind(this);
     this.renderRow = this.renderRow.bind(this);
-    this.load = this.load.bind(this);
+    this.accept = this.accept.bind(this);
+    this.reject = this.reject.bind(this);
   }
 
-  load(friend) {
-    this.props.navigation.navigate('FriendsProfile',{
-      uid: this.state.uid,
-      friendName: friend.username,
-      friendUid: friend.uid,
-    })
-  }
-
-  async fastLoad(query) {
+  async accept(friendUid) {
     try {
-      this.setState({
-        loading: true,
-        query: query,
-      });
-      if (query === '') {
-        this.setState({
-          results: [],
-          loading: false,
-        })
-        return;
+      const res = await db.acceptRequest(this.state.uid, friendUid);
+      if (res === 0) {
+        alert("Friend added!");
+        this.refresh();
+      } else {
+        alert("Unable to add friend");
       }
-      let res = await db.search(query);
-      res = await Promise.all(
-                    res.map(async function(uid) {
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  reject(friendUid) {
+
+  }
+
+  async componentDidMount() {
+    try {
+      const uid = Firebase.auth().currentUser.uid;
+      let reqs = await db.getRequests(uid);
+      console.log(reqs);
+      reqs = await Promise.all(
+                    reqs.map(async function(uid) {
                       try {
                         let obj = {};
                         const snap = await db.getData(uid);
@@ -78,18 +77,17 @@ export default class Search extends Component {
                     })
                   )
       this.setState({
-        results: res,
-      }, () => this.setState({
-          loading: false,   
-        })
-      );
+        uid: uid,
+        requests: reqs,
+        refreshing: false,
+      })
     } catch(error) {
       console.log(error);
     }
   }
 
   renderRow({item}) {
-    return ( 
+    return (
       <TouchableOpacity
         style={styles.row}
         onPress={() => this.load(item)}
@@ -108,29 +106,38 @@ export default class Search extends Component {
           <Text style={styles.text2}>{item.email}</Text>
           <Text style={styles.text3}>{item.title}</Text>
         </View>
+        <TouchableOpacity
+          style={{ 
+            flex: 1, 
+            alignItems: 'flex-end',
+          }}
+          onPress={() => this.accept(item.uid)}
+        >
+          <Icon
+            name="check"
+            size={25}
+            color={'green'}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ 
+            flex: 1, 
+            alignItems: 'flex-end',
+          }}
+          onPress={() => this.reject(item.uid)}
+        >
+          <Icon
+            name="close"
+            size={25}
+            color={'red'}
+          />
+        </TouchableOpacity>
       </TouchableOpacity>
     )
   }
-  
+
   render() {
-    const loading = (
-      <View style={styles.loading1}>
-          <MyBar
-            height={65}
-            width={Math.round(Dimensions.get('window').width * 0.7)}
-            flexStart={true}
-          />
-      </View>
-    )
-    const searchResults = (
-      <FlatList
-        style={styles.flatStyle}
-        data={this.state.results}
-        renderItem={this.renderRow}
-        keyExtractor={item => item.uid}
-      />
-    )
-    const noResults = (
+    const noRequests= (
       <View style={{
         flexDirection: 'row',
         flex: 1,
@@ -142,35 +149,48 @@ export default class Search extends Component {
           fontWeight: '500',
           fontSize: 23,
         }}>
-          No results
+          No requests to show
         </Text>
       </View>
     )
+    const loading = (
+      <View style={styles.loading1}>
+          <MyBar
+            height={65}
+            width={Math.round(Dimensions.get('window').width * 0.7)}
+            flexStart={true}
+          />
+      </View>
+    )
+    const requestsList = (
+        <FlatList
+          style={styles.flatStyle}
+          data={this.state.requests}
+          renderItem={this.renderRow}
+          keyExtractor={item => item.uid.toString()}
+        />
+    )
     return (
       <View style={styles.container}>
-        <Searchbar 
-          onChangeText={query => this.fastLoad(query)}
-          search={this.state.query}
-          removeText={() => this.setState({ query: '', results: [] })}
-        />
-        {this.state.loading
+        {this.state.refreshing
           ? loading
-          : this.state.results.length === 0
-            ? noResults
-            : searchResults}
+          : this.state.requests.length === 0
+            ? noRequests
+            : requestsList}
       </View>
     )
   }
 }
+
 const styles = StyleSheet.create({
+  flatStyle: {
+    marginTop: 10,
+  },
   container: {
     flex: 1,
     alignSelf: "stretch",
     backgroundColor: background,
-    alignItems: 'center',
-  },
-  flatStyle: {
-    marginTop: 10,
+    justifyContent: 'center'
   },
   row: {
     elevation: 1,
@@ -184,9 +204,10 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     paddingLeft: 18,
     paddingRight: 16,
+    marginLeft: 14,
+    marginRight: 14,
     marginTop: 0,
     marginBottom: 6,
-    width: Math.round(Dimensions.get('window').width - 28),
   },
   imageStyle: {
     width: 80,

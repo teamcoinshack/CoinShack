@@ -37,6 +37,8 @@ import ChangePassword from './screens/ChangePassword.js';
 import Intro from './screens/Intro.js';
 import Social from './screens/Social.js';
 import Search from './screens/Search.js';
+import FriendsProfile from './screens/FriendsProfile.js';
+import Requests from './screens/Requests.js';
 
 const background = '#373b48';
 
@@ -201,7 +203,7 @@ const socialStack = createStackNavigator({
       headerRight: (
         <TouchableOpacity
           style={{ marginRight: 15 }}
-          onPress={() => navigation.navigate('Notifications')} 
+          onPress={() => navigation.navigate('Requests')} 
         >
           <Icon
             name="bell"
@@ -217,6 +219,21 @@ const socialStack = createStackNavigator({
       headerTintColor: '#ffffff',
     })
   },
+  Requests: {
+    screen: Requests,
+    navigationOptions: {
+      title: 'Requests',
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      },
+      headerTintColor: '#ffffff',
+    }
+  },
   Search: {
     screen: Search,
     navigationOptions: {
@@ -231,6 +248,21 @@ const socialStack = createStackNavigator({
       },
       headerTintColor: '#ffffff',
     }
+  },
+  FriendsProfile: {
+    screen: FriendsProfile,
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.getParam('friendName', 'Bob'),
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      },
+      headerTintColor: '#ffffff',
+    })
   },
 })
 

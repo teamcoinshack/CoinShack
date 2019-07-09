@@ -9,45 +9,6 @@ export default class Database {
       return snap;
   }
 
-  static async sellAll(id, stock, rate) {
-    try {
-      let userRef = Firebase.app()
-                            .database()
-                            .ref('/users/' + id);
-      let walletRef = Firebase.app()
-                            .database()
-                            .ref('/users/' + id + '/wallet/');
-      const snap = await this.getData(id);
-      if (!('wallet' in snap.val())) {
-        alert("No cryptocurrency to sell!");
-        return 1;
-      }
-      let wallet = snap.val().wallet;
-      if (!(stock in wallet)) {
-        alert("No cryptocurrency to sell!");
-        return 1;
-      }
-      const initCash = snap.val().cash;
-      let hist = ('history' in snap.val()) ? snap.val().history : [];
-      hist.unshift({
-        symbol: stock,
-        buy: false,
-        date: new Date(),
-        coinValue: snap.val().wallet[stock], 
-        rate: rate,
-      })
-      userRef.update({
-        cash: initCash + (snap.val().wallet[stock] * rate),
-        history: hist,
-      });
-      walletRef.child(stock).remove();
-      return 0;
-    } catch (error) {
-      console.log(error);
-      alert('Something broke! :(');
-    }
-  }
-
   static updateTotal(uid, total) {
     let userRef = Firebase.app()
                           .database()
@@ -271,6 +232,206 @@ export default class Database {
     }
   }
 
+  static async sellAll(id, stock, rate) {
+    try {
+      let userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + id);
+      let walletRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + id + '/wallet/');
+      const snap = await this.getData(id);
+      if (!('wallet' in snap.val())) {
+        alert("No cryptocurrency to sell!");
+        return 1;
+      }
+      let wallet = snap.val().wallet;
+      if (!(stock in wallet)) {
+        alert("No cryptocurrency to sell!");
+        return 1;
+      }
+      const initCash = snap.val().cash;
+      let hist = ('history' in snap.val()) ? snap.val().history : [];
+      hist.unshift({
+        symbol: stock,
+        buy: false,
+        date: new Date(),
+        coinValue: snap.val().wallet[stock], 
+        rate: rate,
+      })
+      userRef.update({
+        cash: initCash + (snap.val().wallet[stock] * rate),
+        history: hist,
+      });
+      walletRef.child(stock).remove();
+      return 0;
+    } catch (error) {
+      console.log(error);
+      alert('Something broke! :(');
+    }
+  }
+
+  static async isFriend(uid, friendUid) {
+    try {
+      const snap = await Firebase.app()
+                                 .database()
+                                 .ref('/friends/' + uid + '/friendsList/')
+                                 .orderByValue()
+                                 .equalTo(friendUid)
+                                 .once('value')
+      if (!snap.val()) { return false; }
+      return snap.val().length === 1;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async requesting(uid, friendUid) {
+    try {
+      const snap = await Firebase.app()
+                                 .database()
+                                 .ref('/friends/' + friendUid + '/requestsList/')
+                                 .orderByValue()
+                                 .equalTo(uid)
+                                 .once('value')
+      if (!snap.val()) { return false; }
+      return snap.val().length === 1;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async addFriend(uid, friendUid) {
+    try {
+      const friendRef =  Firebase.app()
+                                 .database()
+                                 .ref('/friends/' + friendUid);
+      const snap  =  await Firebase.app()
+                                   .database()
+                                   .ref('/friends/'+friendUid+'/requestList/')
+                                   .once('value');
+      let requestsArr = (snap.val()) ? snap.val() : [];
+      requestsArr.push(uid);
+      friendRef.update({
+        requestsList: requestsArr,
+      })
+      return 0;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async deleteRequest(uid, friendUid) {
+    try {
+      const friendRef =  Firebase.app()
+                                 .database()
+                                 .ref('/friends/' + friendUid);
+      const snap =  await Firebase.app()
+                                  .database()
+                                  .ref('/friends/' +friendUid+'/requestsList/')
+                                  .orderByValue()
+                                  .equalTo(uid)
+                                  .once('value');
+      if (snap.val() && snap.val().length === 1) {
+        const req = snap.val()[0];
+        let allRequests = await Firebase.app()
+                                    .database()
+                                    .ref('/friends/'+friendUid+'/requestsList')
+                                    .once('value')
+        allRequests = allRequests.val();
+        allRequests = allRequests.filter(request => request !== req); 
+        friendRef.update({
+          requestsList: allRequests,
+        })
+        return 0;
+      } else {
+        return 1;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async deleteFriend(uid, friendUid) {
+    //not done
+    try {
+      const friendRef =  Firebase.app()
+                                 .database()
+                                 .ref('/friends/' + uid);
+      const snap =  await Firebase.app()
+                                  .database()
+                                  .ref('/friends/' + uid + '/friendsList/')
+                                  .once('value');
+      const res = await Firebase.app()
+                                .database()
+                                .ref('/friends/' + uid + '/friendsList/')
+                                .orderByValue()
+                                .equalTo(friendUid)
+                                .once('value');
+      console.log(res);
+      if (res) {
+        return 0;
+      } else {
+        return 1;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async getRequests(uid) {
+    try {
+      const snap = await Firebase.app()
+                            .database()
+                            .ref('/friends/' + uid + '/requestsList/')
+                            .once('value');
+      return snap.val() ? snap.val() : [];
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async getFriends(uid) {
+    try {
+      const snap = await Firebase.app()
+                            .database()
+                            .ref('/friends/' + uid + '/friendsList/')
+                            .once('value');
+      return snap.val() ? snap.val() : [];
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async acceptRequest(uid, friendUid) {
+    try {
+      const snap = await Firebase.app()
+                            .database()
+                            .ref('/friends/' + uid + '/requestsList/')
+                            .orderByValue()
+                            .equalTo(friendUid)
+                            .once('value');
+      if (snap.val() && snap.val().length === 1) {
+        const friendRef =  Firebase.app()
+                                   .database()
+                                   .ref('/friends/' + uid);
+        const req = snap.val()[0];
+        let reqs = await this.getRequests(uid);
+        let friends = await this.getFriends(uid);
+        reqs = reqs.filter(request => request !== req); 
+        friends.push(friendUid);
+        friendRef.update({
+          requestsList: reqs,
+          friendsList: friends,
+        })
+        return 0;
+      }
+      return 1;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static stringify(num) {
     if (num === undefined) {
       return '';
@@ -312,7 +473,6 @@ export default class Database {
           res.push(uid);
         }
       }
-      console.log(res);
       return res;
     } catch(error) {
       console.log(error);

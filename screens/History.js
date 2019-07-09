@@ -12,6 +12,7 @@ import {
 import Firebase from 'firebase';
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
+import MyBar from '../components/MyBar.js';
 
 const background = '#373b48';
 
@@ -35,7 +36,6 @@ export default class History extends Component {
         history: hist,
         refreshing: false,
       })
-      console.log(snap.val().history);
     } catch(error) {
       console.log(error);
     }
