@@ -5,8 +5,8 @@ import {
   View, 
   StyleSheet, 
   TouchableOpacity,
-  Button,
-  Dimensions,
+  ScrollView,
+  Dimensions,   
 } from 'react-native';
 import db from '../Database.js';
 
@@ -144,6 +144,7 @@ export default class Sell extends React.Component {
         </Text>
       </View>
     );
+
     const box1 = (
       <TextInput
         style={styles.textInput}
@@ -274,25 +275,27 @@ export default class Sell extends React.Component {
     )
 
     return (
-        <View style={styles.container}>
-          <View style={{
-            marginTop: 10,
-            marginBottom: 100,
-          }}>
-            <MyRow 
-              text='Cash'
-              isCash
-              path={require('../assets/icons/cash.png')}  
-              right={cashValue}
-            />
-            <MyRow
-              text={this.state.id}
-              path={this.state.path}
-              right={walletValue}
-            />
-          </View>
-          {this.state.refreshing ? loading : inputs }
+      <ScrollView style={{
+        backgroundColor: background,
+      }}>
+        <View style={{
+          marginTop: 10,
+          marginBottom: 40,
+        }}>
+          <MyRow
+            text='Cash'
+            isCash
+            path={require('../assets/icons/cash.png')}
+            right={cashValue}
+          />
+          <MyRow
+            text={this.state.id}
+            path={this.state.path}
+            right={walletValue}
+          />
         </View>
+        {this.state.refreshing ? loading : inputs}
+      </ScrollView>
     );
   }
 }

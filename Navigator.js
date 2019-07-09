@@ -451,7 +451,8 @@ const tabs = createBottomTabNavigator(
         top: 'never',
         margin: 10,
       },
-      showIcon: true
+      showIcon: true,
+      // keyboardHidesTabBar: true,
     }
   },
 );

@@ -248,7 +248,7 @@ export default class Buy extends React.Component {
         <View style={styles.container}>
           <View style={{
             marginTop: 10,
-            marginBottom: 100,
+            marginBottom: 40,
           }}>
             <MyRow 
               text='Cash'
