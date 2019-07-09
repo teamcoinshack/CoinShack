@@ -54,7 +54,6 @@ export default class Info extends Component {
       const uid = navigation.getParam('uid', null);
       const rate = data.market_data.current_price.usd.toFixed(2);
       const alerts = await db.getAlerts(uid, name);
-      console.log(alerts);
       this.setState({
         uid: uid,
         name: name,
@@ -70,16 +69,31 @@ export default class Info extends Component {
 
   async addAlert() {
     try {
-      console.log(this.state.alertValue);
       if (this.state.alertValue <= 0) {
         alert('Invalid Price!');
         return;
       }
+
       if (isNaN(this.state.alertValue)) {
         alert('Invalid Price!');
         return;
       }
+
       this.RBSheet.close();
+
+      let newAlerts= [...this.state.alerts];
+      newAlerts.push({
+        index: this.state.alerts.length,
+        price: this.state.alertValue,
+        notifyWhenAbove: this.state.alertValue > this.state.rate,
+        active: true,
+      });
+
+      this.setState({
+        alertValue: '',
+        alerts: newAlerts,
+      });
+
       await db.addAlert(
         this.state.name,
         Firebase.auth().currentUser.uid,
@@ -87,11 +101,6 @@ export default class Info extends Component {
         this.state.alertValue > this.state.rate,
         true
       );
-      this.setState({
-        alertValue: '',
-      })
-      //refresh alerts
-      this.refreshAlerts();
     } catch(error) {
       console.log(error);
     }
