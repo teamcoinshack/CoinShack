@@ -1,14 +1,5 @@
 import React from 'react';
-
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import {
   createStackNavigator,
@@ -42,16 +33,25 @@ import Requests from './screens/Requests.js';
 
 const background = '#373b48';
 
+const headerStyles = {
+  headerStyle: {
+    backgroundColor: background,
+    borderBottomWidth: 0,
+  },
+  headerTitleStyle: {
+    color: '#ffffff',
+    fontSize: 20,
+  },
+  headerTintColor: '#ffffff',
+};
+
 const walletStack = createStackNavigator({
   Main: {
     screen: Wallet,
     navigationOptions: ({ navigation }) => ({
       title: 'Wallet',
       headerLeft: null,
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
+      headerBackTitle: null,
       headerRight: (
         <TouchableOpacity
           style={{ marginRight: 15 }}
@@ -64,70 +64,30 @@ const walletStack = createStackNavigator({
           />
         </TouchableOpacity>
       ),
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerBackTitle: null,
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     })
   },
   History: {
     screen: History,
     navigationOptions: {
       title: 'History',
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     },
   },
   BuySellPage: {
     screen: BuySellPage,
     navigationOptions: {
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      title: 'Trade',
+      ...headerStyles,
     },
   },
   Buy: {
     screen: Buy,
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
-    }
+    navigationOptions: headerStyles,
   },
   Sell: {
     screen: Sell,
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
-    }
+    navigationOptions: headerStyles,
   }
 },
   {
@@ -141,10 +101,6 @@ const newsStack = createStackNavigator(
       screen: News,
       navigationOptions: ({ navigation }) => ({
         title: 'News',
-        headerStyle: {
-          backgroundColor: background,
-          borderBottomWidth: 0,
-        },
         headerRight: (
           <TouchableOpacity
             style={{ marginRight: 15 }}
@@ -156,27 +112,13 @@ const newsStack = createStackNavigator(
               color={'#ffffff'}
             />
           </TouchableOpacity>
-        ),
-        headerTitleStyle: {
-          color: '#ffffff',
-          fontSize: 20,
-        },
-        headerTintColor: '#ffffff',
+        ),        
+        ...headerStyles,
       })
     },
     InternalWebpage: {
       screen: InternalWebpage,
-      navigationOptions: {
-        title: 'News',
-        headerStyle: {
-          backgroundColor: background,
-        },
-        headerTitleStyle: {
-          color: '#ffffff',
-          fontSize: 20,
-        },
-        headerTintColor: '#ffffff',
-      }
+      navigationOptions: headerStyles,
     },
   },
   {
@@ -199,45 +141,21 @@ const socialStack = createStackNavigator({
     screen: Requests,
     navigationOptions: {
       title: 'Requests',
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     }
   },
   Search: {
     screen: Search,
     navigationOptions: {
       title: 'Search',
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     }
   },
   FriendsProfile: {
     screen: FriendsProfile,
     navigationOptions: ({ navigation }) => ({
       title: navigation.getParam('friendName', 'Bob'),
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     })
   },
 })
@@ -247,30 +165,14 @@ const marketStack = createStackNavigator({
     screen: Market,
     navigationOptions: {
       title: 'Market',
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     }
   },
   Info: {
     screen: Info,
     navigationOptions: {
       title: 'Market',
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     }
   },
 })
@@ -280,10 +182,6 @@ const profileStack = createStackNavigator({
     screen: Profile,
     navigationOptions: ({ navigation }) => ({
       title: 'Profile',
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
       headerRight: (
         <TouchableOpacity
           style={{ marginRight: 15 }}
@@ -296,41 +194,21 @@ const profileStack = createStackNavigator({
           />
         </TouchableOpacity>
       ),
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     })
   },
   Settings: {
     screen: Settings,
     navigationOptions: {
       title: 'Settings',
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     }
   },
   ChangePassword: {
     screen: ChangePassword,
     navigationOptions: {
       title: 'Settings',
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
+      ...headerStyles,
     }
   },
 })
