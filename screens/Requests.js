@@ -27,6 +27,7 @@ export default class Requests extends Component {
       uid: null,
       requests: [], 
       refreshing: true,
+      callback: null,
     }
     this.renderRow = this.renderRow.bind(this);
     this.refresh = this.refresh.bind(this);
@@ -39,6 +40,7 @@ export default class Requests extends Component {
       const res = await db.acceptRequest(this.state.uid, friendUid);
       if (res === 0) {
         alert("Friend added!");
+        this.state.callback();
         this.refresh();
       } else {
         alert("Unable to add friend");
@@ -88,7 +90,11 @@ export default class Requests extends Component {
 
   async componentDidMount() {
     try {
-      await this.refresh();
+      const { navigation } = this.props;
+      const callback = navigation.getParam('callback', null);
+      this.setState({
+        callback: callback,
+      }, () => this.refresh());
     } catch (error) {
       console.log(error);
     }
@@ -234,5 +240,9 @@ const styles = StyleSheet.create({
   text3: {
     fontSize: 20,
     color: '#faed27',
-  }
+  },
+  loading1: {
+    alignItems: 'flex-start',
+    flex: 0,
+  },
 });

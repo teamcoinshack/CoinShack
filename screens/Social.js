@@ -12,6 +12,7 @@ import {
   RefreshControl,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from '../Database.js';
@@ -35,11 +36,40 @@ export default class Social extends Component {
     this.load = this.load.bind(this);
   }
 
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Social',
+      headerStyle: {
+        backgroundColor: background,
+        borderBottomWidth: 0,
+      },
+      headerRight: (
+        <TouchableOpacity
+          style={{ marginRight: 15 }}
+          onPress={() => navigation.navigate('Requests', { 
+            callback: navigation.getParam('callback', null),
+          })}
+        >
+          <Icon
+            name="bell"
+            size={24}
+            color={'#ffffff'}
+          />
+        </TouchableOpacity>
+      ),
+      headerTitleStyle: {
+        color: '#ffffff',
+        fontSize: 20,
+      },
+      headerTintColot: '#ffffff',
+    }
+  }
   load(friend) {
     this.props.navigation.navigate('FriendsProfile',{
       uid: this.state.uid,
       friendName: friend.username,
       friendUid: friend.uid,
+      callback: this.refresh,
     })
   }
   
@@ -78,6 +108,7 @@ export default class Social extends Component {
   }
   async componentDidMount() {
     try {
+      this.props.navigation.setParams({ callback: this.refresh });
       await this.refresh();
     } catch (error) {
       console.log(error);

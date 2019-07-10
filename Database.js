@@ -348,7 +348,6 @@ export default class Database {
   }
 
   static async deleteFriend(uid, friendUid) {
-    //not done
     try {
       let myFriends = await this.getFriends(uid);
       let friendsFriends = await this.getFriends(friendUid);
@@ -367,6 +366,7 @@ export default class Database {
         friendsRef.update({
           friendsList: friendsFriends,
         })
+        console.log('here');
         return 0;
       }
       return 1;

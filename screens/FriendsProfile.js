@@ -29,6 +29,7 @@ export default class FriendsProfile extends Component {
       refreshing: true,
       areFriends: false,
       requesting: false,
+      callback: null,
     }
     this.refresh = this.refresh.bind(this);
     this.addFriend = this.addFriend.bind(this);
@@ -39,10 +40,10 @@ export default class FriendsProfile extends Component {
   async addFriend() {
     try {
       const res = await db.addFriend(this.state.uid, this.state.friendUid);
-      console.log(res);
       if (res === 0) {
+        await this.state.callback();
+        await this.refresh();
         alert("Friend request sent!");
-        this.refresh();
       } else {
         alert("Unable to add friend");
       }
@@ -51,23 +52,32 @@ export default class FriendsProfile extends Component {
     }
   }
 
-  deleteFriend() {
-    const res = db.deleteFriend(this.state.uid, this.state.friendUid);
-    if (res === 0) {
-      alert("Friend deleted :(");
-      this.refresh();
-    } else {
-      alert("Unable to delete friend");
+  async deleteFriend() {
+    try {
+      const res = await db.deleteFriend(this.state.uid, this.state.friendUid);
+      if (res === 0) {
+        await this.state.callback();
+        await this.refresh();
+        alert("Friend deleted :(");
+      } else {
+        alert("Unable to delete friend");
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
   async deleteRequest() {
-    const res = await db.deleteRequest(this.state.uid, this.state.friendUid);
-    if (res === 0) {
-      alert("Request successfully deleted!");
-      this.refresh();
-    } else {
-      alert("No pending request to be deleted.");
+    try {
+      const res = await db.deleteRequest(this.state.uid, this.state.friendUid);
+      if (res === 0) {
+        await this.refresh();
+        alert("Request successfully deleted!");
+      } else {
+        alert("No pending request to be deleted.");
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -75,9 +85,11 @@ export default class FriendsProfile extends Component {
     try {
       const { navigation } = this.props;
       const friendUid = navigation.getParam('friendUid', null);
+      const callback = navigation.getParam('callback', null);
       this.setState({
         uid: Firebase.auth().currentUser.uid,
         friendUid: friendUid,
+        callback: callback,
       }, () => this.refresh());
     } catch(error) {
       console.log(error);

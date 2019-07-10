@@ -194,30 +194,6 @@ const newsStack = createStackNavigator(
 const socialStack = createStackNavigator({
   Social: {
     screen: Social,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Social',
-      headerStyle: {
-        backgroundColor: background,
-        borderBottomWidth: 0,
-      },
-      headerRight: (
-        <TouchableOpacity
-          style={{ marginRight: 15 }}
-          onPress={() => navigation.navigate('Requests')} 
-        >
-          <Icon
-            name="bell"
-            size={24}
-            color={'#ffffff'}
-          />
-        </TouchableOpacity>
-      ),
-      headerTitleStyle: {
-        color: '#ffffff',
-        fontSize: 20,
-      },
-      headerTintColor: '#ffffff',
-    })
   },
   Requests: {
     screen: Requests,
