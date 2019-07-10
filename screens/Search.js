@@ -29,6 +29,7 @@ export default class Search extends Component {
       results: [],
       loading: false,
       query: '',
+      callback: null,
     }
     this.fastLoad = this.fastLoad.bind(this);
     this.renderRow = this.renderRow.bind(this);
@@ -40,7 +41,20 @@ export default class Search extends Component {
       uid: this.state.uid,
       friendName: friend.username,
       friendUid: friend.uid,
+      callback: this.state.callback,
     })
+  }
+
+  async componentDidMount() {
+    try {
+      const { navigation } = this.props;
+      const callback = navigation.getParam('callback', null);
+      this.setState({
+        callback: callback,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async fastLoad(query) {

@@ -50,8 +50,18 @@ export default class Requests extends Component {
     }
   }
 
-  reject(friendUid) {
-
+  async reject(friendUid) {
+    try {
+      const res = await db.rejectRequest(this.state.uid, friendUid);
+      if (res === 0) {
+        alert("Request rejected!");
+        this.refresh();
+      } else {
+        alert("Unable to reject request");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async refresh() {
@@ -102,51 +112,47 @@ export default class Requests extends Component {
 
   renderRow({item}) {
     return (
-      <TouchableOpacity
-        style={styles.row}
-        onPress={() => this.load(item)}
-      >
-        <Avatar
-          rounded
-          source={item.image}
-          style={styles.imageStyle}
-        />
-        <View style={{
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          marginLeft: 10,
-        }}>
-          <Text style={styles.text1}>{item.username}</Text>
-          <Text style={styles.text2}>{item.email}</Text>
-          <Text style={styles.text3}>{item.title}</Text>
+      <View style={{ 
+        flexDirection: 'column',
+        width: Math.round(Dimensions.get('window').width),
+      }}>
+        <TouchableOpacity
+          style={styles.row}
+          onPress={() => this.load(item)}
+        >
+          <Avatar
+            rounded
+            source={item.image}
+            style={styles.imageStyle}
+          />
+          <View style={{
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            marginLeft: 10,
+          }}>
+            <Text style={styles.text1}>{item.username}</Text>
+            <Text style={styles.text2}>{item.email}</Text>
+            <Text style={styles.text3}>{item.title}</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{ 
+          flexDirection: 'row',
+          flex: 1,
+        }}> 
+          <TouchableOpacity 
+            style={styles.accept}
+            onPress={() => this.accept(item.uid)}
+          >
+            <Text style={styles.buttonStyle}>ACCEPT</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.reject}
+            onPress={() => this.reject(item.uid)}
+          >
+            <Text style={styles.buttonStyle}>REJECT</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={{ 
-            flex: 1, 
-            alignItems: 'flex-end',
-          }}
-          onPress={() => this.accept(item.uid)}
-        >
-          <Icon
-            name="check"
-            size={25}
-            color={'green'}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ 
-            flex: 1, 
-            alignItems: 'flex-end',
-          }}
-          onPress={() => this.reject(item.uid)}
-        >
-          <Icon
-            name="close"
-            size={25}
-            color={'red'}
-          />
-        </TouchableOpacity>
-      </TouchableOpacity>
+      </View>
     )
   }
 
@@ -208,7 +214,8 @@ const styles = StyleSheet.create({
   },
   row: {
     elevation: 1,
-    borderRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
     backgroundColor: '#515360',
     flex: 1,
     flexDirection: 'row',
@@ -219,6 +226,37 @@ const styles = StyleSheet.create({
     paddingLeft: 18,
     paddingRight: 16,
     marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+  },
+  accept: {
+    elevation: 1,
+    borderBottomLeftRadius: 5,
+    backgroundColor: '#5fba7d',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 14,
+    marginTop: 0,
+    marginBottom: 6,
+  },
+  reject: {
+    elevation: 1,
+    borderBottomRightRadius: 5,
+    backgroundColor: '#ba5f6b',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
     marginRight: 14,
     marginTop: 0,
     marginBottom: 6,
@@ -245,4 +283,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flex: 0,
   },
+  buttonStyle: {
+    fontWeight: '700',
+    fontSize: 15,
+  }
 });

@@ -64,6 +64,7 @@ export default class Social extends Component {
       headerTintColot: '#ffffff',
     }
   }
+
   load(friend) {
     this.props.navigation.navigate('FriendsProfile',{
       uid: this.state.uid,
@@ -155,6 +156,12 @@ export default class Social extends Component {
         data={this.state.friends}
         renderItem={this.renderRow}
         keyExtractor={item => item.uid}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.refresh}
+          />
+        }
       />
     )
     const noFriends = (
@@ -174,19 +181,12 @@ export default class Social extends Component {
       </View>
     )
     return (
-      <ScrollView 
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this.refresh}
-          />
-        }
-      >
+      <View style={styles.container}>
         <MyButton
           text="Search for new friends"
-          onPress={() => this.props.navigation.navigate('Search')}
+          onPress={() => this.props.navigation.navigate('Search', {
+            callback: this.props.navigation.getParam('callback', null),  
+          })}
           textColor="#00f9ff"
           width={Math.round(Dimensions.get('window').width)}
         />
@@ -198,7 +198,7 @@ export default class Social extends Component {
           : this.state.friends.length === 0
             ? noFriends
             : friendsList}
-      </ScrollView>
+      </View>
     )
   }
 }
@@ -207,11 +207,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
     alignSelf: "stretch",
-    backgroundColor: background,
-  },
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: background,
   },

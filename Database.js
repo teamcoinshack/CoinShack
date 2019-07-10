@@ -366,7 +366,6 @@ export default class Database {
         friendsRef.update({
           friendsList: friendsFriends,
         })
-        console.log('here');
         return 0;
       }
       return 1;
@@ -436,6 +435,24 @@ export default class Database {
     }
   }
 
+  static async rejectRequest(uid, friendUid) {
+    try {
+      let myRequests = await this.getRequests(uid);
+      if (myRequests.includes(friendUid)) {
+        myRequests = myRequests.filter(ids => ids !== friendUid);
+        const myRef =  Firebase.app()
+                                   .database()
+                                   .ref('/friends/' + uid);
+        myRef.update({
+          requestsList: myRequests,
+        })
+        return 0;
+      }
+      return 1;
+    } catch (error) {
+      console.log(error);
+    }
+  }
   static stringify(num) {
     if (num === undefined) {
       return '';
