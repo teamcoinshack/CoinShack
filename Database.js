@@ -271,11 +271,9 @@ export default class Database {
       const snap = await Firebase.app()
                                  .database()
                                  .ref('/friends/' + uid + '/friendsList/')
-                                 .orderByValue()
-                                 .equalTo(friendUid)
                                  .once('value')
       if (!snap.val()) { return false; }
-      return snap.val().length === 1;
+      return snap.val().includes(friendUid);
     } catch (error) {
       console.log(error);
     }
