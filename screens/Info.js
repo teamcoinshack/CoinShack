@@ -81,7 +81,7 @@ export default class Info extends Component {
 
       this.RBSheet.close();
 
-      let newAlerts= [...this.state.alerts];
+      let newAlerts = [...this.state.alerts];
       newAlerts.push({
         index: this.state.alerts.length,
         price: this.state.alertValue,
