@@ -139,7 +139,6 @@ export default class Settings extends Component {
       <MyButton
         text="Change Password"
         onPress={this.changePassword}
-        textColor="#00f9ff"
         width={Math.round(Dimensions.get('window').width) * 0.6}
       />
     );
@@ -150,7 +149,6 @@ export default class Settings extends Component {
       <MyButton
         text="Link Facebook"
         onPress={this.linkFbAcc}
-        textColor="#00f9ff"
         width={Math.round(Dimensions.get('window').width) * 0.6}
       />
     );
@@ -161,7 +159,6 @@ export default class Settings extends Component {
       <MyButton
         text="Link Google"
         onPress={this.linkGoogleAcc}
-        textColor="#00f9ff"
         width={Math.round(Dimensions.get('window').width) * 0.6}
       />
     );
@@ -179,7 +176,6 @@ export default class Settings extends Component {
         <MyButton
           text="Logout"
           onPress={this.logout}
-          textColor="#00f9ff"
           width={Math.round(Dimensions.get('window').width) * 0.6}
         />
       </ScrollView>

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import BellIcon from 'react-native-vector-icons/Entypo';
 import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from '../Database.js';
@@ -30,6 +31,7 @@ export default class Social extends Component {
     this.state = {
       friends: [],
       refreshing: true,
+      haveRequests: false,
     }
     this.refresh = this.refresh.bind(this);
     this.renderRow = this.renderRow.bind(this);
@@ -50,10 +52,12 @@ export default class Social extends Component {
             callback: navigation.getParam('callback', null),
           })}
         >
-          <Icon
+          <BellIcon
             name="bell"
             size={24}
-            color={'#ffffff'}
+            color={navigation.getParam('haveRequests', false)
+                   ? '#ff077a'
+                   : '#ffffff'}
           />
         </TouchableOpacity>
       ),
@@ -76,7 +80,8 @@ export default class Social extends Component {
   
   async refresh() {
     try {
-      let friends = await db.getFriends(Firebase.auth().currentUser.uid); 
+      const uid = Firebase.auth().currentUser.uid;
+      let friends = await db.getFriends(uid); 
       friends = await Promise.all(
                     friends.map(async function(uid) {
                       try {
@@ -97,11 +102,16 @@ export default class Social extends Component {
                       }
                     })
                   )
+      const requests = await db.getRequests(uid);
       this.setState({
-        uid: Firebase.auth().currentUser.uid,
+        uid: uid,
         friends: friends,
         refreshing: false,
+        haveRequests: requests.length > 0,
       })
+      this.props.navigation.setParams({ 
+        haveRequests: this.state.haveRequests,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -109,8 +119,10 @@ export default class Social extends Component {
   }
   async componentDidMount() {
     try {
-      this.props.navigation.setParams({ callback: this.refresh });
       await this.refresh();
+      this.props.navigation.setParams({ 
+        callback: this.refresh,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -183,12 +195,12 @@ export default class Social extends Component {
     return (
       <View style={styles.container}>
         <MyButton
-          text="Search for new friends"
+          text="Discover"
           onPress={() => this.props.navigation.navigate('Search', {
             callback: this.props.navigation.getParam('callback', null),  
           })}
-          textColor="#00f9ff"
           width={Math.round(Dimensions.get('window').width)}
+          icon={"magnify"}
         />
         <View style={styles.friendsHeader}>
           <Text style={styles.friends}>Friends</Text>

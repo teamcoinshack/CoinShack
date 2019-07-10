@@ -10,6 +10,7 @@ import {
 } from 'react-navigation';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import BellIcon from 'react-native-vector-icons/Entypo';
 
 import Login from './screens/Login.js';
 import BuySellPage from './screens/BuySellPage.js';

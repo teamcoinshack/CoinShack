@@ -6,6 +6,7 @@ import {
   View,
   Image,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default MyButton = props => {
   const image = (
@@ -33,6 +34,16 @@ export default MyButton = props => {
           alignItems: 'center',
           flex: 1,
         }}>
+          {props.icon 
+            ? ( <Icon 
+                  name={props.icon} 
+                  size={24} 
+                  color={'#ffffff'} 
+                  style={{
+                    paddingRight: 7,
+                  }}
+                /> )
+            : null}
          <Text 
             style={{ 
               color: props.textColor, 
@@ -48,7 +59,7 @@ export default MyButton = props => {
 } 
 
 MyButton.defaultProps = {
-  textColor: "#ffffff",
+  textColor: "#00dce8",
   height: 65,
   width: "100%",
 }

@@ -213,7 +213,6 @@ export default class Login extends Component {
               this.state.email.trim(),
               this.state.password
             )}
-            textColor="#00f9ff"
             width={Math.round(Dimensions.get('window').width) * 0.7}
           />
           <MyButton
@@ -221,7 +220,6 @@ export default class Login extends Component {
             image={true}
             text="Facebook Login"
             onPress={this.handleFbLogin}
-            textColor="#00f9ff"
             width={Math.round(Dimensions.get('window').width) * 0.7}
           />
           <MyButton
@@ -229,13 +227,11 @@ export default class Login extends Component {
             image={true}
             text="Google Login"
             onPress={this.handleGoogleLogin}
-            textColor="#00f9ff"
             width={Math.round(Dimensions.get('window').width) * 0.7}
           />
           <MyButton
             text="Sign Up"
             onPress={this.goToSignUp}
-            textColor="#00f9ff"
             width={Math.round(Dimensions.get('window').width) * 0.7}
           />
         </View>
