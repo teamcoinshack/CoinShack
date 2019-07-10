@@ -21,3 +21,11 @@ export const coinTitles = [
   "XRP",
   "Litecoin",
 ];
+
+export const nameToIconMap = {
+  bitcoin: require('../assets/icons/BTC.png'),
+  ethereum: require('../assets/icons/ETH.png'),
+  dash: require('../assets/icons/DASH.png'),
+  ripple: require('../assets/icons/XRP.png'),
+  litecoin: require('../assets/icons/LTC.png'),
+}
