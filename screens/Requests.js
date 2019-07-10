@@ -162,7 +162,7 @@ export default class Requests extends Component {
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'center',
-        marginTop: 20,
+        alignItems: 'center',
       }}>
         <Text style={{
           color: '#7c7c7c',
@@ -174,7 +174,7 @@ export default class Requests extends Component {
       </View>
     )
     const loading = (
-      <View style={styles.loading1}>
+      <View style={styles.loadingStyle}>
           <MyBar
             height={65}
             width={Math.round(Dimensions.get('window').width * 0.7)}
@@ -279,9 +279,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#faed27',
   },
-  loading1: {
-    alignItems: 'flex-start',
-    flex: 0,
+  loadingStyle: {
+    flex: 1,
+    backgroundColor: background,
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   buttonStyle: {
     fontWeight: '700',

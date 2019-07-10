@@ -181,7 +181,7 @@ export default class Social extends Component {
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'center',
-        marginTop: 20,
+        marginTop: 30,
       }}>
         <Text style={{
           color: '#7c7c7c',
@@ -193,7 +193,16 @@ export default class Social extends Component {
       </View>
     )
     return (
-      <View style={styles.container}>
+      <ScrollView 
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.refresh}
+          />
+        }
+      >
         <MyButton
           text="Discover"
           onPress={() => this.props.navigation.navigate('Search', {
@@ -210,7 +219,7 @@ export default class Social extends Component {
           : this.state.friends.length === 0
             ? noFriends
             : friendsList}
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -219,6 +228,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
     alignSelf: "stretch",
+    backgroundColor: background,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: background,
   },

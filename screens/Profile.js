@@ -28,6 +28,7 @@ export default class Profile extends Component {
       refreshing: false,
     }
     this.refresh = this.refresh.bind(this);
+    this.getFavCoin = this.getFavCoin.bind(this);
   }
 
   async componentDidMount() {
@@ -37,15 +38,9 @@ export default class Profile extends Component {
       console.log(error);
     }
   }
-
-  async refresh() {
+  
+  async getFavCoin(wallet) {
     try {
-      this.setState({
-        refreshing: true,
-      });
-      const uid = Firebase.auth().currentUser.uid;
-      const snap = await db.getData(uid);
-      let wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
       let coins = await Promise.all(
                           Object.keys(wallet)
                             .map(async function(symbol) {
@@ -64,7 +59,7 @@ export default class Profile extends Component {
                         )
       let favCoin;
       if (!wallet) {
-        favCoin = 'None :(';
+        return 'None :(';
       } else {
         let max = 0;
         for (let counter = 1; counter < coins.length; counter++) {
@@ -72,8 +67,22 @@ export default class Profile extends Component {
             max = counter;
           }
         }
-        favCoin = coins[max][1];
+        return coins[max][1];
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async refresh() {
+    try {
+      this.setState({
+        refreshing: true,
+      });
+      const uid = Firebase.auth().currentUser.uid;
+      const snap = await db.getData(uid);
+      let wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
+      const favCoin = await this.getFavCoin(wallet);
       this.setState({
         username: snap.val().username,
         totalValue: '$' + db.stringify(snap.val().totalValue.toFixed(2)),

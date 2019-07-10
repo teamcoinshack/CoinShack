@@ -152,7 +152,6 @@ export default class BuySellPage extends Component {
             <MyRow 
               text='Cash'
               isCash
-              path={require('../assets/icons/cash.png')}  
               right={cashValue}
             />
             <MyRow

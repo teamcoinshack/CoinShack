@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // Required parameters are text, path, right(content)
 
 export default MyRow = props => (
-      <TouchableOpacity 
+      <View 
         style={styles.row}
       >
         <View style={{ flexDirection: 'row' }}>
@@ -42,7 +42,7 @@ export default MyRow = props => (
             {props.right}
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
 );
 
 const styles = StyleSheet.create({

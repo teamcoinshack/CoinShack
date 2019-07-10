@@ -229,66 +229,19 @@ export default class Wallet extends Component {
           />
       </View>
     )
-    const CashRow = this.state.cash === null
-    ? (
-      <TouchableOpacity
-        style={styles.cashRow}
-      >
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.imageContainer}>
-            <Icon
-              name="cash-usd"
-              size={40}
-              color={'#ffffff'}
-            />
-          </View>
-          <View style={styles.cashName}>
-            <Text style={styles.name}>Cash</Text>
-          </View>
-          <View style={{
-            flexDirection: 'column',
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-          }}>
-            <MyBar
-              height={60}
-              width={Math.round(Dimensions.get('window').width)}
-              flexStart={true}
-            />
-          </View>
-        </View>
-      </TouchableOpacity>
-    )
-    : (
-      <TouchableOpacity
-        style={styles.cashRow}
-      >
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.imageContainer}>
-            <Icon
-              name="cash-usd"
-              size={40}
-              color={'#ffffff'}
-            />
-          </View>
-          <View style={styles.cashName}>
-            <Text style={styles.name}>Cash</Text>
-          </View>
-          <View style={{
-            flexDirection: 'column',
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-          }}>
-            <Text style={this.state.cash === 0
-                          ? styles.noValue1
-                          : styles.cashValue}>
-              {this.state.cash === undefined
-               ? loading
-               : '$' + money}
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
+    const cashValue = (
+      <Text style={!this.state.cash || this.state.cash === 0 
+                    ? styles.noValue1 
+                    : styles.cashValue}>
+         ${money}
+      </Text>
+    );
+    const CashRow = ( 
+      <MyRow 
+        text='Cash'
+        isCash
+        right={cashValue}
+      />
     )
     const assetsValue = (
       <View style={{ flexDirection: 'row', justifyContent: 'flex-start'}}>
