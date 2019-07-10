@@ -68,6 +68,7 @@ export default class Requests extends Component {
     try {
       const uid = Firebase.auth().currentUser.uid;
       let reqs = await db.getRequests(uid);
+      reqs = Object.keys(reqs);
       reqs = await Promise.all(
                     reqs.map(async function(uid) {
                       try {
@@ -284,6 +285,7 @@ const styles = StyleSheet.create({
     backgroundColor: background,
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonStyle: {
     fontWeight: '700',

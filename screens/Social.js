@@ -82,6 +82,7 @@ export default class Social extends Component {
     try {
       const uid = Firebase.auth().currentUser.uid;
       let friends = await db.getFriends(uid); 
+      friends = Object.keys(friends);
       friends = await Promise.all(
                     friends.map(async function(uid) {
                       try {
@@ -102,7 +103,8 @@ export default class Social extends Component {
                       }
                     })
                   )
-      const requests = await db.getRequests(uid);
+      let requests = await db.getRequests(uid);
+      requests = Object.keys(requests);
       this.setState({
         uid: uid,
         friends: friends,

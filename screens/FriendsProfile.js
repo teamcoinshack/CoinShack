@@ -35,6 +35,7 @@ export default class FriendsProfile extends Component {
     this.addFriend = this.addFriend.bind(this);
     this.deleteFriend = this.deleteFriend.bind(this);
     this.deleteRequest = this.deleteRequest.bind(this);
+    this.getFavCoin = this.getFavCoin.bind(this);
   }
 
   async addFriend() {
@@ -96,15 +97,8 @@ export default class FriendsProfile extends Component {
     }
   }
 
-  async refresh() {
+  async getFavCoin(wallet) {
     try {
-      this.setState({
-        refreshing: true,
-      });
-      const uid = this.state.uid;
-      const friendUid = this.state.friendUid;
-      const snap = await db.getData(this.state.friendUid);
-      let wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
       let coins = await Promise.all(
                           Object.keys(wallet)
                             .map(async function(symbol) {
@@ -123,7 +117,7 @@ export default class FriendsProfile extends Component {
                         )
       let favCoin;
       if (!wallet) {
-        favCoin = 'None :(';
+        return 'None :(';
       } else {
         let max = 0;
         for (let counter = 1; counter < coins.length; counter++) {
@@ -131,8 +125,23 @@ export default class FriendsProfile extends Component {
             max = counter;
           }
         }
-        favCoin = coins[max][1];
+        return coins[max][1];
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async refresh() {
+    try {
+      this.setState({
+        refreshing: true,
+      });
+      const uid = this.state.uid;
+      const friendUid = this.state.friendUid;
+      const snap = await db.getData(this.state.friendUid);
+      let wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
+      const favCoin = await this.getFavCoin(wallet);
       const areFriends = await db.isFriend(uid, friendUid);
       const requesting = areFriends ? false : await db.requesting(uid, friendUid);
       this.setState({
