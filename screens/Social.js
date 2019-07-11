@@ -106,6 +106,7 @@ export default class Social extends Component {
                       }
                     })
                   )
+      friends.sort((a, b) => b.value - a.value);
       let requests = await db.getRequests(uid);
       requests = Object.keys(requests);
       this.setState({

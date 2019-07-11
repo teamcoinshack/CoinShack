@@ -28,6 +28,7 @@ export default class Requests extends Component {
       requests: [], 
       refreshing: true,
       callback: null,
+      loading: false,
     }
     this.renderRow = this.renderRow.bind(this);
     this.refresh = this.refresh.bind(this);
@@ -35,13 +36,13 @@ export default class Requests extends Component {
     this.reject = this.reject.bind(this);
   }
 
-  async accept(friendUid) {
+  async accept(friend) {
     try {
-      const res = await db.acceptRequest(this.state.uid, friendUid);
+      const res = await db.acceptRequest(this.state.uid, friend.uid);
       if (res === 0) {
-        alert("Friend added!");
         this.state.callback();
         this.refresh();
+        alert("Friend added!");
       } else {
         alert("Unable to add friend");
       }
@@ -50,12 +51,12 @@ export default class Requests extends Component {
     }
   }
 
-  async reject(friendUid) {
+  async reject(friend) {
     try {
-      const res = await db.rejectRequest(this.state.uid, friendUid);
+      const res = await db.rejectRequest(this.state.uid, friend.uid);
       if (res === 0) {
-        alert("Request rejected!");
         this.refresh();
+        alert("Request rejected!");
       } else {
         alert("Unable to reject request");
       }
@@ -125,6 +126,14 @@ export default class Requests extends Component {
   }
 
   renderRow({item}) {
+    const loading = (
+      <View style={styles.loadingStyle}>
+          <MyBar
+            height={65}
+            width={Math.round(Dimensions.get('window').width * 0.7)}
+          />
+      </View>
+    )
     return (
       <View style={{ 
         flexDirection: 'column',
@@ -156,13 +165,13 @@ export default class Requests extends Component {
         }}> 
           <TouchableOpacity 
             style={styles.accept}
-            onPress={() => this.accept(item.uid)}
+            onPress={() => this.accept(item)}
           >
             <Text style={styles.buttonStyle}>ACCEPT</Text>
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.reject}
-            onPress={() => this.reject(item.uid)}
+            onPress={() => this.reject(item)}
           >
             <Text style={styles.buttonStyle}>REJECT</Text>
           </TouchableOpacity>
@@ -193,7 +202,6 @@ export default class Requests extends Component {
           <MyBar
             height={65}
             width={Math.round(Dimensions.get('window').width * 0.7)}
-            flexStart={true}
           />
       </View>
     )
