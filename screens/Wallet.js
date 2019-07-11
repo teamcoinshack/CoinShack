@@ -99,11 +99,11 @@ export default class Wallet extends Component {
       }
       const curr = this.state.currs[this.state.current];
       const data = await q.fetch(curr.name);
-      const wallet = ('wallet' in snaps) ? snaps.wallet : [];
+      const wallet = ('wallet' in snaps) ? snaps.wallet : {};
       curr.id = data.symbol.toUpperCase();
       curr.rate = data.market_data.current_price.usd;
       curr.change = Number(data.market_data.price_change_percentage_24h).toFixed(2);
-      curr.value = (wallet === [] || !(curr.id in wallet))
+      curr.value = (!(curr.id in wallet))
                       ? 0
                       : Number(wallet[curr.id]);
       let arr = this.state.currs;

@@ -81,11 +81,13 @@ export default class Profile extends Component {
       });
       const uid = Firebase.auth().currentUser.uid;
       const snap = await db.getData(uid);
-      let wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
+      const wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
+      const totalValue = await db.getTotalValue(uid, snap.val());
       const favCoin = await this.getFavCoin(wallet);
       this.setState({
         username: snap.val().username,
-        totalValue: '$' + db.stringify(snap.val().totalValue.toFixed(2)),
+        email: Firebase.auth().currentUser.email,
+        totalValue: '$' + db.stringify(totalValue.toFixed(2)),
         refreshing: false,
         favourite: wallet ? favCoin.charAt(0).toUpperCase() + favCoin.slice(1) : favCoin,
       })
@@ -111,6 +113,7 @@ export default class Profile extends Component {
           value={this.state.totalValue}
           username={this.state.username}
           favourite={this.state.favourite}
+          email={this.state.email}
         />
       </ScrollView>
     );

@@ -37,6 +37,12 @@ export default ProfileTab = props => (
                 color: '#c2c2c2',
                 fontWeight: '500',
                 fontSize: 15,
+                marginBottom: 5,
+              }}>{props.email}</Text>
+              <Text style={{
+                color: '#faed27',
+                fontWeight: '500',
+                fontSize: 15,
               }}>{props.title.toUpperCase()}</Text>
             </View>
           </View>

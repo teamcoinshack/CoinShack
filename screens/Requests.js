@@ -64,31 +64,44 @@ export default class Requests extends Component {
     }
   }
 
+  load(friend) {
+    this.props.navigation.navigate('FriendsProfile',{
+      uid: this.state.uid,
+      friendName: friend.username,
+      friendUid: friend.uid,
+      friendEmail: friend.email,
+      callback: this.state.callback,
+      callback2: this.refresh,
+    })
+  }
+
   async refresh() {
     try {
       const uid = Firebase.auth().currentUser.uid;
       let reqs = await db.getRequests(uid);
       reqs = Object.keys(reqs);
       reqs = await Promise.all(
-                    reqs.map(async function(uid) {
-                      try {
-                        let obj = {};
-                        const snap = await db.getData(uid);
-                        obj.uid = uid;
-                        obj.username = ('username' in snap.val())
-                                        ? snap.val().username
-                                        : 'No name :(';
-                        obj.email = snap.val().email;
-                        obj.title = ('title' in snap.val())
-                                      ? snap.val().title
-                                      : 'Novice';
-                        obj.image = require('../assets/icons/noPic.png');
-                        return obj;
-                      } catch(error) {
-                        console.log(error);
-                      }
-                    })
-                  )
+          reqs.map(async function(uid) {
+            try {
+              let obj = {};
+              const snap = await db.getData(uid);
+              const snapped = snap.val();
+              obj.uid = uid;
+              obj.username = ('username' in snapped)
+                ? snapped.username
+                : 'No name :(';
+              obj.value = await db.getTotalValue(uid, snapped);
+              obj.email = snapped.email;
+              obj.title = ('title' in snapped)
+                ? snap.val().title
+                : 'NOVICE';
+              obj.image = require('../assets/icons/noPic.png');
+              return obj;
+            } catch(error) {
+              console.log(error);
+            }
+          })
+        )
       this.setState({
         uid: uid,
         requests: reqs,
@@ -116,6 +129,7 @@ export default class Requests extends Component {
       <View style={{ 
         flexDirection: 'column',
         width: Math.round(Dimensions.get('window').width),
+        marginBottom: 10,
       }}>
         <TouchableOpacity
           style={styles.row}
@@ -132,7 +146,7 @@ export default class Requests extends Component {
             marginLeft: 10,
           }}>
             <Text style={styles.text1}>{item.username}</Text>
-            <Text style={styles.text2}>{item.email}</Text>
+            <Text style={styles.text2}>{'$' + db.stringify(item.value.toFixed(2))}</Text>
             <Text style={styles.text3}>{item.title}</Text>
           </View>
         </TouchableOpacity>
@@ -277,8 +291,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   text3: {
-    fontSize: 20,
+    fontSize: 15,
     color: '#faed27',
+    fontWeight: '500',
   },
   loadingStyle: {
     flex: 1,

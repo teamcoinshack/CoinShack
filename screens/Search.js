@@ -41,6 +41,7 @@ export default class Search extends Component {
       uid: this.state.uid,
       friendName: friend.username,
       friendUid: friend.uid,
+      friendEmail: friend.email,
       callback: this.state.callback,
     })
   }

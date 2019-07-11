@@ -1,4 +1,6 @@
 import Firebase from 'firebase';
+import q from './Query.js';
+import { Mapping } from './Masterlist.js';
 
 export default class Database {
   static async getData(userID) {
@@ -53,6 +55,27 @@ export default class Database {
         emails: emails,
       })
     } catch(error) {
+      console.log(error);
+    }
+  }
+
+  static async getTotalValue(uid, snapped) {
+    try {
+      let wallet = ('wallet' in snapped) 
+                      ? snapped.wallet 
+                      : false;
+      let totalValue = snapped.cash;
+      const keys = Object.keys(wallet);
+      if (keys) {
+        for (let k = 0; k < keys.length; k++) {
+          const data = await q.fetch(Mapping[keys[k]]);
+          const rate = data.market_data.current_price.usd;
+          const value = wallet[keys[k]] * rate;
+          totalValue += value;
+        }
+      }
+      return totalValue;
+    } catch (error) {
       console.log(error);
     }
   }
@@ -298,14 +321,17 @@ export default class Database {
                                  .database()
                                  .ref('/friends/' + friendUid);
       const snap  =  await Firebase.app()
-                                   .database()
-                                   .ref('/friends/'+friendUid+'/requestList/')
-                                   .once('value');
+                                .database()
+                                .ref('/friends/'+friendUid+'/requestsList/')
+                                .once('value');
+      console.log(snap.val());
       let reqs = (snap.val()) ? snap.val() : {};
+      console.log(reqs);
       reqs[uid] = 0;
       friendRef.update({
         requestsList: reqs,
       })
+      console.log(reqs);
       return 0;
     } catch (error) {
       console.log(error);

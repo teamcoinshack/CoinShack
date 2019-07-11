@@ -29,23 +29,62 @@ export default class FriendsProfile extends Component {
       refreshing: true,
       areFriends: false,
       requesting: false,
+      friendRequesting: false,
       callback: null,
+      callback2: null,
+      loading: false,
     }
     this.refresh = this.refresh.bind(this);
     this.addFriend = this.addFriend.bind(this);
     this.deleteFriend = this.deleteFriend.bind(this);
     this.deleteRequest = this.deleteRequest.bind(this);
     this.getFavCoin = this.getFavCoin.bind(this);
+    this.accept = this.accept.bind(this);
+    this.halfRefresh = this.halfRefresh.bind(this);
   }
 
   async addFriend() {
     try {
+      this.setState({
+        loading: true,
+      })
       const res = await db.addFriend(this.state.uid, this.state.friendUid);
       if (res === 0) {
         await this.state.callback();
-        await this.refresh();
+        await this.halfRefresh();
+        this.setState({
+          loading: false,
+        })
         alert("Friend request sent!");
       } else {
+        this.setState({
+          loading: false,
+        })
+        alert("Unable to add friend");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async accept(friendUid) {
+    try {
+      this.setState({
+        loading: true,
+      })
+      const res = await db.acceptRequest(this.state.uid, friendUid);
+      if (res === 0) {
+        await this.state.callback();
+        this.state.callback2 && await this.state.callback2();
+        await this.halfRefresh();
+        this.setState({
+          loading: false,
+        })
+        alert("Friend added!");
+      } else {
+        this.setState({
+          loading: false,
+        })
         alert("Unable to add friend");
       }
     } catch (error) {
@@ -55,12 +94,21 @@ export default class FriendsProfile extends Component {
 
   async deleteFriend() {
     try {
+      this.setState({
+        loading: true,
+      })
       const res = await db.deleteFriend(this.state.uid, this.state.friendUid);
       if (res === 0) {
         await this.state.callback();
-        await this.refresh();
+        await this.halfRefresh();
+        this.setState({
+          loading: false,
+        })
         alert("Friend deleted :(");
       } else {
+        this.setState({
+          loading: false,
+        })
         alert("Unable to delete friend");
       }
     } catch (error) {
@@ -70,11 +118,20 @@ export default class FriendsProfile extends Component {
 
   async deleteRequest() {
     try {
+      this.setState({
+        loading: true,
+      })
       const res = await db.deleteRequest(this.state.uid, this.state.friendUid);
       if (res === 0) {
-        await this.refresh();
+        await this.halfRefresh();
+        this.setState({
+          loading: false,
+        })
         alert("Request successfully deleted!");
       } else {
+        this.setState({
+          loading: false,
+        })
         alert("No pending request to be deleted.");
       }
     } catch (error) {
@@ -86,11 +143,15 @@ export default class FriendsProfile extends Component {
     try {
       const { navigation } = this.props;
       const friendUid = navigation.getParam('friendUid', null);
+      const email = navigation.getParam('friendEmail', null);
       const callback = navigation.getParam('callback', null);
+      const callback2 = navigation.getParam('callback2', null);
       this.setState({
         uid: Firebase.auth().currentUser.uid,
         friendUid: friendUid,
+        email: email,
         callback: callback,
+        callback2: callback2,
       }, () => this.refresh());
     } catch(error) {
       console.log(error);
@@ -140,25 +201,56 @@ export default class FriendsProfile extends Component {
       const uid = this.state.uid;
       const friendUid = this.state.friendUid;
       const snap = await db.getData(this.state.friendUid);
-      let wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
+      const wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
+      const totalValue = await db.getTotalValue(friendUid, snap.val());
       const favCoin = await this.getFavCoin(wallet);
       const areFriends = await db.isFriend(uid, friendUid);
       const requesting = areFriends ? false : await db.requesting(uid, friendUid);
+      const friendRequesting = areFriends ? false : await db.requesting(friendUid, uid);
       this.setState({
         username: snap.val().username,
-        totalValue: '$' + db.stringify(snap.val().totalValue.toFixed(2)),
+        totalValue: '$' + db.stringify(totalValue.toFixed(2)),
         refreshing: false,
         favourite: wallet ? favCoin.charAt(0).toUpperCase() + favCoin.slice(1) : favCoin,
         areFriends: areFriends,
         requesting: requesting,
+        friendRequesting: friendRequesting,
       })
     } catch(error) {
       console.log(error);
     }
   }
 
+  async halfRefresh() {
+    try {
+      const areFriends = await db.isFriend(this.state.uid, this.state.friendUid);
+      const requesting = areFriends 
+                          ? false 
+                          : await db.requesting(this.state.uid, this.state.friendUid);
+      const friendRequesting = areFriends 
+                          ? false 
+                          : await db.requesting(this.state.friendUid, this.state.uid);
+      this.setState({
+        areFriends: areFriends,
+        requesting: requesting,
+        friendRequesting: friendRequesting,
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   render() {
+    const loading = (
+      <View style={styles.loading1}>
+          <MyBar
+            height={65}
+            width={Math.round(Dimensions.get('window').width)}
+          />
+      </View>
+    )
+
     const addFriend = (
       <MyButton
         text="Add Friend"
@@ -185,6 +277,16 @@ export default class FriendsProfile extends Component {
         width={Math.round(Dimensions.get('window').width)}
       />
     )
+
+    const acceptRequest = (
+      <MyButton
+        text="Accept Request"
+        onPress={() => this.accept(this.state.friendUid)}
+        textColor="#00f9ff"
+        width={Math.round(Dimensions.get('window').width)}
+      />
+    )
+
     return (
       <ScrollView 
         style={styles.container}
@@ -199,16 +301,21 @@ export default class FriendsProfile extends Component {
         <ProfileTab 
           refreshing={this.state.refreshing}
           value={this.state.totalValue}
+          email={this.state.email}
           username={this.state.username}
           favourite={this.state.favourite}
         />
         { this.state.refreshing || this.state.uid === this.state.friendUid
           ? null 
-          : this.state.areFriends
-            ? deleteFriend
-            : this.state.requesting
-              ? deleteRequest
-              : addFriend }
+          : this.state.loading
+            ? loading
+            : this.state.areFriends
+              ? deleteFriend
+              : this.state.requesting
+                ? deleteRequest
+                : this.state.friendRequesting
+                  ? acceptRequest
+                  : addFriend }
       </ScrollView>
     );
   }
@@ -230,5 +337,10 @@ const styles = StyleSheet.create({
   cashText: {
     fontSize: 30,
     fontWeight: 'bold'
-  }
+  },
+  loading1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 0,
+  },
 });

@@ -17,8 +17,8 @@ export const Mapping = {
 export const coinTitles = [
   "Bitcoin",
   "Ethereum",
-  "DASH",
-  "XRP",
+  "Dash",
+  "Ripple",
   "Litecoin",
 ];
 

@@ -74,6 +74,7 @@ export default class Social extends Component {
       uid: this.state.uid,
       friendName: friend.username,
       friendUid: friend.uid,
+      friendEmail: friend.email,
       callback: this.refresh,
     })
   }
@@ -88,14 +89,16 @@ export default class Social extends Component {
                       try {
                         let obj = {};
                         const snap = await db.getData(uid);
+                        const snapped = snap.val();
                         obj.uid = uid;
-                        obj.username = ('username' in snap.val())
-                                        ? snap.val().username
+                        obj.username = ('username' in snapped)
+                                        ? snapped.username
                                         : 'No name :(';
-                        obj.email = snap.val().email;
-                        obj.title = ('title' in snap.val())
-                                      ? snap.val().title
-                                      : 'Novice';
+                        obj.email = snapped.email;
+                        obj.value = await db.getTotalValue(uid, snapped);
+                        obj.title = ('title' in snapped)
+                                      ? snapped.title
+                                      : 'NOVICE';
                         obj.image = require('../assets/icons/noPic.png');
                         return obj;
                       } catch(error) {
@@ -147,7 +150,7 @@ export default class Social extends Component {
           marginLeft: 10,
         }}>
           <Text style={styles.text1}>{item.username}</Text>
-          <Text style={styles.text2}>{item.email}</Text>
+          <Text style={styles.text2}>{'$' + db.stringify(item.value.toFixed(2))}</Text>
           <Text style={styles.text3}>{item.title}</Text>
         </View>
       </TouchableOpacity>
@@ -272,18 +275,19 @@ const styles = StyleSheet.create({
     height: 80,
   },
   text1: {
-    fontSize: 20,
+    fontSize: 21,
     color: '#dbdbdb',
     fontWeight: '600',
   },
   text2: {
-    fontSize: 14,
+    fontSize: 18,
     color: '#a4a9b9',
     fontWeight: '500',
   },
   text3: {
-    fontSize: 20,
+    fontSize: 15,
     color: '#faed27',
+    fontWeight: '500',
   },
   flatStyle: {
     marginTop: 20,

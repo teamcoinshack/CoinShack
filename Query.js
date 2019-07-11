@@ -22,13 +22,4 @@ export default class Query {
       return [];
     }
   }
-  
-  static async fetchBySymbol(symbol) {
-    try {
-      const res = await this.fetch(Mapping[symbol]);
-      return res;
-    } catch(error) {
-      console.log(error);
-    }
-  }
 }
