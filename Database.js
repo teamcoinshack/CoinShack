@@ -324,14 +324,11 @@ export default class Database {
                                 .database()
                                 .ref('/friends/'+friendUid+'/requestsList/')
                                 .once('value');
-      console.log(snap.val());
       let reqs = (snap.val()) ? snap.val() : {};
-      console.log(reqs);
       reqs[uid] = 0;
       friendRef.update({
         requestsList: reqs,
       })
-      console.log(reqs);
       return 0;
     } catch (error) {
       console.log(error);
