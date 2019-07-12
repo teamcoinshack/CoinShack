@@ -96,9 +96,7 @@ export default class Social extends Component {
                                         : 'No name :(';
                         obj.email = snapped.email;
                         obj.value = await db.getTotalValue(uid, snapped);
-                        obj.title = ('title' in snapped)
-                                      ? snapped.title
-                                      : 'NOVICE';
+                        obj.title = q.getTitle(snapped.title_id);
                         obj.image = require('../assets/icons/noPic.png');
                         return obj;
                       } catch(error) {

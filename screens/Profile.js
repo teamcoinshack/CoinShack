@@ -81,15 +81,17 @@ export default class Profile extends Component {
       });
       const uid = Firebase.auth().currentUser.uid;
       const snap = await db.getData(uid);
-      const wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
-      const totalValue = await db.getTotalValue(uid, snap.val());
+      const snapped = snap.val();
+      const wallet = ('wallet' in snapped) ? snapped.wallet : false;
+      const totalValue = await db.getTotalValue(uid, snapped);
       const favCoin = await this.getFavCoin(wallet);
       this.setState({
-        username: snap.val().username,
+        username: snapped.username,
         email: Firebase.auth().currentUser.email,
         totalValue: '$' + db.stringify(totalValue.toFixed(2)),
         refreshing: false,
         favourite: wallet ? favCoin.charAt(0).toUpperCase() + favCoin.slice(1) : favCoin,
+        title_id: snapped.title_id,
       })
     } catch(error) {
       console.log(error);
@@ -114,6 +116,7 @@ export default class Profile extends Component {
           username={this.state.username}
           favourite={this.state.favourite}
           email={this.state.email}
+          title_id={this.state.title_id}
         />
       </ScrollView>
     );

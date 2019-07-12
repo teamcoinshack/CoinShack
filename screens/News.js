@@ -16,7 +16,6 @@ import MyBar from '../components/MyBar.js';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { coinTitles } from '../Masterlist.js';
 import { CheckBox } from 'react-native-elements';
-import LinearGradient from 'react-native-linear-gradient';
 
 const background = '#373b48';
 
@@ -313,9 +312,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   row: {
+    backgroundColor: '#515360',
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: '#515360',
     flexDirection: 'column',
     width: Math.round(Dimensions.get('window').width) - 28, 
     alignItems: 'center',

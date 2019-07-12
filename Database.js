@@ -11,15 +11,6 @@ export default class Database {
       return snap;
   }
 
-  static updateTotal(uid, total) {
-    let userRef = Firebase.app()
-                          .database()
-                          .ref('/users/' + uid);
-    userRef.update({
-      totalValue: total,
-    });
-  }
-
   // can consider using cloud functions for new user creation,
   // set cash value, send email bla bla
   static async initUser(user, username) {
@@ -39,8 +30,8 @@ export default class Database {
       userRef.set({
         username: username,
         cash: 10000.00,
-        totalValue: 0,
         email: user.email,
+        title_id: 1,
       });
       let usernames = (!snap.val() || (!('usernames' in snap.val()))) 
                         ? {} 
@@ -74,12 +65,45 @@ export default class Database {
           totalValue += value;
         }
       }
+      const userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + uid);
+      const snap = await Firebase.app()
+                            .database()
+                            .ref('/users/' + uid + '/title_id/')
+                            .once('value');
+      const title_id = snap.val();
+      const newTitle = this.newTitle(title_id, totalValue);
+      if (newTitle > title_id) {
+        userRef.update({
+          title_id: newTitle,
+        })
+      }
       return totalValue;
     } catch (error) {
       console.log(error);
     }
   }
-  
+
+  static newTitle(title_id, value) {
+    if (title_id <= 5 && value > 50000) {
+      return 6;
+    }
+    if (title_id <= 4 && value > 30000) {
+      return 5;
+    }
+    if (title_id <= 3 && value > 20000) {
+      return 4;
+    }
+    if (title_id <= 2 && value > 15000) {
+      return 3;
+    }
+    if (title_id === 1 && value > 11000) {
+      return 2;
+    }
+    return title_id;
+  }
+
   static async addAlert(name, uid, price, notifyWhenAbove, active) {
     try {
       const snap = await Firebase.app()

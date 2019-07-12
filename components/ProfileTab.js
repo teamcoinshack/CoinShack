@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import Title from './Title.js';
 //Required parameters are text, path, right(content)
 
 export default ProfileTab = props => (
@@ -39,11 +40,7 @@ export default ProfileTab = props => (
                 fontSize: 15,
                 marginBottom: 5,
               }}>{props.email}</Text>
-              <Text style={{
-                color: '#faed27',
-                fontWeight: '500',
-                fontSize: 15,
-              }}>{props.title.toUpperCase()}</Text>
+              <Title title_id={props.title_id} />
             </View>
           </View>
         </View>
@@ -81,7 +78,7 @@ export default ProfileTab = props => (
 ProfileTab.defaultProps = {
   textColor: "#ffffff",
   path: require('../assets/icons/noPic.png'),
-  title: 'Novice',
+  title_id: null,
   username: 'Bob',
   achieveCount: 0,
   favourite: 'Bitcoin',

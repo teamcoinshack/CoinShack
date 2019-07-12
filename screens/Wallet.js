@@ -59,7 +59,6 @@ export default class Wallet extends Component {
       this.setState({
         current: 0,
         refreshing: true,
-        totalValue: null,
         cash: null,
         currs: Masterlist.map(a => Object.assign({}, a)),
       }, function() { this.refresh() })
@@ -77,10 +76,10 @@ export default class Wallet extends Component {
                             .map(x => x.value * x.rate)
                             .reduce((x, y) => x + y, 0);
         this.setState({
-          totalValue: total,
           current: 0,
           refreshing: false,
-        }, db.updateTotal(this.state.uid, total));
+          totalValue: total,
+        }) 
         return;
       }
       let snaps;

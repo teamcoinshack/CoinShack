@@ -22,4 +22,25 @@ export default class Query {
       return [];
     }
   }
+
+  static getTitle(title_id) {
+    if (title_id === 1) {
+      return 'TENDERFOOT';
+    }
+    if (title_id === 2) {
+      return 'NOVICE';
+    }
+    if (title_id === 3) {
+      return 'INITIATE';
+    }
+    if (title_id === 4) {
+      return 'MASTER';
+    }
+    if (title_id === 5) {
+      return 'VETERAN';
+    }
+    if (title_id === 6) {
+      return 'LEGENDARY';
+    }
+  }
 }
