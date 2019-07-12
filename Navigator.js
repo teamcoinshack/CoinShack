@@ -171,10 +171,10 @@ const marketStack = createStackNavigator({
   },
   Info: {
     screen: Info,
-    navigationOptions: {
-      title: 'Market',
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.getParam('coin', 'Market'), 
       ...headerStyles,
-    }
+    })
   },
 })
 

@@ -49,6 +49,7 @@ class Market extends Component {
     this.props.navigation.navigate('Info', {
       data: this.state.datas[name],
       name: name,
+      coin: name.charAt(0).toUpperCase() + name.slice(1),
       path: this.state.paths[name],
       uid: Firebase.auth().currentUser.uid,
     });

@@ -586,7 +586,8 @@ const styles = StyleSheet.create({
   },
   button: {
     elevation: 1,
-    borderRadius: 5,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5,
     backgroundColor: background,
     flex: 1,
     flexDirection: 'row',
@@ -596,7 +597,8 @@ const styles = StyleSheet.create({
   },
   selected: {
     elevation: 1,
-    borderRadius: 5,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5,
     backgroundColor: '#515360',
     flex: 1,
     flexDirection: 'row',

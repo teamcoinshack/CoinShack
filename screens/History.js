@@ -105,7 +105,6 @@ export default class History extends Component {
           <MyBar
             height={65}
             width={Math.round(Dimensions.get('window').width * 0.7)}
-            flexStart={true}
           />
       </View>
     )
@@ -183,5 +182,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingTop: 5,
     fontSize: 15,
+  },
+  loading1: {
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
