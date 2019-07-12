@@ -16,6 +16,7 @@ import MyBar from '../components/MyBar.js';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { coinTitles } from '../Masterlist.js';
 import { CheckBox } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 
 const background = '#373b48';
 

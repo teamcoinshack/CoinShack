@@ -135,9 +135,30 @@ export default class Login extends Component {
       await Firebase
         .auth()
         .signInWithEmailAndPassword(email, pass)
-        .then(() => (
-          this.props.navigation.navigate('Dashboard') 
-        ))
+        .then(result => {
+          const user = Firebase.auth().currentUser;
+          if (user.emailVerified) {
+            if (Firebase.auth().currentUser.isNew) {
+              db.initUser(
+                Firebase.auth().currentUser,
+                Firebase.auth().currentUser.username
+              );
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            //not verified
+            throw {
+              code: 'auth/not-verified',
+              message: 'Not verified',
+            }
+            return false;
+          }
+        })
+        .then(isNew => isNew
+          ? this.props.navigation.navigate('Intro')
+          : this.props.navigation.navigate('Dashboard'))
         .catch(function (error) {
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -147,6 +168,8 @@ export default class Login extends Component {
             alert('Invalid email! Have you signed up?');
           } else if (errorCode === 'auth/user-not-found') {
             alert('User not found. Have you signed up?');
+          } else if (errorCode === 'auth/not-verified') {
+            alert('Email is not verified yet!');
           }
         })
       this.setState({

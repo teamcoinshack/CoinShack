@@ -12,34 +12,36 @@ import db from '../Database.js';
 
 const background = '#373b48';
 export default class SignUp extends Component {
-  state = { 
-    username: '',
-    email: '', 
-    password: '', 
-    errorMessage: null 
+  constructor(props) {
+    super(props);
+    this.state = { 
+      username: '',
+      email: '', 
+      password: '', 
+      errorMessage: null 
+    }
+    this.handleSignUp = this.handleSignUp.bind(this);
   }
 
-  handleSignUp = (email, pass, username) => {
-    success = true;
-    Firebase.auth()
-            .createUserWithEmailAndPassword(email, pass)
-            .then(() => {
-              Firebase.auth().currentUser.isNew = true;
-              db.initUser(Firebase.auth().currentUser, username)
-            })
-            .then(() => (
-              this.props.navigation.navigate('Intro')
-            ))
-            .catch((error) => {
-              success = false;
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              if (errorCode === 'auth/invalid-email') {
-                alert('Invalid email')
-              } else {
-                alert(errorCode);
-              }
-            })
+  async handleSignUp(email, pass, username){
+    try {
+      await Firebase.auth()
+                    .createUserWithEmailAndPassword(email, pass)
+      this.props.navigation.navigate('Login');
+      Firebase.auth().currentUser.isNew = true;
+      Firebase.auth().currentUser.username = username;
+      const user = Firebase.auth().currentUser;
+      await user.sendEmailVerification(); 
+      alert('We\'ve sent a verification link to ' + email);
+    } catch (error) {
+       var errorCode = error.code;
+       var errorMessage = error.message;
+       if (errorCode === 'auth/invalid-email') {
+         alert('Invalid email')
+       } else {
+         alert(errorCode);
+       }
+    }
   }
 
   render() {
