@@ -86,19 +86,19 @@ export default class Database {
   }
 
   static newTitle(title_id, value) {
-    if (title_id <= 5 && value > 50000) {
+    if (title_id <= 5 && value >= 50000) {
       return 6;
     }
-    if (title_id <= 4 && value > 30000) {
+    if (title_id <= 4 && value >= 30000) {
       return 5;
     }
-    if (title_id <= 3 && value > 20000) {
+    if (title_id <= 3 && value >= 20000) {
       return 4;
     }
-    if (title_id <= 2 && value > 15000) {
+    if (title_id <= 2 && value >= 15000) {
       return 3;
     }
-    if (title_id === 1 && value > 11000) {
+    if (title_id === 1 && value >= 11000) {
       return 2;
     }
     return title_id;

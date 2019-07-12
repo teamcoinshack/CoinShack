@@ -201,20 +201,22 @@ export default class FriendsProfile extends Component {
       const uid = this.state.uid;
       const friendUid = this.state.friendUid;
       const snap = await db.getData(this.state.friendUid);
-      const wallet = ('wallet' in snap.val()) ? snap.val().wallet : false;
-      const totalValue = await db.getTotalValue(friendUid, snap.val());
+      const snapped = snap.val();
+      const wallet = ('wallet' in snapped) ? snapped.wallet : false;
+      const totalValue = await db.getTotalValue(friendUid, snapped);
       const favCoin = await this.getFavCoin(wallet);
       const areFriends = await db.isFriend(uid, friendUid);
       const requesting = areFriends ? false : await db.requesting(uid, friendUid);
       const friendRequesting = areFriends ? false : await db.requesting(friendUid, uid);
       this.setState({
-        username: snap.val().username,
+        username: snapped.username,
         totalValue: '$' + db.stringify(totalValue.toFixed(2)),
         refreshing: false,
         favourite: wallet ? favCoin.charAt(0).toUpperCase() + favCoin.slice(1) : favCoin,
         areFriends: areFriends,
         requesting: requesting,
         friendRequesting: friendRequesting,
+        title_id: snapped.title_id,
       })
     } catch(error) {
       console.log(error);
@@ -304,6 +306,7 @@ export default class FriendsProfile extends Component {
           email={this.state.email}
           username={this.state.username}
           favourite={this.state.favourite}
+          title_id={this.state.title_id}
         />
         { this.state.refreshing || this.state.uid === this.state.friendUid
           ? null 

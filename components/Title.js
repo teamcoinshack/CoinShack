@@ -32,7 +32,7 @@ export default Title = props => (
 
 const styles = StyleSheet.create({
   style1: {
-    color: '#faed27',
+    color: '#fff56e',
     fontWeight: '700',
     fontSize: 18,
   },

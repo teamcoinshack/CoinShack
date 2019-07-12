@@ -20,6 +20,7 @@ import db from '../Database.js';
 import q from '../Query.js';
 import Masterlist from '../Masterlist.js';
 import Searchbar from '../components/Searchbar.js';
+import Title from '../components/Title.js';
 
 const background = '#373b48';
 
@@ -96,7 +97,7 @@ export default class Social extends Component {
                                         : 'No name :(';
                         obj.email = snapped.email;
                         obj.value = await db.getTotalValue(uid, snapped);
-                        obj.title = q.getTitle(snapped.title_id);
+                        obj.title_id = snapped.title_id;
                         obj.image = require('../assets/icons/noPic.png');
                         return obj;
                       } catch(error) {
@@ -150,7 +151,7 @@ export default class Social extends Component {
         }}>
           <Text style={styles.text1}>{item.username}</Text>
           <Text style={styles.text2}>{'$' + db.stringify(item.value.toFixed(2))}</Text>
-          <Text style={styles.text3}>{item.title}</Text>
+          <Title title_id={item.title_id} />
         </View>
       </TouchableOpacity>
     )
