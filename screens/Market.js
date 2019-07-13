@@ -17,8 +17,13 @@ import Graph from '../components/Graph.js';
 import db from '../Database.js';
 import q from '../Query.js';
 import MyBar from '../components/MyBar.js';
-import { background, hue1, hue2 }from '../Masterlist.js';
-import Masterlist from '../Masterlist.js';
+import 
+  Masterlist, 
+  { nameToIconMap, 
+  background, 
+  hue1, 
+  hue2 
+} from '../Masterlist.js';
 import LinearGradient from 'react-native-linear-gradient';
 
 class Market extends Component {
@@ -28,13 +33,6 @@ class Market extends Component {
     this.state = {
       currs: Masterlist.map(a => Object.assign({}, a)),
       datas: {},
-      paths: {
-        bitcoin: require('../assets/icons/BTC.png'),
-        ethereum: require('../assets/icons/ETH.png'),
-        dash: require('../assets/icons/DASH.png'),
-        ripple: require('../assets/icons/XRP.png'),
-        litecoin: require('../assets/icons/LTC.png'),
-      },
       current: 0,
       refreshing: false,
     }
@@ -50,7 +48,6 @@ class Market extends Component {
       data: this.state.datas[name],
       name: name,
       coin: name.charAt(0).toUpperCase() + name.slice(1),
-      path: this.state.paths[name],
       uid: Firebase.auth().currentUser.uid,
     });
   }
@@ -100,7 +97,7 @@ class Market extends Component {
     }
   }
 
-  renderRow({item}) {
+  renderRow({ item }) {
     const currentPrice = (
       <Text style={styles.rate}>
         ${db.stringify(Number(item.rate).toFixed(2))}
@@ -117,7 +114,7 @@ class Market extends Component {
 
     const icon = (
       <Image
-        source={this.state.paths[item.name]}
+        source={nameToIconMap[item.name]}
         style={styles.imageStyle}
       />
     )

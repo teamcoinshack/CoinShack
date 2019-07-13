@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
-  ActivityIndicator,
   ScrollView,
   View,
   Image,
@@ -12,14 +11,10 @@ import {
   RefreshControl,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BellIcon from 'react-native-vector-icons/Entypo';
 import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from '../Database.js';
-import q from '../Query.js';
-import Masterlist from '../Masterlist.js';
-import Searchbar from '../components/Searchbar.js';
 import Title from '../components/Title.js';
 import LinearGradient from 'react-native-linear-gradient';
 import { background, hue1, hue2 } from '../Masterlist.js';
@@ -33,7 +28,8 @@ export default class Social extends Component {
       friends: [],
       refreshing: true,
       haveRequests: false,
-    }
+    };
+
     this.refresh = this.refresh.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.load = this.load.bind(this);
@@ -120,8 +116,8 @@ export default class Social extends Component {
     } catch (error) {
       console.log(error);
     }
-
   }
+
   async componentDidMount() {
     try {
       await this.refresh();
@@ -133,7 +129,7 @@ export default class Social extends Component {
     }
   }
 
-  renderRow({item}) {
+  renderRow({ item }) {
     return ( 
       <TouchableOpacity
         onPress={() => this.load(item)}
@@ -159,7 +155,7 @@ export default class Social extends Component {
           </View>
         </LinearGradient>
       </TouchableOpacity>
-    )
+    );
   }
   
   render() {
@@ -171,7 +167,8 @@ export default class Social extends Component {
             flexStart={true}
           />
       </View>
-    )
+    );
+
     const friendsList = (
       <FlatList
         style={styles.flatStyle}
@@ -185,7 +182,8 @@ export default class Social extends Component {
           />
         }
       />
-    )
+    );
+
     const noFriends = (
       <View style={{
         flexDirection: 'row',
@@ -201,7 +199,8 @@ export default class Social extends Component {
           No friends :(
         </Text>
       </View>
-    )
+    );
+
     return (
       <ScrollView 
         style={styles.container}

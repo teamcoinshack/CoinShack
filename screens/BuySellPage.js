@@ -1,21 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-  TextInput, 
   Text, 
   View, 
   ScrollView,
   ActivityIndicator, 
   StyleSheet, 
-  Button,
-  Image,
   TouchableOpacity,
 } from 'react-native';
 
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
 import q from '../Query.js';
-import Firebase from 'firebase';
 import MyRow from '../components/MyRow.js';
+import { nameToIconMap } from '../Masterlist.js';
 
 const background = '#373b48';
 export default class BuySellPage extends Component {
@@ -32,7 +29,6 @@ export default class BuySellPage extends Component {
       rate: null,
       isLoading: true,
       callback: null,
-      path: null,
     }
 
     this.goToBuy = this.goToBuy.bind(this);
@@ -46,7 +42,7 @@ export default class BuySellPage extends Component {
       rate: this.state.rate,
       cash: this.state.cash,
       callback: this.state.callback,
-      path: this.state.path,
+      path: nameToIconMap[this.state.name],
       stockValue: this.state.stockValue,
     })
   }
@@ -58,7 +54,7 @@ export default class BuySellPage extends Component {
       rate: this.state.rate,
       cash: this.state.cash,
       callback: this.state.callback,
-      path: this.state.path,
+      path: nameToIconMap[this.state.name],
       stockValue: this.state.stockValue,
     })
   }
@@ -68,7 +64,6 @@ export default class BuySellPage extends Component {
       const { navigation } = this.props;
       const uid = navigation.getParam('uid', null);
       const name = navigation.getParam('name', null);
-      const path = navigation.getParam('path', null);
       const callback = navigation.getParam('callback', null);
       const data = await q.fetch(name);
       const rate = Number(data.market_data.current_price.usd).toFixed(2);
@@ -90,7 +85,6 @@ export default class BuySellPage extends Component {
         stockValue: amt,
         rate: rate,
         isLoading: false,
-        path: path,
       })
     } catch (error) {
       console.log(error);
@@ -156,7 +150,7 @@ export default class BuySellPage extends Component {
             />
             <MyRow
               text={this.state.id}
-              path={this.state.path}
+              path={nameToIconMap[this.state.name]}
               right={walletValue}
             />
           </View>

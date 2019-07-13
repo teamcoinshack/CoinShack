@@ -18,6 +18,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import {nameToIconMap, background, hue1, hue2 } from '../Masterlist.js';
 
+const background = '#373b48';
+
 export default class Wallet extends Component {
   constructor(props) {
     super(props);
