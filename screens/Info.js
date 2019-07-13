@@ -17,7 +17,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import TouchableGraph from '../components/TouchableGraph';
 import db from '../Database.js';
 import LinearGradient from 'react-native-linear-gradient';
-import {nameToIconMap, background, hue1, hue2 } from '../Masterlist.js';
+import { nameToIconMap, background, hue1, hue2 } from '../Masterlist.js';
 
 export default class Info extends Component {
 
@@ -376,126 +376,126 @@ export default class Info extends Component {
         style={styles.container}
         onScroll={this.closeOpenedItem}
       >
-        <LinearGradient 
+        <LinearGradient
           style={styles.contentContainer}
           colors={[background, '#000000']}
           locations={[0.5, 1]}
         >
-        <LinearGradient 
-          style={styles.row}
-          colors={[hue1, hue2]}
-          locations={[0.5, 1]}
-        >
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.imageContainer}>
-              {icon}
+          <LinearGradient
+            style={styles.row}
+            colors={[hue1, hue2]}
+            locations={[0.5, 1]}
+          >
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.imageContainer}>
+                {icon}
+              </View>
+              <View style={styles.nameContainer}>
+                <Text style={styles.name}>
+                  {this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1)}
+                </Text>
+              </View>
+              <View style={styles.ratesContainer}>
+                {currentPrice}
+                {change}
+              </View>
             </View>
-            <View style={styles.nameContainer}>
-              <Text style={styles.name}>
-                {this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1)}
-              </Text>
-            </View>
-            <View style={styles.ratesContainer}>
-              {currentPrice}
-              {change}
-            </View>
-          </View>
-          <View style={{
-            flex: 1,
-            paddingVertical: 10,
-            alignItems: 'center',
-          }}>
-            <TouchableGraph
-              name={this.state.name}
-              height={300}
-              width={350}
-              days={this.state.graphDays}
-              isLoading={true}
-            />
-          </View>
-        </LinearGradient>
-        <View style={styles.graphDaysButtons}>
-          <MarketButton
-            text="24H"
-            onPress={() => this.setState({ graphDays: 1 })}
-            height={50}
-            selected={this.state.graphDays === 1}
-          />
-          <MarketButton
-            text="1W"
-            onPress={() => this.setState({ graphDays: 7 })}
-            height={50}
-            selected={this.state.graphDays === 7}
-          />
-          <MarketButton
-            text="15D"
-            onPress={() => this.setState({ graphDays: 15 })}
-            height={50}
-            selected={this.state.graphDays === 15}
-          />
-          <MarketButton
-            text="1M"
-            onPress={() => this.setState({ graphDays: 30 })}
-            height={50}
-            selected={this.state.graphDays === 30}
-          />
-        </View>
-        <View style={styles.alerts}>
-          <View style={{
-            marginTop: 5,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-            <Text style={{
-              marginLeft: 5,
-              fontSize: 25,
-              color: '#ffffff',
-              fontWeight: 'bold',
-            }}>
-              Alerts
-            </Text>
             <View style={{
               flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
+              marginVertical: 10,
+              // justifyContent: "center",
             }}>
-              <TouchableOpacity
-                style={{
-                  height: 60,
-                  width: 60,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}
-                onPress={() => this.RBSheet.open()}
-              >
-                <Text style={{ fontSize: 40, color: '#ffffff'}}>
-                  +
-                </Text>
-              </TouchableOpacity>
+              <TouchableGraph
+                name={this.state.name}
+                height={300}
+                width={Math.round(Dimensions.get('window').width) - 30}
+                days={this.state.graphDays}
+                isLoading={true}
+              />
             </View>
+          </LinearGradient>
+          <View style={styles.graphDaysButtons}>
+            <MarketButton
+              text="24H"
+              onPress={() => this.setState({ graphDays: 1 })}
+              height={50}
+              selected={this.state.graphDays === 1}
+            />
+            <MarketButton
+              text="1W"
+              onPress={() => this.setState({ graphDays: 7 })}
+              height={50}
+              selected={this.state.graphDays === 7}
+            />
+            <MarketButton
+              text="15D"
+              onPress={() => this.setState({ graphDays: 15 })}
+              height={50}
+              selected={this.state.graphDays === 15}
+            />
+            <MarketButton
+              text="1M"
+              onPress={() => this.setState({ graphDays: 30 })}
+              height={50}
+              selected={this.state.graphDays === 30}
+            />
           </View>
-          {this.state.refreshing
-          ? loading
-          : this.state.alerts.length === 0
-              ? noAlerts
-              : alertList}
-          <RBSheet
-            ref={ref => {
-              this.RBSheet = ref;
-            }}
-            height={520}
-            duration={250}
-            customStyles={{
-              container: {
-                backgroundColor: background,
-                justifyContent: 'center',
-                alignItems: 'flex-start',
-              }
-            }}
-          >
-            {AlertSheet}
-          </RBSheet>
-        </View>
+          <View style={styles.alerts}>
+            <View style={{
+              marginTop: 5,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+              <Text style={{
+                marginLeft: 5,
+                fontSize: 25,
+                color: '#ffffff',
+                fontWeight: 'bold',
+              }}>
+                Alerts
+            </Text>
+              <View style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+              }}>
+                <TouchableOpacity
+                  style={{
+                    height: 60,
+                    width: 60,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  }}
+                  onPress={() => this.RBSheet.open()}
+                >
+                  <Text style={{ fontSize: 40, color: '#ffffff' }}>
+                    +
+                </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {this.state.refreshing
+              ? loading
+              : this.state.alerts.length === 0
+                ? noAlerts
+                : alertList}
+            <RBSheet
+              ref={ref => {
+                this.RBSheet = ref;
+              }}
+              height={520}
+              duration={250}
+              customStyles={{
+                container: {
+                  backgroundColor: background,
+                  justifyContent: 'center',
+                  alignItems: 'flex-start',
+                }
+              }}
+            >
+              {AlertSheet}
+            </RBSheet>
+          </View>
         </LinearGradient>
       </ScrollView>
     );

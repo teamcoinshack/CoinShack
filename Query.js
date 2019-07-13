@@ -1,11 +1,10 @@
-import { Mapping } from './Masterlist.js';
-
 const NEWS_API_KEY = "bb387e29c09a46659af73f291edf4816";
 
 export default class Query {
   static async fetch(stock) {
-    //stock must be full name of stock instead of symbol
-    let res = await fetch("https://api.coingecko.com/api/v3/coins/" + stock);
+    // stock must be full name of stock instead of symbol
+    let res = await fetch("https://api.coingecko.com/api/v3/coins/" + stock
+     + "?localization=false&community_data=false&developer_data=false");
     let data = await res.json();
     return data;
   }
