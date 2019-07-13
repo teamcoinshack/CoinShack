@@ -5,7 +5,7 @@ import {
   StyleSheet, 
 } from 'react-native';
 import q from '../Query.js';
-import {LinearTextGradient} from 'react-native-text-gradient';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default Title = props => (
   props.title_id < 6
@@ -15,16 +15,16 @@ export default Title = props => (
     </Text>
     )
   : (
-    <View>
-    <LinearTextGradient
-      style={styles.style6}
-      locations={[0.3, 1]}
-      colors={[ '#ffbe00', '#fff878' ]}
-      start= {{ x:0, y: 0 }}
-      end={{ x: 1, y: 0 }}
-    >
-      LEGENDARY
-    </LinearTextGradient>
+    <View style={{ flexDirection: 'row' }}>
+      <Text style={styles.style61}>L</Text>
+      <Text style={styles.style62}>E</Text>
+      <Text style={styles.style63}>G</Text>
+      <Text style={styles.style64}>E</Text>
+      <Text style={styles.style65}>N</Text>
+      <Text style={styles.style66}>D</Text>
+      <Text style={styles.style67}>A</Text>
+      <Text style={styles.style68}>R</Text>
+      <Text style={styles.style69}>Y</Text>
     </View>
   )
 )
@@ -56,7 +56,48 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 18,
   },
-  style6: {
+  style61: {
+    color: '#ffb800',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  style62: {
+    color: '#ffbf00',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  style63: {
+    color: '#ffc400',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  style64: {
+    color: '#ffc800',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  style65: {
+    color: '#ffcc00',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  style66: {
+    color: '#ffd000',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  style67: {
+    color: '#ffd400',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  style68: {
+    color: '#ffd600',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  style69: {
+    color: '#ffdd00',
     fontWeight: '700',
     fontSize: 18,
   },
