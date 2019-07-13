@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -13,13 +13,11 @@ import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from '../Database.js';
 import q from '../Query.js';
-import Masterlist from '../Masterlist.js';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Masterlist, { nameToIconMap } from '../Masterlist.js';
 
 const background = '#373b48';
 
 export default class Wallet extends Component {
-
   constructor(props) {
     super(props);
 
@@ -27,13 +25,6 @@ export default class Wallet extends Component {
       uid: '',
       cash: null,
       currs: Masterlist.map(a => Object.assign({}, a)),
-      paths: {
-        bitcoin: require('../assets/icons/BTC.png'),
-        ethereum: require('../assets/icons/ETH.png'),
-        dash: require('../assets/icons/DASH.png'),
-        ripple: require('../assets/icons/XRP.png'),
-        litecoin: require('../assets/icons/LTC.png'),
-      },
       totalValue: null,
       refreshing: false,
       current: 0,
@@ -49,7 +40,6 @@ export default class Wallet extends Component {
     this.props.navigation.navigate('BuySellPage',{
       uid: this.state.uid,
       name: name,
-      path: this.state.paths[name],
       callback: this.refresh,
     })
   }
@@ -84,7 +74,7 @@ export default class Wallet extends Component {
       }
       let snaps;
       if (this.state.current === 0) {
-        //for first query, snap
+        // for first query, snap
         const uid = Firebase.auth().currentUser.uid;
         const snap = await db.getData(uid);
         await this.setState({
@@ -125,7 +115,7 @@ export default class Wallet extends Component {
     }
   }
 
-  renderRow({item}) {
+  renderRow({ item }) {
     const loading = (
       <View style={styles.loading1}>
           <MyBar
@@ -137,7 +127,7 @@ export default class Wallet extends Component {
     )
     const Icon = (
       <Image
-        source={this.state.paths[item.name]}
+        source={nameToIconMap[item.name]}
         style={styles.imageStyle}
       />
     )

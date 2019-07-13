@@ -6,13 +6,13 @@ import {
   ScrollView,
   StyleSheet, 
   TouchableOpacity,
-  Button,
   Dimensions,
 } from 'react-native';
 import db from '../Database.js';
 import MyRow from '../components/MyRow.js';
 
 const background = '#373b48';
+
 export default class Buy extends React.Component {
   constructor(props) {
     super(props);
@@ -80,7 +80,6 @@ export default class Buy extends React.Component {
     const uid = navigation.getParam('uid', null);
     const id = navigation.getParam('id', null);
     const rate = navigation.getParam('rate', null);
-    const path = navigation.getParam('path', null);
     const cash = navigation.getParam('cash', null);
     const stockValue = navigation.getParam('stockValue', null);
     const callback = navigation.getParam('callback', null);
@@ -90,7 +89,6 @@ export default class Buy extends React.Component {
       id: id,
       rate: rate,
       cash: cash,
-      path: path,
       stockValue: stockValue,
     })
   }
@@ -258,7 +256,7 @@ export default class Buy extends React.Component {
             />
             <MyRow
               text={this.state.id}
-              path={this.state.path}
+              path={this.props.navigation.getParam('path', null)}
               right={walletValue}
             />
           </View>

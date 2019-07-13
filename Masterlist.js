@@ -28,4 +28,4 @@ export const nameToIconMap = {
   dash: require('./assets/icons/DASH.png'),
   ripple: require('./assets/icons/XRP.png'),
   litecoin: require('./assets/icons/LTC.png'),
-}
+};

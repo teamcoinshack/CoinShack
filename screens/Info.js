@@ -16,6 +16,7 @@ import Swipeable from 'react-native-swipeable';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import TouchableGraph from '../components/TouchableGraph';
 import db from '../Database.js';
+import { nameToIconMap } from '../Masterlist.js';
 
 const background = '#373b48';
 
@@ -27,7 +28,6 @@ export default class Info extends Component {
     this.state = {
       uid: null,
       name: null,
-      path: null,
       data: null,
       rate: null,
       graphDays: 30,
@@ -35,7 +35,8 @@ export default class Info extends Component {
       alertValue: '',
       currentlyOpenedItem: null,
       refreshing: false,
-    }
+    };
+
     this.addAlert = this.addAlert.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.refreshAlerts = this.refreshAlerts.bind(this);
@@ -50,14 +51,12 @@ export default class Info extends Component {
       const { navigation } = this.props;
       const data = navigation.getParam('data', null);
       const name = navigation.getParam('name', null);
-      const path = navigation.getParam('path', null);
       const uid = navigation.getParam('uid', null);
       const rate = data.market_data.current_price.usd.toFixed(2);
       const alerts = await db.getAlerts(uid, name);
       this.setState({
         uid: uid,
         name: name,
-        path: path,
         data: data,
         rate: rate,
         alerts: alerts
@@ -236,7 +235,7 @@ export default class Info extends Component {
 
     const icon = (
       <Image
-        source={this.state.path}
+        source={nameToIconMap[this.state.name]}
         style={styles.imageStyle}
       />
     );
