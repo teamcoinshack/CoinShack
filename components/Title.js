@@ -23,7 +23,7 @@ export default Title = props => (
       start= {{ x:0, y: 0 }}
       end={{ x: 1, y: 0 }}
     >
-      LEGENDARY
+      <Text>LEGENDARY</Text>
     </LinearTextGradient>
     </View>
   )
