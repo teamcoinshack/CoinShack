@@ -32,7 +32,8 @@ import Search from './screens/Search.js';
 import FriendsProfile from './screens/FriendsProfile.js';
 import Requests from './screens/Requests.js';
 
-const background = '#373b48';
+//const background = '#373b48';
+const background = '#21252b';
 
 const headerStyles = {
   headerStyle: {
@@ -287,8 +288,8 @@ const tabs = createBottomTabNavigator(
     tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: '#ffffff',
-      inactiveTintColot: '#a8a8a8',
-      activeBackgroundColor: background,
+      inactiveTintColor: '#7d7d7d',
+      activeBackgroundColor: '#000000',
       inactiveBackgroundColor: '#000000',
       labelStyle: {
         fontSize: 15,
@@ -296,6 +297,7 @@ const tabs = createBottomTabNavigator(
       },
       style: {
         height: 75,
+        borderTopWidth: 0,
       },
       tabStyle: {
         alignItems: 'center',

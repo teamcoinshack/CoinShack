@@ -14,10 +14,10 @@ import Firebase from 'firebase';
 import q from '../Query.js';
 import MyBar from '../components/MyBar.js';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { coinTitles } from '../Masterlist.js';
+import { coinTitles, background } from '../Masterlist.js';
 import { CheckBox } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 
-const background = '#373b48';
 
 export default class News extends Component {
   constructor(props) {
@@ -202,63 +202,68 @@ export default class News extends Component {
   renderRow({ item }) {
     return (
       <TouchableOpacity 
-        style={styles.row}
         onPress={() => this.load(item.url)}
       >
-        <View style={{ 
-          flexDirection: 'row', 
-          justifyContent: 'center',
-        }}>
-          <View style={styles.imageContainer}>
-            { item.urlToImage === null || item.urlToImage === ''
-              ? (
-                <Image
-                  source={require('../assets/icons/news.png')}
-                  style={styles.imageStyle}
-                />
-              )
-              : (
-                <Image
-                  source={{ uri: item.urlToImage}}
-                  style={styles.imageStyle}
-                />
-              )
-            }
+        <LinearGradient 
+          colors={['#42444f', '#3c444f']}
+          style={styles.row}
+          locations={[0, 1]}
+        >
+          <View style={{ 
+            flexDirection: 'row', 
+            justifyContent: 'center',
+          }}>
+            <View style={styles.imageContainer}>
+              { item.urlToImage === null || item.urlToImage === ''
+                ? (
+                  <Image
+                    source={require('../assets/icons/news.png')}
+                    style={styles.imageStyle}
+                  />
+                )
+                : (
+                  <Image
+                    source={{ uri: item.urlToImage}}
+                    style={styles.imageStyle}
+                  />
+                )
+              }
+            </View>
+            <View style={styles.textStyle}>
+              <Text style={{ 
+                fontSize: 18, 
+                color: '#bec4d8', 
+                fontWeight: '500' 
+              }}>
+                {item.title}
+              </Text>
+            </View>
           </View>
-          <View style={styles.textStyle}>
-            <Text style={{ 
-              fontSize: 18, 
-              color: '#bec4d8', 
-              fontWeight: '500' 
-            }}>
-              {item.title}
-            </Text>
+          <View style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingTop: 5,
+          }}>
+            <View style={styles.sourceStyle}>
+              <Text style={{
+                fontSize: 13,
+                color: '#9196a5',
+                fontWeight: '700',
+              }}>
+                {item.source.name.toUpperCase().slice(-4) === '.COM'
+                  ? item.source.name.toUpperCase().slice(0, -4).replace(/ /g, '')
+                  : item.source.name.toUpperCase().replace(/ /g, '')}
+              </Text>
+            </View>
+            <View style={styles.timeStyle}>
+              <Text style={{
+                fontSize: 15,
+                color: '#9196a5',
+                fontWeight: '600',
+              }}>{this.timePublished(item.publishedAt)}</Text>
+            </View>
           </View>
-        </View>
-        <View style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingTop: 5,
-        }}>
-          <View style={styles.sourceStyle}>
-            <Text style={{
-              fontSize: 13,
-              color: '#9196a5',
-              fontWeight: '700',
-            }}>
-              {item.source.name.toUpperCase().slice(-4) === '.COM'
-                ? item.source.name.toUpperCase().slice(0, -4).replace(/ /g, '')
-                : item.source.name.toUpperCase().replace(/ /g, '')}
-            </Text>
-          </View>
-          <View style={styles.timeStyle}>
-            <Text style={{
-              fontSize: 15,
-              color: '#9196a5',
-              fontWeight: '600',
-            }}>{this.timePublished(item.publishedAt)}</Text>
-          </View>
-        </View>
+        </LinearGradient>
       </TouchableOpacity>
     )
   }
@@ -266,17 +271,25 @@ export default class News extends Component {
   render() {
     if (this.state.news.length === 0) {
       return (
-        <View style={styles.loadingStyle}>
+        <LinearGradient 
+          style={styles.loadingStyle}
+          colors={[background, '#000000']}
+          locations={[0.5, 1]}
+        >
           <MyBar
             height={Math.round(Dimensions.get('window').height)}
             width={Math.round(Dimensions.get('window').width)}
           />
-        </View>
+        </LinearGradient>
       );
     }
 
     return (
-      <View style={styles.container}>
+      <LinearGradient 
+        style={styles.container}
+        colors={[background, '#000000']}
+        locations={[0.5, 1]}
+      >
         <FlatList
           style={styles.flatStyle}
           data={this.state.news}
@@ -290,7 +303,7 @@ export default class News extends Component {
           }
         />
         {this.renderFilterSheet()}
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -312,7 +325,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   row: {
-    backgroundColor: '#515360',
     elevation: 1,
     borderRadius: 5,
     flexDirection: 'column',

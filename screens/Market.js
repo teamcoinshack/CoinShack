@@ -17,9 +17,9 @@ import Graph from '../components/Graph.js';
 import db from '../Database.js';
 import q from '../Query.js';
 import MyBar from '../components/MyBar.js';
+import { background, hue1, hue2 }from '../Masterlist.js';
 import Masterlist from '../Masterlist.js';
-
-const background = '#373b48';
+import LinearGradient from 'react-native-linear-gradient';
 
 class Market extends Component {
   constructor(props) {
@@ -124,8 +124,8 @@ class Market extends Component {
 
     if (item.rate === undefined) {
       return (
-        <TouchableOpacity 
-          style={styles.row}
+        <View 
+          style={styles.loadingRow}
         >
           <View style={{ 
             flexDirection: 'row', 
@@ -138,52 +138,61 @@ class Market extends Component {
             height={200}
             width={Math.round(Dimensions.get('window').width)}
           />
-        </TouchableOpacity>
+        </View>
       );
     }
 
     return (
       <TouchableOpacity 
-        style={styles.row}
         onPress={() => this.load(item.name)}
       >
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.imageContainer}>
-            {item.rate === undefined 
-              ? null
-              : icon}
+        <LinearGradient 
+          style={styles.row}
+          colors={[hue1, hue2]}
+          locations={[0.5, 1]}
+        >
+          <View style={{ flexDirection: 'row' }}>
+            <View style={styles.imageContainer}>
+              {item.rate === undefined 
+                ? null
+                : icon}
+            </View>
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>{item.id}</Text>
+            </View>
+            <View style={styles.ratesContainer}>
+              {item.rate === undefined
+                ? null
+                : currentPrice}
+              {item.change === undefined
+                ? null
+                : change}
+            </View>
           </View>
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>{item.id}</Text>
+          <View style={{
+            marginTop: 20,
+          }}>
+            <Graph 
+              name={item.name} 
+              height={200}
+              width={300}
+              tick={10}
+              grid={false}
+              days={30}
+            />
           </View>
-          <View style={styles.ratesContainer}>
-            {item.rate === undefined
-              ? null
-              : currentPrice}
-            {item.change === undefined
-              ? null
-              : change}
-          </View>
-        </View>
-        <View style={{
-          marginTop: 20,
-        }}>
-          <Graph 
-            name={item.name} 
-            height={200}
-            width={300}
-            tick={10}
-            grid={false}
-            days={30}
-          />
-        </View>
+        </LinearGradient>
       </TouchableOpacity>
     )
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <LinearGradient 
+        style={styles.container}
+        colors={[background, '#000000']}
+        locations={[0.5, 1]}
+      >
         <FlatList
           style={styles.flatStyle}
           data={this.state.currs}
@@ -196,7 +205,7 @@ class Market extends Component {
             />
           }
         />
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -218,7 +227,23 @@ const styles = StyleSheet.create({
     marginLeft: 14,
     marginRight: 14,
     marginTop: 0,
-    marginBottom: 6,
+    marginBottom: 14,
+  },
+  loadingRow: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: hue2,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    marginBottom: 14,
   },
   nameContainer: {
     paddingLeft: 18,

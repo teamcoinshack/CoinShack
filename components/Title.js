@@ -18,7 +18,7 @@ export default Title = props => (
     <View>
     <LinearTextGradient
       style={styles.style6}
-      locations={[0, 1]}
+      locations={[0.3, 1]}
       colors={[ '#ffbe00', '#fff878' ]}
       start= {{ x:0, y: 0 }}
       end={{ x: 1, y: 0 }}

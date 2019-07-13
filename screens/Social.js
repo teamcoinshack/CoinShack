@@ -21,8 +21,8 @@ import q from '../Query.js';
 import Masterlist from '../Masterlist.js';
 import Searchbar from '../components/Searchbar.js';
 import Title from '../components/Title.js';
-
-const background = '#373b48';
+import LinearGradient from 'react-native-linear-gradient';
+import { background, hue1, hue2 } from '../Masterlist.js';
 
 export default class Social extends Component {
 
@@ -66,7 +66,7 @@ export default class Social extends Component {
         color: '#ffffff',
         fontSize: 20,
       },
-      headerTintColot: '#ffffff',
+      headerTintColor: '#ffffff',
     }
   }
 
@@ -136,23 +136,28 @@ export default class Social extends Component {
   renderRow({item}) {
     return ( 
       <TouchableOpacity
-        style={styles.row}
         onPress={() => this.load(item)}
       >
-        <Avatar
-          rounded
-          source={item.image}
-          style={styles.imageStyle}
-        />
-        <View style={{
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          marginLeft: 10,
-        }}>
-          <Text style={styles.text1}>{item.username}</Text>
-          <Text style={styles.text2}>{'$' + db.stringify(item.value.toFixed(2))}</Text>
-          <Title title_id={item.title_id} />
-        </View>
+        <LinearGradient 
+          style={styles.row}
+          colors={[hue1, hue2]}
+          locations={[0, 1]}
+        >
+          <Avatar
+            rounded
+            source={item.image}
+            style={styles.imageStyle}
+          />
+          <View style={{
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            marginLeft: 10,
+          }}>
+            <Text style={styles.text1}>{item.username}</Text>
+            <Text style={styles.text2}>{'$' + db.stringify(item.value.toFixed(2))}</Text>
+            <Title title_id={item.title_id} />
+          </View>
+        </LinearGradient>
       </TouchableOpacity>
     )
   }
@@ -208,22 +213,28 @@ export default class Social extends Component {
           />
         }
       >
-        <MyButton
-          text="Discover"
-          onPress={() => this.props.navigation.navigate('Search', {
-            callback: this.props.navigation.getParam('callback', null),  
-          })}
-          width={Math.round(Dimensions.get('window').width)}
-          icon={"magnify"}
-        />
-        <View style={styles.friendsHeader}>
-          <Text style={styles.friends}>Friends</Text>
-        </View>
-        {this.state.refreshing
-          ? loading
-          : this.state.friends.length === 0
-            ? noFriends
-            : friendsList}
+        <LinearGradient 
+          style={styles.contentContainer}
+          colors={[background, '#000000']}
+          locations={[0.5, 1]}
+        >
+          <MyButton
+            text="Discover"
+            onPress={() => this.props.navigation.navigate('Search', {
+              callback: this.props.navigation.getParam('callback', null),  
+            })}
+            width={Math.round(Dimensions.get('window').width)}
+            icon={"magnify"}
+          />
+          <View style={styles.friendsHeader}>
+            <Text style={styles.friends}>Friends</Text>
+          </View>
+          {this.state.refreshing
+            ? loading
+            : this.state.friends.length === 0
+              ? noFriends
+              : friendsList}
+        </LinearGradient>
       </ScrollView>
     )
   }

@@ -16,8 +16,8 @@ import Swipeable from 'react-native-swipeable';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import TouchableGraph from '../components/TouchableGraph';
 import db from '../Database.js';
-
-const background = '#373b48';
+import LinearGradient from 'react-native-linear-gradient';
+import { background, hue1, hue2 } from '../Masterlist.js';
 
 export default class Info extends Component {
 
@@ -363,12 +363,14 @@ export default class Info extends Component {
     );
 
     const alertList = (
-      <FlatList
-        style={styles.flatStyle}
-        data={this.state.alerts}
-        renderItem={this.renderRow}
-        keyExtractor={item => item.index.toString()}
-      />
+      <View style={{ flexDirection: 'column', flex: 1 }}>
+        <FlatList
+          style={styles.flatStyle}
+          data={this.state.alerts}
+          renderItem={this.renderRow}
+          keyExtractor={item => item.index.toString()}
+        />
+      </View>
     );
 
     return (
@@ -376,7 +378,16 @@ export default class Info extends Component {
         style={styles.container}
         onScroll={this.closeOpenedItem}
       >
-        <View style={styles.row}>
+        <LinearGradient 
+          style={styles.contentContainer}
+          colors={[background, '#000000']}
+          locations={[0.5, 1]}
+        >
+        <LinearGradient 
+          style={styles.row}
+          colors={[hue1, hue2]}
+          locations={[0.5, 1]}
+        >
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.imageContainer}>
               {icon}
@@ -404,7 +415,7 @@ export default class Info extends Component {
               isLoading={true}
             />
           </View>
-        </View>
+        </LinearGradient>
         <View style={styles.graphDaysButtons}>
           <MarketButton
             text="24H"
@@ -454,7 +465,6 @@ export default class Info extends Component {
                 style={{
                   height: 60,
                   width: 60,
-                  backgroundColor: background,
                   flexDirection: 'row',
                   justifyContent: 'center',
                 }}
@@ -488,6 +498,7 @@ export default class Info extends Component {
             {AlertSheet}
           </RBSheet>
         </View>
+        </LinearGradient>
       </ScrollView>
     );
   }
@@ -588,7 +599,6 @@ const styles = StyleSheet.create({
     elevation: 1,
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
-    backgroundColor: background,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -599,7 +609,7 @@ const styles = StyleSheet.create({
     elevation: 1,
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
-    backgroundColor: '#515360',
+    backgroundColor: hue2,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',

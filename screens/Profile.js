@@ -10,14 +10,17 @@ import {
   Alert,
   RefreshControl,
 } from 'react-native';
+import { 
+  background, 
+  Masterlist, 
+  Mapping, 
+} from '../Masterlist.js';
 import Firebase from 'firebase';
+import ProfileTab from '../components/ProfileTab.js';
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
-import ProfileTab from '../components/ProfileTab.js';
-import { Masterlist, Mapping } from '../Masterlist.js';
 import q from '../Query.js';
-
-const background = '#373b48';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -110,14 +113,20 @@ export default class Profile extends Component {
           />
         }
       >
-        <ProfileTab 
-          refreshing={this.state.refreshing}
-          value={this.state.totalValue}
-          username={this.state.username}
-          favourite={this.state.favourite}
-          email={this.state.email}
-          title_id={this.state.title_id}
-        />
+        <LinearGradient 
+          style={styles.contentContainer}
+          colors={[background, '#000000']}
+          locations={[0.5, 1]}
+        >
+          <ProfileTab 
+            refreshing={this.state.refreshing}
+            value={this.state.totalValue}
+            username={this.state.username}
+            favourite={this.state.favourite}
+            email={this.state.email}
+            title_id={this.state.title_id}
+          />
+        </LinearGradient>
       </ScrollView>
     );
   }
@@ -125,10 +134,10 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
     flex: 1,
     alignSelf: "stretch",
     backgroundColor: background,
-    flexDirection: 'column',
   },
   contentContainer: {
     flex: 1,
@@ -139,5 +148,5 @@ const styles = StyleSheet.create({
   cashText: {
     fontSize: 30,
     fontWeight: 'bold'
-  }
+  },
 });
