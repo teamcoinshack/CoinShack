@@ -401,10 +401,10 @@ export default class Info extends Component {
     return (
       <ScrollView
         style={styles.container}
+        contentContainerStyle={styles.contentContainer}
         onScroll={this.closeOpenedItem}
       >
         <LinearGradient
-          style={styles.contentContainer}
           colors={[background, '#000000']}
           locations={[0.5, 1]}
         >
@@ -735,7 +735,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   infoValue: {
-    flex: 1,
+    flex: 2,
     fontSize: 18, 
     color: '#ffffff', 
     fontWeight: '500',
