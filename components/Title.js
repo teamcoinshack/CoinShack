@@ -19,11 +19,11 @@ export default Title = props => (
     <LinearTextGradient
       style={styles.style6}
       locations={[0, 1]}
-      colors={[ '#ffdc14', '#ffee00' ]}
+      colors={[ '#ffbe00', '#fff878' ]}
       start= {{ x:0, y: 0 }}
       end={{ x: 1, y: 0 }}
     >
-      <Text>LEGENDARY</Text>
+      LEGENDARY
     </LinearTextGradient>
     </View>
   )
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   style6: {
-    color: '#ffd700',
     fontWeight: '700',
     fontSize: 18,
   },
