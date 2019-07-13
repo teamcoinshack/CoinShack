@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text, 
   View, 
-  ActivityIndicator, 
   StyleSheet, 
   FlatList, 
-  Button,
   RefreshControl,
   Image,
   TouchableOpacity,
@@ -17,12 +15,11 @@ import Graph from '../components/Graph.js';
 import db from '../Database.js';
 import q from '../Query.js';
 import MyBar from '../components/MyBar.js';
-import 
-  Masterlist, 
-  { nameToIconMap, 
-  background, 
-  hue1, 
-  hue2 
+import Masterlist, {
+  nameToIconMap,
+  background,
+  hue1,
+  hue2
 } from '../Masterlist.js';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -31,9 +28,9 @@ class Market extends Component {
     super(props);
 
     this.state = {
-      currs: Masterlist.map(a => Object.assign({}, a)),
+      coins: Masterlist.map(a => Object.assign({}, a)),
       datas: {},
-      current: 0,
+      currLoadingIndex: 0,
       refreshing: false,
     }
     
@@ -63,33 +60,34 @@ class Market extends Component {
   onRefresh() {
     this.setState({
       refreshing: true,
-      currs: Masterlist.map(a => Object.assign({}, a)),
+      coins: Masterlist.map(a => Object.assign({}, a)),
     }, function() { this.refresh() })
   }
 
   async refresh() {
     try {
-      if (this.state.current >= this.state.currs.length) {
+      if (this.state.currLoadingIndex >= this.state.coins.length) {
         this.setState({
-          current: 0,
+          currLoadingIndex: 0,
           refreshing: false,
         });
         return;
       }
-      const curr = this.state.currs[this.state.current];
-      const data = await q.fetch(curr.name);
-      curr.data = data;
-      curr.id = data.symbol.toUpperCase();
-      curr.rate = data.market_data.current_price.usd;
-      curr.change = data.market_data.price_change_percentage_24h;
-      let arr = this.state.currs;
-      arr[this.state.current] = curr;
+      
+      const currentCoin = this.state.coins[this.state.currLoadingIndex];
+      const data = await q.fetch(currentCoin.name);
+      currentCoin.data = data;
+      currentCoin.id = data.symbol.toUpperCase();
+      currentCoin.rate = data.market_data.current_price.usd;
+      currentCoin.change = data.market_data.price_change_percentage_24h;
+      let arr = this.state.coins;
+      arr[this.state.currLoadingIndex] = currentCoin;
       let datas = this.state.datas;
-      datas[curr.name] = data;
+      datas[currentCoin.name] = data;
       this.setState({
         datas: datas,
-        currs: arr,
-        current: this.state.current + 1,
+        coins: arr,
+        currLoadingIndex: this.state.currLoadingIndex + 1,
       })
       this.refresh();
     } catch(error) {
@@ -192,7 +190,7 @@ class Market extends Component {
       >
         <FlatList
           style={styles.flatStyle}
-          data={this.state.currs}
+          data={this.state.coins}
           renderItem={this.renderRow}
           keyExtractor={item => item.name}
           refreshControl={

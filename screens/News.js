@@ -223,7 +223,7 @@ export default class News extends Component {
                 )
                 : (
                   <Image
-                    source={{ uri: item.urlToImage}}
+                    source={{ uri: item.urlToImage }}
                     style={styles.imageStyle}
                   />
                 )

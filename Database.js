@@ -487,6 +487,7 @@ export default class Database {
       console.log(error);
     }
   }
+  
   static stringify(num) {
     if (num === undefined) {
       return '';

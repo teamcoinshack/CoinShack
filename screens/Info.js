@@ -45,7 +45,7 @@ export default class Info extends Component {
     this.openItem = this.openItem.bind(this);
   }
 
-  async componentDidMount() {
+  async componentDidMount() {    
     try {
       const { navigation } = this.props;
       const data = navigation.getParam('data', null);
@@ -221,6 +221,33 @@ export default class Info extends Component {
     if (this.state.data === null || this.state.data === undefined) {
       return (<View style={styles.container}></View>);
     }
+
+    const infoCard = (
+      <LinearGradient
+        style={styles.infoCard}
+        colors={[hue1, hue2]}
+        locations={[0.5, 1]}
+      >
+        <View style={styles.infoLine}>
+          <Text style={styles.infoText}>24h Volume</Text>
+          <Text style={styles.infoValue}>
+            ${db.stringify(this.state.data.market_data.total_volume.usd)}
+          </Text>
+        </View>
+        <View style={styles.infoLine}>
+          <Text style={styles.infoText}>Circulating Supply</Text>
+          <Text style={styles.infoValue}>
+            {db.stringify(this.state.data.market_data.circulating_supply)}
+          </Text>
+        </View>
+        <View style={styles.infoLine}>
+          <Text style={styles.infoText}>Market Cap</Text>
+          <Text style={styles.infoValue}>
+            ${db.stringify(this.state.data.market_data.market_cap.usd)}
+          </Text>
+        </View>
+      </LinearGradient>
+    );
 
     const loading = (
       <View style={styles.loading1}>
@@ -414,6 +441,7 @@ export default class Info extends Component {
               />
             </View>
           </LinearGradient>
+
           <View style={styles.graphDaysButtons}>
             <MarketButton
               text="24H"
@@ -440,6 +468,9 @@ export default class Info extends Component {
               selected={this.state.graphDays === 30}
             />
           </View>
+
+          {infoCard}
+
           <View style={styles.alerts}>
             <View style={{
               marginTop: 5,
@@ -685,4 +716,30 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
   },
+  infoCard: {
+    marginHorizontal: 14,
+    marginTop: 18,
+    borderRadius: 5,
+    alignItems: "flex-start",
+    padding: 5,
+  },
+  infoLine: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  infoText: {
+    flex: 1,
+    fontSize: 18, 
+    color: '#bec4d8', 
+    fontWeight: '500',
+    margin: 10,
+  },
+  infoValue: {
+    flex: 1,
+    fontSize: 18, 
+    color: '#ffffff', 
+    fontWeight: '500',
+    margin: 10,
+    textAlign: "right",
+  }
 })

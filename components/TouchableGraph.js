@@ -119,8 +119,6 @@ export default class TouchableGraph extends Component {
       )
     }
 
-    // TODO FIX STYLING AND CHANGE TOOLBOX CONTENT
-    // NOW TESTING FIRST
     return (
       <VictoryChart
         height={this.props.height}

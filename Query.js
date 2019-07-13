@@ -4,7 +4,7 @@ export default class Query {
   static async fetch(stock) {
     // stock must be full name of stock instead of symbol
     let res = await fetch("https://api.coingecko.com/api/v3/coins/" + stock
-     + "?localization=false&community_data=false&developer_data=false");
+     + "?localization=false&tickers=false&community_data=false&developer_data=false&sparkline=false");
     let data = await res.json();
     return data;
   }
