@@ -10,6 +10,7 @@ import {
   FlatList,
   TextInput,
   Switch,
+  Platform,
 } from 'react-native';
 import Firebase from 'firebase';
 import Swipeable from 'react-native-swipeable';
@@ -218,8 +219,13 @@ export default class Info extends Component {
   }
 
   render() {
+    const isIos = Platform.OS === 'ios';
     if (this.state.data === null || this.state.data === undefined) {
-      return (<View style={styles.container}></View>);
+      return (
+        isIos 
+          ? <View style={styles.iOScontainer}></View>
+          : <View style={styles.androidContainer}></View>
+      );
     }
 
     const infoCard = (
@@ -397,13 +403,15 @@ export default class Info extends Component {
         />
       </View>
     );
-
     return (
       <ScrollView
-        style={styles.container}
+        style={isIos ? styles.iOScontainer : styles.androidContainer}
         contentContainerStyle={styles.contentContainer}
+        contentInset={{ top: -1000 }}
+        contentOffset={{ y: 1000 }}
         onScroll={this.closeOpenedItem}
       >
+        {isIos && <View style={{ height: 1000 }} />}
         <LinearGradient
           colors={[background, '#000000']}
           locations={[0.5, 1]}
@@ -538,10 +546,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginHorizontal: 14,
   },
-  container: {
+  iOScontainer: {
+    flex: 1,
+    backgroundColor: '#000000',
+    flexDirection: 'column',
+  },
+  androidContainer: {
     flex: 1,
     backgroundColor: background,
     flexDirection: 'column',
+  },
+  contentContainer: {
+    backgroundColor: background,
   },
   row: {
     elevation: 1,

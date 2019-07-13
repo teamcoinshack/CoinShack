@@ -9,6 +9,7 @@ import {
   ScrollView,
   Alert,
   RefreshControl,
+  Platform,
 } from 'react-native';
 import { 
   background, 
@@ -102,9 +103,12 @@ export default class Profile extends Component {
   }
 
   render() {
+    const isIos = Platform.OS === 'ios';
     return (
       <ScrollView 
-        style={styles.container}
+        style={isIos ? styles.iOScontainer : styles.androidContainer}
+        contentInset={{ top: -1000 }}
+        contentOffset={{ y: 1000 }}
         contentContainerStyle={styles.contentContainer}
         refreshControl={
           <RefreshControl
@@ -113,6 +117,7 @@ export default class Profile extends Component {
           />
         }
       >
+        {isIos && <View style={{ height: 1000 }} />}
         <LinearGradient 
           style={styles.contentContainer}
           colors={[background, '#000000']}
@@ -133,16 +138,17 @@ export default class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  iOScontainer: {
     flexDirection: 'column',
     flex: 1,
-    alignSelf: "stretch",
+    backgroundColor: '#000000',
+  },
+  androidContainer: {
+    flexDirection: 'column',
+    flex: 1,
     backgroundColor: background,
   },
   contentContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
     backgroundColor: background,
   },
   cashText: {
