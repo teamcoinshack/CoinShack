@@ -41,7 +41,7 @@ export default class Wallet extends Component {
     this.props.navigation.navigate('BuySellPage',{
       uid: this.state.uid,
       name: name,
-      callback: this.refresh,
+      callback: this.onRefresh,
     })
   }
 
