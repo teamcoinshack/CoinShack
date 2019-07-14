@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import MyButton from '../components/MyButton.js';
+import MyInput from '../components/MyInput.js';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 import { GoogleSignin } from 'react-native-google-signin';
 import config from '../config.js';
@@ -208,7 +209,25 @@ export default class Login extends Component {
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
           </Text>}
-        <View style={styles.inputContainer}>
+          
+        <View style={{ alignItems: "center" }}>
+          <MyInput
+            placeholder="Email"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+            keyboardType="email-address"
+            leftIconName="email-outline"
+          />
+          <MyInput
+            secureTextEntry
+            placeholder="Password"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            leftIconName="lock-outline"
+          />
+        </View>
+
+        {/* <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
             autoCapitalize="none"
@@ -228,7 +247,7 @@ export default class Login extends Component {
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
           />
-        </View>
+        </View> */}
         <View style={{ flexDirection: 'column', alignItems: 'center', }}>
           <MyButton
             text="Login"

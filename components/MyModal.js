@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Modal, Text, View, StyleSheet } from 'react-native';
 
+
+// TODO
+// not done
 export default MyModal = props => {
   return (
     <Modal

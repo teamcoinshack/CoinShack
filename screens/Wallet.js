@@ -12,13 +12,7 @@ import {
 import Firebase from 'firebase';
 import db from '../Database.js';
 import q from '../Query.js';
-<<<<<<< HEAD
-import Masterlist from '../Masterlist.js';
-import LinearGradient from 'react-native-linear-gradient';
-import {nameToIconMap, background, hue1, hue2 } from '../Masterlist.js';
-=======
 import Masterlist, { background, rowBackground, nameToIconMap } from '../Masterlist.js';
->>>>>>> b4d67840bdd5c32666f9b68a046f542b5ef22c66
 
 export default class Wallet extends Component {
   constructor(props) {
