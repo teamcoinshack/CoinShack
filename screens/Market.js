@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import Graph from '../components/Graph.js';
 import db from '../Database.js';
@@ -18,12 +17,10 @@ import MyBar from '../components/MyBar.js';
 import Masterlist, {
   nameToIconMap,
   background,
-  hue1,
-  hue2
+  rowBackground,
 } from '../Masterlist.js';
-import LinearGradient from 'react-native-linear-gradient';
 
-class Market extends Component {
+export default class Market extends Component {
   constructor(props) {
     super(props);
 
@@ -140,12 +137,8 @@ class Market extends Component {
     return (
       <TouchableOpacity 
         onPress={() => this.load(item.name)}
+        style={styles.row}
       >
-        <LinearGradient 
-          style={styles.row}
-          colors={[hue1, hue2]}
-          locations={[0.5, 1]}
-        >
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.imageContainer}>
               {item.rate === undefined 
@@ -176,17 +169,14 @@ class Market extends Component {
               days={30}
             />
           </View>
-        </LinearGradient>
       </TouchableOpacity>
     )
   }
 
   render() {
     return (
-      <LinearGradient 
+      <View 
         style={styles.container}
-        colors={[background, '#000000']}
-        locations={[0.5, 1]}
       >
         <FlatList
           style={styles.flatStyle}
@@ -200,18 +190,16 @@ class Market extends Component {
             />
           }
         />
-      </LinearGradient>
+      </View>
     );
   }
 }
-
-export default withNavigationFocus(Market);
 
 const styles = StyleSheet.create({
   row: {
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: '#515360',
+    backgroundColor: rowBackground,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -227,7 +215,7 @@ const styles = StyleSheet.create({
   loadingRow: {
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: hue2,
+    backgroundColor: rowBackground,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

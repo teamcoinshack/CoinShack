@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { 
   background, 
+  rowBackground,
   Masterlist, 
   Mapping, 
 } from '../Masterlist.js';
@@ -21,7 +22,6 @@ import ProfileTab from '../components/ProfileTab.js';
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
 import q from '../Query.js';
-import LinearGradient from 'react-native-linear-gradient';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -103,12 +103,9 @@ export default class Profile extends Component {
   }
 
   render() {
-    const isIos = Platform.OS === 'ios';
     return (
       <ScrollView 
-        style={isIos ? styles.iOScontainer : styles.androidContainer}
-        contentInset={{ top: -1000 }}
-        contentOffset={{ y: 1000 }}
+        style={styles.container}
         contentContainerStyle={styles.contentContainer}
         refreshControl={
           <RefreshControl
@@ -117,12 +114,6 @@ export default class Profile extends Component {
           />
         }
       >
-        {isIos && <View style={{ height: 1000 }} />}
-        <LinearGradient 
-          style={styles.contentContainer}
-          colors={[background, '#000000']}
-          locations={[0.5, 1]}
-        >
           <ProfileTab 
             refreshing={this.state.refreshing}
             value={this.state.totalValue}
@@ -131,25 +122,19 @@ export default class Profile extends Component {
             email={this.state.email}
             title_id={this.state.title_id}
           />
-        </LinearGradient>
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  iOScontainer: {
+  container: {
     flexDirection: 'column',
     flex: 1,
-    backgroundColor: '#000000',
-  },
-  androidContainer: {
-    flexDirection: 'column',
-    flex: 1,
-    backgroundColor: background,
+    backgroundColor: background, 
   },
   contentContainer: {
-    backgroundColor: background,
+    justifyContent: 'flex-start',
   },
   cashText: {
     fontSize: 30,

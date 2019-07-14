@@ -9,15 +9,13 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
-import { hue1, hue2 } from '../Masterlist.js';
+import { rowBackground } from '../Masterlist.js';
 
 // Required parameters are text, path, right(content)
 
 export default MyRow = props => (
-      <LinearGradient 
+      <View 
         style={styles.row}
-        colors={[hue1, hue2]}
-        locations={[0, 1]}
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.imageContainer}>
@@ -46,14 +44,14 @@ export default MyRow = props => (
             {props.right}
           </View>
         </View>
-      </LinearGradient>
+      </View>
 );
 
 const styles = StyleSheet.create({
   row: {
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: '#515360',
+    backgroundColor: rowBackground, 
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',

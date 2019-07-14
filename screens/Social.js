@@ -16,8 +16,7 @@ import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from '../Database.js';
 import Title from '../components/Title.js';
-import LinearGradient from 'react-native-linear-gradient';
-import { background, hue1, hue2 } from '../Masterlist.js';
+import { background, rowBackground } from '../Masterlist.js';
 
 export default class Social extends Component {
 
@@ -133,12 +132,8 @@ export default class Social extends Component {
     return ( 
       <TouchableOpacity
         onPress={() => this.load(item)}
+        style={styles.row}
       >
-        <LinearGradient 
-          style={styles.row}
-          colors={[hue1, hue2]}
-          locations={[0, 1]}
-        >
           <Avatar
             rounded
             source={item.image}
@@ -153,7 +148,6 @@ export default class Social extends Component {
             <Text style={styles.text2}>{'$' + db.stringify(item.value.toFixed(2))}</Text>
             <Title title_id={item.title_id} />
           </View>
-        </LinearGradient>
       </TouchableOpacity>
     );
   }
@@ -212,11 +206,6 @@ export default class Social extends Component {
           />
         }
       >
-        <LinearGradient 
-          style={styles.contentContainer}
-          colors={[background, '#000000']}
-          locations={[0.5, 1]}
-        >
           <MyButton
             text="Discover"
             onPress={() => this.props.navigation.navigate('Search', {
@@ -233,7 +222,6 @@ export default class Social extends Component {
             : this.state.friends.length === 0
               ? noFriends
               : friendsList}
-        </LinearGradient>
       </ScrollView>
     )
   }
@@ -265,7 +253,7 @@ const styles = StyleSheet.create({
   row: {
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: '#515360',
+    backgroundColor: rowBackground, 
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',

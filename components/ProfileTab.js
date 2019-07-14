@@ -10,14 +10,12 @@ import {
 import { Avatar } from 'react-native-elements';
 import Title from './Title.js';
 import LinearGradient from 'react-native-linear-gradient';
-import { hue1, hue2 } from '../Masterlist.js';
+import { rowBackground } from '../Masterlist.js';
 //Required parameters are text, path, right(content)
 
 export default ProfileTab = props => (
-      <LinearGradient 
+      <View 
         style={styles.row}
-        colors={[hue1, hue2]}
-        locations={[0.5, 1]}
       >
         <View style={{ 
           flexDirection: 'row', 
@@ -76,7 +74,7 @@ export default ProfileTab = props => (
             </View>
           </View>
         </View>
-      </LinearGradient>
+      </View>
 );
 
 ProfileTab.defaultProps = {
@@ -93,7 +91,7 @@ const styles = StyleSheet.create({
   row: {
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: '#515360',
+    backgroundColor: rowBackground,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',

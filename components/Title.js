@@ -5,7 +5,6 @@ import {
   StyleSheet, 
 } from 'react-native';
 import q from '../Query.js';
-import LinearGradient from 'react-native-linear-gradient';
 
 export default Title = props => (
   props.title_id < 6
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   style61: {
-    color: '#ffb800',
+    color: '#fab300',
     fontWeight: '700',
     fontSize: 18,
   },

@@ -14,10 +14,8 @@ import Firebase from 'firebase';
 import q from '../Query.js';
 import MyBar from '../components/MyBar.js';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { coinTitles, background } from '../Masterlist.js';
+import { coinTitles, background, rowBackground } from '../Masterlist.js';
 import { CheckBox } from 'react-native-elements';
-import LinearGradient from 'react-native-linear-gradient';
-
 
 export default class News extends Component {
   constructor(props) {
@@ -203,12 +201,8 @@ export default class News extends Component {
     return (
       <TouchableOpacity 
         onPress={() => this.load(item.url)}
+        style={styles.row}
       >
-        <LinearGradient 
-          colors={['#42444f', '#3c444f']}
-          style={styles.row}
-          locations={[0, 1]}
-        >
           <View style={{ 
             flexDirection: 'row', 
             justifyContent: 'center',
@@ -263,7 +257,6 @@ export default class News extends Component {
               }}>{this.timePublished(item.publishedAt)}</Text>
             </View>
           </View>
-        </LinearGradient>
       </TouchableOpacity>
     )
   }
@@ -271,24 +264,20 @@ export default class News extends Component {
   render() {
     if (this.state.news.length === 0) {
       return (
-        <LinearGradient 
+        <View 
           style={styles.loadingStyle}
-          colors={[background, '#000000']}
-          locations={[0.5, 1]}
         >
           <MyBar
             height={Math.round(Dimensions.get('window').height)}
             width={Math.round(Dimensions.get('window').width)}
           />
-        </LinearGradient>
+        </View>
       );
     }
 
     return (
-      <LinearGradient 
+      <View 
         style={styles.container}
-        colors={[background, '#000000']}
-        locations={[0.5, 1]}
       >
         <FlatList
           style={styles.flatStyle}
@@ -303,7 +292,7 @@ export default class News extends Component {
           }
         />
         {this.renderFilterSheet()}
-      </LinearGradient>
+      </View>
     );
   }
 }
@@ -326,6 +315,7 @@ const styles = StyleSheet.create({
   },
   row: {
     elevation: 1,
+    backgroundColor: rowBackground,
     borderRadius: 5,
     flexDirection: 'column',
     width: Math.round(Dimensions.get('window').width) - 28, 

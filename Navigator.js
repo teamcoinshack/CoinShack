@@ -31,9 +31,7 @@ import Social from './screens/Social.js';
 import Search from './screens/Search.js';
 import FriendsProfile from './screens/FriendsProfile.js';
 import Requests from './screens/Requests.js';
-
-//const background = '#373b48';
-const background = '#21252b';
+import { background } from './Masterlist.js';
 
 const headerStyles = {
   headerStyle: {
