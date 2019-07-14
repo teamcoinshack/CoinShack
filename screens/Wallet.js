@@ -13,10 +13,7 @@ import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from '../Database.js';
 import q from '../Query.js';
-import Masterlist from '../Masterlist.js';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import LinearGradient from 'react-native-linear-gradient';
-import {nameToIconMap, background, hue1, hue2 } from '../Masterlist.js';
+import Masterlist, { background, rowBackground, nameToIconMap } from '../Masterlist.js';
 
 export default class Wallet extends Component {
   constructor(props) {
@@ -134,8 +131,8 @@ export default class Wallet extends Component {
     )
     if (item.rate === undefined) {
       return (
-      <View 
-        style={styles.loadingRow}
+      <TouchableOpacity
+        style={styles.row}
       >
         <View style={{
           flexDirection: 'row',
@@ -154,7 +151,7 @@ export default class Wallet extends Component {
             {loading}
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
       )
     }
     const currentPrice = (
@@ -185,31 +182,26 @@ export default class Wallet extends Component {
     )
     return (
       <TouchableOpacity
+        style={styles.row}
         onPress={() => this.load(item.name)}
       >
-        <LinearGradient 
-          style={styles.row}
-          colors={[hue1, hue2]}
-          locations={[0, 1]}
-        >
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.imageContainer}>
-              {Icon}
-            </View>
-            <View style={styles.nameContainer}>
-              <Text style={styles.name}>{item.id}</Text>
-              {item.rate === undefined
-                ? loading
-                : currentPrice}
-              {item.rate === undefined
-               ? null
-               : change}
-            </View>
-            {item.rate === undefined
-              ? null
-              :walletValue}
+        <View style={{ flexDirection: 'row' }}>
+          <View style={styles.imageContainer}>
+            {Icon}
           </View>
-        </LinearGradient>
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>{item.id}</Text>
+            {item.rate === undefined
+              ? loading
+              : currentPrice}
+            {item.rate === undefined
+             ? null
+             : change}
+          </View>
+          {item.rate === undefined
+            ? null
+            :walletValue}
+        </View>
       </TouchableOpacity>
     )
   }
@@ -257,11 +249,7 @@ export default class Wallet extends Component {
       </View>
     );
     return (
-      <LinearGradient 
-        style={styles.container}
-        colors={[background, '#000000']}
-        locations={[0.5, 1]}
-      >
+      <View style={styles.container}>
         <View style={{ marginBottom: 20, alignItems: 'center', }}>
           {this.state.totalValue === null
             ? loading
@@ -280,7 +268,7 @@ export default class Wallet extends Component {
             />
           }
         />
-      </LinearGradient>
+      </View>
     );
   }
 }
@@ -290,23 +278,6 @@ const styles = StyleSheet.create({
     elevation: 1,
     borderRadius: 5,
     backgroundColor: '#515360',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 18,
-    paddingRight: 16,
-    marginLeft: 14,
-    marginRight: 14,
-    marginTop: 0,
-    marginBottom: 6,
-  },
-  loadingRow: {
-    elevation: 1,
-    borderRadius: 5,
-    backgroundColor: hue2,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',

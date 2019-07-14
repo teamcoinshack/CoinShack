@@ -30,7 +30,5 @@ export const nameToIconMap = {
   litecoin: require('./assets/icons/LTC.png'),
 }
 
-export const background = '#21252b';
-//old backgound '#373b48';
-export const hue1 = '#42444f';
-export const hue2 = '#3c444f';
+export const background = '#373b48';
+export const rowBackground = '#515360';

@@ -18,7 +18,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import TouchableGraph from '../components/TouchableGraph';
 import db from '../Database.js';
 import LinearGradient from 'react-native-linear-gradient';
-import { nameToIconMap, background, hue1, hue2 } from '../Masterlist.js';
+import { nameToIconMap, background, rowBackground } from '../Masterlist.js';
 
 export default class Info extends Component {
 
@@ -219,20 +219,15 @@ export default class Info extends Component {
   }
 
   render() {
-    const isIos = Platform.OS === 'ios';
     if (this.state.data === null || this.state.data === undefined) {
       return (
-        isIos 
-          ? <View style={styles.iOScontainer}></View>
-          : <View style={styles.androidContainer}></View>
+          <View style={styles.container}></View>
       );
     }
 
     const infoCard = (
-      <LinearGradient
+      <View
         style={styles.infoCard}
-        colors={[hue1, hue2]}
-        locations={[0.5, 1]}
       >
         <View style={styles.infoLine}>
           <Text style={styles.infoText}>24h Volume</Text>
@@ -252,7 +247,7 @@ export default class Info extends Component {
             ${db.stringify(this.state.data.market_data.market_cap.usd)}
           </Text>
         </View>
-      </LinearGradient>
+      </View>
     );
 
     const loading = (
@@ -382,6 +377,7 @@ export default class Info extends Component {
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'center',
+        marginBottom: 30,
       }}>
         <Text style={{
           color: '#7c7c7c',
@@ -405,21 +401,12 @@ export default class Info extends Component {
     );
     return (
       <ScrollView
-        style={isIos ? styles.iOScontainer : styles.androidContainer}
+        style={styles.container}
         contentContainerStyle={styles.contentContainer}
-        contentInset={{ top: -1000 }}
-        contentOffset={{ y: 1000 }}
         onScroll={this.closeOpenedItem}
       >
-        {isIos && <View style={{ height: 1000 }} />}
-        <LinearGradient
-          colors={[background, '#000000']}
-          locations={[0.5, 1]}
-        >
-          <LinearGradient
+          <View
             style={styles.row}
-            colors={[hue1, hue2]}
-            locations={[0.5, 1]}
           >
             <View style={{ flexDirection: 'row' }}>
               <View style={styles.imageContainer}>
@@ -448,7 +435,7 @@ export default class Info extends Component {
                 isLoading={true}
               />
             </View>
-          </LinearGradient>
+          </View>
 
           <View style={styles.graphDaysButtons}>
             <MarketButton
@@ -535,7 +522,6 @@ export default class Info extends Component {
               {AlertSheet}
             </RBSheet>
           </View>
-        </LinearGradient>
       </ScrollView>
     );
   }
@@ -546,12 +532,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginHorizontal: 14,
   },
-  iOScontainer: {
-    flex: 1,
-    backgroundColor: '#000000',
-    flexDirection: 'column',
-  },
-  androidContainer: {
+  container: {
     flex: 1,
     backgroundColor: background,
     flexDirection: 'column',
@@ -654,7 +635,7 @@ const styles = StyleSheet.create({
     elevation: 1,
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
-    backgroundColor: hue2,
+    backgroundColor: rowBackground,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -738,6 +719,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "flex-start",
     padding: 5,
+    backgroundColor: rowBackground,
   },
   infoLine: {
     flexDirection: "row",

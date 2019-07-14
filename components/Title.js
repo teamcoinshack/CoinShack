@@ -5,7 +5,6 @@ import {
   StyleSheet, 
 } from 'react-native';
 import q from '../Query.js';
-import LinearGradient from 'react-native-linear-gradient';
 
 export default Title = props => (
   props.title_id < 6
