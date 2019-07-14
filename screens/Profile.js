@@ -22,6 +22,7 @@ import ProfileTab from '../components/ProfileTab.js';
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
 import q from '../Query.js';
+import ProgressBar from '../components/ProgressBar.js';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ export default class Profile extends Component {
     this.state = {
       id: null,
       refreshing: false,
+      title_id: 1,
     }
     this.refresh = this.refresh.bind(this);
     this.getFavCoin = this.getFavCoin.bind(this);
@@ -89,13 +91,14 @@ export default class Profile extends Component {
       const wallet = ('wallet' in snapped) ? snapped.wallet : false;
       const totalValue = await db.getTotalValue(uid, snapped);
       const favCoin = await this.getFavCoin(wallet);
+      const newTitle = db.newTitle(snapped.title_id, totalValue); 
       this.setState({
         username: snapped.username,
         email: Firebase.auth().currentUser.email,
         totalValue: '$' + db.stringify(totalValue.toFixed(2)),
         refreshing: false,
         favourite: wallet ? favCoin.charAt(0).toUpperCase() + favCoin.slice(1) : favCoin,
-        title_id: snapped.title_id,
+        title_id: newTitle,
       })
     } catch(error) {
       console.log(error);
@@ -120,6 +123,10 @@ export default class Profile extends Component {
             username={this.state.username}
             favourite={this.state.favourite}
             email={this.state.email}
+            title_id={this.state.title_id}
+          />
+          <ProgressBar 
+            text={'Progress'}
             title_id={this.state.title_id}
           />
       </ScrollView>
