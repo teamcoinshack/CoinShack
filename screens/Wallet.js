@@ -9,12 +9,10 @@ import {
   TouchableOpacity,
   RefreshControl,
 } from 'react-native';
-import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';
 import db from '../Database.js';
 import q from '../Query.js';
 import Masterlist from '../Masterlist.js';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import {nameToIconMap, background, hue1, hue2 } from '../Masterlist.js';
 
@@ -38,7 +36,7 @@ export default class Wallet extends Component {
   }
 
   load(name) {
-    this.props.navigation.navigate('BuySellPage',{
+    this.props.navigation.navigate('BuySellPage', {
       uid: this.state.uid,
       name: name,
       callback: this.onRefresh,

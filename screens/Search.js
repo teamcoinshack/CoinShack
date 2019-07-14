@@ -1,21 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
-  ActivityIndicator,
   View,
-  Image,
   StyleSheet,
   FlatList,
   Dimensions,
   TouchableOpacity,
-  RefreshControl,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { withNavigationFocus } from 'react-navigation';
-import Firebase from 'firebase';
 import db from '../Database.js';
-import q from '../Query.js';
-import Masterlist from '../Masterlist.js';
 import Searchbar from '../components/Searchbar.js';
 
 const background = '#373b48';
