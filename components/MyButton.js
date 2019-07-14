@@ -7,7 +7,7 @@ import {
   Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { hue1 } from '../Masterlist.js';
+import { rowBackground } from '../Masterlist.js';
 
 export default MyButton = props => {
   const image = (
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   button: {
     elevation: 1,
     borderRadius: 5,
-    backgroundColor: hue1,
+    backgroundColor: rowBackground,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
