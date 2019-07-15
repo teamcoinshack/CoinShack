@@ -11,6 +11,7 @@ import {
   RefreshControl,
   Platform,
 } from 'react-native';
+import Tooltip from 'react-native-walkthrough-tooltip';
 import { 
   background, 
   rowBackground,
@@ -32,9 +33,12 @@ export default class Profile extends Component {
       id: null,
       refreshing: false,
       title_id: 1,
+      tooltipVisible: false,
+      totalValue: '0',
     }
     this.refresh = this.refresh.bind(this);
     this.getFavCoin = this.getFavCoin.bind(this);
+    this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
   async componentDidMount() {
@@ -43,6 +47,10 @@ export default class Profile extends Component {
     } catch(error) {
       console.log(error);
     }
+  }
+
+  toggleVisibility() {
+    this.setState({ tooltipVisible: !this.state.tooltipVisible });
   }
   
   async getFavCoin(wallet) {
@@ -128,6 +136,11 @@ export default class Profile extends Component {
           <ProgressBar 
             text={'Progress'}
             title_id={this.state.title_id}
+            close={() => this.setState({ visible: false})}
+            isVisible={this.state.visible}
+            totalValue={
+              parseFloat(db.unStringify(this.state.totalValue.substring(1)))
+            }
           />
       </ScrollView>
     );

@@ -4,9 +4,13 @@ import {
   Dimensions, 
   Text,
   StyleSheet, 
+  TouchableOpacity,
 } from 'react-native';
 import { rowBackground, background } from '../Masterlist.js';
 import { Tooltip } from 'react-native-elements';
+import { MyModal } from './MyModal.js';
+import Title from './Title.js';
+import db from '../Database.js';
 const filled = '#00dce8';
 const empty = '#000000';
 
@@ -35,7 +39,6 @@ HalfUnit = props => (
       style={{
         flex: 0.02,
         height: 20,
-        borderLeftWidth: index === 0 ? 3 : 0,
         borderColor: background,
         backgroundColor: c,
       }}
@@ -50,7 +53,6 @@ HalfRightUnit = props => (
       style={{
         flex: 0.01,
         height: 20,
-        borderLeftWidth: index === 0 ? 3 : 0,
         borderColor: background,
         backgroundColor: c,
      }} />
@@ -69,9 +71,54 @@ FilledRightUnit = props => (
   <View style={styles.rightUnit} />
 )
 
+const tier = [0, 0, 11000, 15000, 20000, 30000, 50000];
+
 export default ProgressBar = props => (
   <View style={styles.row}>
     <Text style={styles.header}>{props.text}</Text>
+    <Tooltip
+      popover={
+        <View style={{ flexDirection: 'column' }}>
+          <Text style={{ 
+            color: '#ffffff', 
+            fontWeight: 'bold', 
+            fontSize: 18,
+          }}>PROGRESS: {props.title_id}/6</Text>
+          {props.title_id < 6
+          ? (
+            <View>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={{
+                  color: '#dbdbdb',
+                  fontWeight: 'bold',
+                  fontSize: 14,
+                }}>Current:  </Text>
+                <Title title_id={props.title_id} />
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={{
+                  color: '#dbdbdb',
+                  fontWeight: 'bold',
+                  fontSize: 14,
+                }}>Next:  </Text>
+                <Title title_id={props.title_id + 1} />
+              </View>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={{ color: '#dbdbdb', fontSize: 15}}>
+                  Earn ${db.stringify(tier[props.title_id + 1] - props.totalValue)} more 
+                </Text>
+                <Text style={{ color: '#dbdbdb', fontSize: 15}}>
+                  to attain the next title!
+                </Text>
+              </View>
+            </View>
+          )
+          : ( <Title title_id={props.title_id} /> )}
+        </View>
+      }
+      width={Math.round(Dimensions.get('window').width / 2)}
+      height={120}
+    >
     <View style={styles.bar}>
       <View style={styles.leftUnit} />
       {props.title_id === 1
@@ -103,8 +150,13 @@ export default ProgressBar = props => (
           : <EmptyRightUnit />
       }
     </View>
+    </Tooltip>
   </View>
 )
+
+ProgressBar.defaultProps = {
+  title_id: 1
+}
 
 const styles = StyleSheet.create({
   row: {
@@ -125,6 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   bar: {
+    width: Math.round(Dimensions.get('window').width - 36),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -134,29 +187,24 @@ const styles = StyleSheet.create({
   unit: {
     flex: 1,
     height: 20,
-    borderLeftWidth: 3,
     borderColor: background,
   },
   emptyUnit: {
     backgroundColor: '#000000',
     flex: 1,
     height: 20,
-    borderLeftWidth: 3,
     borderColor: background,
   },
   filledUnit: {
     backgroundColor: '#00dce8',
     flex: 1,
     height: 20,
-    borderLeftWidth: 3,
     borderColor: background,
   },
   leftUnit: {
     backgroundColor: filled,
     flex: 1,
     height: 20,
-    borderLeftWidth: 3,
-    borderColor: background,
     borderBottomLeftRadius: 15,
     borderTopLeftRadius: 15,
   },
@@ -171,7 +219,6 @@ const styles = StyleSheet.create({
     backgroundColor: empty,
     flex: 1,
     height: 20,
-    borderLeftWidth: 3,
     borderColor: background,
     borderBottomRightRadius: 15,
     borderTopRightRadius: 15,
@@ -180,7 +227,6 @@ const styles = StyleSheet.create({
     backgroundColor: filled,
     flex: 1,
     height: 20,
-    borderLeftWidth: 3,
     borderColor: background,
     borderBottomRightRadius: 15,
     borderTopRightRadius: 15,

@@ -66,13 +66,15 @@ export default class Social extends Component {
   }
 
   load(friend) {
-    this.props.navigation.navigate('FriendsProfile',{
-      uid: this.state.uid,
-      friendName: friend.username,
-      friendUid: friend.uid,
-      friendEmail: friend.email,
-      callback: this.refresh,
-    })
+    friend.uid === this.state.uid
+      ? this.props.navigation.navigate('Profile')
+      : this.props.navigation.navigate('FriendsProfile',{
+          uid: this.state.uid,
+          friendName: friend.username,
+          friendUid: friend.uid,
+          friendEmail: friend.email,
+          callback: this.refresh,
+        })
   }
   
   async refresh() {
@@ -100,6 +102,16 @@ export default class Social extends Component {
                       }
                     })
                   )
+      const myData = await db.getData(uid);
+      const snapped = myData.val();
+      friends.push({
+        uid: uid,
+        username: snapped.username + ' (You)',
+        email: snapped.email,
+        value: await db.getTotalValue(uid, snapped),
+        title_id: snapped.title_id,
+        image: require('../assets/icons/noPic.png'),
+      })
       friends.sort((a, b) => b.value - a.value);
       let requests = await db.getRequests(uid);
       requests = Object.keys(requests);
@@ -145,8 +157,12 @@ export default class Social extends Component {
             marginLeft: 10,
           }}>
             <Text style={styles.text1}>{item.username}</Text>
-            <Text style={styles.text2}>{'$' + db.stringify(item.value.toFixed(2))}</Text>
             <Title title_id={item.title_id} />
+          </View>
+          <View style={{ alignItems: 'flex-end', flex: 1}}>
+            <Text style={styles.text2}>
+              {'$' + db.stringify(item.value.toFixed(2))}
+            </Text>
           </View>
       </TouchableOpacity>
     );
@@ -269,23 +285,18 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   imageStyle: {
-    width: 80,
-    height: 80,
+    width: 50,
+    height: 50,
   },
   text1: {
-    fontSize: 21,
-    color: '#dbdbdb',
+    fontSize: 20,
+    color: '#ffffff',
     fontWeight: '600',
   },
   text2: {
-    fontSize: 18,
-    color: '#a4a9b9',
-    fontWeight: '500',
-  },
-  text3: {
-    fontSize: 15,
-    color: '#faed27',
-    fontWeight: '500',
+    fontSize: 16,
+    color: '#dbdbdb',
+    fontWeight: 'bold',
   },
   flatStyle: {
     marginTop: 20,
