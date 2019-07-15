@@ -10,7 +10,7 @@ export default MyInput = props => {
       onChangeText={props.onChangeText}
       placeholder={props.placeholder}
       placeholderTextColor="#999999"
-      inputContainerStyle={styles.container}
+      inputContainerStyle={{ ...styles.container, width: props.width }}
       inputStyle={styles.text}
       autoCapitalize={props.autoCapitalize}
       secureTextEntry={props.secureTextEntry}
@@ -23,14 +23,14 @@ export default MyInput = props => {
               color="#999999"
             />
           : props.leftText
-            ? <Text styles={styles.sideText}>
+            ? <Text style={styles.sideText}>
                 {props.leftText}
               </Text>
             : null
       }
       rightIcon={
         props.rightText
-          ? <Text styles={styles.sideText}>
+          ? <Text style={styles.sideText}>
               {props.rightText}
             </Text>
           : null
@@ -48,12 +48,12 @@ MyInput.defaultProps = {
   rightText: "",
   autoCapitalize: "none",
   secureTextEntry: false,
-  keyboardType: "default"
+  keyboardType: "default",
+  width: (Dimensions.get('window').width) * 0.7,
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: (Dimensions.get('window').width) * 0.7,
     borderRadius: 5,
     elevation: 1,
     borderBottomColor: '#515360',

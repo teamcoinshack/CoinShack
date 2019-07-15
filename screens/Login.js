@@ -217,6 +217,7 @@ export default class Login extends Component {
             value={this.state.email}
             keyboardType="email-address"
             leftIconName="email-outline"
+            width={(Dimensions.get('window').width) * 0.7}
           />
           <MyInput
             secureTextEntry
@@ -224,30 +225,10 @@ export default class Login extends Component {
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
             leftIconName="lock-outline"
+            width={(Dimensions.get('window').width) * 0.7}
           />
         </View>
 
-        {/* <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            autoCapitalize="none"
-            placeholder=" Email"
-            placeholderTextColor="#999999"
-            onChangeText={email => this.setState({ email })}
-            value={this.state.email}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            secureTextEntry
-            style={styles.textInput}
-            autoCapitalize="none"
-            placeholder=" Password"
-            placeholderTextColor="#999999"
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-          />
-        </View> */}
         <View style={{ flexDirection: 'column', alignItems: 'center', }}>
           <MyButton
             text="Login"
