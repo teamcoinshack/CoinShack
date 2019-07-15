@@ -66,12 +66,7 @@ export default class Info extends Component {
 
   async addAlert() {
     try {
-      if (this.state.alertValue <= 0) {
-        alert('Invalid Price!');
-        return;
-      }
-
-      if (isNaN(this.state.alertValue)) {
+      if (Number(this.state.alertValue) <= 0 || isNaN(this.state.alertValue)) {
         alert('Invalid Price!');
         return;
       }
@@ -82,7 +77,7 @@ export default class Info extends Component {
       newAlerts.push({
         index: this.state.alerts.length,
         price: this.state.alertValue,
-        notifyWhenAbove: this.state.alertValue > this.state.rate,
+        notifyWhenAbove: Number(this.state.alertValue) > this.state.rate,
         active: true,
       });
 
@@ -95,7 +90,7 @@ export default class Info extends Component {
         this.state.name,
         Firebase.auth().currentUser.uid,
         this.state.alertValue,
-        this.state.alertValue > this.state.rate,
+        Number(this.state.alertValue) > this.state.rate,
         true
       );
     } catch(error) {

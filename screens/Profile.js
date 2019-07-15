@@ -1,26 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-  Text, 
-  View, 
-  Dimensions,
   StyleSheet, 
-  FlatList, 
-  Button,
   ScrollView,
-  Alert,
   RefreshControl,
-  Platform,
 } from 'react-native';
-import Tooltip from 'react-native-walkthrough-tooltip';
 import { 
-  background, 
-  rowBackground,
-  Masterlist, 
+  background,
   Mapping, 
 } from '../Masterlist.js';
 import Firebase from 'firebase';
 import ProfileTab from '../components/ProfileTab.js';
-import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
 import q from '../Query.js';
 import ProgressBar from '../components/ProgressBar.js';
