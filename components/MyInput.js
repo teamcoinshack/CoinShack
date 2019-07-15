@@ -55,16 +55,16 @@ MyInput.defaultProps = {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 5,
-    elevation: 1,
-    borderBottomColor: '#515360',
-    borderBottomWidth: 3,
-    margin: 10  ,
+    borderColor: '#515360',
+    borderWidth: 2,
+    borderBottomWidth: 2,
+    margin: 10,
   },
   text: {
     textAlign: 'left',
     fontSize: 20,
     color: '#ffffff',
-    paddingHorizontal: 10,
+    padding: 10,
   },
   sideText: {
     color: "#999999",
