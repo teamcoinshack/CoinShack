@@ -8,16 +8,14 @@ import {
   Dimensions,
   Image,
   FlatList,
-  TextInput,
   Switch,
-  Platform,
 } from 'react-native';
 import Firebase from 'firebase';
 import Swipeable from 'react-native-swipeable';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import TouchableGraph from '../components/TouchableGraph';
+import TouchableGraph from '../components/TouchableGraph.js';
 import db from '../Database.js';
-import LinearGradient from 'react-native-linear-gradient';
+import MyInput from '../components/MyInput.js';
 import { nameToIconMap, background, rowBackground } from '../Masterlist.js';
 
 export default class Info extends Component {
@@ -314,7 +312,10 @@ export default class Info extends Component {
     )
 
     const AlertSheet = (
-      <View style={styles.RBcontainer}>
+      <ScrollView
+        contentContainerStyle={styles.RBcontainer}
+        keyboardShouldPersistTaps="always"
+      >
         <View style={styles.currentPriceContainer}>
           <View>
             <Text style={styles.currentPrice}>
@@ -333,26 +334,26 @@ export default class Info extends Component {
                 ? above
                 : below}
           </View>
+
           <View style={styles.alertValueContainer}>
-            <Text style={styles.message1}>$</Text>
-            <TextInput
-              style={styles.textInput}
-              autoCapitalize="none"
-              keyboardType='numeric'
-              placeholderTextColor='#919191'
-              placeholder={ this.state.alertValue === ''
-                          ? '0.00'
-                          : this.state.alertValue}
-              onChangeText={value => Number(db.unStringify(value)) > 999999 
-              ? this.setState({
-                  state: this.state,
-                })
-              : this.setState({
-                alertValue: db.unStringify(value),
-              })}
+            <MyInput
               value={db.stringify(String(this.state.alertValue))}
+              onChangeText={value => Number(db.unStringify(value)) > 999999 
+                ? this.setState({
+                    state: this.state,
+                  })
+                : this.setState({
+                  alertValue: db.unStringify(value),
+                })}
+              placeholder={ this.state.alertValue === ''
+                ? '0.00'
+                : this.state.alertValue}
+              keyboardType='numeric'
+              leftText="$"
+              width="100%"
             />
           </View>
+          
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity
               style={styles.buttonRow}
@@ -369,7 +370,7 @@ export default class Info extends Component {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
 
     const noAlerts = (
@@ -509,15 +510,16 @@ export default class Info extends Component {
               ref={ref => {
                 this.RBSheet = ref;
               }}
-              height={520}
-              duration={250}
+              height={260}
+              duration={200}
               customStyles={{
                 container: {
                   backgroundColor: background,
                   justifyContent: 'center',
-                  alignItems: 'flex-start',
+                  alignItems: 'stretch',
                 }
               }}
+              closeOnDragDown={true}
             >
               {AlertSheet}
             </RBSheet>
@@ -643,7 +645,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   RBcontainer: {
-    width: Math.round(Dimensions.get('window').width),
     flex: 1,
   },
   currentPrice: {
@@ -692,17 +693,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 15,
-    paddingLeft: 18,
-    paddingRight: 16,
-    margin: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    marginVertical: 10,
   },
   alertValueContainer: {
-    borderBottomColor: '#515360',
-    borderBottomWidth: 3,
-    width: Math.round(Dimensions.get('window').width) - 40,
-    marginTop: 5,
-    flexDirection: 'row',
+    alignSelf: "center",
+    marginHorizontal: -10,
   },
   alertDetail: {
     color: '#dbdbdb',
