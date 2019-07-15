@@ -113,6 +113,10 @@ export default class Social extends Component {
         image: require('../assets/icons/noPic.png'),
       })
       friends.sort((a, b) => b.value - a.value);
+      friends.map((f, index) => {
+        f.rank = (index + 1);
+        return f;
+      });
       let requests = await db.getRequests(uid);
       requests = Object.keys(requests);
       this.setState({
@@ -146,6 +150,9 @@ export default class Social extends Component {
         onPress={() => this.load(item)}
         style={styles.row}
       >
+        {item.rank < 4
+          ? ( <Text style={styles['rank' + item.rank]}>{item.rank}</Text> )
+          : ( <Text style={styles.rank}>{item.rank}</Text> )}
           <Avatar
             rounded
             source={item.image}
@@ -277,7 +284,7 @@ const styles = StyleSheet.create({
     width: Math.round(Dimensions.get('window').width) - 28, 
     paddingTop: 15,
     paddingBottom: 15,
-    paddingLeft: 18,
+    paddingLeft: 10,
     paddingRight: 16,
     marginLeft: 14,
     marginRight: 14,
@@ -289,7 +296,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   text1: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#ffffff',
     fontWeight: '600',
   },
@@ -300,5 +307,29 @@ const styles = StyleSheet.create({
   },
   flatStyle: {
     marginTop: 20,
+  },
+  rank1: {
+    color: '#ffd800',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  rank2: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  rank3: {
+    color: '#cd7f32',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  rank: {
+    color: '#c0c0c0',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
   }
 });

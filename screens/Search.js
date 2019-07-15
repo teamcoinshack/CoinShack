@@ -70,14 +70,13 @@ export default class Search extends Component {
                       try {
                         let obj = {};
                         const snap = await db.getData(uid);
+                        const snapped = snap.val();
                         obj.uid = uid;
-                        obj.username = ('username' in snap.val())
-                                        ? snap.val().username
+                        obj.username = ('username' in snapped) 
+                                        ? snapped.username
                                         : 'No name :(';
-                        obj.email = snap.val().email;
-                        obj.title = ('title' in snap.val())
-                                      ? snap.val().title
-                                      : 'Novice';
+                        obj.email = snapped.email;
+                        obj.title_id = snapped.title_id
                         obj.image = require('../assets/icons/noPic.png');
                         return obj;
                       } catch(error) {
@@ -114,7 +113,7 @@ export default class Search extends Component {
         }}>
           <Text style={styles.text1}>{item.username}</Text>
           <Text style={styles.text2}>{item.email}</Text>
-          <Text style={styles.text3}>{item.title}</Text>
+          <Title title_id={item.title_id} />
         </View>
       </TouchableOpacity>
     )
@@ -209,6 +208,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#a4a9b9',
     fontWeight: '500',
+    marginBottom: 5,
   },
   text3: {
     fontSize: 20,
