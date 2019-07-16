@@ -4,6 +4,7 @@ import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; //
 
 export default MyInput = props => {
+  console.log(props.customRightButton)
   return (
     <Input
       value={props.value}
@@ -12,9 +13,11 @@ export default MyInput = props => {
       placeholderTextColor="#999999"
       inputContainerStyle={{ ...styles.container, width: props.width }}
       inputStyle={styles.text}
+      rightIconContainerStyle={styles.rightIconContainer}
       autoCapitalize={props.autoCapitalize}
       secureTextEntry={props.secureTextEntry}
       keyboardType={props.keyboardType}
+      // either Icon or Text
       leftIcon={
         props.leftIconName
           ? <Icon
@@ -28,12 +31,12 @@ export default MyInput = props => {
               </Text>
             : null
       }
-      rightIcon={
-        props.rightText
+      rightIcon={props.customRightButton ||
+        (props.rightText
           ? <Text style={styles.sideText}>
               {props.rightText}
             </Text>
-          : null
+          : null)
       }
     />
   );
@@ -50,6 +53,7 @@ MyInput.defaultProps = {
   secureTextEntry: false,
   keyboardType: "default",
   width: (Dimensions.get('window').width) * 0.7,
+  customRightButton: false,
 }
 
 const styles = StyleSheet.create({
@@ -69,5 +73,9 @@ const styles = StyleSheet.create({
   sideText: {
     color: "#999999",
     fontSize: 20,
+  },
+  rightIconContainer: {
+    marginLeft: -5,
+    marginRight: 10,
   }
 })

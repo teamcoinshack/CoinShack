@@ -318,6 +318,7 @@ export default class Info extends Component {
             </Text>
           </View>
         </View>
+        
         <View style={styles.messageContainer}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.message1}>

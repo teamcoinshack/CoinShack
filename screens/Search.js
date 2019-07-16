@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
+  ScrollView,
   StyleSheet,
   FlatList,
   Dimensions,
@@ -95,7 +96,7 @@ export default class Search extends Component {
     }
   }
 
-  renderRow({item}) {
+  renderRow({ item }) {
     return ( 
       <TouchableOpacity
         style={styles.row}
@@ -128,7 +129,8 @@ export default class Search extends Component {
             flexStart={true}
           />
       </View>
-    )
+    );
+
     const searchResults = (
       <FlatList
         style={styles.flatStyle}
@@ -136,7 +138,8 @@ export default class Search extends Component {
         renderItem={this.renderRow}
         keyExtractor={item => item.uid}
       />
-    )
+    );
+
     const noResults = (
       <View style={{
         flexDirection: 'row',
@@ -152,29 +155,38 @@ export default class Search extends Component {
           No results
         </Text>
       </View>
-    )
+    );
+
     return (
-      <View style={styles.container}>
-        <Searchbar 
-          onChangeText={query => this.fastLoad(query)}
-          search={this.state.query}
-          removeText={() => this.setState({ query: '', results: [] })}
-        />
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.searchbarContainer}>
+          <Searchbar 
+            onChangeText={query => this.fastLoad(query)}
+            search={this.state.query}
+            removeText={() => this.setState({ query: '', results: [] })}
+          />
+        </View>
         {this.state.loading
           ? loading
           : this.state.results.length === 0
             ? noResults
             : searchResults}
-      </View>
+      </ScrollView>
     )
   }
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignSelf: "stretch",
     backgroundColor: background,
     alignItems: 'center',
+  },
+  searchbarContainer: {
+    marginTop: 5,
+    marginHorizontal: 4,
   },
   flatStyle: {
     marginTop: 10,
