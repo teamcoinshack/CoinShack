@@ -13,6 +13,7 @@ import ProfileTab from '../components/ProfileTab.js';
 import db from '../Database.js';
 import q from '../Query.js';
 import ProgressBar from '../components/ProgressBar.js';
+import BadgePanel from '../components/BadgePanel.js';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -131,6 +132,7 @@ export default class Profile extends Component {
               parseFloat(db.unStringify(this.state.totalValue.substring(1)))
             }
           />
+          <BadgePanel />
       </ScrollView>
     );
   }

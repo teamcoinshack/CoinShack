@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import Title from './Title.js';
-import LinearGradient from 'react-native-linear-gradient';
 import { rowBackground } from '../Masterlist.js';
 //Required parameters are text, path, right(content)
 
