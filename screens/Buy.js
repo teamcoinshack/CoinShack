@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import db from '../Database.js';
 import MyRow from '../components/MyRow.js';
+import MyInput from '../components/MyInput.js';
 
 const background = '#373b48';
 
@@ -33,6 +34,8 @@ export default class Buy extends React.Component {
 
     this.buyOnPress = this.buyOnPress.bind(this);
     this.resetState = this.resetState.bind(this);
+    this.box1OnChangeText = this.box1OnChangeText.bind(this);
+    this.box2OnChangeText = this.box2OnChangeText.bind(this);
   }
 
   resetState() {
@@ -93,6 +96,44 @@ export default class Buy extends React.Component {
     })
   }
 
+  box1OnChangeText(value) {
+    Number(db.unStringify(value)) > 999999999999
+      ? this.setState({
+          state: this.state,
+        })
+      : this.setState({
+          input1: String(value) === '' ? false : true,
+          input2: false,
+          actualMoneyBuy: String(value) === ''
+            ? '0'
+            : db.unStringify(value),
+          displayMoneyBuy: String(value) === ''
+            ? '0.00'
+            : db.stringify(db.unStringify(String(value))),
+          displayStockBuy: db.stringify(
+            (Number(db.unStringify(String(value))) / this.state.rate).toFixed(5)
+          ),
+        })
+  }
+
+  box2OnChangeText(value) {
+    Number(db.unStringify(value)) > 99999
+      ? this.setState({
+          state: this.state,
+        })
+      : this.setState({
+          input1: false,
+          input2: String(value) === '' ? false : true,
+          displayStockBuy: String(value) === ''
+            ? '0.00000'
+            : db.stringify(db.unStringify(String(value))),
+          actualMoneyBuy: Number(db.unStringify(String(value)) * this.state.rate),
+          displayMoneyBuy: db.stringify(
+            (Number(db.unStringify(value)) * this.state.rate).toFixed(2)
+          ),
+        })
+  }
+
   render() {
     const loading = (
       <View style={styles.loading}>
@@ -104,7 +145,8 @@ export default class Buy extends React.Component {
           />
         </View>
       </View>
-    )
+    );
+
     const money = db.stringify(Number(this.state.cash).toFixed(2));
 
     const cashValue = (
@@ -129,6 +171,7 @@ export default class Buy extends React.Component {
         </Text>
       </View>
     );
+
     const box1 = (
       <TextInput
         style={styles.textInput}
@@ -219,10 +262,25 @@ export default class Buy extends React.Component {
           justifyContent: 'center',
           width: '80%',
         }}>
-          <Text style={this.state.input1 ? styles.selected : styles.unselected}>
+          {/* <Text style={this.state.input1 ? styles.selected : styles.unselected}>
             $
           </Text>
-          {box1}
+          {box1} */}
+          <MyInput
+            leftText="$"
+            placeholder={
+              this.state.actualMoneyBuy === ''
+                ? '0.00'
+                : this.state.displayMoneyBuy
+            }
+            onChangeText={this.box1OnChangeText}
+            value={
+              !this.state.input1
+                ? ''
+                :this.state.displayMoneyBuy
+            }
+            keyboardType='numeric'
+          />
         </View>
         <View style={{flexDirection: 'row'}}>
           {button}
@@ -231,10 +289,25 @@ export default class Buy extends React.Component {
           flexDirection: 'row', 
           alignItems: 'flex-end', 
         }}>
-          {box2}
+          {/* {box2}
           <Text style={this.state.input2 ? styles.selected : styles.unselected}>
             {this.state.id}
-          </Text>
+          </Text> */}
+          <MyInput
+            rightText={this.state.id}
+            placeholder={
+              this.state.displayStockBuy === ''
+                ? '0.000'
+                : this.state.displayStockBuy
+            }
+            onChangeText={this.box2OnChangeText}
+            value={
+              !this.state.input2
+                ? '' 
+                : this.state.displayStockBuy
+            }
+            keyboardType='numeric'
+          />
         </View>
       </View>
     )
