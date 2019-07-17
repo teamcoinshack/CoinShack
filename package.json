@@ -17,7 +17,7 @@
     "react-native-fbsdk": "0.8.0",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-google-signin": "^2.0.0",
-    "react-native-image-crop-picker": "^0.25.0",
+    "react-native-image-crop-picker": "^0.24.1",
     "react-native-linear-gradient": "^2.5.4",
     "react-native-progress": "^3.6.0",
     "react-native-raw-bottom-sheet": "^2.0.2",
