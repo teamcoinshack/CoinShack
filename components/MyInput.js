@@ -4,7 +4,6 @@ import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; //
 
 export default MyInput = props => {
-  console.log(props.customRightButton)
   return (
     <Input
       value={props.value}
@@ -53,7 +52,7 @@ MyInput.defaultProps = {
   secureTextEntry: false,
   keyboardType: "default",
   width: (Dimensions.get('window').width) * 0.7,
-  customRightButton: false,
+  customRightButton: null,
 }
 
 const styles = StyleSheet.create({
