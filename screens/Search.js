@@ -123,11 +123,11 @@ export default class Search extends Component {
   render() {
     const loading = (
       <View style={styles.loading1}>
-          <MyBar
-            height={65}
-            width={Math.round(Dimensions.get('window').width * 0.7)}
-            flexStart={true}
-          />
+        <MyBar
+          height={65}
+          width={Math.round(Dimensions.get('window').width * 0.7)}
+          flexStart={true}
+        />
       </View>
     );
 
@@ -137,6 +137,7 @@ export default class Search extends Component {
         data={this.state.results}
         renderItem={this.renderRow}
         keyExtractor={item => item.uid}
+        keyboardShouldPersistTaps="always"
       />
     );
 
@@ -160,7 +161,7 @@ export default class Search extends Component {
     return (
       <ScrollView
         contentContainerStyle={styles.container}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps="always"
       >
         <View style={styles.searchbarContainer}>
           <Searchbar 

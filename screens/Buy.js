@@ -240,9 +240,12 @@ export default class Buy extends React.Component {
     )
     
     return (
-      <ScrollView style={{
-        backgroundColor: background,
-      }}>
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        style={{
+          backgroundColor: background,
+        }}
+      >
         <View style={styles.container}>
           <View style={{
             marginTop: 10,

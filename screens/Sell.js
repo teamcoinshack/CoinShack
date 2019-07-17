@@ -270,12 +270,15 @@ export default class Sell extends React.Component {
           {sellAllButton}
         </View>
       </View>
-    )
+    );
 
     return (
-      <ScrollView style={{
-        backgroundColor: background,
-      }}>
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        style={{
+          backgroundColor: background,
+        }}
+      >
         <View style={{
           marginTop: 10,
           marginBottom: 40,

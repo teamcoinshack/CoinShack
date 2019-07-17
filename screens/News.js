@@ -156,6 +156,7 @@ export default class News extends Component {
             alignItems: 'stretch',
           }
         }}
+        closeOnDragDown={true}
       >
         <ScrollView contentContainerStyle={styles.filterContainer}>
           <Text style={styles.filterSheetHeader}>

@@ -297,14 +297,15 @@ export default class Info extends Component {
           </View>
         </TouchableOpacity>
       </View>
-    )
+    );
+
     const above = (
       <Text style={styles.wildcard}> above</Text>
-    )
+    );
 
     const below = (
       <Text style={styles.wildcard}> below</Text>
-    )
+    );
 
     const AlertSheet = (
       <ScrollView
@@ -396,11 +397,13 @@ export default class Info extends Component {
         />
       </View>
     );
+    
     return (
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
         onScroll={this.closeOpenedItem}
+        keyboardShouldPersistTaps="always"
       >
           <View
             style={styles.row}
