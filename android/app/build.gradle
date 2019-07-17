@@ -107,7 +107,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
+        vectorDrawables.useSupportLibrary = true
     }
 
     signingConfigs {
@@ -152,6 +152,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-vector-icons')

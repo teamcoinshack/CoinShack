@@ -10,6 +10,7 @@ import {
 import { Avatar } from 'react-native-elements';
 import Title from './Title.js';
 import { rowBackground } from '../Masterlist.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; //
 //Required parameters are text, path, right(content)
 
 export default ProfileTab = props => (
@@ -43,6 +44,20 @@ export default ProfileTab = props => (
               }}>{props.email}</Text>
               <Title title_id={props.title_id} />
             </View>
+            {props.own
+            ? (
+              <View style={{ flex: 1, alignItems: 'flex-end'}}>
+                <TouchableOpacity
+                  onPress={props.editProfile}
+                >
+                  <Icon
+                    name={'pencil'}
+                    size={26}
+                    color="#999999"
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : null }
           </View>
         </View>
         <View style={{ flexDirection: 'row' }}>

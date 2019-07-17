@@ -122,6 +122,10 @@ export default class Profile extends Component {
             favourite={this.state.favourite}
             email={this.state.email}
             title_id={this.state.title_id}
+            editProfile={
+              () => this.props.navigation.navigate('EditProfile')
+            }
+            own
           />
           <ProgressBar 
             text={'Progress'}

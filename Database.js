@@ -487,6 +487,15 @@ export default class Database {
       console.log(error);
     }
   }
+
+  static storePhoto(uid, url) {
+      const userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + uid);
+      userRef.update({
+        image: url
+      })
+  }
   
   static stringify(num) {
     if (num === undefined) {

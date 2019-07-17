@@ -31,6 +31,7 @@ import Social from './screens/Social.js';
 import Search from './screens/Search.js';
 import FriendsProfile from './screens/FriendsProfile.js';
 import Requests from './screens/Requests.js';
+import EditProfile from './screens/EditProfile.js';
 import { background } from './Masterlist.js';
 
 const headerStyles = {
@@ -208,6 +209,13 @@ const profileStack = createStackNavigator({
     screen: ChangePassword,
     navigationOptions: {
       title: 'Settings',
+      ...headerStyles,
+    }
+  },
+  EditProfile: {
+    screen: EditProfile,
+    navigationOptions: {
+      title: 'Edit Profile',
       ...headerStyles,
     }
   },
