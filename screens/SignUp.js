@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  TextInput, 
   Text, 
   View, 
   StyleSheet, 
@@ -8,6 +7,7 @@ import {
   Alert,
 } from 'react-native';
 import Firebase from 'firebase';
+import MyInput from "../components/MyInput.js";
 
 const background = '#373b48';
 
@@ -17,13 +17,19 @@ export default class SignUp extends Component {
     this.state = { 
       username: '',
       email: '', 
-      password: '', 
+      password: '',
+      confirmPassword: '',
       errorMessage: null 
     }
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
-  async handleSignUp(email, pass, username){
+  async handleSignUp(email, pass, confirmPass, username) {
+    if (pass !== confirmPass) {
+      Alert.alert("Password Mismatch!", "Please try again.");
+      return;
+    }
+
     try {
       await Firebase.auth()
                     .createUserWithEmailAndPassword(email, pass)
@@ -45,74 +51,80 @@ export default class SignUp extends Component {
   }
 
   render() {
-      return (
-        <View style={styles.container}>
-          <View style={{ marginBottom: 20 }}>
-            <Text style={{ 
-              fontSize: 25, 
-              color: '#ffffff', 
-              fontWeight: 'bold' 
-            }}>
+    return (
+      <View style={styles.container}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{
+            fontSize: 25,
+            color: '#ffffff',
+            fontWeight: 'bold'
+          }}>
             Sign Up
             </Text>
-          </View>
-          {this.state.errorMessage &&
-            <Text style={{ color: 'red' }}>
-              {this.state.errorMessage}
-            </Text>}
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder=" Username"
-              placeholderTextColor="#999999"
-              autoCapitalize="none"
-              style={styles.textInput}
-              onChangeText={username => this.setState({ username })}
-              value={this.state.username}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder=" Email"
-              placeholderTextColor="#999999"
-              autoCapitalize="none"
-              style={styles.textInput}
-              onChangeText={email => this.setState({ email })}
-              value={this.state.email}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              secureTextEntry
-              placeholder=" Password"
-              placeholderTextColor="#999999"
-              autoCapitalize="none"
-              style={styles.textInput}
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-            />
-          </View>
-          <MyButton
-            text="Sign Up"
-            onPress={() =>
-              this.handleSignUp(
-                this.state.email, 
-                this.state.password,
-                this.state.username,
-              )
-            } 
-            textColor="#00f9ff"
-            width={Math.round(Dimensions.get('window').width) * 0.5}
+        </View>
+        {this.state.errorMessage &&
+          <Text style={{ color: 'red' }}>
+            {this.state.errorMessage}
+          </Text>}
+
+        <View style={{ alignItems: "center" }}>
+          <MyInput
+            placeholder="Username"
+            onChangeText={username => this.setState({ username })}
+            value={this.state.username}
+            leftIconName="emoticon-outline"
           />
-          <MyButton
-            text="Back to Login"
-            onPress={() => this.props.navigation.navigate('Login')}
-            textColor="#00f9ff"
-            width={Math.round(Dimensions.get('window').width) * 0.5}
+
+          <MyInput
+            placeholder="Email"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+            keyboardType="email-address"
+            leftIconName="email-outline"
+          />
+
+          <MyInput
+            secureTextEntry
+            placeholder="Password"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            leftIconName="lock-outline"
+          />
+
+          <MyInput
+            secureTextEntry
+            placeholder="Confirm Password"
+            onChangeText={confirmPassword => this.setState({ confirmPassword })}
+            value={this.state.confirmPassword}
+            leftIconName="lock-outline"
           />
         </View>
-      )
-    }
+
+        <MyButton
+          text="Sign Up"
+          onPress={() =>
+            this.handleSignUp(
+              this.state.email,
+              this.state.password,
+              this.state.confirmPassword,
+              this.state.username,
+            )
+          }
+          textColor="#00f9ff"
+          width={Math.round(Dimensions.get('window').width) * 0.5}
+        />
+
+        <MyButton
+          text="Back to Login"
+          onPress={() => this.props.navigation.navigate('Login')}
+          textColor="#00f9ff"
+          width={Math.round(Dimensions.get('window').width) * 0.5}
+        />
+      </View>
+    )
+  }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -120,27 +132,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: background,
-  },
-  inputContainer: {
-    borderBottomColor: '#515360',
-    borderBottomWidth: 3,
-    width: Math.round(Dimensions.get('window').width) * 0.7,
-    alignItems: 'center',
-    marginBottom: 6,
-  },
-  textInput: {
-    elevation: 1,
-    borderRadius: 5,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginLeft: 14,
-    marginRight: 14,
-    marginTop: 0,
-    height: 60,
-    width: Math.round(Dimensions.get('window').width) * 0.7,
-    textAlign: 'left',
-    fontSize: 20,
-    color: '#ffffff',
   },
 })
