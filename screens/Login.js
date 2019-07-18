@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  TextInput, 
   Image,
   Text, 
   View, 
@@ -264,27 +263,6 @@ export default class Login extends Component {
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    borderBottomColor: '#515360',
-    borderBottomWidth: 3,
-    width: Math.round(Dimensions.get('window').width) * 0.7,
-    alignItems: 'center',
-    marginBottom: 6,
-  },
-  textInput: {
-    elevation: 1,
-    borderRadius: 5,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginLeft: 14,
-    marginRight: 14,
-    height: 60,
-    width: Math.round(Dimensions.get('window').width) * 0.7,
-    textAlign: 'left',
-    fontSize: 20,
-    color: '#ffffff',
-  },
   container: {
     flex: 1,
     flexDirection: 'column',

@@ -1,17 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text, 
-  TextInput, 
   View, 
   Dimensions,
-  StyleSheet, 
-  FlatList, 
-  Button,
+  StyleSheet,
   ScrollView,
   Alert,
 } from 'react-native';
 import Firebase from 'firebase';
-import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
 
 const background = '#373b48';
@@ -30,7 +26,7 @@ export default class Settings extends Component {
   }
 
   componentDidMount() {
-    this.setState({id: Firebase.auth().currentUser.uid});
+    this.setState({ id: Firebase.auth().currentUser.uid });
   }
 
   async change() {
@@ -52,6 +48,7 @@ export default class Settings extends Component {
       <ScrollView 
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
+        keyboardShouldPersistTaps="always"
       >
         <View style={{ marginBottom: 20 }}>
           <Text style={{ 
@@ -62,39 +59,33 @@ export default class Settings extends Component {
             Change Your Password
           </Text>
         </View>
-        <View style={styles.inputContainer}>
-          <TextInput
+
+        <View style={{ alignItems: "center" }}>
+          <MyInput
             secureTextEntry
-            style={styles.textInput}
             placeholder="Old password"
-            placeholderTextColor="#999999"
-            autoCapitalize="none"
             onChangeText={pass => this.setState({ oldPass: pass })}
-            value={this.state.email}
+            value={this.state.oldPass}
+            leftIconName="lock-outline"
           />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
+
+          <MyInput
             secureTextEntry
-            style={styles.textInput}
             placeholder="New password"
-            placeholderTextColor="#999999"
-            autoCapitalize="none"
             onChangeText={pass => this.setState({ newPass1: pass })}
-            value={this.state.email}
+            value={this.state.newPass1}
+            leftIconName="lock-outline"
           />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
+
+          <MyInput
             secureTextEntry
-            style={styles.textInput}
-            placeholder="New password again"
-            placeholderTextColor="#999999"
-            autoCapitalize="none"
+            placeholder="Confirm password"
             onChangeText={pass => this.setState({ newPass2: pass })}
-            value={this.state.email}
+            value={this.state.newPass2}
+            leftIconName="lock-outline"
           />
         </View>
+
         <MyButton
           text="Change Password"
           onPress={this.change}
@@ -118,26 +109,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: background,
-  },
-  textInput: {
-    elevation: 1,
-    borderRadius: 5,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-start',
-    marginRight: 14,
-    height: 60,
-    width: Math.round(Dimensions.get('window').width) * 0.7,
-    textAlign: 'left',
-    fontSize: 18,
-    color: '#ffffff',
-    padding: 10,
-  },
-  inputContainer: {
-    borderBottomColor: '#515360',
-    borderBottomWidth: 3,
-    width: Math.round(Dimensions.get('window').width) * 0.7,
-    alignItems: 'flex-start',
-    marginBottom: 6,
   },
 });

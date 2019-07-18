@@ -672,13 +672,6 @@ const styles = StyleSheet.create({
     color: '#dbdbdb',
     fontWeight: '500',
   },
-  textInput: {
-    marginLeft: 3,
-    textAlign: 'center',
-    fontSize: 30,
-    alignItems: 'center',
-    color: '#ffffff',
-  },
   wildcard: {
     fontSize: 20,
     color: '#7d96e8',

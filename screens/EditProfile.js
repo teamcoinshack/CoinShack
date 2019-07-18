@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
   Text, 
-  TextInput, 
   View, 
   Dimensions,
   StyleSheet, 
@@ -15,6 +14,7 @@ import Firebase from 'firebase';
 import db from '../Database.js';
 import ImagePicker from 'react-native-image-crop-picker';
 import { background } from '../Masterlist.js';
+import MyInput from '../components/MyInput.js';
 
 export default class Settings extends Component {
   constructor(props) {
