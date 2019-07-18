@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  TextInput, 
   Text, 
   View, 
   StyleSheet, 
@@ -9,10 +8,12 @@ import {
   Dimensions,   
 } from 'react-native';
 import db from '../Database.js';
+import MyRow from '../components/MyRow.js';
+import MyInput from '../components/MyInput.js';
 
 const background = '#373b48';
 
-export default class Sell extends React.Component {
+export default class Sell extends Component {
   constructor(props) {
     super(props);
 
@@ -33,6 +34,8 @@ export default class Sell extends React.Component {
     this.sellOnPress = this.sellOnPress.bind(this);
     this.sellAll = this.sellAll.bind(this);
     this.resetState = this.resetState.bind(this);
+    this.box1OnChangeText = this.box1OnChangeText.bind(this);
+    this.box2OnChangeText = this.box2OnChangeText.bind(this);
   }
 
   async sellOnPress() {
@@ -103,7 +106,45 @@ export default class Sell extends React.Component {
       id: id,
       rate: rate,
       stockValue: stockValue,
-    })
+    });
+  }
+
+  box1OnChangeText(value) {
+    Number(db.unStringify(value)) > 999999999999
+      ? this.setState({
+          state: this.state,
+        })
+      : this.setState({
+          input1: String(value) !== '',
+          input2: false,
+          actualMoneySell: String(value) === ''
+            ? '0'
+            : db.unStringify(value),
+          displayMoneySell: String(value) === ''
+            ? '0.00'
+            : db.stringify(db.unStringify(String(value))),
+          displayStockSell: db.stringify(
+            (Number(db.unStringify(String(value))) / this.state.rate).toFixed(5)
+          ),
+        })
+  }
+
+  box2OnChangeText(value) {
+    Number(db.unStringify(value)) > 99999
+      ? this.setState({
+          state: this.state,
+        })
+      : this.setState({ 
+          input1: false,
+          input2: String(value) !== '',
+          displayStockSell: String(value) === '' 
+            ? '0.00000' 
+            : db.stringify(db.unStringify(String(value))),
+          actualMoneySell: Number(db.unStringify(String(value))*this.state.rate),
+          displayMoneySell: db.stringify(
+            (Number(db.unStringify(value))*this.state.rate).toFixed(2)
+          ),
+        })
   }
 
   render() {
@@ -117,7 +158,8 @@ export default class Sell extends React.Component {
           />
         </View>
       </View>
-    )
+    );
+
     const money = db.stringify(Number(this.state.cash).toFixed(2));
 
     const cashValue = (
@@ -143,132 +185,70 @@ export default class Sell extends React.Component {
       </View>
     );
 
-    const box1 = (
-      <TextInput
-        style={styles.textInput}
-        autoCapitalize="none"
-        keyboardType='numeric'
-        placeholderTextColor='#919191'
-        placeholder={ this.state.actualMoneySell === ''
-                    ? '0.00'
-                    : this.state.displayMoneySell} 
-        onChangeText={value => Number(db.unStringify(value)) > 999999999999 
-        ? this.setState({
-            state: this.state,
-        })
-        : this.setState({ 
-            input1: String(value) === '' ? false : true,
-            input2: false,
-            actualMoneySell: String(value) === '' 
-              ? '0' 
-              : db.unStringify(value),
-            displayMoneySell: String(value) === '' 
-              ? '0.00' 
-              : db.stringify(db.unStringify(String(value))),
-            displayStockSell:db.stringify(
-              (Number(db.unStringify(String(value)))/this.state.rate).toFixed(5)
-            ),
-          })
-        }
-        value={!this.state.input1
-          ? ''
-          :this.state.displayMoneySell
-        }
-      />
-    );
-
-    const box2 = (
-      <TextInput
-        style={styles.textInput}
-        autoCapitalize="none"
-        keyboardType='numeric'
-        placeholderTextColor='#919191'
-        placeholder= { this.state.displayStockSell === ''
-                   ? '0.000'
-                   : this.state.displayStockSell}
-        onChangeText={value => Number(db.unStringify(value)) > 99999
-        ? this.setState({
-          state: this.state,
-        })
-        : this.setState({ 
-            input1: false,
-            input2: String(value) === '' ? false : true,
-            displayStockSell: String(value) === '' 
-              ? '0.00000' 
-              : db.stringify(db.unStringify(String(value))),
-            actualMoneySell: Number(db.unStringify(String(value))*this.state.rate),
-            displayMoneySell: db.stringify(
-              (Number(db.unStringify(value))*this.state.rate).toFixed(2)
-            ),
-          })
-        }
-        value={!this.state.input2
-            ? '' 
-            : this.state.displayStockSell
-        }
-      />
-    );
-
     const button = (
-      <TouchableOpacity
-            style={styles.buttonRow}
-            onPress={this.sellOnPress}
-          >
-            <View style={{ 
-              flexDirection: 'row', 
-              justifyContent: 'center',
-            }}>
-              <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700',}}>
-                Sell
-              </Text>
-            </View>
-          </TouchableOpacity>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.sellOnPress}
+        >
+          <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700',}}>
+            Sell
+          </Text>
+        </TouchableOpacity>
+      </View>
     );
 
     const sellAllButton = (
-      <TouchableOpacity
-        style={styles.buttonRow}
-        onPress={this.sellAll}
-      >
-        <View style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.sellAll}
+        >
           <Text style={{ color: '#ff077a', fontSize: 20, fontWeight: '700', }}>
             Sell All
           </Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     );
 
     const inputs = (
-      <View>
-        <View style={{ 
-          flexDirection: 'row', 
-          alignItems: 'flex-end', 
-          justifyContent: 'center',
-          width: '80%',
-        }}>
-          <Text style={this.state.input1 ? styles.selected : styles.unselected}>
-            $
-          </Text>
-          {box1}
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          {button}
-        </View>
-        <View style={{ 
-          flexDirection: 'row', 
-          alignItems: 'flex-end', 
-        }}>
-          {box2}
-          <Text style={this.state.input2 ? styles.selected : styles.unselected}>
-            {this.state.id}
-          </Text>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          {sellAllButton}
-        </View>
+      <View style={styles.inputs}>
+        <MyInput
+          leftText="$"
+          placeholder={
+            this.state.actualMoneySell === ''
+              ? '0.00'
+              : this.state.displayMoneySell
+          }
+          onChangeText={this.box1OnChangeText}
+          value={
+            !this.state.input1
+              ? ''
+              : this.state.displayMoneySell
+          }
+          keyboardType="numeric"
+        />
+
+        {button}
+
+        <MyInput
+          rightText={this.state.id}
+          placeholder={
+            this.state.displayStockSell === ''
+              ? '0.000'
+              : this.state.displayStockSell
+          }
+          onChangeText={this.box2OnChangeText}
+          value={
+            !this.state.input2
+              ? '' 
+              : this.state.displayStockSell
+          }
+          keyboardType="numeric"
+          textAlign="right"
+        />
+
+        {sellAllButton}
       </View>
     );
 
@@ -279,23 +259,25 @@ export default class Sell extends React.Component {
           backgroundColor: background,
         }}
       >
-        <View style={{
-          marginTop: 10,
-          marginBottom: 40,
-        }}>
-          <MyRow
-            text='Cash'
-            isCash
-            path={require('../assets/icons/cash.png')}
-            right={cashValue}
-          />
-          <MyRow
-            text={this.state.id}
-            path={this.props.navigation.getParam('path', null)}
-            right={walletValue}
-          />
+        <View style={styles.container}>
+          <View style={{
+            marginTop: 10,
+            marginBottom: 40,
+          }}>
+            <MyRow
+              text='Cash'
+              isCash
+              path={require('../assets/icons/cash.png')}
+              right={cashValue}
+            />
+            <MyRow
+              text={this.state.id}
+              path={this.props.navigation.getParam('path', null)}
+              right={walletValue}
+            />
+          </View>
+          {this.state.refreshing ? loading : inputs}
         </View>
-        {this.state.refreshing ? loading : inputs}
       </ScrollView>
     );
   }
@@ -316,38 +298,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: background,
   },
-  textInput: {
-    width: 250,
-    marginTop: 8,
-    textAlign: 'center',
-    fontSize: 30,
-    alignItems: 'center',
-    color: '#ffffff',
-  },
-  selected: {
-    color: '#ffffff',
-    fontSize: 30,
-  },
-  unselected: {
-    color: '#919191',
-    fontSize: 30,
-  },
   buttonRow: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  button: {
     elevation: 1,
     borderRadius: 5,
     backgroundColor: '#515360',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 18,
-    paddingRight: 16,
-    marginLeft: 25,
-    marginRight: 25,
-    marginTop: 10,
-    marginBottom: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 14,
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
   noValue1: {
     paddingLeft: 16,
@@ -363,15 +328,6 @@ const styles = StyleSheet.create({
     color: '#74777c',
     fontWeight: '500',
   },
-  value1: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#ffffff',
-  },
-  value2: {
-    fontSize: 17,
-    color: '#a8a8a8',
-  },
   stockValue1: {
     paddingLeft: 16,
     flex: 0,
@@ -386,14 +342,6 @@ const styles = StyleSheet.create({
     color: '#aeb3c4', 
     fontWeight: '600',
   },
-  imageContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  imageStyle: {
-    width: 40,
-    height: 40,
-  },
   cashValue: {
     paddingLeft: 16,
     flex: 0,
@@ -401,18 +349,9 @@ const styles = StyleSheet.create({
     color: '#aeb3c4', 
     fontWeight: '600',
   },
-  cashName: {
-    paddingLeft: 18,
+  inputs: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  name: {
-    textAlignVertical: 'bottom',
-    includeFontPadding: false,
-    flex: 0,
-    fontSize: 20,
-    color: '#dbdbdb', 
-    fontWeight: '600',
-  },
+    width: "75%",
+    justifyContent: "center",
+  }
 });

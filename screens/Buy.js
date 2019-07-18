@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Text, 
   View, 
@@ -13,7 +13,7 @@ import MyInput from '../components/MyInput.js';
 
 const background = '#373b48';
 
-export default class Buy extends React.Component {
+export default class Buy extends Component {
   constructor(props) {
     super(props);
 
@@ -92,7 +92,7 @@ export default class Buy extends React.Component {
       rate: rate,
       cash: cash,
       stockValue: stockValue,
-    })
+    });
   }
 
   box1OnChangeText(value) {
@@ -101,7 +101,7 @@ export default class Buy extends React.Component {
           state: this.state,
         })
       : this.setState({
-          input1: String(value) === '' ? false : true,
+          input1: String(value) !== '',
           input2: false,
           actualMoneyBuy: String(value) === ''
             ? '0'
@@ -122,7 +122,7 @@ export default class Buy extends React.Component {
         })
       : this.setState({
           input1: false,
-          input2: String(value) === '' ? false : true,
+          input2: String(value) !== '',
           displayStockBuy: String(value) === ''
             ? '0.00000'
             : db.stringify(db.unStringify(String(value))),
@@ -197,7 +197,7 @@ export default class Buy extends React.Component {
           value={
             !this.state.input1
               ? ''
-              :this.state.displayMoneyBuy
+              : this.state.displayMoneyBuy
           }
           keyboardType='numeric'
         />
@@ -250,7 +250,7 @@ export default class Buy extends React.Component {
           {this.state.refreshing ? loading : inputs }
         </View>
       </ScrollView>
-    )
+    );
   }
 }
 
