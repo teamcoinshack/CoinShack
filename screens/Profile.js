@@ -90,6 +90,7 @@ export default class Profile extends Component {
       const totalValue = await db.getTotalValue(uid, snapped);
       const favCoin = await this.getFavCoin(wallet);
       const newTitle = db.newTitle(snapped.title_id, totalValue); 
+      const image = snapped.image;
       this.setState({
         username: snapped.username,
         email: Firebase.auth().currentUser.email,
@@ -97,6 +98,7 @@ export default class Profile extends Component {
         refreshing: false,
         favourite: wallet ? favCoin.charAt(0).toUpperCase() + favCoin.slice(1) : favCoin,
         title_id: newTitle,
+        image: image,
       })
     } catch(error) {
       console.log(error);
@@ -135,6 +137,7 @@ export default class Profile extends Component {
             totalValue={
               parseFloat(db.unStringify(this.state.totalValue.substring(1)))
             }
+            path={{ uri: 'data:image/jpg;base64,' + this.state.image }} 
           />
           <BadgePanel />
       </ScrollView>
