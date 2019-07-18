@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  TextInput, 
   Text, 
   View, 
   ScrollView,
@@ -172,145 +171,57 @@ export default class Buy extends React.Component {
       </View>
     );
 
-    const box1 = (
-      <TextInput
-        style={styles.textInput}
-        autoCapitalize="none"
-        keyboardType='numeric'
-        placeholderTextColor='#919191'
-        placeholder={ this.state.actualMoneyBuy === ''
-                    ? '0.00'
-                    : this.state.displayMoneyBuy} 
-        onChangeText={value => Number(db.unStringify(value)) > 999999999999 
-        ? this.setState({
-            state: this.state,
-        })
-        : this.setState({ 
-            input1: String(value) === '' ? false : true,
-            input2: false,
-            actualMoneyBuy: String(value) === '' 
-              ? '0' 
-              : db.unStringify(value),
-            displayMoneyBuy: String(value) === '' 
-              ? '0.00' 
-              : db.stringify(db.unStringify(String(value))),
-            displayStockBuy:db.stringify(
-              (Number(db.unStringify(String(value)))/this.state.rate).toFixed(5)
-            ),
-          })
-        }
-        value={!this.state.input1
-          ? ''
-          :this.state.displayMoneyBuy
-        }
-      />
-    );
-
-    const box2 = (
-      <TextInput
-        style={styles.textInput}
-        autoCapitalize="none"
-        keyboardType='numeric'
-        placeholderTextColor='#919191'
-        placeholder= { this.state.displayStockBuy === ''
-                   ? '0.000'
-                   : this.state.displayStockBuy}
-        onChangeText={value => Number(db.unStringify(value)) > 99999
-        ? this.setState({
-          state: this.state,
-        })
-        : this.setState({ 
-            input1: false,
-            input2: String(value) === '' ? false : true,
-            displayStockBuy: String(value) === '' 
-              ? '0.00000' 
-              : db.stringify(db.unStringify(String(value))),
-            actualMoneyBuy: Number(db.unStringify(String(value))*this.state.rate),
-            displayMoneyBuy: db.stringify(
-              (Number(db.unStringify(value))*this.state.rate).toFixed(2)
-            ),
-          })
-        }
-        value={!this.state.input2
-            ? '' 
-            : this.state.displayStockBuy
-        }
-      />
-    );
-
     const button = (
-      <TouchableOpacity
-        style={styles.buttonRow}
-        onPress={this.buyOnPress}
-      >
-        <View style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.buyOnPress}
+        >
           <Text style={{ color: '#14ffb0', fontSize: 20, fontWeight: '700', }}>
             Buy
           </Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     );
 
     const inputs = (
-      <View styles={{ backgroundColor: 'white' }}>
-        <View style={{ 
-          flexDirection: 'row', 
-          alignItems: 'flex-end', 
-          justifyContent: 'center',
-          width: '80%',
-        }}>
-          {/* <Text style={this.state.input1 ? styles.selected : styles.unselected}>
-            $
-          </Text>
-          {box1} */}
-          <MyInput
-            leftText="$"
-            placeholder={
-              this.state.actualMoneyBuy === ''
-                ? '0.00'
-                : this.state.displayMoneyBuy
-            }
-            onChangeText={this.box1OnChangeText}
-            value={
-              !this.state.input1
-                ? ''
-                :this.state.displayMoneyBuy
-            }
-            keyboardType='numeric'
-          />
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          {button}
-        </View>
-        <View style={{ 
-          flexDirection: 'row', 
-          alignItems: 'flex-end', 
-        }}>
-          {/* {box2}
-          <Text style={this.state.input2 ? styles.selected : styles.unselected}>
-            {this.state.id}
-          </Text> */}
-          <MyInput
-            rightText={this.state.id}
-            placeholder={
-              this.state.displayStockBuy === ''
-                ? '0.000'
-                : this.state.displayStockBuy
-            }
-            onChangeText={this.box2OnChangeText}
-            value={
-              !this.state.input2
-                ? '' 
-                : this.state.displayStockBuy
-            }
-            keyboardType='numeric'
-          />
-        </View>
+      <View style={styles.inputs}>
+        <MyInput
+          leftText="$"
+          placeholder={
+            this.state.actualMoneyBuy === ''
+              ? '0.00'
+              : this.state.displayMoneyBuy
+          }
+          onChangeText={this.box1OnChangeText}
+          value={
+            !this.state.input1
+              ? ''
+              :this.state.displayMoneyBuy
+          }
+          keyboardType='numeric'
+        />
+
+        {button}
+
+        <MyInput
+          rightText={this.state.id}
+          placeholder={
+            this.state.displayStockBuy === ''
+              ? '0.000'
+              : this.state.displayStockBuy
+          }
+          onChangeText={this.box2OnChangeText}
+          value={
+            !this.state.input2
+              ? '' 
+              : this.state.displayStockBuy
+          }
+          keyboardType='numeric'
+          textAlign="right"
+        />
       </View>
-    )
+    );
     
     return (
       <ScrollView
@@ -358,38 +269,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: background,
   },
-  textInput: {
-    width: 250,
-    marginTop: 8,
-    textAlign: 'center',
-    fontSize: 30,
-    alignItems: 'center',
-    color: '#ffffff',
-  },
-  selected: {
-    color: '#ffffff',
-    fontSize: 30,
-  },
-  unselected: {
-    color: '#919191',
-    fontSize: 30,
-  },
   buttonRow: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  button: {
     elevation: 1,
     borderRadius: 5,
     backgroundColor: '#515360',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 18,
-    paddingRight: 16,
-    marginLeft: 25,
-    marginRight: 25,
-    marginTop: 10,
-    marginBottom: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 14,
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
   noValue1: {
     paddingLeft: 16,
@@ -405,15 +299,6 @@ const styles = StyleSheet.create({
     color: '#74777c',
     fontWeight: '500',
   },
-  value1: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#ffffff',
-  },
-  value2: {
-    fontSize: 17,
-    color: '#a8a8a8',
-  },
   stockValue1: {
     paddingLeft: 16,
     flex: 0,
@@ -428,14 +313,6 @@ const styles = StyleSheet.create({
     color: '#aeb3c4', 
     fontWeight: '600',
   },
-  imageContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  imageStyle: {
-    width: 40,
-    height: 40,
-  },
   cashValue: {
     paddingLeft: 16,
     flex: 0,
@@ -443,18 +320,9 @@ const styles = StyleSheet.create({
     color: '#aeb3c4', 
     fontWeight: '600',
   },
-  cashName: {
-    paddingLeft: 18,
+  inputs: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  name: {
-    textAlignVertical: 'bottom',
-    includeFontPadding: false,
-    flex: 0,
-    fontSize: 20,
-    color: '#dbdbdb', 
-    fontWeight: '600',
-  },
+    width: "75%",
+    justifyContent: "center",
+  }
 });
