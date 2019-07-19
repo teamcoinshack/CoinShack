@@ -77,8 +77,8 @@ export default class Search extends Component {
                                         ? snapped.username
                                         : 'No name :(';
                         obj.email = snapped.email;
-                        obj.title_id = snapped.title_id
-                        obj.image = require('../assets/icons/noPic.png');
+                        obj.title_id = snapped.title_id;
+                        obj.image = await db.getPhoto(uid); 
                         return obj;
                       } catch(error) {
                         console.log(error);
@@ -97,16 +97,29 @@ export default class Search extends Component {
   }
 
   renderRow({ item }) {
+    const noPic = (
+      <Avatar
+        rounded
+        source={require('../assets/icons/noPic.png')}
+        style={styles.imageStyle}
+      />
+    )
+
+    const havePic = (
+      <Avatar
+        rounded
+        source={{ uri: `data:image/jpg;base64,${item.image}` }}
+        style={styles.imageStyle}
+      />
+    )
     return ( 
       <TouchableOpacity
         style={styles.row}
         onPress={() => this.load(item)}
       >
-        <Avatar
-          rounded
-          source={item.image}
-          style={styles.imageStyle}
-        />
+        {item.image
+          ? havePic
+          : noPic}
         <View style={{
           flexDirection: 'column',
           alignItems: 'flex-start',
