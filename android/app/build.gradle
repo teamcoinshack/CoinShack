@@ -152,7 +152,6 @@ android {
 }
 
 dependencies {
-    implementation project(':rn-fetch-blob')
     implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-fbsdk')
