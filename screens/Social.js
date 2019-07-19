@@ -74,6 +74,7 @@ export default class Social extends Component {
           friendUid: friend.uid,
           friendEmail: friend.email,
           callback: this.refresh,
+          image: friend.image,
         })
   }
   
@@ -82,6 +83,7 @@ export default class Social extends Component {
       const uid = Firebase.auth().currentUser.uid;
       let friends = await db.getFriends(uid); 
       friends = Object.keys(friends);
+      console.log(friends);
       friends = await Promise.all(
                     friends.map(async function(uid) {
                       try {
@@ -95,7 +97,7 @@ export default class Social extends Component {
                         obj.email = snapped.email;
                         obj.value = await db.getTotalValue(uid, snapped);
                         obj.title_id = snapped.title_id;
-                        obj.image = require('../assets/icons/noPic.png');
+                        obj.image = await db.getPhoto(uid); 
                         return obj;
                       } catch(error) {
                         console.log(error);
@@ -110,7 +112,7 @@ export default class Social extends Component {
         email: snapped.email,
         value: await db.getTotalValue(uid, snapped),
         title_id: snapped.title_id,
-        image: require('../assets/icons/noPic.png'),
+        image: await db.getPhoto(uid),
       })
       friends.sort((a, b) => b.value - a.value);
       friends.map((f, index) => {
@@ -145,6 +147,20 @@ export default class Social extends Component {
   }
 
   renderRow({ item }) {
+    const noPic = (
+      <Avatar
+        rounded
+        source={require('../assets/icons/noPic.png')}
+        style={styles.imageStyle}
+      />
+    )
+    const havePic = (
+      <Avatar
+        rounded
+        source={{ uri: `data:image/jpg;base64,${item.image}` }}
+        style={styles.imageStyle}
+      />
+    )
     return ( 
       <TouchableOpacity
         onPress={() => this.load(item)}
@@ -153,11 +169,9 @@ export default class Social extends Component {
         {item.rank < 4
           ? ( <Text style={styles['rank' + item.rank]}>{item.rank}</Text> )
           : ( <Text style={styles.rank}>{item.rank}</Text> )}
-          <Avatar
-            rounded
-            source={item.image}
-            style={styles.imageStyle}
-          />
+          {item.image
+            ? havePic
+            : noPic}
           <View style={{
             flexDirection: 'column',
             alignItems: 'flex-start',

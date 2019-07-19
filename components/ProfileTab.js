@@ -21,11 +21,21 @@ export default ProfileTab = props => (
           flexDirection: 'row', 
         }}>
           <View style={styles.imageAndNameContainer}>
-            <Avatar
-              rounded
-              source={props.path}
-              style={styles.imageStyle}
-            />
+            {props.path
+              ? (
+                  <Avatar
+                    rounded
+                    source={props.path}
+                    style={styles.imageStyle}
+                  />
+                )
+              : (
+                  <Avatar
+                    rounded
+                    source={require('../assets/icons/noPic.png')}
+                    style={styles.imageStyle}
+                  />
+                )}
             <View style={{ 
               flexDirection: 'column',
               marginLeft: 20,

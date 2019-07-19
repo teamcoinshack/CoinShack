@@ -73,6 +73,7 @@ export default class Requests extends Component {
       friendEmail: friend.email,
       callback: this.state.callback,
       callback2: this.refresh,
+      image: friend.image,
     })
   }
 
@@ -96,7 +97,7 @@ export default class Requests extends Component {
               obj.title = ('title' in snapped)
                 ? snap.val().title
                 : 'NOVICE';
-              obj.image = require('../assets/icons/noPic.png');
+              obj.image = await db.getPhoto(uid); 
               return obj;
             } catch(error) {
               console.log(error);
@@ -126,6 +127,20 @@ export default class Requests extends Component {
   }
 
   renderRow({item}) {
+    const noPic = (
+      <Avatar
+        rounded
+        source={require('../assets/icons/noPic.png')}
+        style={styles.imageStyle}
+      />
+    )
+    const havePic = (
+      <Avatar
+        rounded
+        source={{ uri: `data:image/jpg;base64,${item.image}` }}
+        style={styles.imageStyle}
+      />
+    )
     const loading = (
       <View style={styles.loadingStyle}>
           <MyBar
@@ -144,11 +159,9 @@ export default class Requests extends Component {
           style={styles.row}
           onPress={() => this.load(item)}
         >
-          <Avatar
-            rounded
-            source={item.image}
-            style={styles.imageStyle}
-          />
+        {item.image
+          ? havePic
+          : noPic}
           <View style={{
             flexDirection: 'column',
             alignItems: 'flex-start',

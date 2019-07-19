@@ -491,10 +491,18 @@ export default class Database {
   static storePhoto(uid, url) {
       const userRef = Firebase.app()
                             .database()
-                            .ref('/users/' + uid);
+                            .ref('/photos/' + uid);
       userRef.update({
         image: url
       })
+  }
+
+  static async getPhoto(uid) {
+    const snap = await Firebase.app()
+                          .database()
+                          .ref('/photos/' + uid)
+                          .once('value');
+    return snap.val() ? snap.val().image : false;  
   }
   
   static stringify(num) {

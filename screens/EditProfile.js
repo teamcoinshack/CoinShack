@@ -24,8 +24,9 @@ export default class Settings extends Component {
       uid: null,
       username: null,
       email: null,
-      pic: null,
       uid: null,
+      b64: null,
+      callback: null,
     }
     this.changeUsername = this.changeUsername.bind(this);
     this.getAuthProviders = this.getAuthProviders.bind(this);
@@ -33,19 +34,23 @@ export default class Settings extends Component {
     this.isNotFbLogin = this.isNotFbLogin.bind(this);
     this.isNotGoogleLogin = this.isNotGoogleLogin.bind(this);
     this.getImage = this.getImage.bind(this);
+    this.saveChanges = this.saveChanges.bind(this);
   }
 
   async componentDidMount() {
     try {
+      const { navigation } = this.props;
       const uid = Firebase.auth().currentUser.uid;
       const snap = await db.getData(uid);
       const snapped = snap.val();
-      const pic = ('image' in snapped) ? snapped.image : false;
+      const b64 = await db.getPhoto(uid);
+      const callback = navigation.getParam('callback', null);
       this.setState({
         uid: uid,
         username: snapped.username,
         email: snapped.email,
-        pic: pic,
+        b64: b64,
+        callback: callback,
       })
     } catch (error) {
       console.log(error);
@@ -57,8 +62,6 @@ export default class Settings extends Component {
 
   async getImage() {
     try {
-      const uid = this.state.uid;
-
       const image = await ImagePicker.openPicker({
         width: 300,
         height: 300,
@@ -66,16 +69,18 @@ export default class Settings extends Component {
         mediaType: 'photo',
         includeBase64: true,
       })
-      const imagePath = image.path;
-      const imageRef = await Firebase.storage()
-                               .ref(uid + '/dp.jpg')
-      //await imageRef.putString(image.data, 'base64', {contentType: 'image/jpg'});
-      //const url = await imageRef.getDownloadURL();
-      db.storePhoto(uid, image.data);
-      alert('done upload');
+      this.setState({
+        b64: image.data,
+      })
     } catch (error) {
       console.log(error);
     }
+  }
+
+  saveChanges() {
+    db.storePhoto(this.state.uid, this.state.b64); 
+    this.state.callback();
+    this.props.navigation.navigate('Profile');
   }
 
   getAuthProviders() {
@@ -128,7 +133,7 @@ export default class Settings extends Component {
     const havePic = (
       <Avatar
         rounded
-        source={{ uri: `data:image/jpg;base64,${this.state.pic}` }}
+        source={{ uri: `data:image/jpg;base64,${this.state.b64}` }}
         style={styles.imageStyle}
       />
     )
@@ -141,7 +146,7 @@ export default class Settings extends Component {
           <TouchableOpacity
             onPress={this.getImage}
           >
-            {this.state.pic
+            {this.state.b64
               ? havePic
               : noPic }
           </TouchableOpacity>
@@ -149,7 +154,7 @@ export default class Settings extends Component {
           {this.isNotGoogleLogin() && this.isNotFbLogin() && emailInput}
           <MyButton
             text="Save Changes"
-            onPress={this.save}
+            onPress={this.saveChanges}
             textColor="#00f9ff"
             width={Math.round(Dimensions.get('window').width) * 0.6}
           />

@@ -42,7 +42,7 @@ export default class Profile extends Component {
   toggleVisibility() {
     this.setState({ tooltipVisible: !this.state.tooltipVisible });
   }
-  
+
   async getFavCoin(wallet) {
     try {
       let coins = await Promise.all(
@@ -90,7 +90,7 @@ export default class Profile extends Component {
       const totalValue = await db.getTotalValue(uid, snapped);
       const favCoin = await this.getFavCoin(wallet);
       const newTitle = db.newTitle(snapped.title_id, totalValue); 
-      const image = snapped.image;
+      const image = await db.getPhoto(uid);
       this.setState({
         username: snapped.username,
         email: Firebase.auth().currentUser.email,
@@ -125,10 +125,15 @@ export default class Profile extends Component {
             email={this.state.email}
             title_id={this.state.title_id}
             editProfile={
-              () => this.props.navigation.navigate('EditProfile')
+              () => this.props.navigation.navigate('EditProfile', {
+                  callback: this.refresh,
+                }
+              )
             }
             own
-            path={{ uri: `data:image/jpg;base64,${this.state.image}` }}
+            path={this.state.image
+                  ? { uri: `data:image/jpg;base64,${this.state.image}` }
+                  : null}
           />
           <ProgressBar 
             text={'Progress'}

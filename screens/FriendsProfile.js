@@ -146,12 +146,14 @@ export default class FriendsProfile extends Component {
       const email = navigation.getParam('friendEmail', null);
       const callback = navigation.getParam('callback', null);
       const callback2 = navigation.getParam('callback2', null);
+      const image = navigation.getParam('image', null);
       this.setState({
         uid: Firebase.auth().currentUser.uid,
         friendUid: friendUid,
         email: email,
         callback: callback,
         callback2: callback2,
+        image: image,
       }, () => this.refresh());
     } catch(error) {
       console.log(error);
@@ -307,6 +309,9 @@ export default class FriendsProfile extends Component {
           username={this.state.username}
           favourite={this.state.favourite}
           title_id={this.state.title_id}
+          path={this.state.image 
+                ? { uri: `data:image/jpg;base64,${this.state.image}` }
+                : null}
         />
         { this.state.refreshing || this.state.uid === this.state.friendUid
           ? null 
