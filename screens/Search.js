@@ -37,6 +37,7 @@ export default class Search extends Component {
       friendUid: friend.uid,
       friendEmail: friend.email,
       callback: this.state.callback,
+      image: friend.image,
     })
   }
 

@@ -36,6 +36,18 @@ export default class Sell extends Component {
     this.resetState = this.resetState.bind(this);
     this.box1OnChangeText = this.box1OnChangeText.bind(this);
     this.box2OnChangeText = this.box2OnChangeText.bind(this);
+    this.resetState = this.resetState.bind(this);
+  }
+
+  resetState() {
+    this.setState({ 
+      refreshing: false,
+      actualMoneyBuy: '',
+      displayMoneyBuy: '',
+      displayStockBuy: '',
+      input1: false,
+      input2: false,
+    });
   }
 
   async sellOnPress() {
@@ -84,6 +96,9 @@ export default class Sell extends Component {
       if (res === 0) {
         this.state.callback();
         this.props.navigation.navigate('Main');
+        this.resetState();
+      } else {
+        this.resetState();
       }
     } catch(error) {
       console.log(error);
