@@ -128,6 +128,7 @@ export default class Profile extends Component {
               () => this.props.navigation.navigate('EditProfile')
             }
             own
+            path={{ uri: `data:image/jpg;base64,${this.state.image}` }}
           />
           <ProgressBar 
             text={'Progress'}

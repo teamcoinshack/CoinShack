@@ -105,7 +105,7 @@ export default ProgressBar = props => (
               </View>
               <View style={{ flexDirection: 'column' }}>
                 <Text style={{ color: '#dbdbdb', fontSize: 15}}>
-                  Earn ${db.stringify(tier[props.title_id + 1] - props.totalValue)} more 
+                  Earn ${db.stringify((tier[props.title_id + 1] - props.totalValue).toFixed(2))} more 
                 </Text>
                 <Text style={{ color: '#dbdbdb', fontSize: 15}}>
                   to attain the next title!

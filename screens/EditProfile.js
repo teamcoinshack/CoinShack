@@ -33,7 +33,6 @@ export default class Settings extends Component {
     this.isNotFbLogin = this.isNotFbLogin.bind(this);
     this.isNotGoogleLogin = this.isNotGoogleLogin.bind(this);
     this.getImage = this.getImage.bind(this);
-    this.base64toBlob = this.base64toBlob.bind(this);
   }
 
   async componentDidMount() {
@@ -56,27 +55,6 @@ export default class Settings extends Component {
   async changeUsername() {
   }
 
-  base64toBlob(base64Data) {
-    const contentType = 'image/jpg';
-    var sliceSize = 1024;
-    var byteCharacters = atob(base64Data);
-    var bytesLength = byteCharacters.length;
-    var slicesCount = Math.ceil(bytesLength / sliceSize);
-    var byteArrays = new Array(slicesCount);
-
-    for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
-        var begin = sliceIndex * sliceSize;
-        var end = Math.min(begin + sliceSize, bytesLength);
-
-        var bytes = new Array(end - begin);
-        for (var offset = begin, i = 0; offset < end; ++i, ++offset) {
-            bytes[i] = byteCharacters[offset].charCodeAt(0);
-        }
-        byteArrays[sliceIndex] = new Uint8Array(bytes);
-    }
-    return new Blob(byteArrays, { type: contentType });
-  }
-
   async getImage() {
     try {
       const uid = this.state.uid;
@@ -89,15 +67,12 @@ export default class Settings extends Component {
         includeBase64: true,
       })
       const imagePath = image.path;
-      const imageRef = Firebase.storage()
-                               .ref(uid)
-                               .child('dp.jpg');
-      let mime = 'image/jpg';
-      await imageRef.putString(image.data, 'base64', { contentType: mime }); 
-      alert('b64 stored');
-      const url = await imageRef.getDownloadURL();
-      console.log(url);
-      db.storePhoto(uid, url);
+      const imageRef = await Firebase.storage()
+                               .ref(uid + '/dp.jpg')
+      //await imageRef.putString(image.data, 'base64', {contentType: 'image/jpg'});
+      //const url = await imageRef.getDownloadURL();
+      db.storePhoto(uid, image.data);
+      alert('done upload');
     } catch (error) {
       console.log(error);
     }
@@ -153,7 +128,7 @@ export default class Settings extends Component {
     const havePic = (
       <Avatar
         rounded
-        source={{ uri: this.state.pic }}
+        source={{ uri: `data:image/jpg;base64,${this.state.pic}` }}
         style={styles.imageStyle}
       />
     )
