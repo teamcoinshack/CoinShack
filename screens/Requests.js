@@ -79,14 +79,18 @@ export default class Requests extends Component {
 
   async refresh() {
     try {
-      const uid = Firebase.auth().currentUser.uid;
-      let reqs = await db.getRequests(uid);
+      const myUid = Firebase.auth().currentUser.uid;
+      let reqs = await db.getRequests(myUid);
       reqs = Object.keys(reqs);
       reqs = await Promise.all(
           reqs.map(async function(uid) {
             try {
               let obj = {};
               const snap = await db.getData(uid);
+              if (!snap) {  
+                db.removeFriend(myUid, uid)
+                return false;
+              }
               const snapped = snap.val();
               obj.uid = uid;
               obj.username = ('username' in snapped)
@@ -104,8 +108,9 @@ export default class Requests extends Component {
             }
           })
         )
+      console.log(reqs);
       this.setState({
-        uid: uid,
+        uid: myUid,
         requests: reqs,
         refreshing: false,
       })
@@ -119,6 +124,7 @@ export default class Requests extends Component {
       const { navigation } = this.props;
       const callback = navigation.getParam('callback', null);
       this.setState({
+        uid: Firebase.auth().currentUser.uid,
         callback: callback,
       }, () => this.refresh());
     } catch (error) {
@@ -127,6 +133,7 @@ export default class Requests extends Component {
   }
 
   renderRow({item}) {
+    if (!item) { return null; }
     const noPic = (
       <Avatar
         rounded

@@ -80,14 +80,18 @@ export default class Social extends Component {
   
   async refresh() {
     try {
-      const uid = Firebase.auth().currentUser.uid;
-      let friends = await db.getFriends(uid); 
+      const myUid = Firebase.auth().currentUser.uid;
+      let friends = await db.getFriends(myUid); 
       friends = Object.keys(friends);
       friends = await Promise.all(
                     friends.map(async function(uid) {
                       try {
                         let obj = {};
                         const snap = await db.getData(uid);
+                        if (!snap) {  
+                          db.removeFriend(myUid, uid)
+                          return false;
+                        }
                         const snapped = snap.val();
                         obj.uid = uid;
                         obj.username = ('username' in snapped)
@@ -105,25 +109,25 @@ export default class Social extends Component {
                       }
                     })
                   )
-      const myData = await db.getData(uid);
+      const myData = await db.getData(myUid);
       const snapped = myData.val();
       friends.push({
-        uid: uid,
+        uid: myUid,
         username: snapped.username + ' (You)',
         email: snapped.email,
-        value: await db.getTotalValue(uid, snapped),
+        value: await db.getTotalValue(myUid, snapped),
         title_id: snapped.title_id,
-        image: await db.getPhoto(uid),
+        image: await db.getPhoto(myUid),
       })
       friends.sort((a, b) => b.value - a.value);
       friends.map((f, index) => {
         f.rank = (index + 1);
         return f;
       });
-      let requests = await db.getRequests(uid);
+      let requests = await db.getRequests(myUid);
       requests = Object.keys(requests);
       this.setState({
-        uid: uid,
+        uid: myUid,
         friends: friends,
         refreshing: false,
         haveRequests: requests.length > 0,
@@ -148,6 +152,7 @@ export default class Social extends Component {
   }
 
   renderRow({ item }) {
+    if (!item) { return null; }
     const noPic = (
       <Avatar
         rounded

@@ -3,12 +3,13 @@ import q from './Query.js';
 import { Mapping } from './Masterlist.js';
 
 export default class Database {
-  static async getData(userID) {
-      const snap = await Firebase.app()
+  static async getData(uid) {
+      let snap = await Firebase.app()
                                  .database()
-                                 .ref('/users/' + userID)
-                                 .once('value')
-      return snap;
+                                 .ref('/users/' + uid)
+                                 .once('value');
+      console.log(snap.val());
+      return snap.val() ? snap : false;
   }
 
   // can consider using cloud functions for new user creation,
@@ -520,6 +521,43 @@ export default class Database {
                           .ref('/photos/' + uid)
                           .once('value');
     return snap.val() ? snap.val().image : false;  
+  }
+
+  static removeFriend(uid, deletedUid) {
+    //used when user deletes account and friend of user refreshes friends list
+    const ref = Firebase.app()
+                        .database()
+                        .ref('/friends/' + uid)
+    ref.child('friendsList').child(deletedUid).set(null);
+    ref.child('requestsList').child(deletedUid).set(null);
+  }
+
+  static deleteAccount(uid) {
+      Firebase.app()
+              .database()
+              .ref('/usersData/emails/')
+              .child(uid)
+              .set(null);
+      Firebase.app()
+              .database()
+              .ref('/usersData/usernames/')
+              .child(uid)
+              .set(null);
+      Firebase.app()
+              .database()
+              .ref('/users/')
+              .child(uid)
+              .set(null);
+      Firebase.app()
+              .database()
+              .ref('/photos/')
+              .child(uid)
+              .set(null);
+      Firebase.app()
+              .database()
+              .ref('/friends/')
+              .child(uid)
+              .set(null);
   }
   
   static stringify(num) {
