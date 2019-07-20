@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   style5: {
-    color: '#b635f2',
+    color: '#d273ff',
     fontWeight: '700',
     fontSize: 15,
   },
