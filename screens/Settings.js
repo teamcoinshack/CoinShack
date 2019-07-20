@@ -33,6 +33,7 @@ export default class Settings extends Component {
     this.isNotGoogleLogin = this.isNotGoogleLogin.bind(this);
     this.linkGoogleButton = this.linkGoogleButton.bind(this);
     this.linkGoogleAcc = this.linkGoogleAcc.bind(this);
+    this.deleteAccount = this.deleteAccount.bind(this);
 
     this.googleProvider = new Firebase.auth.GoogleAuthProvider();
     
@@ -46,7 +47,7 @@ export default class Settings extends Component {
       const uid = Firebase.auth().currentUser.uid;
       const snap = await db.getData(uid);
       this.setState({
-        id: uid,
+        uid: uid,
       });
     } catch(error) {
       console.log(error);
@@ -55,6 +56,12 @@ export default class Settings extends Component {
 
   changePassword() {
     this.props.navigation.navigate('ChangePassword');
+  }
+
+  deleteAccount() {
+    db.deleteAccount(this.state.uid);
+    let user = Firebase.auth().currentUser;
+    user.delete().then(() => this.props.navigation.navigate('Login'));
   }
 
   logout() {
@@ -173,6 +180,11 @@ export default class Settings extends Component {
         {this.isEmailLogin() && this.changePasswordButton()}
         {this.isNotFbLogin() && this.linkFbButton()}
         {this.isNotGoogleLogin() && this.linkGoogleButton()}
+        <MyButton
+          text="Delete Account"
+          onPress={this.deleteAccount}
+          width={Math.round(Dimensions.get('window').width) * 0.6}
+        />
         <MyButton
           text="Logout"
           onPress={this.logout}
