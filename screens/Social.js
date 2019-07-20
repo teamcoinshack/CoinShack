@@ -83,7 +83,6 @@ export default class Social extends Component {
       const uid = Firebase.auth().currentUser.uid;
       let friends = await db.getFriends(uid); 
       friends = Object.keys(friends);
-      console.log(friends);
       friends = await Promise.all(
                     friends.map(async function(uid) {
                       try {
@@ -94,7 +93,9 @@ export default class Social extends Component {
                         obj.username = ('username' in snapped)
                                         ? snapped.username
                                         : 'No name :(';
-                        obj.email = snapped.email;
+                        obj.email = snapped.email.length > 20 
+                                      ? snapped.email.substring(0, 2) + '...'
+                                      : snapped.email;
                         obj.value = await db.getTotalValue(uid, snapped);
                         obj.title_id = snapped.title_id;
                         obj.image = await db.getPhoto(uid); 

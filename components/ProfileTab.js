@@ -51,7 +51,11 @@ export default ProfileTab = props => (
                 fontWeight: '500',
                 fontSize: 15,
                 marginBottom: 5,
-              }}>{props.email}</Text>
+              }}>
+                {props.email.length > 20
+                  ? props.email.substring(0, 19) + '...'
+                  : props.email}
+              </Text>
               <Title title_id={props.title_id} />
             </View>
             {props.own

@@ -25,6 +25,7 @@ export default class Profile extends Component {
       title_id: 1,
       tooltipVisible: false,
       totalValue: '0',
+      email: '',
     }
     this.refresh = this.refresh.bind(this);
     this.getFavCoin = this.getFavCoin.bind(this);

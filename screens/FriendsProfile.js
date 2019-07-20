@@ -33,6 +33,7 @@ export default class FriendsProfile extends Component {
       callback: null,
       callback2: null,
       loading: false,
+      email: '',
     }
     this.refresh = this.refresh.bind(this);
     this.addFriend = this.addFriend.bind(this);

@@ -28,7 +28,6 @@ export default class Settings extends Component {
       b64: null,
       callback: null,
     }
-    this.changeUsername = this.changeUsername.bind(this);
     this.getAuthProviders = this.getAuthProviders.bind(this);
     this.isEmailLogin = this.isEmailLogin.bind(this);
     this.isNotFbLogin = this.isNotFbLogin.bind(this);
@@ -57,9 +56,6 @@ export default class Settings extends Component {
     }
   }
 
-  async changeUsername() {
-  }
-
   async getImage() {
     try {
       const image = await ImagePicker.openPicker({
@@ -78,9 +74,14 @@ export default class Settings extends Component {
   }
 
   saveChanges() {
-    db.storePhoto(this.state.uid, this.state.b64); 
-    this.state.callback();
-    this.props.navigation.navigate('Profile');
+    const res1 = db.storePhoto(this.state.uid, this.state.b64); 
+    const res2 = db.updateUsername(this.state.uid, this.state.username);
+    if (res1 && res2) {
+      this.state.callback();
+      this.props.navigation.navigate('Profile');
+    } else {
+      alert('Error saving changes');
+    }
   }
 
   getAuthProviders() {

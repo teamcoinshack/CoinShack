@@ -220,6 +220,16 @@ export default class Database {
     }
   }
 
+  static updateUsername(uid, username) {
+      let userRef = Firebase.app()
+                            .database()
+                            .ref('/users/' + uid);
+    userRef.update({
+      username: username,
+    })
+    return 1;
+  }
+
   static async buy(uid, stock, cash, rate) {
     try {
       const snap = await this.getData(uid);
@@ -495,6 +505,7 @@ export default class Database {
       userRef.update({
         image: url
       })
+      return 1;
   }
 
   static async getPhoto(uid) {
