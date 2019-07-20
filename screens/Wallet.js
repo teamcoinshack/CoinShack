@@ -127,7 +127,8 @@ export default class Wallet extends Component {
         source={nameToIconMap[item.name]}
         style={styles.imageStyle}
       />
-    )
+    );
+    
     if (item.rate === undefined) {
       return (
       <TouchableOpacity
@@ -151,20 +152,23 @@ export default class Wallet extends Component {
           </View>
         </View>
       </TouchableOpacity>
-      )
+      );
     }
+
     const currentPrice = (
       <Text style={styles.rate}>
         ${db.stringify(Number(item.rate).toFixed(2))}
       </Text>
-    )
+    );
+
     const change = (
       <Text style={item.change > 0 ? styles.up : styles.down}>
         {item.change > 0
           ? ' (+' + item.change + '%)'
           : ' ' + '('+item.change + '%)'}
       </Text>
-    )
+    );
+
     const walletValue = (
       <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
         <Text style={item.value === 0
@@ -178,7 +182,8 @@ export default class Wallet extends Component {
           {db.stringify(Number(item.value).toFixed(3))} {item.id}
         </Text>
       </View>
-    )
+    );
+
     return (
       <TouchableOpacity
         style={styles.row}
@@ -214,7 +219,8 @@ export default class Wallet extends Component {
             width={Math.round(Dimensions.get('window').width)}
           />
       </View>
-    )
+    );
+
     const cashValue = (
       <Text style={!this.state.cash || this.state.cash === 0 
                     ? styles.noValue1 
@@ -222,13 +228,15 @@ export default class Wallet extends Component {
          ${money}
       </Text>
     );
+
     const CashRow = ( 
       <MyRow 
         text='Cash'
         isCash
         right={cashValue}
       />
-    )
+    );
+
     const assetsValue = (
       <View style={{ flexDirection: 'row', justifyContent: 'flex-start'}}>
         <Text style={{
@@ -247,6 +255,7 @@ export default class Wallet extends Component {
         </Text>
       </View>
     );
+
     return (
       <View style={styles.container}>
         <View style={{ marginBottom: 20, alignItems: 'center', }}>

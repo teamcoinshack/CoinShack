@@ -32,3 +32,6 @@ export const nameToIconMap = {
 
 export const background = '#373b48';
 export const rowBackground = '#515360';
+export const textHeader = '#dbdbdb';
+export const textSubheader = '#a4a9b9';
+

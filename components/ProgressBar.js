@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { rowBackground, background } from '../Masterlist.js';
 import { Tooltip } from 'react-native-elements';
-import { MyModal } from './MyModal.js';
 import Title from './Title.js';
 import db from '../Database.js';
 const filled = '#00dce8';

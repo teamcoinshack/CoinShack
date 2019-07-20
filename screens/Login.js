@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import MyButton from '../components/MyButton.js';
 import MyInput from '../components/MyInput.js';
+import MyErrorModal from '../components/MyErrorModal.js';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 import { GoogleSignin } from 'react-native-google-signin';
 import config from '../config.js';
@@ -28,8 +29,11 @@ export default class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      errorMessage: null
-    }
+      errorPrompt: "",
+      errorTitle: "Error",
+      isErrorVisible: false,
+    };
+
     this.handleLogin = this.handleLogin.bind(this);
     this.googleProvider = new Firebase.auth.GoogleAuthProvider();
     
@@ -191,6 +195,13 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
+
         <Image
           source={require('../assets/icons/CoinShackIcon.png')}
           style={{
@@ -207,10 +218,6 @@ export default class Login extends Component {
             CoinShack
           </Text>
         </View>
-        {this.state.errorMessage &&
-          <Text style={{ color: 'red' }}>
-            {this.state.errorMessage}
-          </Text>}
           
         <View style={{ alignItems: "center" }}>
           <MyInput
@@ -231,7 +238,7 @@ export default class Login extends Component {
           />
         </View>
 
-        <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+        <View style={{ flexDirection: 'column', alignItems: 'center', }}>          
           <MyButton
             text="Login"
             onPress={() => this.handleLogin(
@@ -241,7 +248,7 @@ export default class Login extends Component {
             width={Math.round(Dimensions.get('window').width) * 0.7}
           />
           <MyButton
-            text="Forget my Password"
+            text="Forgot Password"
             onPress={() => this.props.navigation.navigate('ForgetPassword')}
             width={Math.round(Dimensions.get('window').width) * 0.7}
           />
