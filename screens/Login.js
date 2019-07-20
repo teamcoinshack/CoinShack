@@ -132,6 +132,9 @@ export default class Login extends Component {
         alert('Please enter password!');
         return;
       }
+      if (!email.includes('@')) {
+        email = await db.searchExact(email, false);
+      }
       await Firebase
         .auth()
         .signInWithEmailAndPassword(email, pass)
@@ -211,7 +214,7 @@ export default class Login extends Component {
           
         <View style={{ alignItems: "center" }}>
           <MyInput
-            placeholder="Email"
+            placeholder="Username/Email"
             onChangeText={email => this.setState({ email })}
             value={this.state.email}
             keyboardType="email-address"
