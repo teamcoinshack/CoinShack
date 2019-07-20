@@ -5,7 +5,6 @@ import {
   View, 
   StyleSheet, 
   Dimensions,
-  Alert,
 } from 'react-native';
 import MyButton from '../components/MyButton.js';
 import MyInput from '../components/MyInput.js';
@@ -29,9 +28,11 @@ export default class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      errorPrompt: "",
-      errorTitle: "Error",
+
+      // Error Modal states
       isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -54,7 +55,11 @@ export default class Login extends Component {
       .logInWithReadPermissions(['public_profile', 'user_friends', 'email'])
       .then(result => {
         if (result.isCancelled) {
-          Alert.alert("Sign in cancelled", "Please try again!");
+          this.setState({
+            isErrorVisible: true,
+            errorTitle: "Sign in cancelled",
+            errorPrompt: "Please try again!"
+          });
         } else {
           AccessToken
             .getCurrentAccessToken()
@@ -86,7 +91,11 @@ export default class Login extends Component {
               let errorCode = error.code;
               let errorMessage = error.message;
               // TODO: handle fb login errors
-              Alert.alert("Login failed", errorMessage);
+              this.setState({
+                isErrorVisible: true,
+                errorTitle: "Login failed",
+                errorPrompt: errorMessage,
+              });
             })
         }
       })
@@ -123,22 +132,38 @@ export default class Login extends Component {
         let errorCode = error.code;
         let errorMessage = error.message;
         // TODO: handle google login errors
-        Alert.alert("Login failed", errorCode + " " + errorMessage);
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Login failed",
+          errorPrompt: errorMessage,
+        });
       })
   }
 
   async handleLogin(email, pass) {
     try {
       if (email === '') {
-        alert('Please enter email!');
-        return;
-      } else if (pass === '') {
-        alert('Please enter password!');
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Missing inputs",
+          errorPrompt: 'Please enter an email!',
+        });
         return;
       }
+      
+      if (pass === '') {
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Missing inputs",
+          errorPrompt: 'Please enter your password!',
+        });
+        return;
+      }
+
       if (!email.includes('@')) {
         email = await db.searchExact(email, false);
       }
+
       await Firebase
         .auth()
         .signInWithEmailAndPassword(email, pass)
@@ -155,7 +180,7 @@ export default class Login extends Component {
               return false;
             }
           } else {
-            //not verified
+            // not verified
             throw {
               code: 'auth/not-verified',
               message: 'Not verified',
@@ -166,17 +191,39 @@ export default class Login extends Component {
         .then(isNew => isNew
           ? this.props.navigation.navigate('Intro')
           : this.props.navigation.navigate('Dashboard'))
-        .catch(function (error) {
+        .catch(error => {
           var errorCode = error.code;
           var errorMessage = error.message;
           if (errorCode === 'auth/wrong-password') {
-            alert('Incorrect password.');
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Sign in failed",
+              errorPrompt: 'Incorrect password!'
+            });
           } else if (errorCode === 'auth/invalid-email') {
-            alert('Invalid email! Have you signed up?');
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Sign in failed",
+              errorPrompt: 'Invalid email! Have you signed up?'
+            });
           } else if (errorCode === 'auth/user-not-found') {
-            alert('User not found. Have you signed up?');
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Sign in failed",
+              errorPrompt: 'User not found. Have you signed up?'
+            });
           } else if (errorCode === 'auth/not-verified') {
-            alert('Email is not verified yet!');
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Sign in failed",
+              errorPrompt: 'Email is not verified yet! Please verify your email.'
+            });
+          } else {
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Sign in failed",
+              errorPrompt: errorMessage
+            });
           }
         })
       this.setState({
