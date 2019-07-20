@@ -111,14 +111,14 @@ export default class SignUp extends Component {
             )
           }
           textColor="#00f9ff"
-          width={Math.round(Dimensions.get('window').width) * 0.5}
+          width={Math.round(Dimensions.get('window').width) * 0.7}
         />
 
         <MyButton
           text="Back to Login"
           onPress={() => this.props.navigation.navigate('Login')}
           textColor="#00f9ff"
-          width={Math.round(Dimensions.get('window').width) * 0.5}
+          width={Math.round(Dimensions.get('window').width) * 0.7}
         />
       </View>
     )

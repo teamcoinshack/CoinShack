@@ -221,11 +221,17 @@ export default class Database {
   }
 
   static updateUsername(uid, username) {
-      let userRef = Firebase.app()
+    let userRef = Firebase.app()
                             .database()
                             .ref('/users/' + uid);
+    let usernamesRef = Firebase.app()
+                            .database()
+                            .ref('/usersData/usernames/');
     userRef.update({
       username: username,
+    })
+    usernamesRef.update({
+      [uid]: username,
     })
     return 1;
   }
@@ -530,6 +536,36 @@ export default class Database {
     return num === ''
       ? ''
       : num.toString().replace(/,/g, '');
+  }
+
+  static async searchExact(query, isEmail) {
+    //returns email if query exists
+    try {
+      let snap;
+      const emailsRef = Firebase.app()
+                              .database()
+                              .ref('/usersData/emails/');
+      if (isEmail) {
+        snap = await emailsRef.orderByValue()
+                                         .equalTo(query)
+                                         .once("value");
+      } else {
+        const usernameRef = Firebase.app()
+                                    .database()
+                                    .ref('/usersData/usernames/');
+        snap = await usernameRef.orderByValue()
+                                          .equalTo(query)
+                                          .once("value");
+      }
+      if (snap.val()) {
+        const uid = Object.keys(snap.val())[0];
+        const snap2 = await emailsRef.child(uid).once('value');
+        return snap2.val() ? snap2.val() : false;
+      }
+      return snap.val() ? Object.keys(snap.val())[0] : false;
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   static async search(query) {

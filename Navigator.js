@@ -32,6 +32,7 @@ import Search from './screens/Search.js';
 import FriendsProfile from './screens/FriendsProfile.js';
 import Requests from './screens/Requests.js';
 import EditProfile from './screens/EditProfile.js';
+import ForgetPassword from './screens/ForgetPassword.js';
 import { background } from './Masterlist.js';
 
 const headerStyles = {
@@ -343,6 +344,12 @@ const AppNavigator = createStackNavigator(
     },
     SignUp: {
       screen: SignUp,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    ForgetPassword: {
+      screen: ForgetPassword,
       navigationOptions: {
         header: null,
       }

@@ -238,6 +238,11 @@ export default class Login extends Component {
             width={Math.round(Dimensions.get('window').width) * 0.7}
           />
           <MyButton
+            text="Forget my Password"
+            onPress={() => this.props.navigation.navigate('ForgetPassword')}
+            width={Math.round(Dimensions.get('window').width) * 0.7}
+          />
+          <MyButton
             path={require('../assets/icons/fb.png')}
             image={true}
             text="Facebook Login"
