@@ -8,7 +8,6 @@ export default class Database {
                                  .database()
                                  .ref('/users/' + uid)
                                  .once('value');
-      console.log(snap.val());
       return snap.val() ? snap : false;
   }
 
@@ -16,7 +15,6 @@ export default class Database {
   // set cash value, send email bla bla
   static async initUser(user, username) {
     try {
-      console.log(user);
       const userID = user.uid;
       let userRef = Firebase.app()
                             .database()

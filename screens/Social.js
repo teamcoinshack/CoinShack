@@ -26,7 +26,6 @@ export default class Social extends Component {
     this.state = {
       friends: [],
       refreshing: true,
-      haveRequests: false,
     };
 
     this.refresh = this.refresh.bind(this);
@@ -126,14 +125,18 @@ export default class Social extends Component {
       });
       let requests = await db.getRequests(myUid);
       requests = Object.keys(requests);
+      requests = requests.filter(async function(x) {
+        const res = await db.getData(x);
+        if (!res) { db.removeFriend(myUid, x) }
+        return res;
+      })
       this.setState({
         uid: myUid,
         friends: friends,
         refreshing: false,
-        haveRequests: requests.length > 0,
       })
       this.props.navigation.setParams({ 
-        haveRequests: this.state.haveRequests,
+        haveRequests: requests.length > 0,
       });
     } catch (error) {
       console.log(error);

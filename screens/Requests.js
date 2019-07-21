@@ -88,7 +88,7 @@ export default class Requests extends Component {
               let obj = {};
               const snap = await db.getData(uid);
               if (!snap) {  
-                db.removeFriend(myUid, uid)
+                db.removeRequest(myUid, uid)
                 return false;
               }
               const snapped = snap.val();
@@ -108,7 +108,6 @@ export default class Requests extends Component {
             }
           })
         )
-      console.log(reqs);
       this.setState({
         uid: myUid,
         requests: reqs,

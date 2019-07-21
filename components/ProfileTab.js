@@ -79,7 +79,7 @@ export default ProfileTab = props => (
             <Text style={styles.header}>Net Worth</Text>
             <View style={styles.border}>
               {props.refreshing
-               ? ( <MyBar height={20} flexStart={true}/> )
+               ? ( <Text style={styles.value}>-</Text> )
                : ( <Text style={styles.value}>{props.value}</Text> )}
             </View>
           </View>
@@ -88,7 +88,9 @@ export default ProfileTab = props => (
           <View style={styles.info}>
             <Text style={styles.header}>Achievments</Text>
             <View style={styles.border}>
-              <Text style={styles.value}>{props.achieveCount}</Text>
+              {props.refreshing
+               ? ( <Text style={styles.value}>-</Text> )
+               : ( <Text style={styles.value}>{props.achieveCount}</Text> )}
             </View>
           </View>
         </View>
@@ -97,7 +99,7 @@ export default ProfileTab = props => (
             <Text style={styles.header}>Favourite Cryptocurrency</Text>
             <View style={styles.border}>
               {props.refreshing
-               ? ( <MyBar height={20} flexStart={true}/> )
+               ? ( <Text style={styles.value}>-</Text> )
                : ( <Text style={styles.value}>{props.favourite}</Text> )}
             </View>
           </View>
