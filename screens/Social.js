@@ -97,7 +97,7 @@ export default class Social extends Component {
                                         ? snapped.username
                                         : 'No name :(';
                         obj.email = snapped.email.length > 20 
-                                      ? snapped.email.substring(0, 2) + '...'
+                                      ? snapped.email.substring(0, 15) + '...'
                                       : snapped.email;
                         obj.value = await db.getTotalValue(uid, snapped);
                         obj.title_id = snapped.title_id;
@@ -112,7 +112,7 @@ export default class Social extends Component {
       const snapped = myData.val();
       friends.push({
         uid: myUid,
-        username: snapped.username + ' (You)',
+        username: snapped.username,
         email: snapped.email,
         value: await db.getTotalValue(myUid, snapped),
         title_id: snapped.title_id,
@@ -170,10 +170,11 @@ export default class Social extends Component {
         style={styles.imageStyle}
       />
     )
+    const myUid = Firebase.auth().currentUser.uid;
     return ( 
       <TouchableOpacity
         onPress={() => this.load(item)}
-        style={styles.row}
+        style={item.uid === myUid ? styles.myRow : styles.row}
       >
         {item.rank < 4
           ? ( <Text style={styles['rank' + item.rank]}>{item.rank}</Text> )
@@ -305,8 +306,26 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: Math.round(Dimensions.get('window').width) - 28, 
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: 13,
+    paddingBottom: 13,
+    paddingLeft: 10,
+    paddingRight: 16,
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    marginBottom: 6,
+  },
+  myRow: {
+    elevation: 1,
+    borderRadius: 5,
+    backgroundColor: '#55567d', 
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: Math.round(Dimensions.get('window').width) - 28, 
+    paddingTop: 13,
+    paddingBottom: 13,
     paddingLeft: 10,
     paddingRight: 16,
     marginLeft: 14,
