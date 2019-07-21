@@ -10,7 +10,7 @@ import MyButton from '../components/MyButton.js';
 import MyInput from '../components/MyInput.js';
 import MyErrorModal from '../components/MyErrorModal.js';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
-import { GoogleSignin } from 'react-native-google-signin';
+import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import config from '../config.js';
 import db from '../Database.js';
 import Firebase from 'firebase';
@@ -90,12 +90,32 @@ export default class Login extends Component {
             .catch(error => {
               let errorCode = error.code;
               let errorMessage = error.message;
-              // TODO: handle fb login errors
-              this.setState({
-                isErrorVisible: true,
-                errorTitle: "Login failed",
-                errorPrompt: errorMessage,
-              });
+              switch (errorCode) {
+                case "auth/account-exists-with-different-credential":
+                  this.setState({
+                    isErrorVisible: true,
+                    errorTitle: "Login failed",
+                    errorPrompt: "Account already exists under another login method, "
+                      + "please sign in with that login method to link the different login methods.",
+                  });
+                  break;
+
+                case "auth/invalid-credential":
+                  this.setState({
+                    isErrorVisible: true,
+                    errorTitle: "Login failed",
+                    errorPrompt: "Invalid Facebook credentials, please try again!",
+                  });
+                  break;
+
+                default:
+                  this.setState({
+                    isErrorVisible: true,
+                    errorTitle: "Login failed",
+                    errorPrompt: errorMessage,
+                  });
+                  break;
+              }
             })
         }
       })
@@ -131,12 +151,56 @@ export default class Login extends Component {
       .catch(error => {
         let errorCode = error.code;
         let errorMessage = error.message;
-        // TODO: handle google login errors
-        this.setState({
-          isErrorVisible: true,
-          errorTitle: "Login failed",
-          errorPrompt: errorMessage,
-        });
+        switch (errorCode) {
+          case "auth/account-exists-with-different-credential":
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Login failed",
+              errorPrompt: "Account already exists under another login method, "
+                + "please sign in with that login method to link the different login methods.",
+            });
+            break;
+
+          case "auth/invalid-credential":
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Login failed",
+              errorPrompt: "Invalid Facebook credentials, please try again!",
+            });
+            break;
+
+          case statusCodes.SIGN_IN_CANCELLED:
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Login failed",
+              errorPrompt: "Google sign in cancelled, please try again!",
+            });
+            break;
+            
+          case statusCodes.IN_PROGRESS:
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Login in progress",
+              errorPrompt: "Google sign in in progress, please wait awhile!",
+            });
+            break;
+
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Login failed",
+              errorPrompt: "Google play services is not available on your device, please try another method!",
+            });
+            break;
+
+          default:
+            this.setState({
+              isErrorVisible: true,
+              errorTitle: "Login failed",
+              errorPrompt: errorMessage,
+            });
+            break;
+        }
       })
   }
 
