@@ -319,9 +319,9 @@ const styles = StyleSheet.create({
     height: 50,
   },
   text1: {
-    fontSize: 18,
+    fontSize: 17,
     color: '#ffffff',
-    fontWeight: '600',
+    fontWeight: 'bold', 
   },
   text2: {
     fontSize: 16,

@@ -30,13 +30,23 @@ let colors = [
   '#000000', '#000000', '#000000', '#000000', '#000000',
   '#000000', '#000000', '#000000', '#000000', '#000000',
   '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000',
 ];
 HalfUnit = props => (
   colors.map((c, index) => (
     <View 
       key={index}
       style={{
-        flex: 0.02,
+        flex: 0.01,
         height: 20,
         borderColor: background,
         backgroundColor: c,
@@ -50,7 +60,7 @@ HalfRightUnit = props => (
     <View 
       key={index}
       style={{
-        flex: 0.01,
+        flex: 0.005,
         height: 20,
         borderColor: background,
         backgroundColor: c,
@@ -178,8 +188,8 @@ const styles = StyleSheet.create({
   bar: {
     width: Math.round(Dimensions.get('window').width - 36),
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     height: 20,
     marginTop: 10,
   },
