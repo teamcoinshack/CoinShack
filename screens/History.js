@@ -36,7 +36,7 @@ export default class History extends Component {
         history: hist,
         refreshing: false,
       })
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

@@ -301,7 +301,7 @@ export default class Login extends Component {
         email: '',
         password: '',
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

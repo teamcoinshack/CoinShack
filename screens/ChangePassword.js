@@ -5,8 +5,8 @@ import {
   Dimensions,
   StyleSheet,
   ScrollView,
-  Alert,
 } from 'react-native';
+import MyErrorModal from '../components/MyErrorModal.js';
 import Firebase from 'firebase';
 import db from '../Database.js';
 
@@ -21,7 +21,13 @@ export default class Settings extends Component {
       oldPass: null,
       newPass1: null,
       newPass2: null,
-    }
+
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
+    };
+
     this.change = this.change.bind(this);
   }
 
@@ -36,9 +42,18 @@ export default class Settings extends Component {
         await db.changePassword(user, this.state.newPass1);
         this.props.navigation.navigate('Login');
       } else {
-        alert("Passwords do not match!");
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Passwords does not match",
+          errorPrompt: "Please try again!",
+        });
       }
-    } catch(error) {
+    } catch (error) {
+      this.setState({
+        isErrorVisible: true,
+        errorTitle: "Error",
+        errorPrompt: error.message,
+      });
       console.log(error);
     }
   }
@@ -50,6 +65,13 @@ export default class Settings extends Component {
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="always"
       >
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
+
         <View style={{ marginBottom: 20 }}>
           <Text style={{ 
             fontSize: 25, 

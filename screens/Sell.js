@@ -100,7 +100,7 @@ export default class Sell extends Component {
       } else {
         this.resetState();
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

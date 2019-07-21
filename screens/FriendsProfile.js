@@ -156,7 +156,7 @@ export default class FriendsProfile extends Component {
         callback2: callback2,
         image: image,
       }, () => this.refresh());
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -174,7 +174,7 @@ export default class FriendsProfile extends Component {
                                 const rate = data.market_data.current_price.usd;
                                 arr[2] = wallet[symbol] * rate;
                                 return arr;
-                              } catch(error) {
+                              } catch (error) {
                                 console.log(error);
                               }
                             })
@@ -221,7 +221,7 @@ export default class FriendsProfile extends Component {
         friendRequesting: friendRequesting,
         title_id: snapped.title_id,
       })
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

@@ -81,7 +81,7 @@ export default class Search extends Component {
                         obj.title_id = snapped.title_id;
                         obj.image = await db.getPhoto(uid); 
                         return obj;
-                      } catch(error) {
+                      } catch (error) {
                         console.log(error);
                       }
                     })
@@ -92,7 +92,7 @@ export default class Search extends Component {
           loading: false,   
         })
       );
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

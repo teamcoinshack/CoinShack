@@ -103,7 +103,7 @@ export default class Social extends Component {
                         obj.title_id = snapped.title_id;
                         obj.image = await db.getPhoto(uid); 
                         return obj;
-                      } catch(error) {
+                      } catch (error) {
                         console.log(error);
                       }
                     })

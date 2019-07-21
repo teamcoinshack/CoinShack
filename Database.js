@@ -44,7 +44,7 @@ export default class Database {
         usernames: usernames,
         emails: emails,
       })
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -143,7 +143,7 @@ export default class Database {
         });
         return 0;
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -170,7 +170,7 @@ export default class Database {
         });
       }
       return 0;
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -189,7 +189,7 @@ export default class Database {
       userRef.update({
         [name]: alerts,
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -206,7 +206,7 @@ export default class Database {
       }
       console.log(name in alerts);
       return (name in alerts) ? alerts[name] : [];
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -214,7 +214,7 @@ export default class Database {
   static async changePassword(user, newPass) {
     try {
       await user.updatePassword(newPass);
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -600,7 +600,7 @@ export default class Database {
         return snap2.val() ? snap2.val() : false;
       }
       return snap.val() ? Object.keys(snap.val())[0] : false;
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -631,7 +631,7 @@ export default class Database {
         }
       }
       return res;
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

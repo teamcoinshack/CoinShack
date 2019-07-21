@@ -49,7 +49,7 @@ export default class Market extends Component {
   async componentDidMount() {
     try {
       await this.refresh()
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -87,7 +87,7 @@ export default class Market extends Component {
         currLoadingIndex: this.state.currLoadingIndex + 1,
       })
       this.refresh();
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

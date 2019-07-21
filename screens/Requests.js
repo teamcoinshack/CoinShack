@@ -103,7 +103,7 @@ export default class Requests extends Component {
                 : 'NOVICE';
               obj.image = await db.getPhoto(uid); 
               return obj;
-            } catch(error) {
+            } catch (error) {
               console.log(error);
             }
           })
@@ -113,7 +113,7 @@ export default class Requests extends Component {
         requests: reqs,
         refreshing: false,
       })
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

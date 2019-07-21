@@ -84,7 +84,7 @@ export default class News extends Component {
         news: articles,
         refreshing: false,
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

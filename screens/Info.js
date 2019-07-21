@@ -59,7 +59,7 @@ export default class Info extends Component {
         rate: rate,
         alerts: alerts
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -93,7 +93,7 @@ export default class Info extends Component {
         Number(this.state.alertValue) > this.state.rate,
         true
       );
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -104,7 +104,7 @@ export default class Info extends Component {
       alerts[index].active = !alerts[index].active;
       this.setState({ alerts });
       await db.toggleAlert(this.state.uid, index, this.state.name);
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -123,7 +123,7 @@ export default class Info extends Component {
       });
 
       await db.deleteAlert(this.state.uid, index, this.state.name);
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -206,7 +206,7 @@ export default class Info extends Component {
         alerts: alerts,
         refreshing: false,
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

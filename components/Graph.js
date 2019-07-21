@@ -49,13 +49,15 @@ export default class Graph extends Component {
         max = stockPrices[i] > max ? stockPrices[i] : max;
         data.push(stockPrices[i]);
       }
+
       this.setState({ 
         data: data, 
         isLoading: false,
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
-      alert("stock not found");
+      // User should never reach here
+      alert("Stock not found");
     }
   }
 

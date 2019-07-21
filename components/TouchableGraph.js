@@ -65,13 +65,15 @@ export default class TouchableGraph extends Component {
       for (let i = 0; i < stockPrices.length; i += this.dayToPointsMap[this.props.days]) { // i will depend on days TODO!
         data.push(stockPrices[i]);
       }
+      
       this.setState({ 
         data: data, 
         isLoading: false,
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
-      alert("Stock not found"); // change this error message?
+      // User should never reach here
+      alert("Stock not found");
     }
   }
 

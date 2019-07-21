@@ -4,9 +4,9 @@ import {
   View, 
   StyleSheet, 
   Dimensions,
-  Alert,
 } from 'react-native';
 import Firebase from 'firebase';
+import MyErrorModal from '../components/MyErrorModal.js';
 import MyInput from "../components/MyInput.js";
 import db from '../Database.js';
 
@@ -15,9 +15,16 @@ const background = '#373b48';
 export default class ForgetPassword extends Component {
   constructor(props) {
     super(props);
+
     this.state = { 
       username: '',
-    }
+
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
+    };
+
     this.resetPassword = this.resetPassword.bind(this);
   }
 
@@ -28,12 +35,25 @@ export default class ForgetPassword extends Component {
       if (email) {
         await Firebase.auth()
                 .sendPasswordResetEmail(email);
-        alert('Check your email to reset your password');
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Password reseted",
+          errorPrompt: 'Check your email to reset your password.'
+        });
         this.props.navigation.navigate('Login');
       } else {
-        alert('Unable to find user');
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Password reset failed",
+          errorPrompt: 'Unable to find user, please try again.'
+        });
       }
-    } catch(error) {
+    } catch (error) {
+      this.setState({
+        isErrorVisible: true,
+        errorTitle: "Error",
+        errorPrompt: error.message,
+      });
       console.log(error);
     }
   }
@@ -41,6 +61,13 @@ export default class ForgetPassword extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
+
         <View style={{ marginBottom: 20 }}>
           <Text style={{
             fontSize: 25,

@@ -35,7 +35,7 @@ export default class Profile extends Component {
   async componentDidMount() {
     try {
       await this.refresh();
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -57,7 +57,7 @@ export default class Profile extends Component {
                                 const rate = data.market_data.current_price.usd;
                                 arr[2] = wallet[symbol] * rate;
                                 return arr;
-                              } catch(error) {
+                              } catch (error) {
                                 console.log(error);
                               }
                             })
@@ -101,7 +101,7 @@ export default class Profile extends Component {
         title_id: newTitle,
         image: image,
       })
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }

@@ -49,7 +49,7 @@ export default class Wallet extends Component {
         cash: null,
         currs: Masterlist.map(a => Object.assign({}, a)),
       }, function() { this.refresh() })
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -107,7 +107,7 @@ export default class Wallet extends Component {
   async componentDidMount() {
     try {
       await this.refresh();
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
