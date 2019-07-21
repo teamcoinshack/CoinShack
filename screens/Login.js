@@ -162,6 +162,13 @@ export default class Login extends Component {
 
       if (!email.includes('@')) {
         email = await db.searchExact(email, false);
+        if (!email) {
+          this.setState({
+            isErrorVisible: true,
+            errorTitle: "Sign in failed",
+            errorPrompt: 'User not found. Have you signed up?'
+          });
+        }
       }
 
       await Firebase
