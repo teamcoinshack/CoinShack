@@ -4,29 +4,39 @@ import {
   View, 
   StyleSheet, 
   Dimensions,
-  Alert,
 } from 'react-native';
 import Firebase from 'firebase';
 import MyInput from "../components/MyInput.js";
+import MyErrorModal from '../components/MyErrorModal.js';
 
 const background = '#373b48';
 
 export default class SignUp extends Component {
   constructor(props) {
     super(props);
+
     this.state = { 
       username: '',
       email: '', 
       password: '',
       confirmPassword: '',
-      errorMessage: null 
-    }
+
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
+    };
+
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
   async handleSignUp(email, pass, confirmPass, username) {
     if (pass !== confirmPass) {
-      Alert.alert("Password Mismatch!", "Please try again.");
+      this.setState({
+        isErrorVisible: true,
+        errorTitle: "Password Mismatch!",
+        errorPrompt: "Please try again.",
+      });
       return;
     }
 
@@ -37,22 +47,61 @@ export default class SignUp extends Component {
       Firebase.auth().currentUser.isNew = true;
       Firebase.auth().currentUser.username = username;
       const user = Firebase.auth().currentUser;
-      await user.sendEmailVerification(); 
-      alert('We\'ve sent a verification link to ' + email);
+      await user.sendEmailVerification();
+      this.setState({
+        isErrorVisible: true,
+        errorTitle: "Email Verification",
+        errorPrompt: "We've sent a verification link to " + email,
+      });
     } catch (error) {
        var errorCode = error.code;
        var errorMessage = error.message;
-       if (errorCode === 'auth/invalid-email') {
-         alert('Invalid email')
-       } else {
-         alert(errorCode);
-       }
+       switch (errorCode) {
+        case "auth/email-already-in-use":
+          this.setState({
+            isErrorVisible: true,
+            errorTitle: "Sign up failed",
+            errorPrompt: "Account associated with that email already exists, please login!",
+          });
+          break;
+
+        case "auth/invalid-email":
+          this.setState({
+            isErrorVisible: true,
+            errorTitle: "Sign up failed",
+            errorPrompt: "Invalid email, please use another email!",
+          });
+          break;
+
+        case "auth/weak-password":
+          this.setState({
+            isErrorVisible: true,
+            errorTitle: "Sign up failed",
+            errorPrompt: "Weak password! please use a stronger password.",
+          });
+          break;
+
+        default:
+          this.setState({
+            isErrorVisible: true,
+            errorTitle: "Login failed",
+            errorPrompt: errorMessage,
+          });
+          break;
+      }
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
+
         <View style={{ marginBottom: 20 }}>
           <Text style={{
             fontSize: 25,
@@ -62,10 +111,6 @@ export default class SignUp extends Component {
             Sign Up
             </Text>
         </View>
-        {this.state.errorMessage &&
-          <Text style={{ color: 'red' }}>
-            {this.state.errorMessage}
-          </Text>}
 
         <View style={{ alignItems: "center" }}>
           <MyInput
