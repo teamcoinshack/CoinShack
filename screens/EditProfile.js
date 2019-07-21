@@ -15,6 +15,7 @@ import db from '../Database.js';
 import ImagePicker from 'react-native-image-crop-picker';
 import { background } from '../Masterlist.js';
 import MyInput from '../components/MyInput.js';
+import MyErrorModal from '../components/MyErrorModal.js';
 
 export default class Settings extends Component {
   constructor(props) {
@@ -27,6 +28,11 @@ export default class Settings extends Component {
       uid: null,
       b64: null,
       callback: null,
+
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
     }
     this.getAuthProviders = this.getAuthProviders.bind(this);
     this.isEmailLogin = this.isEmailLogin.bind(this);
@@ -79,6 +85,12 @@ export default class Settings extends Component {
     if (res1 && res2) {
       this.state.callback();
       this.props.navigation.navigate('Profile');
+    } else if (!res2) {
+      this.setState({
+        isErrorVisible: true,
+        errorTitle: "Invalid Username",
+        errorPrompt: "Username cannot be more than 12 characters!"
+      });
     } else {
       alert('Error saving changes');
     }
@@ -143,6 +155,12 @@ export default class Settings extends Component {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
         <View style={{ alignItems: 'center' }}>
           <TouchableOpacity
             onPress={this.getImage}

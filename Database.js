@@ -220,6 +220,7 @@ export default class Database {
   }
 
   static updateUsername(uid, username) {
+    if (username.length > 12) { return 0; }
     let userRef = Firebase.app()
                             .database()
                             .ref('/users/' + uid);
