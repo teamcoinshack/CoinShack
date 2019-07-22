@@ -42,9 +42,10 @@ export default class History extends Component {
   }
 
   renderRow({item}) {
+    console.log(item.date);
     let d = new Date(item.date);
-    const day = d.getDay();
-    const month = d.getMonth();
+    const day = d.getDate();
+    const month = d.getMonth() + 1;
     const year = d.getFullYear();
 
     let hour = d.getHours();
