@@ -575,6 +575,20 @@ export default class Database {
       : num.toString().replace(/,/g, '');
   }
 
+  static async uniqueUsername(username) {
+    try {
+      const snap = await Firebase.app()
+                              .database()
+                              .ref('/usersData/usernames/')
+                              .orderByValue()
+                              .equalTo(username)
+                              .once('value');
+      return !(snap.val());
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async searchExact(query, isEmail) {
     //returns email if query exists
     try {

@@ -79,20 +79,34 @@ export default class Settings extends Component {
     }
   }
 
-  saveChanges() {
-    const res1 = db.storePhoto(this.state.uid, this.state.b64); 
-    const res2 = db.updateUsername(this.state.uid, this.state.username);
-    if (res1 && res2) {
-      this.state.callback();
-      this.props.navigation.navigate('Profile');
-    } else if (!res2) {
-      this.setState({
-        isErrorVisible: true,
-        errorTitle: "Invalid Username",
-        errorPrompt: "Username cannot be more than 12 characters!"
-      });
-    } else {
-      alert('Error saving changes');
+  async saveChanges() {
+    try {
+      const res1 = db.storePhoto(this.state.uid, this.state.b64); 
+      const unique = await db.uniqueUsername(this.state.username); 
+      if (!unique) {
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Username Taken!",
+          errorPrompt: "Please use another username.",
+        });
+        return;
+      }
+      const res2 = db.updateUsername(this.state.uid, this.state.username);
+      if (res1 && res2) {
+        this.state.callback();
+        this.props.navigation.navigate('Profile');
+      } else if (!res2) {
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Invalid Username",
+          errorPrompt: "Username cannot be more than 12 characters!"
+        });
+        return;
+      } else {
+        alert('Error saving changes');
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

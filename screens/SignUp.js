@@ -8,6 +8,7 @@ import {
 import Firebase from 'firebase';
 import MyInput from "../components/MyInput.js";
 import MyErrorModal from '../components/MyErrorModal.js';
+import db from '../Database.js';
 
 const background = '#373b48';
 
@@ -36,6 +37,15 @@ export default class SignUp extends Component {
         isErrorVisible: true,
         errorTitle: "Password Mismatch!",
         errorPrompt: "Please try again.",
+      });
+      return;
+    }
+    const unique = await db.uniqueUsername(username); 
+    if (!unique) {
+      this.setState({
+        isErrorVisible: true,
+        errorTitle: "Username Taken!",
+        errorPrompt: "Please use another username.",
       });
       return;
     }
