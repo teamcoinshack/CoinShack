@@ -106,7 +106,11 @@ export default class Settings extends Component {
         });
         return;
       } else {
-        alert('Error saving changes');
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Error",
+          errorPrompt: "Error saving changes, please try again!"
+        });
       }
     } catch (error) {
       console.log(error);

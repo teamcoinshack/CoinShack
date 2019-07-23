@@ -1,20 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-  Text, 
   View, 
   Dimensions,
   StyleSheet, 
-  FlatList, 
-  Button,
   ScrollView,
-  Alert,
   RefreshControl,
 } from 'react-native';
 import Firebase from 'firebase';
-import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
 import ProfileTab from '../components/ProfileTab.js';
-import { Masterlist, Mapping } from '../Masterlist.js';
+import { Mapping } from '../Masterlist.js';
+import MyErrorModal from '../components/MyErrorModal.js';
 import q from '../Query.js';
 
 const background = '#373b48';
@@ -34,7 +30,13 @@ export default class FriendsProfile extends Component {
       callback2: null,
       loading: false,
       email: '',
-    }
+
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
+    };
+
     this.refresh = this.refresh.bind(this);
     this.addFriend = this.addFriend.bind(this);
     this.deleteFriend = this.deleteFriend.bind(this);
@@ -48,20 +50,24 @@ export default class FriendsProfile extends Component {
     try {
       this.setState({
         loading: true,
-      })
+      });
       const res = await db.addFriend(this.state.uid, this.state.friendUid);
       if (res === 0) {
         await this.state.callback();
         await this.halfRefresh();
         this.setState({
           loading: false,
-        })
-        alert("Friend request sent!");
+          isErrorVisible: true,
+          errorTitle: "Yay!",
+          errorPrompt: "Friend request sent!",
+        });
       } else {
         this.setState({
           loading: false,
-        })
-        alert("Unable to add friend");
+          isErrorVisible: true,
+          errorTitle: "Oops!",
+          errorPrompt: "Unable to add friend, please try again!",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -80,13 +86,17 @@ export default class FriendsProfile extends Component {
         await this.halfRefresh();
         this.setState({
           loading: false,
-        })
-        alert("Friend added!");
+          isErrorVisible: true,
+          errorTitle: "Yay!",
+          errorPrompt: "Friend added",
+        });
       } else {
         this.setState({
           loading: false,
-        })
-        alert("Unable to add friend");
+          isErrorVisible: true,
+          errorTitle: "Oops!",
+          errorPrompt: "Unable to add friend, please try again!",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -104,13 +114,17 @@ export default class FriendsProfile extends Component {
         await this.halfRefresh();
         this.setState({
           loading: false,
-        })
-        alert("Friend deleted :(");
+          isErrorVisible: true,
+          errorTitle: "Bye :(",
+          errorPrompt: "Friend deleted!",
+        });
       } else {
         this.setState({
           loading: false,
-        })
-        alert("Unable to delete friend");
+          isErrorVisible: true,
+          errorTitle: "Oops!",
+          errorPrompt: "Unable to delete friend, please try again!",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -127,13 +141,17 @@ export default class FriendsProfile extends Component {
         await this.halfRefresh();
         this.setState({
           loading: false,
-        })
-        alert("Request successfully deleted!");
+          isErrorVisible: true,
+          errorTitle: "Request deleted",
+          errorPrompt: "Request successfully deleted!",
+        });        
       } else {
         this.setState({
           loading: false,
-        })
-        alert("No pending request to be deleted.");
+          isErrorVisible: true,
+          errorTitle: "Oops",
+          errorPrompt: "No pending request to be deleted.",
+        }); 
       }
     } catch (error) {
       console.log(error);
@@ -303,6 +321,13 @@ export default class FriendsProfile extends Component {
           />
         }
       >
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
+
         <ProfileTab 
           refreshing={this.state.refreshing}
           value={this.state.totalValue}

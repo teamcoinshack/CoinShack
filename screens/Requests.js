@@ -1,21 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text, 
   View, 
   Dimensions,
   StyleSheet, 
   FlatList, 
-  ScrollView,
-  Alert,
   TouchableOpacity,
-  RefreshControl,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Firebase from 'firebase';
 import { Avatar } from 'react-native-elements';
-import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import db from '../Database.js';
 import MyBar from '../components/MyBar.js';
+import MyErrorModal from '../components/MyErrorModal.js';
 
 const background = '#373b48';
 
@@ -29,7 +25,13 @@ export default class Requests extends Component {
       refreshing: true,
       callback: null,
       loading: false,
-    }
+
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
+    };
+
     this.renderRow = this.renderRow.bind(this);
     this.refresh = this.refresh.bind(this);
     this.accept = this.accept.bind(this);
@@ -42,9 +44,17 @@ export default class Requests extends Component {
       if (res === 0) {
         this.state.callback();
         this.refresh();
-        alert("Friend added!");
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Great!",
+          errorPrompt: "Friend added!",
+        });
       } else {
-        alert("Unable to add friend");
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Unable to add friend",
+          errorPrompt: "Please try again!",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -56,9 +66,17 @@ export default class Requests extends Component {
       const res = await db.rejectRequest(this.state.uid, friend.uid);
       if (res === 0) {
         this.refresh();
-        alert("Request rejected!");
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Bye!",
+          errorPrompt: "Request rejected!",
+        });
       } else {
-        alert("Unable to reject request");
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Unable to reject request",
+          errorPrompt: "Please try again!",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -83,36 +101,37 @@ export default class Requests extends Component {
       let reqs = await db.getRequests(myUid);
       reqs = Object.keys(reqs);
       reqs = await Promise.all(
-          reqs.map(async function(uid) {
-            try {
-              let obj = {};
-              const snap = await db.getData(uid);
-              if (!snap) {  
-                db.removeRequest(myUid, uid)
-                return false;
-              }
-              const snapped = snap.val();
-              obj.uid = uid;
-              obj.username = ('username' in snapped)
-                ? snapped.username
-                : 'No name :(';
-              obj.value = await db.getTotalValue(uid, snapped);
-              obj.email = snapped.email;
-              obj.title = ('title' in snapped)
-                ? snap.val().title
-                : 'NOVICE';
-              obj.image = await db.getPhoto(uid); 
-              return obj;
-            } catch (error) {
-              console.log(error);
+        reqs.map(async function (uid) {
+          try {
+            let obj = {};
+            const snap = await db.getData(uid);
+            if (!snap) {
+              db.removeRequest(myUid, uid)
+              return false;
             }
-          })
-        )
+            const snapped = snap.val();
+            obj.uid = uid;
+            obj.username = ('username' in snapped)
+              ? snapped.username
+              : 'No name :(';
+            obj.value = await db.getTotalValue(uid, snapped);
+            obj.email = snapped.email;
+            obj.title = ('title' in snapped)
+              ? snap.val().title
+              : 'NOVICE';
+            obj.image = await db.getPhoto(uid);
+            return obj;
+          } catch (error) {
+            console.log(error);
+          }
+        })
+      );
+
       this.setState({
         uid: myUid,
         requests: reqs,
         refreshing: false,
-      })
+      });
     } catch (error) {
       console.log(error);
     }
@@ -131,30 +150,25 @@ export default class Requests extends Component {
     }
   }
 
-  renderRow({item}) {
+  renderRow({ item }) {
     if (!item) { return null; }
+
     const noPic = (
       <Avatar
         rounded
         source={require('../assets/icons/noPic.png')}
         style={styles.imageStyle}
       />
-    )
+    );
+
     const havePic = (
       <Avatar
         rounded
         source={{ uri: `data:image/jpg;base64,${item.image}` }}
         style={styles.imageStyle}
       />
-    )
-    const loading = (
-      <View style={styles.loadingStyle}>
-          <MyBar
-            height={65}
-            width={Math.round(Dimensions.get('window').width * 0.7)}
-          />
-      </View>
-    )
+    );
+
     return (
       <View style={{ 
         flexDirection: 'column',
@@ -196,7 +210,7 @@ export default class Requests extends Component {
           </TouchableOpacity>
         </View>
       </View>
-    )
+    );
   }
 
   render() {
@@ -215,7 +229,8 @@ export default class Requests extends Component {
           No requests to show
         </Text>
       </View>
-    )
+    );
+
     const loading = (
       <View style={styles.loadingStyle}>
           <MyBar
@@ -223,7 +238,8 @@ export default class Requests extends Component {
             width={Math.round(Dimensions.get('window').width * 0.7)}
           />
       </View>
-    )
+    );
+
     const requestsList = (
         <FlatList
           style={styles.flatStyle}
@@ -231,16 +247,24 @@ export default class Requests extends Component {
           renderItem={this.renderRow}
           keyExtractor={item => item.uid.toString()}
         />
-    )
+    );
+
     return (
       <View style={styles.container}>
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
+
         {this.state.refreshing
           ? loading
           : this.state.requests.length === 0
             ? noRequests
             : requestsList}
       </View>
-    )
+    );
   }
 }
 
