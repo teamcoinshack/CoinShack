@@ -11,7 +11,7 @@ import MyInput from '../components/MyInput.js';
 import MyErrorModal from '../components/MyErrorModal.js';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
-import config from '../config.js';
+import '../config.js';
 import db from '../Database.js';
 import Firebase from 'firebase';
 

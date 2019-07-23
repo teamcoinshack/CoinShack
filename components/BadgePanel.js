@@ -11,7 +11,7 @@ import { Avatar } from 'react-native-elements';
 import { Tooltip } from 'react-native-elements';
 import Title from './Title.js';
 import { rowBackground } from '../Masterlist.js';
-//Required parameters are text, path, right(content)
+// Required parameters are text, path, right(content)
 
 EmptyBadge = props => (
   <View style={styles.emptyBadge} />

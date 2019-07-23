@@ -523,7 +523,7 @@ export default class Database {
   }
 
   static removeFriend(uid, deletedUid) {
-    //used when user deletes account and friend of user refreshes friends list
+    // used when user deletes account and friend of user refreshes friends list
     const ref = Firebase.app()
                         .database()
                         .ref('/friends/' + uid)
