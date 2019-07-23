@@ -82,7 +82,10 @@ export default class Settings extends Component {
   async saveChanges() {
     try {
       const res1 = db.storePhoto(this.state.uid, this.state.b64); 
-      const unique = await db.uniqueUsername(this.state.username); 
+      const unique = await db.uniqueUsername(
+        this.state.uid, 
+        this.state.username
+      ); 
       if (!unique) {
         this.setState({
           isErrorVisible: true,

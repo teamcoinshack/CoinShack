@@ -40,7 +40,7 @@ export default class SignUp extends Component {
       });
       return;
     }
-    const unique = await db.uniqueUsername(username); 
+    const unique = await db.uniqueUsername(null, username); 
     if (!unique) {
       this.setState({
         isErrorVisible: true,

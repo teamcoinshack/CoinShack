@@ -575,7 +575,7 @@ export default class Database {
       : num.toString().replace(/,/g, '');
   }
 
-  static async uniqueUsername(username) {
+  static async uniqueUsername(uid, username) {
     try {
       const snap = await Firebase.app()
                               .database()
@@ -583,7 +583,12 @@ export default class Database {
                               .orderByValue()
                               .equalTo(username)
                               .once('value');
-      return !(snap.val());
+      let res = snap.val();
+      return (!uid) ? (!res) 
+                    : (!res) ? true
+                             : (uid in res)
+                                ? Object.keys(res).length === 1 
+                                : Object.keys(res).length === 0
     } catch (error) {
       console.log(error);
     }
