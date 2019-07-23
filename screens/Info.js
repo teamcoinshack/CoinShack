@@ -16,6 +16,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import TouchableGraph from '../components/TouchableGraph.js';
 import db from '../Database.js';
 import MyInput from '../components/MyInput.js';
+import MyErrorModal from '../components/MyErrorModal.js';
 import { nameToIconMap, background, rowBackground } from '../Masterlist.js';
 
 export default class Info extends Component {
@@ -33,6 +34,11 @@ export default class Info extends Component {
       alertValue: '',
       currentlyOpenedItem: null,
       refreshing: false,
+
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
     };
 
     this.addAlert = this.addAlert.bind(this);
@@ -67,7 +73,11 @@ export default class Info extends Component {
   async addAlert() {
     try {
       if (Number(this.state.alertValue) <= 0 || isNaN(this.state.alertValue)) {
-        alert('Invalid Price!');
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Invalid price!",
+          errorPrompt: "Please enter a valid positive number.",
+        });
         return;
       }
 
@@ -405,124 +415,131 @@ export default class Info extends Component {
         onScroll={this.closeOpenedItem}
         keyboardShouldPersistTaps="always"
       >
-          <View
-            style={styles.row}
-          >
-            <View style={{ flexDirection: 'row' }}>
-              <View style={styles.imageContainer}>
-                {icon}
-              </View>
-              <View style={styles.nameContainer}>
-                <Text style={styles.name}>
-                  {this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1)}
-                </Text>
-              </View>
-              <View style={styles.ratesContainer}>
-                {currentPrice}
-                {change}
-              </View>
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
+
+        <View
+          style={styles.row}
+        >
+          <View style={{ flexDirection: 'row' }}>
+            <View style={styles.imageContainer}>
+              {icon}
             </View>
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>
+                {this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1)}
+              </Text>
+            </View>
+            <View style={styles.ratesContainer}>
+              {currentPrice}
+              {change}
+            </View>
+          </View>
+          <View style={{
+            flex: 1,
+            marginVertical: 10,
+            // justifyContent: "center",
+          }}>
+            <TouchableGraph
+              name={this.state.name}
+              height={300}
+              width={Math.round(Dimensions.get('window').width) - 30}
+              days={this.state.graphDays}
+              isLoading={true}
+            />
+          </View>
+        </View>
+
+        <View style={styles.graphDaysButtons}>
+          <MarketButton
+            text="24H"
+            onPress={() => this.setState({ graphDays: 1 })}
+            height={50}
+            selected={this.state.graphDays === 1}
+          />
+          <MarketButton
+            text="1W"
+            onPress={() => this.setState({ graphDays: 7 })}
+            height={50}
+            selected={this.state.graphDays === 7}
+          />
+          <MarketButton
+            text="15D"
+            onPress={() => this.setState({ graphDays: 15 })}
+            height={50}
+            selected={this.state.graphDays === 15}
+          />
+          <MarketButton
+            text="1M"
+            onPress={() => this.setState({ graphDays: 30 })}
+            height={50}
+            selected={this.state.graphDays === 30}
+          />
+        </View>
+
+        {infoCard}
+
+        <View style={styles.alerts}>
+          <View style={{
+            marginTop: 5,
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+            <Text style={{
+              marginLeft: 5,
+              fontSize: 25,
+              color: '#ffffff',
+              fontWeight: 'bold',
+            }}>
+              Alerts
+            </Text>
             <View style={{
               flex: 1,
-              marginVertical: 10,
-              // justifyContent: "center",
-            }}>
-              <TouchableGraph
-                name={this.state.name}
-                height={300}
-                width={Math.round(Dimensions.get('window').width) - 30}
-                days={this.state.graphDays}
-                isLoading={true}
-              />
-            </View>
-          </View>
-
-          <View style={styles.graphDaysButtons}>
-            <MarketButton
-              text="24H"
-              onPress={() => this.setState({ graphDays: 1 })}
-              height={50}
-              selected={this.state.graphDays === 1}
-            />
-            <MarketButton
-              text="1W"
-              onPress={() => this.setState({ graphDays: 7 })}
-              height={50}
-              selected={this.state.graphDays === 7}
-            />
-            <MarketButton
-              text="15D"
-              onPress={() => this.setState({ graphDays: 15 })}
-              height={50}
-              selected={this.state.graphDays === 15}
-            />
-            <MarketButton
-              text="1M"
-              onPress={() => this.setState({ graphDays: 30 })}
-              height={50}
-              selected={this.state.graphDays === 30}
-            />
-          </View>
-
-          {infoCard}
-
-          <View style={styles.alerts}>
-            <View style={{
-              marginTop: 5,
               flexDirection: 'row',
-              alignItems: 'center',
+              justifyContent: 'flex-end',
             }}>
-              <Text style={{
-                marginLeft: 5,
-                fontSize: 25,
-                color: '#ffffff',
-                fontWeight: 'bold',
-              }}>
-                Alerts
-            </Text>
-              <View style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-              }}>
-                <TouchableOpacity
-                  style={{
-                    height: 60,
-                    width: 60,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}
-                  onPress={() => this.RBSheet.open()}
-                >
-                  <Text style={{ fontSize: 40, color: '#ffffff' }}>
-                    +
-                </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            {this.state.refreshing
-              ? loading
-              : this.state.alerts.length === 0
-                ? noAlerts
-                : alertList}
-            <RBSheet
-              ref={ref => {
-                this.RBSheet = ref;
-              }}
-              height={260}
-              duration={200}
-              customStyles={{
-                container: {
-                  backgroundColor: background,
+              <TouchableOpacity
+                style={{
+                  height: 60,
+                  width: 60,
+                  flexDirection: 'row',
                   justifyContent: 'center',
-                  alignItems: 'stretch',
-                }
-              }}
-              closeOnDragDown={true}
-            >
-              {AlertSheet}
-            </RBSheet>
+                }}
+                onPress={() => this.RBSheet.open()}
+              >
+                <Text style={{ fontSize: 40, color: '#ffffff' }}>
+                  +
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
+          {this.state.refreshing
+            ? loading
+            : this.state.alerts.length === 0
+              ? noAlerts
+              : alertList}
+          <RBSheet
+            ref={ref => {
+              this.RBSheet = ref;
+            }}
+            height={260}
+            duration={200}
+            customStyles={{
+              container: {
+                backgroundColor: background,
+                justifyContent: 'center',
+                alignItems: 'stretch',
+              }
+            }}
+            closeOnDragDown={true}
+          >
+            {AlertSheet}
+          </RBSheet>
+        </View>
       </ScrollView>
     );
   }
