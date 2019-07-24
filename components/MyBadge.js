@@ -1,13 +1,9 @@
 import React from 'react';
 import {
-  Text, 
   View, 
   StyleSheet, 
-  TouchableOpacity,
-  Dimensions,
 } from 'react-native';
 import { Avatar, Badge } from 'react-native-elements';
-import { rowBackground } from '../Masterlist.js';
 
 /*
   props.name is one of
@@ -25,81 +21,87 @@ import { rowBackground } from '../Masterlist.js';
   have10transactions
 */
 
-// const badgeToIconMap = {
-//   have1friend: "user-friends", 
-//   have5friends: "user-friends",
-//   have10friends: "user-friends",
-//   have50friends: "user-friends",
-//   spent10000atOnce,
-//   spent100000atOnce,
-//   earned10000atOnce,
-//   earned100000atOnce,
-//   own5coins,
-//   have100transactions,
-//   have50transactions,
-//   have10transactions
-// }
-
 export default MyBadge = props => {
-  return (
-    <Avatar
-      size="small"
-      rounded
-      source={require("../assets/icons/badges/spend.png")}
-      overlayContainerStyle={{ backgroundColor: 'orange' }}
-    />
-  );
-  // if (props.achieved) { // achieved badge
-  //   return (
-  //     <Avatar
-  //       size="small"
-  //       rounded
-  //       source={require("../assets/icons/badges/spend.png")}
-  //       overlayContainerStyle={{ backgroundColor: 'orange' }}
-  //     />
-  //   );
-  // } else { // haven't achieve badge
-  //     return (
-  //       <Avatar
-  //         size="small"
-  //         rounded
-  //         icon={{ name: 'user', type: 'font-awesome', color: 'white' }}
-  //         overlayContainerStyle={{ backgroundColor: 'grey' }}
-  //       />
-  //     );
-  // }
+  const images = {
+    friend: require("../assets/icons/badges/friend.png"),
+    spend: require("../assets/icons/badges/spend.png"),
+    earn: require("../assets/icons/badges/earn.png"),
+    own: require("../assets/icons/badges/own.png"),
+    transact: require("../assets/icons/badges/transact.png")
+  };
+
+  const nameToImageMap = {
+    have1friend: images.friend, 
+    have5friends: images.friend,
+    have10friends: images.friend,
+    have50friends: images.friend,
+    spent10000atOnce: images.spend,
+    spent100000atOnce: images.spend,
+    earned10000atOnce: images.earn,
+    earned100000atOnce: images.earn,
+    own5coins: images.own,
+    have10transactions: images.transact,
+    have50transactions: images.transact,
+    have100transactions: images.transact
+  };
+
+  const nameToCountMap = {
+    have1friend: "1", 
+    have5friends: "5",
+    have10friends: "10",
+    have50friends: "50",
+    spent10000atOnce: "10K",
+    spent100000atOnce: "100K",
+    earned10000atOnce: "10K",
+    earned100000atOnce: "100K",
+    own5coins: "5",
+    have10transactions: "10",
+    have50transactions: "50",
+    have100transactions: "100"
+  };
+
+  if (props.achieved) { // achieved badge
+    return (
+      <View style={styles.container}>
+        <Avatar
+          size={props.size}
+          rounded
+          source={nameToImageMap[props.name]}
+          overlayContainerStyle={{ backgroundColor: 'honeydew' }}
+        />
+        <Badge
+          value={nameToCountMap[props.name]}
+          status="success"
+          containerStyle={styles.count}
+        />
+      </View>
+    );
+  } else { // haven't achieve badge
+      return (
+        <View style={styles.container}>
+          <Avatar
+            size={props.size}
+            rounded
+            source={nameToImageMap[props.name]}
+            overlayContainerStyle={{ backgroundColor: 'grey' }}
+            avatarStyle={{ opacity: 0.2 }}
+          />
+        </View>
+      );
+  }
+}
+
+MyBadge.defaultProps = {
+  name: "have1friend",
+  achieved: false,
+  size: "medium"
 }
 
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 25,
-    color: '#dbdbdb',
-    fontWeight: '600',
-    paddingLeft: 18,
-    paddingRight: 18,
-    marginTop: 0,
-    marginBottom: 10,
+  container: {
+    margin: 5,
   },
-  row: {
-    elevation: 1,
-    borderRadius: 5,
-    backgroundColor: rowBackground,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 18,
-    paddingRight: 18,
-    marginTop: 0,
-    marginBottom: 6,
-    marginLeft: 14,
-    marginRight: 14,
-  },
-  emptyBadge: {
-    height: 50,
-    width: 40,
-    borderRadius: 10,
-    backgroundColor: '#00181a',
-  },
+  count: {
+    position: 'absolute', top: -3, right: -3
+  }
 });

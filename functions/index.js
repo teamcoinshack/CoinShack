@@ -17,9 +17,9 @@ admin.initializeApp();
   earned10000atOnce,
   earned100000atOnce,
   own5coins,
-  have100transactions,
+  have10transactions,
   have50transactions,
-  have10transactions
+  have100transactions
 */
 
 // listener for friendsList
