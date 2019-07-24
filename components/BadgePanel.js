@@ -4,30 +4,65 @@ import {
   View, 
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
-  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import MyBadge from './MyBadge.js';
 import { rowBackground } from '../Masterlist.js';
-// Required parameters are text, path, right(content)
 
-export default BadgePanel = props => (
-  <View style={{ flexDirection: 'column' }}>
-    <Text style={styles.header}>Badges</Text>
-    <ScrollView horizontal style={styles.row}>
-      <TouchableOpacity onPress={props.onPress} style={{ flexDirection: "row" }}>
-        <MyBadge name="have10friends" achieved/>
-        <MyBadge name="spent100000atOnce" achieved/>
-        <MyBadge name="earned10000atOnce" achieved/>
-        <MyBadge name="own5coins" achieved/>
-        <MyBadge name="have50transactions" achieved/>
-        <MyBadge/>
-        <MyBadge/>
-        <MyBadge/>
-      </TouchableOpacity>
-    </ScrollView>
-  </View>
-);
+const allBadges = [
+  "have1friend", 
+  "have5friends",
+  "have10friends",
+  "have50friends",
+  "spent10000atOnce",
+  "spent100000atOnce",
+  "earned10000atOnce",
+  "earned100000atOnce",
+  "own5coins",
+  "have10transactions",
+  "have50transactions",
+  "have100transactions"
+]
+
+export default BadgePanel = props => {
+  let unobtainedBadges = [];
+  let achievedBadges = allBadges.filter(badge => {
+    if (badge in props.badgesData && props.badgesData[badge]) {
+      return true;
+    } else {
+      unobtainedBadges.push(badge);
+      return false;
+    }
+  });
+
+  return (
+    <View style={{ flexDirection: 'column' }}>
+      <Text style={styles.header}>Badges</Text>
+      <ScrollView horizontal style={styles.row}>
+        <TouchableOpacity
+          onPress={props.onPress}
+          style={{ flexDirection: "row" }}
+          activeOpacity={0.4}
+        >
+          {achievedBadges.map((badge, key) => (
+            <MyBadge
+              key={key}
+              name={badge}
+              achieved
+            />
+          ))}
+
+          {unobtainedBadges.map((badge, key) => (
+            <MyBadge
+              key={key}
+              name={badge}
+            />
+          ))}
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
+  );
+}
 
 BadgePanel.defaultProps = {
   onPress: () => {}
@@ -50,7 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 0,
     padding: 2.5,
-    marginBottom: 6,
+    marginBottom: 10,
     marginHorizontal: 14,
   },
 });

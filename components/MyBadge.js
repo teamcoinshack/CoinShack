@@ -16,9 +16,9 @@ import { Avatar, Badge } from 'react-native-elements';
   earned10000atOnce,
   earned100000atOnce,
   own5coins,
-  have100transactions,
+  have10transactions,
   have50transactions,
-  have10transactions
+  have100transactions
 */
 
 export default MyBadge = props => {
@@ -64,10 +64,10 @@ export default MyBadge = props => {
     return (
       <View style={styles.container}>
         <Avatar
-          size={props.size}
           rounded
           source={nameToImageMap[props.name]}
-          overlayContainerStyle={{ backgroundColor: 'honeydew' }}
+          overlayContainerStyle={styles.avatarOverlay}
+          style={styles.avatar}
         />
         <Badge
           value={nameToCountMap[props.name]}
@@ -80,11 +80,17 @@ export default MyBadge = props => {
       return (
         <View style={styles.container}>
           <Avatar
-            size={props.size}
             rounded
             source={nameToImageMap[props.name]}
-            overlayContainerStyle={{ backgroundColor: 'grey' }}
+            overlayContainerStyle={styles.avatarOverlay}
             avatarStyle={{ opacity: 0.2 }}
+            style={styles.avatar}
+          />
+          <Badge
+            value={nameToCountMap[props.name]}
+            status="success"
+            containerStyle={styles.count}
+            badgeStyle={{ opacity: 0.2 }}
           />
         </View>
       );
@@ -94,14 +100,21 @@ export default MyBadge = props => {
 MyBadge.defaultProps = {
   name: "have1friend",
   achieved: false,
-  size: "medium"
 }
 
 const styles = StyleSheet.create({
   container: {
-    margin: 5,
+    margin: 10,
   },
   count: {
     position: 'absolute', top: -3, right: -3
+  },
+  avatar: {
+    height: 70,
+    width: 70
+  },
+  avatarOverlay: {
+    backgroundColor: 'grey',
+    padding: 10
   }
 });

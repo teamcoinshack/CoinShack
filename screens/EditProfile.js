@@ -217,13 +217,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: background,
   },
-  inputContainer: {
-    borderBottomColor: '#515360',
-    borderBottomWidth: 3,
-    width: Math.round(Dimensions.get('window').width) * 0.7,
-    alignItems: 'flex-start',
-    marginBottom: 6,
-  },
   imageStyle: {
     width: 100,
     height: 100,

@@ -26,6 +26,7 @@ export default class Profile extends Component {
       tooltipVisible: false,
       totalValue: '0',
       email: '',
+      badgesData: {},
     }
     this.refresh = this.refresh.bind(this);
     this.getFavCoin = this.getFavCoin.bind(this);
@@ -92,6 +93,7 @@ export default class Profile extends Component {
       const favCoin = await this.getFavCoin(wallet);
       const newTitle = db.newTitle(snapped.title_id, totalValue); 
       const image = await db.getPhoto(uid);
+      const badgesData = snapped.badges || {};
       this.setState({
         username: snapped.username,
         email: Firebase.auth().currentUser.email,
@@ -100,6 +102,7 @@ export default class Profile extends Component {
         favourite: wallet ? favCoin.charAt(0).toUpperCase() + favCoin.slice(1) : favCoin,
         title_id: newTitle,
         image: image,
+        badgesData: badgesData
       })
     } catch (error) {
       console.log(error);
@@ -146,7 +149,7 @@ export default class Profile extends Component {
             }
             path={{ uri: 'data:image/jpg;base64,' + this.state.image }} 
           />
-          <BadgePanel />
+          <BadgePanel badgesData={this.state.badgesData}/>
       </ScrollView>
     );
   }
