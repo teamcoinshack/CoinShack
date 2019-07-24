@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -41,11 +42,10 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		30E678CCB7F34B7CAB8EA8E5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F00CAAC7E73D4397BB6465ED /* FBSDKShareKit.framework */; };
 		36A4E18A2AED4FB9BA8A615C /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19237D7012724A5697836073 /* SimpleLineIcons.ttf */; };
+		3715B6A922E800D2009B67FB /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3715B6A622E7FFBC009B67FB /* GoogleSignIn.bundle */; };
 		374DA9E222BFB693002087B6 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374DA9E022BFB693002087B6 /* GoogleSignIn.framework */; };
 		374DA9E322BFB693002087B6 /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374DA9E122BFB693002087B6 /* GoogleSignInDependencies.framework */; };
-		374DA9E522BFB6B0002087B6 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 374DA9E422BFB6B0002087B6 /* GoogleSignIn.bundle */; };
 		374DA9EA22BFB807002087B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 374DA9E922BFB806002087B6 /* GoogleService-Info.plist */; };
-		377D8D7E22CCF176001E9772 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 377D8D4F22CCF176001E9772 /* GoogleSignIn.bundle */; };
 		377D8E1A22DEF18E001E9772 /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 377D8E1922DEF18E001E9772 /* RSKImageCropper.framework */; };
 		377D8E1B22DEF18E001E9772 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 377D8E1922DEF18E001E9772 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		377D8E1D22DEF18E001E9772 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 377D8E1C22DEF18E001E9772 /* QBImagePicker.framework */; };
@@ -487,13 +487,13 @@
 		2D02E4901E0B4A5D006451C7 /* CoinShack-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoinShack-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		33F0ECAB9AFD40CA836EBA79 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		3715B6A622E7FFBC009B67FB /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = ../google_signin_sdk_4_4_0/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		374DA9E022BFB693002087B6 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = ../../google_signin_sdk_4_4_0/GoogleSignIn.framework; sourceTree = "<group>"; };
 		374DA9E122BFB693002087B6 /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = ../../google_signin_sdk_4_4_0/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		374DA9E422BFB6B0002087B6 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = ../../google_signin_sdk_4_4_0/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		374DA9E622BFB6E5002087B6 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
 		374DA9E722BFB7E9002087B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		374DA9E922BFB806002087B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		377D8D4F22CCF176001E9772 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = ../../google_signin_sdk_4_4_0/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		377D8E1922DEF18E001E9772 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		377D8E1C22DEF18E001E9772 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F2EB8AFD224C19B98B27E9 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -693,8 +693,8 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				3715B6A622E7FFBC009B67FB /* GoogleSignIn.bundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				377D8D4F22CCF176001E9772 /* GoogleSignIn.bundle */,
 			);
 			name = CoinShack;
 			sourceTree = "<group>";
@@ -1508,11 +1508,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3715B6A922E800D2009B67FB /* GoogleSignIn.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				1D9C1A55CF0A45B1862C5EBB /* AntDesign.ttf in Resources */,
 				00E400758A1A40C4AA7886A9 /* Entypo.ttf in Resources */,
-				374DA9E522BFB6B0002087B6 /* GoogleSignIn.bundle in Resources */,
 				1E2F2879C93C4B99AD6EA7E4 /* EvilIcons.ttf in Resources */,
 				40F74A7F49184BBF8D327DE3 /* Feather.ttf in Resources */,
 				38CDF6491E3F40A1BBAE3630 /* FontAwesome.ttf in Resources */,
@@ -1524,7 +1524,6 @@
 				541D18472D0D4C549CB08C39 /* MaterialCommunityIcons.ttf in Resources */,
 				4C5E31383B8D4D60AE80A907 /* MaterialIcons.ttf in Resources */,
 				B959857213B34E27ADB38D8A /* Octicons.ttf in Resources */,
-				377D8D7E22CCF176001E9772 /* GoogleSignIn.bundle in Resources */,
 				374DA9EA22BFB807002087B6 /* GoogleService-Info.plist in Resources */,
 				36A4E18A2AED4FB9BA8A615C /* SimpleLineIcons.ttf in Resources */,
 				404361D0C3CE4D7C97F2D4EF /* Zocial.ttf in Resources */,
@@ -1666,9 +1665,7 @@
 				INFOPLIST_FILE = CoinShackTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1700,9 +1697,7 @@
 				INFOPLIST_FILE = CoinShackTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1805,9 +1800,7 @@
 				);
 				INFOPLIST_FILE = "CoinShack-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1847,9 +1840,7 @@
 				);
 				INFOPLIST_FILE = "CoinShack-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1888,9 +1879,7 @@
 				);
 				INFOPLIST_FILE = "CoinShack-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1929,9 +1918,7 @@
 				);
 				INFOPLIST_FILE = "CoinShack-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
