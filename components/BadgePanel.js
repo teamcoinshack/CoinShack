@@ -2,64 +2,35 @@ import React from 'react';
 import {
   Text, 
   View, 
-  StyleSheet, 
+  StyleSheet,
+  ScrollView,
   TouchableOpacity,
   Dimensions,
-  Image,
 } from 'react-native';
-import { Avatar } from 'react-native-elements';
-import { Tooltip } from 'react-native-elements';
-import Title from './Title.js';
+import MyBadge from './MyBadge.js';
 import { rowBackground } from '../Masterlist.js';
 // Required parameters are text, path, right(content)
 
-EmptyBadge = props => (
-  <View style={styles.emptyBadge} />
-)
-
-Info = props => (
-  <Tooltip
-    popover={<Text>{props.message}</Text>}
-    width={Math.round(Dimensions.get('window').width / 3)}
-    height={80}
-  >
-    {props.badge}
-  </Tooltip>
-)
 export default BadgePanel = props => (
   <View style={{ flexDirection: 'column' }}>
     <Text style={styles.header}>Badges</Text>
-    <View style={styles.row}>
-      <Info 
-        badge={<EmptyBadge />} 
-        message={'Make 5 friends'}
-      />
-      <Info 
-        badge={<EmptyBadge />} 
-        message={'Buy 5 different types of cryptocurrency'}
-      />
-      <Info 
-        badge={<EmptyBadge />} 
-        message={'Badge 3'}
-      />
-      <Info 
-        badge={<EmptyBadge />} 
-        message={'Badge 4'}
-      />
-      <Info 
-        badge={<EmptyBadge />} 
-        message={'Badge 5'}
-      />
-      <Info 
-        badge={<EmptyBadge />} 
-        message={'Badge 6'}
-      />
-    </View>
+    <ScrollView horizontal style={styles.row}>
+      <TouchableOpacity onPress={props.onPress} style={{ flexDirection: "row" }}>
+        <MyBadge name="have10friends" achieved/>
+        <MyBadge name="spent100000atOnce" achieved/>
+        <MyBadge name="earned10000atOnce" achieved/>
+        <MyBadge name="own5coins" achieved/>
+        <MyBadge name="have50transactions" achieved/>
+        <MyBadge/>
+        <MyBadge/>
+        <MyBadge/>
+      </TouchableOpacity>
+    </ScrollView>
   </View>
 );
 
 BadgePanel.defaultProps = {
-  textColor: "#ffffff",
+  onPress: () => {}
 }
 
 const styles = StyleSheet.create({
@@ -77,21 +48,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: rowBackground,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 18,
-    paddingRight: 18,
     marginTop: 0,
+    padding: 2.5,
     marginBottom: 6,
-    marginLeft: 14,
-    marginRight: 14,
-  },
-  emptyBadge: {
-    height: 50,
-    width: 40,
-    borderRadius: 10,
-    backgroundColor: '#00181a',
+    marginHorizontal: 14,
   },
 });
