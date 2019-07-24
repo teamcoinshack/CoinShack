@@ -30,12 +30,6 @@ exports.friendsBadges = functions.database.ref('/friends/{uid}/friendsList')
       return null;
     }
 
-    // Exit if user has already achieved the top tier friends badge,
-    // i.e., the user has already reached having 50 friends previously
-    if (Object.keys(change.before.val()).length > 50) {
-      return null;
-    }
-
     const updatedFriendsList = change.after.val();
     const numFriends = Object.keys(updatedFriendsList).length;
 
