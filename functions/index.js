@@ -16,7 +16,10 @@ admin.initializeApp();
   spent100000atOnce,
   earned10000atOnce,
   earned100000atOnce,
-  own5coins
+  own5coins,
+  have100transactions,
+  have50transactions,
+  have10transactions
 */
 
 // listener for friendsList
@@ -107,31 +110,51 @@ exports.cashChangeBadges = functions.database.ref('/users/{uid}/cash')
   });
 
 // listener for wallet
-exports.ownCoinsBadge = functions.database.ref('/users/{uid}/wallet')
+exports.ownCoinsBadges = functions.database.ref('/users/{uid}/wallet')
   .onUpdate(change => {
     const updatedWallet = change.after.val();
-    const numCoins = Object.keys(updatedWallet).length;
 
-    if (numCoins < 5) {
-      return null;
-    }
-
-    let userHasAllCoins = true;
+    let numValidCoins = 0; // number of coins with at least 0.001 in value
     for (let coin in updatedWallet) {
-      if (!userHasAllCoins) {
-        break
-      }
-
-      if (updatedWallet[coin] < 0.001) {
-        userHasAllCoins = false;
+      if (updatedWallet[coin] >= 0.001) {
+        numValidCoins++;
       }
     }
 
-    if (userHasAllCoins) {
+    if (numValidCoins >= 5) {
       return change.after.ref.parent
         .child('badges')
         .update({
           own5coins: true
+        });
+    }
+
+    return null;
+  });
+
+// listener for history
+exports.transactionsBadges = functions.database.ref('/users/{uid}/history')
+  .onUpdate(change => {
+    const updatedHistory = change.after.val();
+    const numTransactions = updatedHistory.length;
+
+    if (numTransactions >= 100) {
+      return change.after.ref.parent
+        .child('badges')
+        .update({
+          have100transactions: true
+        });
+    } else if (numTransactions >= 50) {
+      return change.after.ref.parent
+        .child('badges')
+        .update({
+          have50transactions: true
+        });
+    } else if (numTransactions >= 10) {
+      return change.after.ref.parent
+        .child('badges')
+        .update({
+          have10transactions: true
         });
     }
 
