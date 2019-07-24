@@ -10,6 +10,7 @@ import {
 import db from '../Database.js';
 import MyRow from '../components/MyRow.js';
 import MyInput from '../components/MyInput.js';
+import MyErrorModal from '../components/MyErrorModal.js';
 
 const background = '#373b48';
 
@@ -29,6 +30,11 @@ export default class Sell extends Component {
       input2: false,
       refreshing: false,
       callback: null,
+
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
     }
 
     this.sellOnPress = this.sellOnPress.bind(this);
@@ -47,14 +53,23 @@ export default class Sell extends Component {
       displayStockBuy: '',
       input1: false,
       input2: false,
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
     });
   }
 
   async sellOnPress() {
     try {
-      if (this.state.actualMoneySell <= 0) {
-        alert("Invalid amount!");
+      if (this.state.actualMoneySell <= 0 
+            || isNaN(this.state.actualMoneySell)) {
         this.resetState();
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Invalid amount!",
+          errorPrompt: 'Please try again.'
+        });
         return;
       }
       this.setState({ refreshing: true });
@@ -67,8 +82,23 @@ export default class Sell extends Component {
       if (res === 0) {
         this.state.callback();
         this.props.navigation.navigate('Main');
+      } else if (res === 2) {
+        this.resetState();
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Not enough cryptocurrency!",
+          errorPrompt: 'Please try again.'
+        });
+      } else if (res === 3) {
+        this.resetState();
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "No cryptocurrency to sell!",
+          errorPrompt: 'Please try again.'
+        });
+      } else {
+        this.resetState();
       }
-      this.resetState();
     } catch (error) {
       console.log(error);
     }
@@ -97,6 +127,13 @@ export default class Sell extends Component {
         this.state.callback();
         this.props.navigation.navigate('Main');
         this.resetState();
+      } else if (res === 1) {
+        this.resetState();
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "No cryptocurrency to sell!",
+          errorPrompt: 'Please try again.'
+        });
       } else {
         this.resetState();
       }
@@ -274,6 +311,12 @@ export default class Sell extends Component {
           backgroundColor: background,
         }}
       >
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
         <View style={styles.container}>
           <View style={{
             marginTop: 10,

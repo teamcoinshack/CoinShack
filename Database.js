@@ -245,7 +245,6 @@ export default class Database {
       let wallet = (!('wallet' in snap.val())) ? [] : snap.val().wallet;
       const initCash = snap.val().cash;
       if (cash > initCash) {
-        alert("Not enough cash!");
         return 1;
       }
       let initStock;
@@ -255,12 +254,11 @@ export default class Database {
         initStock = wallet[stock];
       }
       if (initStock + (cash / rate) < 0) {
-        alert("Not enough cryptocurrency!");
-        return 1;
+      console.log('here');
+        return 2;
       }
       if (initStock === 0 && cash < 0) {
-        alert("No cryptocurrency to sell!");
-        return 1;
+        return 3;
       }
       let hist = ('history' in snap.val()) ? snap.val().history : [];
       hist.unshift({
@@ -300,12 +298,10 @@ export default class Database {
                             .ref('/users/' + id + '/wallet/');
       const snap = await this.getData(id);
       if (!('wallet' in snap.val())) {
-        alert("No cryptocurrency to sell!");
         return 1;
       }
       let wallet = snap.val().wallet;
       if (!(stock in wallet)) {
-        alert("No cryptocurrency to sell!");
         return 1;
       }
       const initCash = snap.val().cash;

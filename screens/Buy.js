@@ -10,6 +10,7 @@ import {
 import db from '../Database.js';
 import MyRow from '../components/MyRow.js';
 import MyInput from '../components/MyInput.js';
+import MyErrorModal from '../components/MyErrorModal.js';
 
 const background = '#373b48';
 
@@ -29,6 +30,11 @@ export default class Buy extends Component {
       input2: false,
       refreshing: false,
       callback: null,
+
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
     }
 
     this.buyOnPress = this.buyOnPress.bind(this);
@@ -45,19 +51,32 @@ export default class Buy extends Component {
       displayStockBuy: '',
       input1: false,
       input2: false,
+      // Error Modal states
+      isErrorVisible: false,
+      errorTitle: "Error",
+      errorPrompt: "",
     });
   }
 
   async buyOnPress() {
     try {
-      if (this.state.actualMoneyBuy <= 0) {
-        alert("Invalid amount!");
+      if (this.state.actualMoneyBuy <= 0
+            || isNaN(this.state.actualMoneyBuy)) {
         this.resetState();
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Invalid amount!",
+          errorPrompt: 'Please try again.'
+        });
         return;
       }
       if (this.state.actualMoneyBuy < 1) {
-        alert("Minimum purchase is $1");
         this.resetState();
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Minimum Purchase is $1",
+          errorPrompt: 'Please try again.'
+        });
         return;
       }
       this.setState({ refreshing: true });
@@ -70,8 +89,16 @@ export default class Buy extends Component {
       if (res === 0) {
         this.state.callback();
         this.props.navigation.navigate('Main');
+      } else if (res === 1) {
+        this.resetState();
+        this.setState({
+          isErrorVisible: true,
+          errorTitle: "Not enough cash!",
+          errorPrompt: 'Please try again.'
+        });
+      } else {
+        this.resetState();
       }
-      this.resetState();
     } catch (error) {
       console.log(error);
     }
@@ -230,6 +257,12 @@ export default class Buy extends Component {
           backgroundColor: background,
         }}
       >
+        <MyErrorModal
+          visible={this.state.isErrorVisible}
+          close={() => this.setState({ isErrorVisible: false })}
+          title={this.state.errorTitle}
+          prompt={this.state.errorPrompt}
+        />
         <View style={styles.container}>
           <View style={{
             marginTop: 10,
