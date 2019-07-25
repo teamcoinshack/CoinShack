@@ -21,7 +21,11 @@ export default BadgePanel = props => {
   });
 
   return (
-    <View style={{ flexDirection: 'column' }}>
+    <View style={{ 
+      flexDirection: 'column', 
+      paddingTop: 15, 
+      paddingBottom: 15,
+    }}>
       <Text style={styles.header}>Badges</Text>
       <ScrollView horizontal style={styles.row}>
         <TouchableOpacity

@@ -111,7 +111,7 @@ ProfileTab.defaultProps = {
   textColor: "#ffffff",
   path: require('../assets/icons/noPic.png'),
   title_id: null,
-  username: 'Bob',
+  username: '',
   badgeCount: 0,
   favourite: 'Bitcoin',
   value: -1,
