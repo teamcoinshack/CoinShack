@@ -14,97 +14,97 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; //
 //Required parameters are text, path, right(content)
 
 export default ProfileTab = props => (
-      <View 
-        style={styles.row}
-      >
-        <View style={{ 
-          flexDirection: 'row', 
+  <View
+    style={styles.row}
+  >
+    <View style={{
+      flexDirection: 'row',
+    }}>
+      <View style={styles.imageAndNameContainer}>
+        {props.path
+          ? (
+            <Avatar
+              rounded
+              source={props.path}
+              style={styles.imageStyle}
+            />
+          )
+          : (
+            <Avatar
+              rounded
+              source={require('../assets/icons/noPic.png')}
+              style={styles.imageStyle}
+            />
+          )}
+        <View style={{
+          flexDirection: 'column',
+          marginLeft: 20,
         }}>
-          <View style={styles.imageAndNameContainer}>
-            {props.path
-              ? (
-                  <Avatar
-                    rounded
-                    source={props.path}
-                    style={styles.imageStyle}
-                  />
-                )
-              : (
-                  <Avatar
-                    rounded
-                    source={require('../assets/icons/noPic.png')}
-                    style={styles.imageStyle}
-                  />
-                )}
-            <View style={{ 
-              flexDirection: 'column',
-              marginLeft: 20,
-            }}>
-              <Text style={{
-                color: '#dbdbdb',    
-                fontWeight: '500',
-                fontSize: 25,
-                marginBottom: 5,
-              }}>{props.username}</Text>
-              <Text style={{
-                color: '#c2c2c2',
-                fontWeight: '500',
-                fontSize: 15,
-                marginBottom: 5,
-              }}>
-                {props.email.length > 20
-                  ? props.email.substring(0, 19) + '...'
-                  : props.email}
-              </Text>
-              <Title title_id={props.title_id} />
-            </View>
-            {props.own
-            ? (
-              <View style={{ flex: 1, alignItems: 'flex-end'}}>
-                <TouchableOpacity
-                  onPress={props.editProfile}
-                >
-                  <Icon
-                    name={'pencil'}
-                    size={26}
-                    color="#999999"
-                  />
-                </TouchableOpacity>
-              </View>
-            ) : null }
-          </View>
+          <Text style={{
+            color: '#dbdbdb',
+            fontWeight: '500',
+            fontSize: 25,
+            marginBottom: 5,
+          }}>{props.username}</Text>
+          <Text style={{
+            color: '#c2c2c2',
+            fontWeight: '500',
+            fontSize: 15,
+            marginBottom: 5,
+          }}>
+            {props.email.length > 20
+              ? props.email.substring(0, 19) + '...'
+              : props.email}
+          </Text>
+          <Title title_id={props.title_id} />
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.info}>
-            <Text style={styles.header}>Net Worth</Text>
-            <View style={styles.border}>
-              {props.refreshing
-               ? ( <Text style={styles.value}>-</Text> )
-               : ( <Text style={styles.value}>{props.value}</Text> )}
+        {props.own
+          ? (
+            <View style={{ flex: 1, alignItems: 'flex-end' }}>
+              <TouchableOpacity
+                onPress={props.editProfile}
+              >
+                <Icon
+                  name={'pencil'}
+                  size={26}
+                  color="#999999"
+                />
+              </TouchableOpacity>
             </View>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.info}>
-            <Text style={styles.header}>Badges</Text>
-            <View style={styles.border}>
-              {props.refreshing
-               ? ( <Text style={styles.value}>-</Text> )
-               : ( <Text style={styles.value}>{props.badgeCount}</Text> )}
-            </View>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.info}>
-            <Text style={styles.header}>Favourite Cryptocurrency</Text>
-            <View style={styles.border}>
-              {props.refreshing
-               ? ( <Text style={styles.value}>-</Text> )
-               : ( <Text style={styles.value}>{props.favourite}</Text> )}
-            </View>
-          </View>
+          ) : null}
+      </View>
+    </View>
+    <View style={{ flexDirection: 'row' }}>
+      <View style={styles.info}>
+        <Text style={styles.header}>Net Worth</Text>
+        <View style={styles.border}>
+          {props.refreshing
+            ? (<Text style={styles.value}>-</Text>)
+            : (<Text style={styles.value}>{props.value}</Text>)}
         </View>
       </View>
+    </View>
+    <View style={{ flexDirection: 'row' }}>
+      <View style={styles.info}>
+        <Text style={styles.header}>Badges</Text>
+        <View style={styles.border}>
+          {props.refreshing
+            ? (<Text style={styles.value}>-</Text>)
+            : (<Text style={styles.value}>{props.badgeCount}</Text>)}
+        </View>
+      </View>
+    </View>
+    <View style={{ flexDirection: 'row' }}>
+      <View style={styles.info}>
+        <Text style={styles.header}>Favourite Cryptocurrency</Text>
+        <View style={styles.border}>
+          {props.refreshing
+            ? (<Text style={styles.value}>-</Text>)
+            : (<Text style={styles.value}>{props.favourite}</Text>)}
+        </View>
+      </View>
+    </View>
+  </View>
 );
 
 ProfileTab.defaultProps = {
