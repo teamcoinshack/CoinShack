@@ -288,25 +288,21 @@ export default class FriendsProfile extends Component {
     );
 
     const deleteFriend = (
-      <View style={styles.button}>
-        <MyButton
-          text="Delete Friend"
-          onPress={this.deleteFriend}
-          textColor="#00f9ff"
-          width={Math.round(Dimensions.get('window').width)}
-        />
-      </View>
+      <MyButton
+        text="Delete Friend"
+        onPress={this.deleteFriend}
+        textColor="#00f9ff"
+        width={Math.round(Dimensions.get('window').width)}
+      />
     );
 
     const deleteRequest = (
-      <View style={styles.button}>
-        <MyButton
-          text="Delete Request"
-          onPress={this.deleteRequest}
-          textColor="#00f9ff"
-          width={Math.round(Dimensions.get('window').width)}
-        />
-      </View>
+      <MyButton
+        text="Delete Request"
+        onPress={this.deleteRequest}
+        textColor="#00f9ff"
+        width={Math.round(Dimensions.get('window').width)}
+      />
     );
 
     const acceptRequest = (
@@ -354,17 +350,19 @@ export default class FriendsProfile extends Component {
             badgesData: this.state.badgesData
           })}
         />
-        { this.state.refreshing || this.state.uid === this.state.friendUid
-          ? null 
-          : this.state.loading
-            ? loading
-            : this.state.areFriends
-              ? deleteFriend
-              : this.state.requesting
-                ? deleteRequest
-                : this.state.friendRequesting
-                  ? acceptRequest
-                  : addFriend }
+        <View style={styles.button}>
+          { this.state.refreshing || this.state.uid === this.state.friendUid
+            ? null 
+            : this.state.loading
+              ? loading
+              : this.state.areFriends
+                ? deleteFriend
+                : this.state.requesting
+                  ? deleteRequest
+                  : this.state.friendRequesting
+                    ? acceptRequest
+                    : addFriend }
+        </View>
       </ScrollView>
     );
   }
