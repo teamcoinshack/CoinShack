@@ -52,7 +52,7 @@ export default class BadgesInfo extends Component {
 const styles = StyleSheet.create({
   flatList: {
     backgroundColor: background,
-    marginBottom: -14,
+    marginBottom: -6,
   },
   container: {
     backgroundColor: background,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 4,
-    marginBottom: 14,
+    marginBottom: 6,
   },
   info: {
     flex: 1,
