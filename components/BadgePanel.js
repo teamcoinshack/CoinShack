@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 0,
     padding: 2.5,
-    marginBottom: 10,
+    // marginBottom: 14,
     marginHorizontal: 14,
   },
 });

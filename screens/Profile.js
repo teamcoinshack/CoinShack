@@ -164,10 +164,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    backgroundColor: background, 
+    backgroundColor: background,
   },
   contentContainer: {
     justifyContent: 'flex-start',
+    paddingVertical: 14,
   },
   cashText: {
     fontSize: 30,
