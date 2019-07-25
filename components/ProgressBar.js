@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     paddingLeft: 18,
     paddingRight: 18,
-    marginTop: 10,
+    marginTop: 16,
     marginBottom: 10,
   },
   row: {

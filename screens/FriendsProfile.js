@@ -271,12 +271,12 @@ export default class FriendsProfile extends Component {
   render() {
     const loading = (
       <View style={styles.loading1}>
-          <MyBar
-            height={65}
-            width={Math.round(Dimensions.get('window').width)}
-          />
+        <MyBar
+          height={65}
+          width={Math.round(Dimensions.get('window').width)}
+        />
       </View>
-    )
+    );
 
     const addFriend = (
       <MyButton
@@ -285,25 +285,29 @@ export default class FriendsProfile extends Component {
         textColor="#00f9ff"
         width={Math.round(Dimensions.get('window').width)}
       />
-    )
+    );
 
     const deleteFriend = (
-      <MyButton
-        text="Delete Friend"
-        onPress={this.deleteFriend}
-        textColor="#00f9ff"
-        width={Math.round(Dimensions.get('window').width)}
-      />
-    )
+      <View style={styles.button}>
+        <MyButton
+          text="Delete Friend"
+          onPress={this.deleteFriend}
+          textColor="#00f9ff"
+          width={Math.round(Dimensions.get('window').width)}
+        />
+      </View>
+    );
 
     const deleteRequest = (
-      <MyButton
-        text="Delete Request"
-        onPress={this.deleteRequest}
-        textColor="#00f9ff"
-        width={Math.round(Dimensions.get('window').width)}
-      />
-    )
+      <View style={styles.button}>
+        <MyButton
+          text="Delete Request"
+          onPress={this.deleteRequest}
+          textColor="#00f9ff"
+          width={Math.round(Dimensions.get('window').width)}
+        />
+      </View>
+    );
 
     const acceptRequest = (
       <MyButton
@@ -312,7 +316,7 @@ export default class FriendsProfile extends Component {
         textColor="#00f9ff"
         width={Math.round(Dimensions.get('window').width)}
       />
-    )
+    );
 
     return (
       <ScrollView 
@@ -385,4 +389,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 0,
   },
+  button: {
+    marginTop: 26,
+  }
 });
