@@ -86,11 +86,11 @@ export default ProfileTab = props => (
         </View>
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.info}>
-            <Text style={styles.header}>Achievments</Text>
+            <Text style={styles.header}>Badges</Text>
             <View style={styles.border}>
               {props.refreshing
                ? ( <Text style={styles.value}>-</Text> )
-               : ( <Text style={styles.value}>{props.achieveCount}</Text> )}
+               : ( <Text style={styles.value}>{props.badgeCount}</Text> )}
             </View>
           </View>
         </View>
@@ -112,7 +112,7 @@ ProfileTab.defaultProps = {
   path: require('../assets/icons/noPic.png'),
   title_id: null,
   username: 'Bob',
-  achieveCount: 0,
+  badgeCount: 0,
   favourite: 'Bitcoin',
   value: -1,
 }
