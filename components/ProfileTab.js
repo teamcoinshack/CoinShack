@@ -86,7 +86,7 @@ export default ProfileTab = props => (
         </View>
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.info}>
-            <Text style={styles.header}>Achievments</Text>
+            <Text style={styles.header}>Achievements</Text>
             <View style={styles.border}>
               {props.refreshing
                ? ( <Text style={styles.value}>-</Text> )
