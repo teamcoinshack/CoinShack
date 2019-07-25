@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     paddingLeft: 18,
     paddingRight: 18,
-    marginTop: 0,
+    marginTop: 10,
     marginBottom: 10,
   },
   row: {
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 0,
     padding: 2.5,
-    // marginBottom: 14,
     marginHorizontal: 14,
   },
 });

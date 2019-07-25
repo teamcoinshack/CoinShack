@@ -157,7 +157,7 @@ const socialStack = createStackNavigator({
   FriendsProfile: {
     screen: FriendsProfile,
     navigationOptions: ({ navigation }) => ({
-      title: navigation.getParam('friendName', 'Bob'),
+      title: navigation.getParam('friendName', ''),
       ...headerStyles,
     })
   },
