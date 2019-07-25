@@ -12,6 +12,7 @@ import ProfileTab from '../components/ProfileTab.js';
 import { Mapping } from '../Masterlist.js';
 import MyErrorModal from '../components/MyErrorModal.js';
 import q from '../Query.js';
+import BadgePanel from '../components/BadgePanel.js';
 
 const background = '#373b48';
 
@@ -343,6 +344,12 @@ export default class FriendsProfile extends Component {
                 : null}
           badgeCount={Object.keys(this.state.badgesData).length}
         />
+        <BadgePanel
+          badgesData={this.state.badgesData}
+          onPress={() => this.props.navigation.navigate('BadgesInfo', {
+            badgesData: this.state.badgesData
+          })}
+        />
         { this.state.refreshing || this.state.uid === this.state.friendUid
           ? null 
           : this.state.loading
@@ -362,15 +369,12 @@ export default class FriendsProfile extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignSelf: "stretch",
     backgroundColor: background,
     flexDirection: 'column',
   },
   contentContainer: {
-    flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: background,
+    paddingVertical: 14,
   },
   cashText: {
     fontSize: 30,
