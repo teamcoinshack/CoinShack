@@ -30,6 +30,7 @@ export default class FriendsProfile extends Component {
       callback2: null,
       loading: false,
       email: '',
+      badgesData: {},
 
       // Error Modal states
       isErrorVisible: false,
@@ -229,6 +230,7 @@ export default class FriendsProfile extends Component {
       const areFriends = await db.isFriend(uid, friendUid);
       const requesting = areFriends ? false : await db.requesting(uid, friendUid);
       const friendRequesting = areFriends ? false : await db.requesting(friendUid, uid);
+      const badgesData = snapped.badges || {};
       this.setState({
         username: snapped.username,
         totalValue: '$' + db.stringify(totalValue.toFixed(2)),
@@ -238,6 +240,7 @@ export default class FriendsProfile extends Component {
         requesting: requesting,
         friendRequesting: friendRequesting,
         title_id: snapped.title_id,
+        badgesData: badgesData
       })
     } catch (error) {
       console.log(error);
@@ -338,6 +341,7 @@ export default class FriendsProfile extends Component {
           path={this.state.image 
                 ? { uri: `data:image/jpg;base64,${this.state.image}` }
                 : null}
+          badgeCount={Object.keys(this.state.badgesData).length}
         />
         { this.state.refreshing || this.state.uid === this.state.friendUid
           ? null 
