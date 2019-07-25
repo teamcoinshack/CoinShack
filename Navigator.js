@@ -161,6 +161,13 @@ const socialStack = createStackNavigator({
       ...headerStyles,
     })
   },
+  BadgesInfo: {
+    screen: BadgesInfo,
+    navigationOptions: {
+      title: 'Badges',
+      ...headerStyles,
+    }
+  }
 })
 
 const marketStack = createStackNavigator({
