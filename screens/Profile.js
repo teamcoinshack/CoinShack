@@ -138,6 +138,7 @@ export default class Profile extends Component {
             path={this.state.image
                   ? { uri: `data:image/jpg;base64,${this.state.image}` }
                   : null}
+            badgeCount={Object.keys(this.state.badgesData).length}
           />
           <ProgressBar 
             text={'Progress'}
