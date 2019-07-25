@@ -175,6 +175,7 @@ export default class Search extends Component {
     return (
       <ScrollView
         contentContainerStyle={styles.container}
+        style={styles.background}
         keyboardShouldPersistTaps="always"
       >
         <View style={styles.searchbarContainer}>
@@ -198,6 +199,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: background,
     alignItems: 'center',
+  },
+  background: {
+    backgroundColor: background,
   },
   searchbarContainer: {
     marginTop: 5,
