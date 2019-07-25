@@ -18,7 +18,7 @@ import SignUp from './screens/SignUp.js';
 import Wallet from './screens/Wallet.js';
 import News from './screens/News.js';
 import Market from './screens/Market.js';
-import Profile, {toSettings} from './screens/Profile.js';
+import Profile from './screens/Profile.js';
 import Buy from './screens/Buy.js';
 import Sell from './screens/Sell.js';
 import InternalWebpage from './screens/InternalWebpage.js';
@@ -33,6 +33,7 @@ import FriendsProfile from './screens/FriendsProfile.js';
 import Requests from './screens/Requests.js';
 import EditProfile from './screens/EditProfile.js';
 import ForgetPassword from './screens/ForgetPassword.js';
+import BadgesInfo from './screens/BadgesInfo.js';
 import { background } from './Masterlist.js';
 
 const headerStyles = {
@@ -220,6 +221,13 @@ const profileStack = createStackNavigator({
       ...headerStyles,
     }
   },
+  BadgesInfo: {
+    screen: BadgesInfo,
+    navigationOptions: {
+      title: 'Badges',
+      ...headerStyles,
+    }
+  }
 })
 
 const tabs = createBottomTabNavigator(

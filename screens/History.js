@@ -41,8 +41,7 @@ export default class History extends Component {
     }
   }
 
-  renderRow({item}) {
-    console.log(item.date);
+  renderRow({ item }) {
     let d = new Date(item.date);
     const day = d.getDate();
     const month = d.getMonth() + 1;
@@ -100,7 +99,8 @@ export default class History extends Component {
           No history to show
         </Text>
       </View>
-    )
+    );
+
     const loading = (
       <View style={styles.loading1}>
           <MyBar
@@ -108,15 +108,17 @@ export default class History extends Component {
             width={Math.round(Dimensions.get('window').width * 0.7)}
           />
       </View>
-    )
+    );
+
     const historyList = (
-        <FlatList
-          style={styles.flatStyle}
-          data={this.state.history}
-          renderItem={this.renderRow}
-          keyExtractor={item => item.date}
-        />
-    )
+      <FlatList
+        style={styles.flatStyle}
+        data={this.state.history}
+        renderItem={this.renderRow}
+        keyExtractor={item => item.date}
+      />
+    );
+
     return (
       <View style={styles.container}>
         {this.state.refreshing

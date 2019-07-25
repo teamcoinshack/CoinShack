@@ -1,12 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-  Text, 
   View, 
   Dimensions,
   StyleSheet, 
-  FlatList, 
   ScrollView,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
@@ -17,7 +14,7 @@ import { background } from '../Masterlist.js';
 import MyInput from '../components/MyInput.js';
 import MyErrorModal from '../components/MyErrorModal.js';
 
-export default class Settings extends Component {
+export default class EditProfile extends Component {
   constructor(props) {
     super(props);
 

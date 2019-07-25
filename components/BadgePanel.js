@@ -7,22 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import MyBadge from './MyBadge.js';
-import { rowBackground } from '../Masterlist.js';
-
-const allBadges = [
-  "have1friend", 
-  "have5friends",
-  "have10friends",
-  "have50friends",
-  "spent10000atOnce",
-  "spent100000atOnce",
-  "earned10000atOnce",
-  "earned100000atOnce",
-  "own5coins",
-  "have10transactions",
-  "have50transactions",
-  "have100transactions"
-]
+import { rowBackground, allBadges } from '../Masterlist.js';
 
 export default BadgePanel = props => {
   let unobtainedBadges = [];

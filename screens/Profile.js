@@ -149,7 +149,12 @@ export default class Profile extends Component {
             }
             path={{ uri: 'data:image/jpg;base64,' + this.state.image }} 
           />
-          <BadgePanel badgesData={this.state.badgesData}/>
+          <BadgePanel
+            badgesData={this.state.badgesData}
+            onPress={() => this.props.navigation.navigate('BadgesInfo', {
+              badgesData: this.state.badgesData
+            })}
+          />
       </ScrollView>
     );
   }
