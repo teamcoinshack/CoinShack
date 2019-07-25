@@ -17,7 +17,7 @@ export default ProgressBar = props => (
     <View style={styles.bar}>
       <Bar
         progress={
-          props.titleid >= 6
+          props.title_id >= 6
             ? 1 // max title
             : (props.totalValue - tier[props.title_id])
                 / (tier[props.title_id + 1] - tier[props.title_id])
