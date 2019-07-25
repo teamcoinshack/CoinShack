@@ -52,7 +52,7 @@ export default class BadgesInfo extends Component {
 const styles = StyleSheet.create({
   flatList: {
     backgroundColor: background,
-    marginVertical: -14,
+    marginBottom: -14,
   },
   container: {
     backgroundColor: background,
