@@ -15,10 +15,6 @@ import '../config.js';
 import db from '../Database.js';
 import Firebase from 'firebase';
 
-// Login credentials
-// User: admin@gmail.com
-// Pass: Test123
-
 const background = '#373b48';
 
 export default class Login extends Component {
