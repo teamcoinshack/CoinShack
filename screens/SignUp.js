@@ -21,6 +21,8 @@ export default class SignUp extends Component {
       email: '', 
       password: '',
       confirmPassword: '',
+      callback: null,
+      loading: false,
 
       // Error Modal states
       isErrorVisible: false,
@@ -29,6 +31,14 @@ export default class SignUp extends Component {
     };
 
     this.handleSignUp = this.handleSignUp.bind(this);
+  }
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    const callback = navigation.getParam('callback', null);
+    this.setState({
+      callback: callback,
+    })
   }
 
   async handleSignUp(email, pass, confirmPass, username) {
@@ -51,17 +61,19 @@ export default class SignUp extends Component {
     }
 
     try {
+      this.setState({
+        loading: true,
+      });
       await Firebase.auth()
                     .createUserWithEmailAndPassword(email, pass)
-      this.props.navigation.navigate('Login');
       Firebase.auth().currentUser.isNew = true;
       Firebase.auth().currentUser.username = username;
       const user = Firebase.auth().currentUser;
       await user.sendEmailVerification();
+      this.props.navigation.navigate('Login');
+      this.state.callback(email);
       this.setState({
-        isErrorVisible: true,
-        errorTitle: "Email Verification",
-        errorPrompt: "We've sent a verification link to " + email,
+        loading: false,
       });
     } catch (error) {
        var errorCode = error.code;
@@ -72,6 +84,7 @@ export default class SignUp extends Component {
             isErrorVisible: true,
             errorTitle: "Sign up failed",
             errorPrompt: "Account associated with that email already exists, please login!",
+            loading: false,
           });
           break;
 
@@ -80,6 +93,7 @@ export default class SignUp extends Component {
             isErrorVisible: true,
             errorTitle: "Sign up failed",
             errorPrompt: "Invalid email, please use another email!",
+            loading: false,
           });
           break;
 
@@ -88,6 +102,7 @@ export default class SignUp extends Component {
             isErrorVisible: true,
             errorTitle: "Sign up failed",
             errorPrompt: "Weak password! please use a stronger password.",
+            loading: false,
           });
           break;
 
@@ -96,6 +111,7 @@ export default class SignUp extends Component {
             isErrorVisible: true,
             errorTitle: "Login failed",
             errorPrompt: errorMessage,
+            loading: false,
           });
           break;
       }
@@ -155,19 +171,28 @@ export default class SignUp extends Component {
           />
         </View>
 
-        <MyButton
-          text="Sign Up"
-          onPress={() =>
-            this.handleSignUp(
-              this.state.email,
-              this.state.password,
-              this.state.confirmPassword,
-              this.state.username,
+        {this.state.loading
+          ? (
+              <MyBar
+                height={65}
+                width={Math.round(Dimensions.get('window').width)}
+              />
             )
-          }
-          textColor="#00f9ff"
-          width={Math.round(Dimensions.get('window').width) * 0.7}
-        />
+          : (
+              <MyButton
+                text="Sign Up"
+                onPress={() =>
+                  this.handleSignUp(
+                    this.state.email,
+                    this.state.password,
+                    this.state.confirmPassword,
+                    this.state.username,
+                  )
+                }
+                textColor="#00f9ff"
+                width={Math.round(Dimensions.get('window').width) * 0.7}
+              />  
+            )}
 
         <MyButton
           text="Back to Login"

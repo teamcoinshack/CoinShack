@@ -39,11 +39,19 @@ export default class Login extends Component {
     });
 
     Firebase.auth().onAuthStateChanged(user => {
-      if (user && !user.isNew) {
+      if (user && !user.isNew && user.emailVerified) {
         // User is signed in
         this.props.navigation.navigate('Dashboard');
       }
     });
+  }
+
+  showEmailSent(email) {
+    this.setState({
+      isErrorVisible: true,
+      errorTitle: "Email sent!",
+      errorPrompt: "We've sent a verification email to " + email,
+    })
   }
 
   handleFbLogin = () => {
@@ -302,8 +310,8 @@ export default class Login extends Component {
     }
   }
 
-  goToSignUp = () => {
-    this.props.navigation.navigate('SignUp');
+  goToSignUp() {
+    this.props.navigation.navigate('SignUp', { callback: this.showEmailSent });
   }
 
   render() {
