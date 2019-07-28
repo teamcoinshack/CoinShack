@@ -48,6 +48,7 @@ export default class Info extends Component {
     this.toggleAlert = this.toggleAlert.bind(this);
     this.closeOpenedItem = this.closeOpenedItem.bind(this);
     this.openItem = this.openItem.bind(this);
+    this.invalidPrice = this.invalidPrice.bind(this);
   }
 
   async componentDidMount() {    
@@ -63,21 +64,26 @@ export default class Info extends Component {
         name: name,
         data: data,
         rate: rate,
-        alerts: alerts
+        alerts: alerts,
       });
     } catch (error) {
       console.log(error);
     }
   }
 
+  invalidPrice() {
+    this.setState({
+      isErrorVisible: true,
+      errorTitle: "Invalid price!",
+      errorPrompt: "Please enter a valid positive number.",
+    });
+  }
+
   async addAlert() {
     try {
-      if (Number(this.state.alertValue) <= 0 || isNaN(this.state.alertValue)) {
-        this.setState({
-          isErrorVisible: true,
-          errorTitle: "Invalid price!",
-          errorPrompt: "Please enter a valid positive number.",
-        });
+      if ((this.state.alertValue) <= 0 || isNaN(this.state.alertValue)) {
+        console.log(this.state.alertValue);
+        this.invalidPrice();
         return;
       }
 
