@@ -32,6 +32,7 @@ export default class Login extends Component {
     };
 
     this.handleLogin = this.handleLogin.bind(this);
+    this.goToSignUp = this.goToSignUp.bind(this);
     this.googleProvider = new Firebase.auth.GoogleAuthProvider();
     
     GoogleSignin.configure({
