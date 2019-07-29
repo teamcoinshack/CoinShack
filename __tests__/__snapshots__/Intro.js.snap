@@ -1,0 +1,383 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    bounces={false}
+    data={
+      Array [
+        Object {
+          "content1": "A risk-free simulator for anyone to learn to trade cryptocurrency!",
+          "content2": "With our app, you will receive free virtual currency for you to start trading with real-time market data for numerous cryptocurrencies without any risk involved!",
+          "content3": "Swipe to learn more about cryptocurrency trading and our simulator system.",
+          "header": "Welcome to CoinShack!",
+          "key": "0",
+        },
+        Object {
+          "content1": "You just received $10,000 worth of in game cash for you to purchase any cryptocurrency coins!",
+          "content2": "The in game cash and prices of coins are based on real-time USD rates. You can see the amount of cash and cryptocurrencies you own and trade them in the Wallet tab.",
+          "content3": "You can also look at the trends of the different cryptocurrencies in the Market tab. Stay updated to the latest news in the News tab and compete with your friends in the Social tab. Happy trading!",
+          "header": "Quickstart Guide",
+          "key": "1",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    extraData={750}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={true}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onDone={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    paginationStyle={null}
+    pagingEnabled={true}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    showDoneButton={true}
+    showNextButton={true}
+    showsHorizontalScrollIndicator={false}
+    slides={
+      Array [
+        Object {
+          "content1": "A risk-free simulator for anyone to learn to trade cryptocurrency!",
+          "content2": "With our app, you will receive free virtual currency for you to start trading with real-time market data for numerous cryptocurrencies without any risk involved!",
+          "content3": "Swipe to learn more about cryptocurrency trading and our simulator system.",
+          "header": "Welcome to CoinShack!",
+          "key": "0",
+        },
+        Object {
+          "content1": "You just received $10,000 worth of in game cash for you to purchase any cryptocurrency coins!",
+          "content2": "The in game cash and prices of coins are based on real-time USD rates. You can see the amount of cash and cryptocurrencies you own and trade them in the Wallet tab.",
+          "content3": "You can also look at the trends of the different cryptocurrencies in the Market tab. Stay updated to the latest news in the News tab and compete with your friends in the Social tab. Happy trading!",
+          "header": "Quickstart Guide",
+          "key": "1",
+        },
+      ]
+    }
+    stickyHeaderIndices={Array []}
+    style={
+      Object {
+        "flex": 1,
+        "flexDirection": "row",
+      }
+    }
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "height": 1334,
+              "width": 750,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#373b48",
+                "flex": 1,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Image
+              source={
+                Object {
+                  "testUri": "../../../assets/icons/CoinShackIcon.png",
+                }
+              }
+              style={
+                Object {
+                  "height": 100,
+                  "margin": 10,
+                  "width": 100,
+                }
+              }
+            />
+            <Text
+              style={
+                Object {
+                  "color": "#dbdbdb",
+                  "fontSize": 22,
+                  "fontWeight": "600",
+                  "textAlign": "center",
+                }
+              }
+            >
+              Welcome to CoinShack!
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#a4a9b9",
+                  "fontSize": 18,
+                  "margin": 10,
+                  "textAlign": "center",
+                }
+              }
+            >
+              A risk-free simulator for anyone to learn to trade cryptocurrency!
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#a4a9b9",
+                  "fontSize": 18,
+                  "margin": 10,
+                  "textAlign": "center",
+                }
+              }
+            >
+              With our app, you will receive free virtual currency for you to start trading with real-time market data for numerous cryptocurrencies without any risk involved!
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#a4a9b9",
+                  "fontSize": 18,
+                  "margin": 10,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Swipe to learn more about cryptocurrency trading and our simulator system.
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "height": 1334,
+              "width": 750,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#373b48",
+                "flex": 1,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Image
+              source={
+                Object {
+                  "testUri": "../../../assets/icons/CoinShackIcon.png",
+                }
+              }
+              style={
+                Object {
+                  "height": 100,
+                  "margin": 10,
+                  "width": 100,
+                }
+              }
+            />
+            <Text
+              style={
+                Object {
+                  "color": "#dbdbdb",
+                  "fontSize": 22,
+                  "fontWeight": "600",
+                  "textAlign": "center",
+                }
+              }
+            >
+              Quickstart Guide
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#a4a9b9",
+                  "fontSize": 18,
+                  "margin": 10,
+                  "textAlign": "center",
+                }
+              }
+            >
+              You just received $10,000 worth of in game cash for you to purchase any cryptocurrency coins!
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#a4a9b9",
+                  "fontSize": 18,
+                  "margin": 10,
+                  "textAlign": "center",
+                }
+              }
+            >
+              The in game cash and prices of coins are based on real-time USD rates. You can see the amount of cash and cryptocurrencies you own and trade them in the Wallet tab.
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#a4a9b9",
+                  "fontSize": 18,
+                  "margin": 10,
+                  "textAlign": "center",
+                }
+              }
+            >
+              You can also look at the trends of the different cryptocurrencies in the Market tab. Stay updated to the latest news in the News tab and compete with your friends in the Social tab. Happy trading!
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View
+    style={
+      Array [
+        Object {
+          "bottom": 16,
+          "left": 16,
+          "position": "absolute",
+          "right": 16,
+        },
+        null,
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "height": 16,
+          "justifyContent": "center",
+          "margin": 16,
+        }
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, .9)",
+            "borderRadius": 5,
+            "height": 10,
+            "marginHorizontal": 4,
+            "opacity": 1,
+            "width": 10,
+          }
+        }
+      />
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(0, 0, 0, .2)",
+            "borderRadius": 5,
+            "height": 10,
+            "marginHorizontal": 4,
+            "opacity": 1,
+            "width": 10,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "position": "absolute",
+          "right": 0,
+        }
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "color": "white",
+                "fontSize": 18,
+                "padding": 12,
+              },
+              null,
+            ]
+          }
+        >
+          Next
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

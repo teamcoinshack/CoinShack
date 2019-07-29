@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#373b48",
+      "flex": 1,
+    }
+  }
+  keyboardShouldPersistTaps="always"
+  style={
+    Object {
+      "backgroundColor": "#373b48",
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "marginHorizontal": 4,
+          "marginTop": 5,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "paddingHorizontal": 10,
+            "width": "100%",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomWidth": 2,
+              "borderColor": "#515360",
+              "borderRadius": 5,
+              "borderWidth": 2,
+              "flexDirection": "row",
+              "marginVertical": 10,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+              ],
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "height": 40,
+                "justifyContent": "center",
+                "marginLeft": 15,
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#999999",
+                    "fontSize": 26,
+                  },
+                  undefined,
+                  Object {
+                    "fontFamily": "Material Design Icons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </View>
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize="none"
+            keyboardType="default"
+            onChangeText={[Function]}
+            placeholder="Search by email/username"
+            placeholderTextColor="#999999"
+            rejectResponderTermination={true}
+            secureTextEntry={false}
+            style={
+              Object {
+                "alignSelf": "center",
+                "color": "#ffffff",
+                "flex": 1,
+                "fontSize": 20,
+                "minHeight": 40,
+                "padding": 10,
+                "textAlign": "left",
+              }
+            }
+            testID="RNE__Input__text-input"
+            underlineColorAndroid="transparent"
+            value=""
+          />
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "height": 40,
+                "justifyContent": "center",
+                "marginLeft": 2,
+                "marginRight": 15,
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              onPress={[Function]}
+              style={
+                Array [
+                  Object {
+                    "color": "#999999",
+                    "fontSize": 20,
+                  },
+                  undefined,
+                  Object {
+                    "fontFamily": "Material Design Icons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginTop": 20,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#7c7c7c",
+            "fontSize": 23,
+            "fontWeight": "500",
+          }
+        }
+      >
+        No results
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;

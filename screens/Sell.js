@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import db from '../Database.js';
 import MyRow from '../components/MyRow.js';
+import MyBar from '../components/MyBar.js';
 import MyInput from '../components/MyInput.js';
 import MyErrorModal from '../components/MyErrorModal.js';
 

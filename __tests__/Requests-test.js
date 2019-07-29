@@ -4,12 +4,12 @@
 
 import 'react-native';
 import React from 'react';
-import EditProfile from '../screens/EditProfile.js';
+import Requests from '../screens/Requests.js';
+import { data } from '../data.js'; 
 import Firebase from 'firebase';
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
-
 beforeAll(async function() {
   try {
     await Firebase.initializeApp({
@@ -29,9 +29,23 @@ beforeAll(async function() {
     console.log(error);
   }
 });
+const paramFunction = (param) => {
+  return () => {};
+}
+
+const createTestProps = (props: Object) => ({
+  navigation: {
+    getParam: paramFunction
+  },
+  ...props
+});
 
 jest.mock('react-native-google-signin', () => {});
-test('renders correctly', () => {
-  const tree = renderer.create(<EditProfile />).toJSON();
+test('renders correctly', async () => {
+  let props: any;
+  props = createTestProps({});
+  let tree = await renderer.create(<Requests {...props}/>)
+  tree.toJSON();
   expect(tree).toMatchSnapshot();
 });
+

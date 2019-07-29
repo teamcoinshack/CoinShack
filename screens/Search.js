@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import db from '../Database.js';
+import MyBar from '../components/MyBar.js';
 import Searchbar from '../components/Searchbar.js';
 
 const background = '#373b48';
