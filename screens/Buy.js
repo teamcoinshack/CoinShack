@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import db from '../Database.js';
 import MyRow from '../components/MyRow.js';
+import MyBar from '../components/MyBar.js';
 import MyInput from '../components/MyInput.js';
 import MyErrorModal from '../components/MyErrorModal.js';
 
@@ -112,6 +113,7 @@ export default class Buy extends Component {
     const cash = navigation.getParam('cash', null);
     const stockValue = navigation.getParam('stockValue', null);
     const callback = navigation.getParam('callback', null);
+    const path = navigation.getParam('path', null);
     this.setState({
       callback: callback,
       uid: uid,
@@ -119,6 +121,7 @@ export default class Buy extends Component {
       rate: rate,
       cash: cash,
       stockValue: stockValue,
+      path: path,
     });
   }
 
@@ -276,7 +279,7 @@ export default class Buy extends Component {
             />
             <MyRow
               text={this.state.id}
-              path={this.props.navigation.getParam('path', null)}
+              path={this.state.path}
               right={walletValue}
             />
           </View>

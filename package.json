@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "adm-zip": "^0.4.13",
+    "enzyme": "^3.10.0",
     "firebase": "^6.0.2",
+    "jest-cli": "^24.8.0",
     "plist": "^3.0.1",
     "react": "16.8.3",
     "react-native": "0.59.8",
@@ -32,6 +34,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.4.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@babel/runtime": "7.4.4",
     "babel-jest": "24.8.0",
     "jest": "24.8.0",
@@ -39,6 +42,9 @@
     "react-test-renderer": "16.8.3"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "!node_modules/"
+    ]
   }
 }

@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#373b48",
+      "flex": 1,
+      "justifyContent": "flex-start",
+    }
+  }
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[Function]}
+      refreshing={true}
+    />
+  }
+  style={
+    Object {
+      "alignSelf": "stretch",
+      "backgroundColor": "#373b48",
+      "flex": 1,
+      "flexDirection": "column",
+    }
+  }
+>
+  <RCTRefreshControl />
+  <View>
+    <View
+      style={
+        Object {
+          "height": 65,
+          "width": 750,
+        }
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 10,
+            "marginLeft": 14,
+            "marginRight": 14,
+            "marginTop": 10,
+            "opacity": 1,
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#ffffff",
+                  "fontSize": 24,
+                },
+                Object {
+                  "paddingRight": 7,
+                },
+                Object {
+                  "fontFamily": "Material Design Icons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                Object {},
+              ]
+            }
+          >
+            
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#00dce8",
+                "fontSize": 20,
+                "fontWeight": "700",
+              }
+            }
+          >
+            Discover
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "flex-start",
+          "marginTop": 10,
+          "width": 710,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#dbdbdb",
+            "fontSize": 30,
+            "fontWeight": "600",
+          }
+        }
+      >
+        Friends
+      </Text>
+    </View>
+    <View>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "height": 65,
+            "justifyContent": "center",
+            "width": 525,
+          }
+        }
+      >
+        <View
+          animated={true}
+          animationConfig={
+            Object {
+              "bounciness": 0,
+            }
+          }
+          animationType="spring"
+          indeterminate={true}
+          indeterminateAnimationDuration={1000}
+          onLayout={[Function]}
+          progress={0.3}
+          style={
+            Array [
+              Object {
+                "backgroundColor": undefined,
+                "borderColor": "#80e7a5",
+                "borderRadius": 4,
+                "borderWidth": 0,
+                "overflow": "hidden",
+                "width": 250,
+              },
+              undefined,
+            ]
+          }
+          useNativeDriver={false}
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "#80e7a5",
+                "height": 6,
+                "transform": Array [
+                  Object {
+                    "translateX": 0,
+                  },
+                  Object {
+                    "translateX": -87.5,
+                  },
+                  Object {
+                    "scaleX": 0.30007,
+                  },
+                ],
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

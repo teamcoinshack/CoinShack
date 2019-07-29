@@ -1,0 +1,1081 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "stretch",
+      "backgroundColor": "#373b48",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "marginBottom": 20,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flex": 0,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "height": 65,
+            "justifyContent": "center",
+            "width": 750,
+          }
+        }
+      >
+        <View
+          animated={true}
+          animationConfig={
+            Object {
+              "bounciness": 0,
+            }
+          }
+          animationType="spring"
+          indeterminate={true}
+          indeterminateAnimationDuration={1000}
+          onLayout={[Function]}
+          progress={0.3}
+          style={
+            Array [
+              Object {
+                "backgroundColor": undefined,
+                "borderColor": "#80e7a5",
+                "borderRadius": 4,
+                "borderWidth": 0,
+                "overflow": "hidden",
+                "width": 250,
+              },
+              undefined,
+            ]
+          }
+          useNativeDriver={false}
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "#80e7a5",
+                "height": 6,
+                "transform": Array [
+                  Object {
+                    "translateX": 0,
+                  },
+                  Object {
+                    "translateX": -87.5,
+                  },
+                  Object {
+                    "scaleX": 0.30007,
+                  },
+                ],
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#515360",
+        "borderRadius": 5,
+        "elevation": 1,
+        "flexDirection": "row",
+        "height": 60,
+        "justifyContent": "flex-start",
+        "marginBottom": 6,
+        "marginLeft": 14,
+        "marginRight": 14,
+        "marginTop": 0,
+        "paddingBottom": 15,
+        "paddingLeft": 18,
+        "paddingRight": 16,
+        "paddingTop": 15,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            Array [
+              Object {
+                "color": "#ffffff",
+                "fontSize": 40,
+              },
+              undefined,
+              Object {
+                "fontFamily": "Material Design Icons",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              Object {},
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "flexDirection": "column",
+            "justifyContent": "center",
+            "paddingLeft": 18,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#dbdbdb",
+              "flex": 0,
+              "fontSize": 20,
+              "fontWeight": "600",
+              "includeFontPadding": false,
+              "textAlignVertical": "bottom",
+            }
+          }
+        >
+          Cash
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "flexDirection": "column",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#74777c",
+              "flex": 0,
+              "fontSize": 20,
+              "fontWeight": "500",
+              "paddingLeft": 16,
+            }
+          }
+        >
+          $
+          0.00
+        </Text>
+      </View>
+    </View>
+  </View>
+  <RCTScrollView
+    data={
+      Array [
+        Object {
+          "name": "bitcoin",
+        },
+        Object {
+          "name": "ethereum",
+        },
+        Object {
+          "name": "dash",
+        },
+        Object {
+          "name": "ripple",
+        },
+        Object {
+          "name": "litecoin",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[Function]}
+        refreshing={false}
+      />
+    }
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    style={
+      Object {
+        "marginTop": 10,
+      }
+    }
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <RCTRefreshControl />
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#515360",
+              "borderRadius": 5,
+              "elevation": 1,
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+              "marginBottom": 6,
+              "marginLeft": 14,
+              "marginRight": 14,
+              "marginTop": 0,
+              "opacity": 1,
+              "paddingBottom": 15,
+              "paddingLeft": 18,
+              "paddingRight": 16,
+              "paddingTop": 15,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/BTC.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 40,
+                    "width": 40,
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "paddingLeft": 18,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#dbdbdb",
+                    "flex": 0,
+                    "fontSize": 20,
+                    "fontWeight": "600",
+                    "includeFontPadding": false,
+                    "textAlignVertical": "bottom",
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flex": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "height": 65,
+                      "justifyContent": "center",
+                      "width": 750,
+                    }
+                  }
+                >
+                  <View
+                    animated={true}
+                    animationConfig={
+                      Object {
+                        "bounciness": 0,
+                      }
+                    }
+                    animationType="spring"
+                    indeterminate={true}
+                    indeterminateAnimationDuration={1000}
+                    onLayout={[Function]}
+                    progress={0.3}
+                    style={
+                      Array [
+                        Object {
+                          "backgroundColor": undefined,
+                          "borderColor": "#80e7a5",
+                          "borderRadius": 4,
+                          "borderWidth": 0,
+                          "overflow": "hidden",
+                          "width": 250,
+                        },
+                        undefined,
+                      ]
+                    }
+                    useNativeDriver={false}
+                  >
+                    <View
+                      style={
+                        Object {
+                          "backgroundColor": "#80e7a5",
+                          "height": 6,
+                          "transform": Array [
+                            Object {
+                              "translateX": 0,
+                            },
+                            Object {
+                              "translateX": -87.5,
+                            },
+                            Object {
+                              "scaleX": 0.30007,
+                            },
+                          ],
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#515360",
+              "borderRadius": 5,
+              "elevation": 1,
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+              "marginBottom": 6,
+              "marginLeft": 14,
+              "marginRight": 14,
+              "marginTop": 0,
+              "opacity": 1,
+              "paddingBottom": 15,
+              "paddingLeft": 18,
+              "paddingRight": 16,
+              "paddingTop": 15,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/ETH.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 40,
+                    "width": 40,
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "paddingLeft": 18,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#dbdbdb",
+                    "flex": 0,
+                    "fontSize": 20,
+                    "fontWeight": "600",
+                    "includeFontPadding": false,
+                    "textAlignVertical": "bottom",
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flex": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "height": 65,
+                      "justifyContent": "center",
+                      "width": 750,
+                    }
+                  }
+                >
+                  <View
+                    animated={true}
+                    animationConfig={
+                      Object {
+                        "bounciness": 0,
+                      }
+                    }
+                    animationType="spring"
+                    indeterminate={true}
+                    indeterminateAnimationDuration={1000}
+                    onLayout={[Function]}
+                    progress={0.3}
+                    style={
+                      Array [
+                        Object {
+                          "backgroundColor": undefined,
+                          "borderColor": "#80e7a5",
+                          "borderRadius": 4,
+                          "borderWidth": 0,
+                          "overflow": "hidden",
+                          "width": 250,
+                        },
+                        undefined,
+                      ]
+                    }
+                    useNativeDriver={false}
+                  >
+                    <View
+                      style={
+                        Object {
+                          "backgroundColor": "#80e7a5",
+                          "height": 6,
+                          "transform": Array [
+                            Object {
+                              "translateX": 0,
+                            },
+                            Object {
+                              "translateX": -87.5,
+                            },
+                            Object {
+                              "scaleX": 0.30007,
+                            },
+                          ],
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#515360",
+              "borderRadius": 5,
+              "elevation": 1,
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+              "marginBottom": 6,
+              "marginLeft": 14,
+              "marginRight": 14,
+              "marginTop": 0,
+              "opacity": 1,
+              "paddingBottom": 15,
+              "paddingLeft": 18,
+              "paddingRight": 16,
+              "paddingTop": 15,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/DASH.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 40,
+                    "width": 40,
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "paddingLeft": 18,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#dbdbdb",
+                    "flex": 0,
+                    "fontSize": 20,
+                    "fontWeight": "600",
+                    "includeFontPadding": false,
+                    "textAlignVertical": "bottom",
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flex": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "height": 65,
+                      "justifyContent": "center",
+                      "width": 750,
+                    }
+                  }
+                >
+                  <View
+                    animated={true}
+                    animationConfig={
+                      Object {
+                        "bounciness": 0,
+                      }
+                    }
+                    animationType="spring"
+                    indeterminate={true}
+                    indeterminateAnimationDuration={1000}
+                    onLayout={[Function]}
+                    progress={0.3}
+                    style={
+                      Array [
+                        Object {
+                          "backgroundColor": undefined,
+                          "borderColor": "#80e7a5",
+                          "borderRadius": 4,
+                          "borderWidth": 0,
+                          "overflow": "hidden",
+                          "width": 250,
+                        },
+                        undefined,
+                      ]
+                    }
+                    useNativeDriver={false}
+                  >
+                    <View
+                      style={
+                        Object {
+                          "backgroundColor": "#80e7a5",
+                          "height": 6,
+                          "transform": Array [
+                            Object {
+                              "translateX": 0,
+                            },
+                            Object {
+                              "translateX": -87.5,
+                            },
+                            Object {
+                              "scaleX": 0.30007,
+                            },
+                          ],
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#515360",
+              "borderRadius": 5,
+              "elevation": 1,
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+              "marginBottom": 6,
+              "marginLeft": 14,
+              "marginRight": 14,
+              "marginTop": 0,
+              "opacity": 1,
+              "paddingBottom": 15,
+              "paddingLeft": 18,
+              "paddingRight": 16,
+              "paddingTop": 15,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/XRP.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 40,
+                    "width": 40,
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "paddingLeft": 18,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#dbdbdb",
+                    "flex": 0,
+                    "fontSize": 20,
+                    "fontWeight": "600",
+                    "includeFontPadding": false,
+                    "textAlignVertical": "bottom",
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flex": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "height": 65,
+                      "justifyContent": "center",
+                      "width": 750,
+                    }
+                  }
+                >
+                  <View
+                    animated={true}
+                    animationConfig={
+                      Object {
+                        "bounciness": 0,
+                      }
+                    }
+                    animationType="spring"
+                    indeterminate={true}
+                    indeterminateAnimationDuration={1000}
+                    onLayout={[Function]}
+                    progress={0.3}
+                    style={
+                      Array [
+                        Object {
+                          "backgroundColor": undefined,
+                          "borderColor": "#80e7a5",
+                          "borderRadius": 4,
+                          "borderWidth": 0,
+                          "overflow": "hidden",
+                          "width": 250,
+                        },
+                        undefined,
+                      ]
+                    }
+                    useNativeDriver={false}
+                  >
+                    <View
+                      style={
+                        Object {
+                          "backgroundColor": "#80e7a5",
+                          "height": 6,
+                          "transform": Array [
+                            Object {
+                              "translateX": 0,
+                            },
+                            Object {
+                              "translateX": -87.5,
+                            },
+                            Object {
+                              "scaleX": 0.30007,
+                            },
+                          ],
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#515360",
+              "borderRadius": 5,
+              "elevation": 1,
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+              "marginBottom": 6,
+              "marginLeft": 14,
+              "marginRight": 14,
+              "marginTop": 0,
+              "opacity": 1,
+              "paddingBottom": 15,
+              "paddingLeft": 18,
+              "paddingRight": 16,
+              "paddingTop": 15,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/LTC.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 40,
+                    "width": 40,
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "paddingLeft": 18,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#dbdbdb",
+                    "flex": 0,
+                    "fontSize": 20,
+                    "fontWeight": "600",
+                    "includeFontPadding": false,
+                    "textAlignVertical": "bottom",
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flex": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "height": 65,
+                      "justifyContent": "center",
+                      "width": 750,
+                    }
+                  }
+                >
+                  <View
+                    animated={true}
+                    animationConfig={
+                      Object {
+                        "bounciness": 0,
+                      }
+                    }
+                    animationType="spring"
+                    indeterminate={true}
+                    indeterminateAnimationDuration={1000}
+                    onLayout={[Function]}
+                    progress={0.3}
+                    style={
+                      Array [
+                        Object {
+                          "backgroundColor": undefined,
+                          "borderColor": "#80e7a5",
+                          "borderRadius": 4,
+                          "borderWidth": 0,
+                          "overflow": "hidden",
+                          "width": 250,
+                        },
+                        undefined,
+                      ]
+                    }
+                    useNativeDriver={false}
+                  >
+                    <View
+                      style={
+                        Object {
+                          "backgroundColor": "#80e7a5",
+                          "height": 6,
+                          "transform": Array [
+                            Object {
+                              "translateX": 0,
+                            },
+                            Object {
+                              "translateX": -87.5,
+                            },
+                            Object {
+                              "scaleX": 0.30007,
+                            },
+                          ],
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

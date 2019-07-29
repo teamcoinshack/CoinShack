@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import MyErrorModal from '../components/MyErrorModal.js';
+import MyInput from '../components/MyInput.js';
 import Firebase from 'firebase';
 import db from '../Database.js';
 

@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import Firebase from 'firebase';
 import db from '../Database.js';
+import MyBar from '../components/MyBar.js';
+import MyRow from '../components/MyRow.js';
 import q from '../Query.js';
 import Masterlist, { background, rowBackground, nameToIconMap } from '../Masterlist.js';
 

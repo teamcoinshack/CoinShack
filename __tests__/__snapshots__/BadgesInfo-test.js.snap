@@ -1,0 +1,2520 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "backgroundColor": "#373b48",
+      "padding": 14,
+    }
+  }
+  data={
+    Array [
+      Object {
+        "infoObtained": "Have 1 friend",
+        "infoUnobtained": "Add 1 friend to achieve this badge",
+        "name": "have1friend",
+        "title": "Friendly Badge",
+      },
+      Object {
+        "infoObtained": "Have 5 friends",
+        "infoUnobtained": "Have 5 friends to achieve this badge",
+        "name": "have5friends",
+        "title": "Sociable Badge",
+      },
+      Object {
+        "infoObtained": "Have 10 friends",
+        "infoUnobtained": "Have 10 friends to achieve this badge",
+        "name": "have10friends",
+        "title": "Popular Badge",
+      },
+      Object {
+        "infoObtained": "Have 50 friends",
+        "infoUnobtained": "Have 50 friends to achieve this badge",
+        "name": "have50friends",
+        "title": "Influencer Badge",
+      },
+      Object {
+        "infoObtained": "Spent $10000 at once",
+        "infoUnobtained": "Spend $10000 at once to achieve this badge",
+        "name": "spent10000atOnce",
+        "title": "Spendthrift Badge",
+      },
+      Object {
+        "infoObtained": "Spent $100000 at once",
+        "infoUnobtained": "Spend $100000 at once to achieve this badge",
+        "name": "spent100000atOnce",
+        "title": "Extravagant Badge",
+      },
+      Object {
+        "infoObtained": "Earned $10000 at once",
+        "infoUnobtained": "Sell $10000 worth of cryptocurrency at once to achieve this badge",
+        "name": "earned10000atOnce",
+        "title": "Seller Badge",
+      },
+      Object {
+        "infoObtained": "Earned $100000 at once",
+        "infoUnobtained": "Sell $100000 worth of cryptocurrency to achieve this badge",
+        "name": "earned100000atOnce",
+        "title": "Profiteer Badge",
+      },
+      Object {
+        "infoObtained": "Own 5 Coins",
+        "infoUnobtained": "Own 5 different cryptocurrencies to achieve this badge",
+        "name": "own5coins",
+        "title": "Coin Collecter Badge",
+      },
+      Object {
+        "infoObtained": "Made 10 transactions",
+        "infoUnobtained": "Buy or sell cryptocurrency 10 times achieve this badge",
+        "name": "have10transactions",
+        "title": "Trader Badge",
+      },
+      Object {
+        "infoObtained": "Made 50 transactions",
+        "infoUnobtained": "Buy or sell cryptocurrency 50 times achieve this badge",
+        "name": "have50transactions",
+        "title": "Dealer Badge",
+      },
+      Object {
+        "infoObtained": "Made 100 transactions",
+        "infoUnobtained": "Buy or sell cryptocurrency 100 times achieve this badge",
+        "name": "have100transactions",
+        "title": "Businessman Badge",
+      },
+    ]
+  }
+  disableVirtualization={false}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  horizontal={false}
+  initialNumToRender={10}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  numColumns={1}
+  onContentSizeChange={[Function]}
+  onEndReachedThreshold={2}
+  onLayout={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  stickyHeaderIndices={Array []}
+  style={
+    Object {
+      "backgroundColor": "#373b48",
+      "marginBottom": -6,
+    }
+  }
+  updateCellsBatchingPeriod={50}
+  viewabilityConfigCallbackPairs={Array []}
+  windowSize={21}
+>
+  <View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/friend.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                1
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#dbdbdb",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Friendly Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Have 1 friend
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/friend.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "opacity": 0.2,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "opacity": 0.2,
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                  "opacity": 0.2,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                5
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Sociable Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Have 5 friends to achieve this badge
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/friend.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "opacity": 0.2,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "opacity": 0.2,
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                  "opacity": 0.2,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                10
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Popular Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Have 10 friends to achieve this badge
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/friend.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "opacity": 0.2,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "opacity": 0.2,
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                  "opacity": 0.2,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                50
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Influencer Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Have 50 friends to achieve this badge
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/spend.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                10K
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#dbdbdb",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Spendthrift Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Spent $10000 at once
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/spend.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "opacity": 0.2,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "opacity": 0.2,
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                  "opacity": 0.2,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                100K
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Extravagant Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Spend $100000 at once to achieve this badge
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/earn.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "opacity": 0.2,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "opacity": 0.2,
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                  "opacity": 0.2,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                10K
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Seller Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Sell $10000 worth of cryptocurrency at once to achieve this badge
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/earn.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "opacity": 0.2,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "opacity": 0.2,
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                  "opacity": 0.2,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                100K
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Profiteer Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Sell $100000 worth of cryptocurrency to achieve this badge
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/own.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "opacity": 0.2,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "opacity": 0.2,
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                  "opacity": 0.2,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                5
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Coin Collecter Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Own 5 different cryptocurrencies to achieve this badge
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "marginBottom": 6,
+            "padding": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "margin": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 70,
+                "width": 70,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "grey",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "padding": 10,
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/badges/transact.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "opacity": 0.2,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "opacity": 0.2,
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "position": "absolute",
+                "right": -3,
+                "top": -3,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#52c41a",
+                  "borderColor": "#fff",
+                  "borderRadius": 9,
+                  "borderWidth": 0.5,
+                  "height": 18,
+                  "justifyContent": "center",
+                  "minWidth": 18,
+                  "opacity": 0.2,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "fontSize": 12,
+                    "paddingHorizontal": 4,
+                  }
+                }
+              >
+                10
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "marginLeft": 4,
+              "marginRight": 10,
+              "marginVertical": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "marginBottom": 4,
+              }
+            }
+          >
+            Trader Badge
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#a4a9b9",
+                "fontWeight": "500",
+              }
+            }
+          >
+            Buy or sell cryptocurrency 10 times achieve this badge
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "height": 0,
+        }
+      }
+    />
+  </View>
+</RCTScrollView>
+`;

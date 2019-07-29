@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -43,6 +42,7 @@
 		30E678CCB7F34B7CAB8EA8E5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F00CAAC7E73D4397BB6465ED /* FBSDKShareKit.framework */; };
 		36A4E18A2AED4FB9BA8A615C /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19237D7012724A5697836073 /* SimpleLineIcons.ttf */; };
 		3715B6A922E800D2009B67FB /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3715B6A622E7FFBC009B67FB /* GoogleSignIn.bundle */; };
+		3715B6AA22EDD8B8009B67FB /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374DA9DD22BFB5E2002087B6 /* libRNGoogleSignin.a */; };
 		374DA9E222BFB693002087B6 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374DA9E022BFB693002087B6 /* GoogleSignIn.framework */; };
 		374DA9E322BFB693002087B6 /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374DA9E122BFB693002087B6 /* GoogleSignInDependencies.framework */; };
 		374DA9EA22BFB807002087B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 374DA9E922BFB806002087B6 /* GoogleService-Info.plist */; };
@@ -67,7 +67,6 @@
 		62753BB3492B4A5D84E3F0C0 /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C55DFFBED892445F9EDE18DF /* libRNCWebView.a */; };
 		67F81DBF37F841D3A3645E25 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B6696951F90476EB2660031 /* Ionicons.ttf */; };
 		7275357CC1E54C43A51C2510 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 227E882C518D49A9B8F5CE77 /* libRNGestureHandler-tvOS.a */; };
-		777F9FC623DF4FEBB6DE22AC /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E93EE96AED4D8FA8501958 /* libRNGoogleSignin.a */; };
 		8122511DF0BC46A081F63EB5 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2486155EFF214A3C84D1B2E9 /* FontAwesome5_Solid.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -568,7 +567,7 @@
 				4C0A0A7691224D46B69EADDD /* FBSDKCoreKit.framework in Frameworks */,
 				30E678CCB7F34B7CAB8EA8E5 /* FBSDKShareKit.framework in Frameworks */,
 				3823332CCEB04A6F8C818606 /* FBSDKLoginKit.framework in Frameworks */,
-				777F9FC623DF4FEBB6DE22AC /* libRNGoogleSignin.a in Frameworks */,
+				3715B6AA22EDD8B8009B67FB /* libRNGoogleSignin.a in Frameworks */,
 				454CF8C8D82E4429A801AEB1 /* libBVLinearGradient.a in Frameworks */,
 				37865E6A9B6542E8B6E26002 /* libimageCropPicker.a in Frameworks */,
 				377D8E1D22DEF18E001E9772 /* QBImagePicker.framework in Frameworks */,
@@ -1730,6 +1729,10 @@
 				INFOPLIST_FILE = CoinShack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1762,6 +1765,10 @@
 				INFOPLIST_FILE = CoinShack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

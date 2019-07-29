@@ -14,6 +14,7 @@ export default class BadgesInfo extends Component {
     super(props);
 
     this.badgesData = this.props.navigation.getParam("badgesData");
+    console.log(this.badgesData);
   }
 
   renderRow = ({ item }) => {

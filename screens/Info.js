@@ -104,7 +104,7 @@ export default class Info extends Component {
 
       await db.addAlert(
         this.state.name,
-        Firebase.auth().currentUser.uid,
+        this.state.uid,
         this.state.alertValue,
         Number(this.state.alertValue) > this.state.rate,
         true

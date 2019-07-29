@@ -1,0 +1,2888 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "justifyContent": "flex-start",
+      "paddingVertical": 14,
+    }
+  }
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[Function]}
+      refreshing={true}
+    />
+  }
+  style={
+    Object {
+      "backgroundColor": "#373b48",
+      "flex": 1,
+      "flexDirection": "column",
+    }
+  }
+>
+  <RCTRefreshControl />
+  <View>
+    <Modal
+      hardwareAccelerated={false}
+      onRequestClose={[Function]}
+      theme={
+        Object {
+          "colors": Object {
+            "disabled": "hsl(208, 8%, 90%)",
+            "divider": "#bcbbc1",
+            "error": "#ff190c",
+            "grey0": "#393e42",
+            "grey1": "#43484d",
+            "grey2": "#5e6977",
+            "grey3": "#86939e",
+            "grey4": "#bdc6cf",
+            "grey5": "#e1e8ee",
+            "greyOutline": "#bbb",
+            "platform": Object {
+              "android": Object {
+                "error": "#f44336",
+                "primary": "#2196f3",
+                "secondary": "#9C27B0",
+                "success": "#4caf50",
+                "warning": "#ffeb3b",
+              },
+              "ios": Object {
+                "error": "#ff3b30",
+                "primary": "#007aff",
+                "secondary": "#5856d6",
+                "success": "#4cd964",
+                "warning": "#ffcc00",
+              },
+            },
+            "primary": "#2089dc",
+            "searchBg": "#303337",
+            "secondary": "#8F0CE8",
+            "success": "#52c41a",
+            "warning": "#faad14",
+          },
+        }
+      }
+      transparent={true}
+      visible={false}
+    >
+      <View
+        accessible={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(0, 0, 0, .4)",
+            "height": "100%",
+            "justifyContent": "center",
+            "left": 0,
+            "position": "absolute",
+            "top": 0,
+            "width": "100%",
+          }
+        }
+        testID="RNE__Overlay__backdrop"
+      />
+      <View
+        pointerEvents="box-none"
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "#373b48",
+              "borderRadius": 5,
+              "height": 250,
+              "padding": 10,
+              "shadowColor": "rgba(0, 0, 0, .3)",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 0,
+              },
+              "shadowRadius": 4,
+              "width": 670,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#dbdbdb",
+                  "fontSize": 22,
+                  "fontWeight": "600",
+                  "textAlign": "center",
+                }
+              }
+            >
+              Error
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#a4a9b9",
+                  "fontSize": 20,
+                  "fontWeight": "400",
+                  "textAlign": "center",
+                }
+              }
+            >
+              
+            </Text>
+            <View
+              style={
+                Object {
+                  "height": 65,
+                  "width": "100%",
+                }
+              }
+            >
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "#515360",
+                    "borderRadius": 5,
+                    "elevation": 1,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "flex-start",
+                    "marginBottom": 10,
+                    "marginLeft": 14,
+                    "marginRight": 14,
+                    "marginTop": 10,
+                    "opacity": 1,
+                    "paddingBottom": 10,
+                    "paddingTop": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                />
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "#ff077a",
+                        "fontSize": 20,
+                        "fontWeight": "700",
+                      }
+                    }
+                  >
+                    OK
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </Modal>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "backgroundColor": "#515360",
+          "borderRadius": 5,
+          "elevation": 1,
+          "flexDirection": "column",
+          "justifyContent": "flex-start",
+          "marginBottom": 6,
+          "marginLeft": 14,
+          "marginRight": 14,
+          "marginTop": 0,
+          "paddingBottom": 15,
+          "paddingLeft": 18,
+          "paddingRight": 18,
+          "paddingTop": 15,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 80,
+                "width": 80,
+              }
+            }
+            theme={
+              Object {
+                "colors": Object {
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff190c",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "platform": Object {
+                    "android": Object {
+                      "error": "#f44336",
+                      "primary": "#2196f3",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "ios": Object {
+                      "error": "#ff3b30",
+                      "primary": "#007aff",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                  },
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#8F0CE8",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "#bdbdbd",
+                  "borderRadius": 17,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                onLoadEnd={[Function]}
+                source={
+                  Object {
+                    "testUri": "../../../assets/icons/noPic.png",
+                  }
+                }
+                style={
+                  Object {
+                    "flex": 1,
+                    "height": null,
+                    "width": null,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": null,
+                      "justifyContent": "center",
+                      "width": null,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "flexDirection": "column",
+                "marginLeft": 20,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#dbdbdb",
+                  "fontSize": 25,
+                  "fontWeight": "500",
+                  "marginBottom": 5,
+                }
+              }
+            >
+              
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#c2c2c2",
+                  "fontSize": 15,
+                  "fontWeight": "500",
+                  "marginBottom": 5,
+                }
+              }
+            >
+              
+            </Text>
+            <Text
+              style={
+                Object {
+                  "fontSize": 15,
+                }
+              }
+            />
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "flex": 1,
+              "flexDirection": "column",
+              "marginTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 23,
+                "fontWeight": "500",
+                "marginBottom": 10,
+              }
+            }
+          >
+            Net Worth
+          </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "borderBottomColor": "#dbdbdb",
+                "borderBottomWidth": 0,
+                "marginBottom": 5,
+                "width": 525,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#a3a3a3",
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                }
+              }
+            >
+              -
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "flex": 1,
+              "flexDirection": "column",
+              "marginTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 23,
+                "fontWeight": "500",
+                "marginBottom": 10,
+              }
+            }
+          >
+            Badges
+          </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "borderBottomColor": "#dbdbdb",
+                "borderBottomWidth": 0,
+                "marginBottom": 5,
+                "width": 525,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#a3a3a3",
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                }
+              }
+            >
+              -
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "flex": 1,
+              "flexDirection": "column",
+              "marginTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 23,
+                "fontWeight": "500",
+                "marginBottom": 10,
+              }
+            }
+          >
+            Favourite Cryptocurrency
+          </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "borderBottomColor": "#dbdbdb",
+                "borderBottomWidth": 0,
+                "marginBottom": 5,
+                "width": 525,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#a3a3a3",
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                }
+              }
+            >
+              -
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "column",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#dbdbdb",
+            "fontSize": 25,
+            "fontWeight": "600",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "paddingLeft": 18,
+            "paddingRight": 18,
+          }
+        }
+      >
+        Badges
+      </Text>
+      <RCTScrollView
+        horizontal={true}
+        style={
+          Object {
+            "backgroundColor": "#515360",
+            "borderRadius": 5,
+            "elevation": 1,
+            "flexDirection": "row",
+            "marginHorizontal": 14,
+            "marginTop": 0,
+            "padding": 2.5,
+          }
+        }
+      >
+        <View>
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "flexDirection": "row",
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/friend.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    1
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/friend.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    5
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/friend.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    10
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/friend.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    50
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/spend.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    10K
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/spend.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    100K
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/earn.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    10K
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/earn.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    100K
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/own.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    5
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/transact.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    10
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/transact.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    50
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "height": 70,
+                    "width": 70,
+                  }
+                }
+                theme={
+                  Object {
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "grey",
+                      "borderRadius": 17,
+                      "flex": 1,
+                      "overflow": "hidden",
+                      "padding": 10,
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <Image
+                    onLoadEnd={[Function]}
+                    source={
+                      Object {
+                        "testUri": "../../../assets/icons/badges/transact.png",
+                      }
+                    }
+                    style={
+                      Object {
+                        "flex": 1,
+                        "height": null,
+                        "opacity": 0.2,
+                        "width": null,
+                      }
+                    }
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "disabled": "hsl(208, 8%, 90%)",
+                          "divider": "#bcbbc1",
+                          "error": "#ff190c",
+                          "grey0": "#393e42",
+                          "grey1": "#43484d",
+                          "grey2": "#5e6977",
+                          "grey3": "#86939e",
+                          "grey4": "#bdc6cf",
+                          "grey5": "#e1e8ee",
+                          "greyOutline": "#bbb",
+                          "platform": Object {
+                            "android": Object {
+                              "error": "#f44336",
+                              "primary": "#2196f3",
+                              "secondary": "#9C27B0",
+                              "success": "#4caf50",
+                              "warning": "#ffeb3b",
+                            },
+                            "ios": Object {
+                              "error": "#ff3b30",
+                              "primary": "#007aff",
+                              "secondary": "#5856d6",
+                              "success": "#4cd964",
+                              "warning": "#ffcc00",
+                            },
+                          },
+                          "primary": "#2089dc",
+                          "searchBg": "#303337",
+                          "secondary": "#8F0CE8",
+                          "success": "#52c41a",
+                          "warning": "#faad14",
+                        },
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      Object {
+                        "bottom": 0,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#bdbdbd",
+                          "flex": 1,
+                          "height": null,
+                          "justifyContent": "center",
+                          "opacity": 0.2,
+                          "width": null,
+                        }
+                      }
+                      testID="RNE__Image__placeholder"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "position": "absolute",
+                    "right": -3,
+                    "top": -3,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "alignSelf": "center",
+                      "backgroundColor": "#52c41a",
+                      "borderColor": "#fff",
+                      "borderRadius": 9,
+                      "borderWidth": 0.5,
+                      "height": 18,
+                      "justifyContent": "center",
+                      "minWidth": 18,
+                      "opacity": 0.2,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "color": "white",
+                        "fontSize": 12,
+                        "paddingHorizontal": 4,
+                      }
+                    }
+                  >
+                    100
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </RCTScrollView>
+    </View>
+    <View
+      style={
+        Object {
+          "marginTop": 26,
+        }
+      }
+    />
+  </View>
+</RCTScrollView>
+`;

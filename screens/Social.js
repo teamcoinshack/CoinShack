@@ -11,6 +11,8 @@ import {
   RefreshControl,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import MyBar from '../components/MyBar.js';
+import MyButton from '../components/MyButton.js';
 import BellIcon from 'react-native-vector-icons/Entypo';
 import { withNavigationFocus } from 'react-navigation';
 import Firebase from 'firebase';

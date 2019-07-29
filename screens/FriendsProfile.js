@@ -9,6 +9,7 @@ import {
 import Firebase from 'firebase';
 import db from '../Database.js';
 import ProfileTab from '../components/ProfileTab.js';
+import MyBar from '../components/MyBar.js';
 import { Mapping } from '../Masterlist.js';
 import MyErrorModal from '../components/MyErrorModal.js';
 import q from '../Query.js';
