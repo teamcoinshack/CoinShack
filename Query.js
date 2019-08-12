@@ -1,4 +1,4 @@
-const NEWS_API_KEY = "bb387e29c09a46659af73f291edf4816";
+import { NEWS_API_KEY } from './keys.js';
 
 export default class Query {
   static async fetch(stock) {

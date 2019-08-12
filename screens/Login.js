@@ -14,6 +14,7 @@ import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import '../config.js';
 import db from '../Database.js';
 import Firebase from 'firebase';
+import { GOOGLE_CLIENT_KEY } from '../keys.js';
 
 const background = '#373b48';
 
@@ -36,7 +37,7 @@ export default class Login extends Component {
     this.googleProvider = new Firebase.auth.GoogleAuthProvider();
     
     GoogleSignin.configure({
-      webClientId: "1059449383508-6hmi3fhfdqsjnp5tdklnjtfhob9st2k6.apps.googleusercontent.com",
+      webClientId: GOOGLE_CLIENT_KEY,
     });
 
     Firebase.auth().onAuthStateChanged(user => {
