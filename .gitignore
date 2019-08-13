@@ -1,5 +1,6 @@
 keys.js
 ios/Frameworks
+ios/GoogleService-Info.plist
 
 # OSX
 #
