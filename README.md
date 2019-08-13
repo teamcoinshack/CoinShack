@@ -18,14 +18,50 @@ https://drive.google.com/open?id=178JTC7k-Tggf7BGMAuUbUcC4okAyBB7B
 
 ## Features
 - Buy and Sell Cryptocurrencies based on real-time prices
+
+<img src="https://i.imgur.com/cVwM4uj.png" width="250"> <img src="https://i.imgur.com/EXWqpZa.png" width="250">
+
 - Virtual Wallet
+
+<img src="https://i.imgur.com/bYHfNvM.png" width="250">
+
 - Data and Trend Visualization
+
+<img src="https://i.imgur.com/NkyCs7P.png" width="250">
+
 - Price Alerts
+
+<img src="https://i.imgur.com/0ks1pRR.png" width="250">
+
 - Transaction History
+
+<img src="https://i.imgur.com/CKlJNQB.png" width="250">
+
 - Market and Cryptocurrency specific News
+
+<img src="https://i.imgur.com/n6FE6Yu.png" width="250">
+
 - User Account and Authentication
+
+<img src="https://i.imgur.com/tUBKM9v.png" width="250">
+
 - Social Media Login and Linking
+
+<img src="https://i.imgur.com/KAPDI2H.png" width="250">
+
 - User Profile System
+
+<img src="https://i.imgur.com/mDQX2SD.png" width="250">
+
 - Friends System and Leaderboard
+
+<img src="https://i.imgur.com/7hYzXqM.png" width="250">
+
 - Milestones Titles and Achievement Badges
+
+<img src="https://i.imgur.com/NjUWXN2.png" width="250">
+
 - Newcomer Guide
+
+<img src="https://i.imgur.com/AYwRVNe.png" width="250">
+
